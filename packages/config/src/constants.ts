@@ -1,0 +1,108 @@
+export const constants = {
+    // Password
+    passwordsaltRound: 10,
+
+    // Links
+    adminResetForgetLink: 'admin/auth/reset-password',
+    adminAccountVerificationLink: 'admin/auth/verify-account',
+    adminLogin: 'admin/auth/signin',
+    userLogin: 'auth/signin',
+    userResetForgetLink: 'auth/reset-password',
+    userAccountVerificationLink: 'auth/verify-account',
+    superAdminResetForgetLink: 'reset-password',
+
+    // Device Types
+    deviceType: {
+        'MOBILE': 1,
+        'DESKTOP': 2,
+        'TABLET': 3
+    },
+
+    // Signin activity types
+    activityType: {
+        'LOGIN': 1,
+        'LOGOUT': 2
+    },
+
+    // File Validations
+    defaultFileSize: 10,
+    profileFileSize: 10,
+
+    // File Types
+    supportedProfileImageTypes: ['image/jpg', 'image/jpeg', 'image/png'],
+
+    role: {
+        'Admin': 1,
+        'Sub Admin': 2,
+        'User': 3,
+    },
+    roleNumberToName: {
+        1: 'Admin',
+        2: 'Sub Admin',
+        3: 'User',
+    },
+
+    status: {
+        'Active': 1,
+        'Inactive': 2,
+    },
+    statusNumberToName: {
+        1: 'Active',
+        2: 'Inactive',
+    },
+
+    adminStatus: {
+        Active: 1,
+        Inactive: 2,
+    },
+    adminStatusNumberToName: {
+        1: 'Active',
+        2: 'Inactive',
+    },
+
+    userStatus: {
+        'Active': 1,
+        'Inactive': 2,
+    },
+    userStatusNumberToName: {
+        1: 'Active',
+        2: 'Inactive',
+    },
+
+    emailTemplateName: {
+        'Registration': 'registration',
+        'Forget Password': 'forgetPassword',
+    },
+
+    customNotificationType: {
+        /**
+         * All general notifications
+         */
+        'General Notification': 1,
+    },
+
+    notificationColor: {
+        Red: '0xFFB32218',
+        Yellow: '0xFFB54707',
+        Green: '0xFF039754',
+        Black: '0xFF475467',
+        Blue: '0xFF311B92',
+    },
+    notificationColorFontWeight: {
+        Red: 700,
+        Yellow: 700,
+        Green: 700,
+        Black: 400,
+        Blue: 700,
+    },
+
+    rateLimiter: {
+        LOGIN_RATE_LIMIT: {
+            windowMs: 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
+            maxLimit: 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
+            message: 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
+        },
+    },
+};
+
+export default constants;

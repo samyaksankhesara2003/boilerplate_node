@@ -3,6 +3,9 @@ import express, { type Express } from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import { knex } from "@repo/db";
+import { log } from "@repo/logger";
+
 export const createServer = (): Express => {
   const app = express();
   app
@@ -10,13 +13,20 @@ export const createServer = (): Express => {
     .use(morgan("dev"))
     .use(urlencoded({ extended: true }))
     .use(json())
-    .use(cors())
-    .get("/message/:name", (req, res) => {
-      return res.json({ message: `hello ${req.params.name}` });
+    .use(cors());
+
+  knex
+    .raw('SELECT 1')
+    .then(() => {
+      log('Connected with the database');
     })
-    .get("/status", (_, res) => {
-      return res.json({ ok: true });
+    .catch((err) => {
+      log('Unable to connect with the database', err);
     });
+
+  app.get("/", (_, res) => {
+    return res.json({ ok: true });
+  });
 
   return app;
 };
