@@ -4,6 +4,7 @@ import { stateRoutes } from './Common/State/state.routes';
 import { experienceCategoryRoutes } from '../modules/ExperienceCategory/experienceCategory.routes';
 import { experienceRoutes } from '../modules/Experience/experience.routes';
 import { experiencePriceRoutes } from '../modules/ExperiencePrice/experiencePrice.routes';
+import { experienceScheduleRoutes } from '../modules/ExperienceSchedule/experienceSchedule.routes';
 
 const router: Router = Router();
 
@@ -27,6 +28,9 @@ router.use('/experience', experienceRoutes);
 
 // Experience price routes
 router.use('/experience-price', experiencePriceRoutes);
+
+// Experience Schedule routes
+router.use('/experience-schedule', experienceScheduleRoutes);
 
 // Catch-all route for 404
 router.use((req: Request, res: Response) => {

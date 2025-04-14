@@ -1,5 +1,5 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
-import { BaseModel, Country, ExperienceCategory, ExperiencePrice } from '../index';
+import { BaseModel, Country, ExperienceCategory, ExperiencePrice, ExperienceSchedule } from '../index';
 
 class Experience extends BaseModel {
 
@@ -23,6 +23,7 @@ class Experience extends BaseModel {
     country?: Country;
     experience_category?: ExperienceCategory;
     experience_price?: ExperiencePrice;
+    experience_schedules?: ExperienceSchedule;
 
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
         return {
@@ -40,6 +41,11 @@ class Experience extends BaseModel {
                 relation: Model.HasOneRelation,
                 modelClass: ExperiencePrice,
                 join: { from: 'experiences.experience_category_id', to: 'experience_prices.id' }
+            },
+            experience_schedules: {
+                relation: Model.HasManyRelation,
+                modelClass: ExperienceSchedule,
+                join: { from: 'experiences.id', to: 'experience_schedules.experience_id' }
             }
         };
     };
