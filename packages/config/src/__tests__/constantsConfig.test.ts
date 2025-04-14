@@ -31,12 +31,12 @@ describe("constants", () => {
                 ]),
                 role: expect.objectContaining({
                     "Admin": 1,
-                    "Sub Admin": 2,
+                    "Host": 2,
                     "User": 3,
                 }),
                 roleNumberToName: expect.objectContaining({
                     1: "Admin",
-                    2: "Sub Admin",
+                    2: "Host",
                     3: "User",
                 }),
                 status: expect.objectContaining({

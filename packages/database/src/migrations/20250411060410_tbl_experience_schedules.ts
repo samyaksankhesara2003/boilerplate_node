@@ -10,8 +10,14 @@ import type { Knex } from "knex";
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('table_name', (table) => {
+    await knex.schema.createTable('experience_schedules', (table) => {
         table.increments('id').primary();
+        table.integer('experience_id').unsigned().notNullable().references('id').inTable('experiences').onDelete('CASCADE');
+        table.date('available_date').notNullable();
+        table.time('available_time').notNullable();
+        table.integer('min_guests').unsigned().notNullable().defaultTo(1);
+        table.integer('max_guests').unsigned();
+        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
@@ -28,5 +34,5 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists('table_name');
+    await knex.schema.dropTableIfExists('experience_schedules');
 };

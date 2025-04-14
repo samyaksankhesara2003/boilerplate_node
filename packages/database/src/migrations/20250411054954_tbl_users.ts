@@ -10,10 +10,20 @@ import type { Knex } from "knex";
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('table_name', (table) => {
+    await knex.schema.createTable('users', (table) => {
         table.increments('id').primary();
+        table.string('first_name').notNullable();
+        table.string('last_name').notNullable();
+        table.string('email').notNullable();
+        table.string('profile_url').nullable();
+        table.string('password').notNullable();
+        table.string('token').nullable();
+        table.string('reset_password_token').nullable();
+        table.enum('role', ['1', '2', '3']).defaultTo('3').notNullable().comment('1 -> Admin, 2 -> Host, 3 -> User');
+        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+        table.timestamp('deleted_at').nullable();
     });
 };
 
@@ -28,5 +38,5 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists('table_name');
+    await knex.schema.dropTableIfExists('users');
 };

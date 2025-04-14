@@ -1,5 +1,10 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import { countryRoutes } from '../modules/Common/Country/country.routes';
+import { stateRoutes } from '../modules/Common/State/state.routes';
 
 const router: Router = Router();
 
-export default router;
+router.use('/country', countryRoutes);
+router.use('/state', stateRoutes);
+
+export const commonRoutes = router;

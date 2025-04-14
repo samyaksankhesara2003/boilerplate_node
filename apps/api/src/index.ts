@@ -6,5 +6,5 @@ const port = appConfig.port || 5001;
 const server = createServer();
 
 server.listen(port, () => {
-  log(`${appConfig.appName} server is running on ${port}`);
+  log.info(`${appConfig.appName} server is running on ${port}`);
 });

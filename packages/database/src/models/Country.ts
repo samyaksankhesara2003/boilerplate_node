@@ -5,9 +5,8 @@ class Country extends BaseModel {
 
     static get tableName() {
         return 'countries';
-    }
+    };
 
-    id!: number;
     name!: string;
     emoji!: string;
     country_code!: string;
@@ -21,8 +20,8 @@ class Country extends BaseModel {
                 modelClass: State,
                 join: { from: 'countries.id', to: 'states.country_id' }
             }
-        }
-    }
-}
+        };
+    };
+};
 
 export default Country;

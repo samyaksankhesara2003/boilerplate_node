@@ -3,6 +3,7 @@ import { appConfig } from "../app";
 
 describe("appConfig", () => {
     it("loads environment variables", () => {
+        expect(appConfig.environment).toEqual(process.env.NODE_ENV || 'development');
         expect(appConfig.appName).toEqual(process.env.APP_NAME);
         expect(appConfig.port).toEqual(process.env.SERVER_PORT || 4000);
         expect(appConfig.logging.debugSQL).toEqual(

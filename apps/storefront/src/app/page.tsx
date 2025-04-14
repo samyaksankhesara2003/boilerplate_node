@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default function Store() {
-  log("Hey! This is the Store page.");
+  log.info("Hey! This is the Store page.");
 
   return (
     <div className="container">

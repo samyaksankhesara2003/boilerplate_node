@@ -33,12 +33,12 @@ export const constants = {
 
     role: {
         'Admin': 1,
-        'Sub Admin': 2,
+        'Host': 2,
         'User': 3,
     },
     roleNumberToName: {
         1: 'Admin',
-        2: 'Sub Admin',
+        2: 'Host',
         3: 'User',
     },
 

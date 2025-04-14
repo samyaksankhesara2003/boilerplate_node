@@ -3,6 +3,7 @@ import path from 'path';
 loadEnv({ path: path.resolve(__dirname,'../../../../.env') });
 
 export const appConfig = {
+    environment: process.env.NODE_ENV || 'development',
     appName: process.env.APP_NAME,
     port: process.env.SERVER_PORT || 4000,
     logging: { debugSQL: !!process.env.DEBUG_SQL || false },
