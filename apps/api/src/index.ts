@@ -1,9 +1,10 @@
 import { log } from "@repo/logger";
-import { createServer } from "./server";
+import { appConfig } from '@repo/config';
+import { createServer } from "./www/server";
 
-const port = process.env.PORT || 5001;
+const port = appConfig.port || 5001;
 const server = createServer();
 
 server.listen(port, () => {
-  log(`api running on ${port}`);
+  log.info(`${appConfig.appName} server is running on ${port}`);
 });

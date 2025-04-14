@@ -1,5 +1,5 @@
 {
-  "name": "kitchen-sink",
+  "name": "repo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -8,14 +8,20 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "check-types": "turbo run check-types"
+    "check-types": "turbo run check-types",
+    "make-migration": "turbo run --filter=@repo/db make-migration -- --",
+    "migrate": "turbo run --filter=@repo/db migrate",
+    "make-seed": "turbo run --filter=@repo/db make-seed -- --",
+    "run-seed": "turbo run --filter=@repo/db run-seed",
+    "rollback": "turbo run --filter=@repo/db rollback",
+    "clear-db": "turbo run --filter=@repo/db clear-db"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
     "turbo": "^2.5.0"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@9.15.4",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }

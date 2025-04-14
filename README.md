@@ -9,7 +9,7 @@ This example also shows how to use [Workspace Configurations](https://turbo.buil
 Run the following command:
 
 ```sh
-npx create-turbo@latest -e kitchen-sink
+git clone https://github.com/techuz/turbo-repo-demo.git
 ```
 
 ## What's inside?
