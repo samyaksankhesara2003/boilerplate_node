@@ -12,8 +12,8 @@ import type { Knex } from "knex";
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('experiences', (table) => {
         table.increments('id').primary();
-        table.integer('experience_category_id').unsigned().references('id').inTable('experience_categories').onDelete('CASCADE');
         table.integer('country_id').unsigned().references('id').inTable('countries').onDelete('CASCADE');
+        table.integer('experience_category_id').unsigned().references('id').inTable('experience_categories').onDelete('CASCADE');
         table.string('title').notNullable();
         table.text('description');
         table.integer('duration').unsigned();

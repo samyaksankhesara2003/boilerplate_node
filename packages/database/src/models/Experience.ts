@@ -1,5 +1,5 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
-import { BaseModel } from '../index';
+import { BaseModel, Country, ExperienceCategory, ExperiencePrice } from '../index';
 
 class Experience extends BaseModel {
 
@@ -7,8 +7,8 @@ class Experience extends BaseModel {
         return 'experiences';
     };
 
-    experience_category_id!: number
     country_id!: number
+    experience_category_id!: number
     title!: string
     description?: string
     duration?: number
@@ -20,8 +20,28 @@ class Experience extends BaseModel {
     language?: 1 | 2      // 1 -> English, 2 -> Spanish
     status?: 1 | 2      // 1 -> Active, 2 -> Inactive
 
+    country?: Country;
+    experience_category?: ExperienceCategory;
+    experience_price?: ExperiencePrice;
+
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
-        return {};
+        return {
+            country: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Country,
+                join: { from: 'experiences.country_id', to: 'countries.id' }
+            },
+            experience_category: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: ExperienceCategory,
+                join: { from: 'experiences.experience_category_id', to: 'experience_categories.id' }
+            },
+            experience_price: {
+                relation: Model.HasOneRelation,
+                modelClass: ExperiencePrice,
+                join: { from: 'experiences.experience_category_id', to: 'experience_prices.id' }
+            }
+        };
     };
 };
 

@@ -15,8 +15,8 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("experiences").insert([
         {
             id: 1,
-            experience_category_id: 1,
             country_id: 1,
+            experience_category_id: 1,
             title: "Italian Pasta Making Workshop",
             description: "Learn how to make authentic Italian pasta from scratch with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -30,8 +30,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 2,
-            experience_category_id: 1,
             country_id: 1,
+            experience_category_id: 1,
             title: "Spanish Tapas Cooking Class",
             description: "Learn how to prepare authentic Spanish tapas with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -45,8 +45,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 3,
-            experience_category_id: 2,
             country_id: 1,
+            experience_category_id: 2,
             title: "French Pastry Making Class",
             description: "Learn how to make authentic French pastries with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -60,8 +60,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 4,
-            experience_category_id: 2,
             country_id: 1,
+            experience_category_id: 2,
             title: "Japanese Sushi Making Workshop",
             description: "Learn how to make authentic Japanese sushi with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -75,8 +75,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 5,
-            experience_category_id: 3,
             country_id: 1,
+            experience_category_id: 3,
             title: "Thai Street Food Cooking Class",
             description: "Learn how to prepare authentic Thai street food with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -90,8 +90,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 6,
-            experience_category_id: 3,
             country_id: 1,
+            experience_category_id: 3,
             title: "Peruvian Cuisine Cooking Class",
             description: "Learn how to prepare authentic Peruvian cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -105,8 +105,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 7,
-            experience_category_id: 4,
             country_id: 1,
+            experience_category_id: 4,
             title: "Mexican Street Food Cooking Class",
             description: "Learn how to prepare authentic Mexican street food with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -120,8 +120,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 8,
-            experience_category_id: 4,
             country_id: 1,
+            experience_category_id: 4,
             title: "Greek Cuisine Cooking Class",
             description: "Learn how to prepare authentic Greek cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -135,8 +135,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 9,
-            experience_category_id: 5,
             country_id: 1,
+            experience_category_id: 5,
             title: "Brazilian Cuisine Cooking Class",
             description: "Learn how to prepare authentic Brazilian cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -150,8 +150,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 10,
-            experience_category_id: 5,
             country_id: 1,
+            experience_category_id: 5,
             title: "Thai Cuisine Cooking Class",
             description: "Learn how to prepare authentic Thai cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -165,8 +165,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 11,
-            experience_category_id: 6,
             country_id: 1,
+            experience_category_id: 6,
             title: "Vietnamese Cuisine Cooking Class",
             description: "Learn how to prepare authentic Vietnamese cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -180,8 +180,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 12,
-            experience_category_id: 6,
             country_id: 1,
+            experience_category_id: 6,
             title: "Indian Cuisine Cooking Class",
             description: "Learn how to prepare authentic Indian cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -195,8 +195,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 13,
-            experience_category_id: 7,
             country_id: 1,
+            experience_category_id: 7,
             title: "Korean Cuisine Cooking Class",
             description: "Learn how to prepare authentic Korean cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -210,8 +210,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 14,
-            experience_category_id: 7,
             country_id: 1,
+            experience_category_id: 7,
             title: "Chinese Cuisine Cooking Class",
             description: "Learn how to prepare authentic Chinese cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -225,8 +225,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 15,
-            experience_category_id: 8,
             country_id: 1,
+            experience_category_id: 8,
             title: "Japanese Cuisine Cooking Class",
             description: "Learn how to prepare authentic Japanese cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -240,8 +240,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 16,
-            experience_category_id: 8,
             country_id: 1,
+            experience_category_id: 8,
             title: "Peruvian Cuisine Cooking Class",
             description: "Learn how to prepare authentic Peruvian cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -255,8 +255,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 17,
-            experience_category_id: 9,
             country_id: 1,
+            experience_category_id: 9,
             title: "Colombian Cuisine Cooking Class",
             description: "Learn how to prepare authentic Colombian cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,
@@ -270,8 +270,8 @@ export async function seed(knex: Knex): Promise<void> {
         },
         {
             id: 18,
-            experience_category_id: 9,
             country_id: 1,
+            experience_category_id: 9,
             title: "Argentine Cuisine Cooking Class",
             description: "Learn how to prepare authentic Argentine cuisine with a professional chef. Take home your creations and impress your friends and family!",
             duration: 1,

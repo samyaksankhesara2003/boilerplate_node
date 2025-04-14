@@ -7,7 +7,7 @@ import { knex } from "@repo/db";
 import { log } from "@repo/logger";
 import { appConfig } from "@repo/config";
 import { responseModifier } from "../middlewares/responseModifier";
-import routes from "../routers/index";
+import routes from "../modules/index";
 
 export const createServer = (): Express => {
   const app = express();
