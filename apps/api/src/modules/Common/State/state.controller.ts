@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import  { stateService } from './state.service';
 
 const listStates = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {

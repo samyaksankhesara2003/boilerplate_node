@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import  { countryService } from './country.service';
 
 const listCountries = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {

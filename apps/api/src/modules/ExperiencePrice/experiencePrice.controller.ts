@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import  { experiencePriceService } from './experiencePrice.service';
 
 const getExperiencePrice = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
