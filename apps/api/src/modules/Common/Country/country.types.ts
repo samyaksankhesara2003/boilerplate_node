@@ -1,3 +1,3 @@
 export interface ICountryQuery {
-    search?: string
+    search?: string;
 };
