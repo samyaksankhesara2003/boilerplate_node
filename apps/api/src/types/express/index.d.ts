@@ -8,6 +8,6 @@ declare global {
     interface Response {
       withData<T = any>(data: T, message?: string, statusCode?: number): this;
       withError(error: any, statusCode?: number): this;
-    }
-  }
-}
+    };
+  };
+};

@@ -11,3 +11,6 @@ dist-ssr
 server/dist
 public/dist
 .pnpm-lock.yaml
+
+# Ignore the private and public keys
+packages/auth/src/keys/*

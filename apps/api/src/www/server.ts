@@ -1,5 +1,6 @@
-import { json, urlencoded } from "body-parser";
-import express, { NextFunction, Request, Response, type Express } from "express";
+import express, { Request, Response, NextFunction, type Express } from "express";
+import compression from "compression";
+import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
 
@@ -13,11 +14,19 @@ export const createServer = (): Express => {
   const app = express();
   app
     .disable("x-powered-by")
-    .use(morgan("dev"))
-    .use(urlencoded({ extended: true }))
-    .use(json())
+    .use(helmet())
+    .use(
+      morgan('[:remote-addr] [:status] :method :url - :response-time ms', {
+        stream: {
+          write: (message) => log.info(message.trim()),
+        },
+      })
+    )
+    .use(compression())
+    .use(express.json())
+    .use(express.urlencoded({ extended: false }))
     .use(cors({
-      origin: appConfig?.allowedHosts?.split(',') || '*',
+      origin: appConfig?.allowedHosts?.split(',') ?? '*'
     }))
     .use(responseModifier);
 

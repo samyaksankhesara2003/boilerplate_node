@@ -14,7 +14,8 @@
     "make-seed": "turbo run --filter=@repo/db make-seed -- --",
     "run-seed": "turbo run --filter=@repo/db run-seed",
     "rollback": "turbo run --filter=@repo/db rollback",
-    "clear-db": "turbo run --filter=@repo/db clear-db"
+    "clear-db": "turbo run --filter=@repo/db clear-db",
+    "generate-keys": "turbo run --filter @repo/tokens generate-keys"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

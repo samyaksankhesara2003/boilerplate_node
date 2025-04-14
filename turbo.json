@@ -55,6 +55,10 @@
       "cache": false,
       "persistent": true,
       "dependsOn": ["^build"]
+    },
+    "generate-keys": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

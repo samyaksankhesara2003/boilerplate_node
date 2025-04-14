@@ -13,7 +13,6 @@ describe("appConfig", () => {
             !!process.env.ENABLE_LOGGING || false
         );
         expect(appConfig.allowedHosts).toEqual(process.env.ALLOWED_HOSTS);
-        expect(appConfig.slackWebHook).toEqual(process.env.SLACK_WEBHOOK || null);
         expect(appConfig.isHttps).toEqual(
             process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true
         );
@@ -29,5 +28,9 @@ describe("appConfig", () => {
             process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https'
         );
         expect(appConfig.appPort).toEqual(process.env?.SERVER_PORT || 4000);
+        expect(appConfig.jwtSecret).toEqual(process.env.JWT_SECRET || 'Techuz');
+        expect(appConfig.jwtRefreshSecret).toEqual(process.env.JWT_REFRESH_SECRET || 'Techuz');
+        expect(appConfig.jwtExpiresIn).toEqual(process.env.JWT_EXPIRES_IN || '1d');
+        expect(appConfig.jwtRefreshExpiresIn).toEqual(process.env.JWT_REFRESH_EXPIRES_IN || '7d');
     });
 });

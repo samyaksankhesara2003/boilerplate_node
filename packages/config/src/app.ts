@@ -9,7 +9,6 @@ export const appConfig = {
     logging: { debugSQL: !!process.env.DEBUG_SQL || false },
     enableLogging: !!process.env.ENABLE_LOGGING || false,
     allowedHosts: process.env.ALLOWED_HOSTS,
-    slackWebHook: process.env.SLACK_WEBHOOK || null,
 
     isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true,
     appDomain: process.env.APP_DOMAIN,
@@ -17,7 +16,13 @@ export const appConfig = {
     protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appProtocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appHost: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
-    appPort: process.env?.SERVER_PORT || 4000
+    appPort: process.env?.SERVER_PORT || 4000,
+
+    // JWT Config
+    jwtSecret: process.env.JWT_SECRET || 'Techuz',
+    jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'Techuz',
+    jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1d',
+    jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
 };
 
 export default appConfig;
