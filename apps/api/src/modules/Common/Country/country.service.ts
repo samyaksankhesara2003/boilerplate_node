@@ -1,11 +1,20 @@
 import { log } from '@repo/logger';
 import { Country } from '@repo/db';
+import { ICountryQuery } from './country.types';
 
-const listCountriesService = async (): Promise<Country []> => {
+const listCountriesService = async (query: ICountryQuery): Promise<Country []> => {
     try {
-        const attributes = ['id', 'name'];
-        const data = await Country.query().select(...attributes).orderBy('name');
-        return data;
+        const { search } = query;
+        
+        const countryAttributes = ['id', 'name'];
+
+        const countryQuery = Country.query().select(...countryAttributes);
+
+        if (search) countryQuery.where('name', 'like', `%${search}%`);
+
+        const countries = await countryQuery;
+
+        return countries;
     } catch (error) {
         log.error('listCountriesService Catch: ', error);
         throw error;
