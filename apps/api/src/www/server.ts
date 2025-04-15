@@ -45,6 +45,18 @@ export const createServer = (): Express => {
       log.error('Unable to connect with the database', err);
     });
 
+  // Serve the Swagger JSON specification
+  app.get('/api-docs/swagger.json', (req: Request, res: Response): Response => {
+    const swaggerSpec = swaggerJsDoc({
+      ...swaggerConfig,
+      apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml']
+    });
+
+    // Just return the Swagger JSON
+    return res.json(swaggerSpec);
+  });
+
+  // Serve the Swagger UI
   app.use(
     '/api-docs',
     basicAuth({
@@ -55,7 +67,20 @@ export const createServer = (): Express => {
       unauthorizedResponse: () => 'Unauthorized access to Swagger documentation',
     }),
     swaggerUi.serve,
-    swaggerUi.setup(swaggerJsDoc({ ...swaggerConfig, apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml'] }))
+    swaggerUi.setup(
+      swaggerJsDoc({ ...swaggerConfig, apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml'] }),
+      {
+        swaggerOptions: {
+          url: '/swagger.json',
+          filter: true,
+          supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+          // tagsSorter: 'alpha',
+          // operationsSorter: 'alpha',
+          docExpansion: 'none'
+        },
+        explorer: true,
+      }
+    )
   );
 
   app.get("/", (req: Request, res: Response): Response => {
