@@ -55,7 +55,7 @@ export const createServer = (): Express => {
       unauthorizedResponse: () => 'Unauthorized access to Swagger documentation',
     }),
     swaggerUi.serve,
-    swaggerUi.setup(swaggerJsDoc(swaggerConfig))
+    swaggerUi.setup(swaggerJsDoc({ ...swaggerConfig, apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml'] }))
   );
 
   app.get("/", (req: Request, res: Response): Response => {

@@ -21,7 +21,7 @@ router.use('/state', stateRoutes);
 // router.use('/user', userRoutes);
 
 // Experience category routes
-router.use('/experience-categories', experienceCategoryRoutes);
+router.use('/experience-category', experienceCategoryRoutes);
 
 // Experience routes
 router.use('/experience', experienceRoutes);

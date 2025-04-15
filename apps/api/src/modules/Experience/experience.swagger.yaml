@@ -1,0 +1,57 @@
+paths:
+  /experience:
+    get:
+      tags:
+        - Experience
+      summary: Get a list of experiences
+      description: Returns a list of experiences filtered by category and country.
+      parameters:
+        - name: experience_category_id
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Filter experiences by category ID
+          example: 1
+        - name: country_id
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Filter experiences by country ID
+          example: 1
+      responses:
+        '200':
+          description: A list of filtered experiences
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "exp-001"
+                    title:
+                      type: string
+                      example: "Skydiving in Dubai"
+                    description:
+                      type: string
+                      example: "An exhilarating skydiving experience with cityscape views."
+                    experience_category_id:
+                      type: string
+                      example: "exp-cat-123"
+                    country_id:
+                      type: string
+                      example: "country-456"
+        '500':
+          description: Internal server error fetching experiences
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch experience list

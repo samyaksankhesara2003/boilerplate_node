@@ -1,0 +1,54 @@
+paths:
+  /state:
+    get:
+      tags:
+        - State
+      summary: Get a list of states
+      description: Returns a list of states, optionally filtered by country ID or searched by name/code.
+      parameters:
+        - name: country_id
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Filter states by country ID
+          example: 1
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search term to filter states by name or code
+          example: "Calif"
+      responses:
+        '200':
+          description: A list of filtered states
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: State code (e.g., CA, NY, TX)
+                      example: CA
+                    name:
+                      type: string
+                      description: Full state name
+                      example: California
+                    country_id:
+                      type: number
+                      description: ID of the country this state belongs to
+                      example: 1
+        '500':
+          description: Internal server error fetching states
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch state list

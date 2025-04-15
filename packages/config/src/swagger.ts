@@ -4,20 +4,22 @@ loadEnv({ path: path.resolve(__dirname,'../../../../.env') });
 
 import { appConfig } from './app';
 
-const { environment, appName, appBaseUrl } = appConfig;
+const swaggerUsername = process.env.SWAGGER_USERNAME;
+const swaggerPassword = process.env.SWAGGER_PASSWORD;
+const swaggerApiBaseUrl = process.env.SWAGGER_API_BASE_URL;
 
 const options = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: `${appName} API`,
+            title: `${appConfig.appName} API's`,
             version: '1.0.0',
-            description: `API documentation for the ${appName} app`,
+            description: `API documentation for the ${appConfig.appName} app`,
         },
         servers: [
             {
-                url: appBaseUrl,
-                description: `${environment} server`,
+                url: swaggerApiBaseUrl,
+                description: `${appConfig.environment} server`,
             },
         ]
     },
@@ -26,6 +28,6 @@ const options = {
 
 export const swaggerConfig = options;
 export const swaggerBasicAuthConfig = {
-    userName: process.env.SWAGGER_USERNAME,
-    password: process.env.SWAGGER_PASSWORD
+    userName: swaggerUsername,
+    password: swaggerPassword
 };

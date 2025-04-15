@@ -1,0 +1,43 @@
+paths:
+  /experience-category:
+    get:
+      tags:
+        - Experience Category
+      summary: Get a list of experience categories
+      description: Returns a list of experience categories with an optional search filter.
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Search term to filter categories by name or code
+          example: "Adventure"
+      responses:
+        '200':
+          description: A list of experience categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: Unique ID of the experience category
+                      example: "exp-cat-123"
+                    name:
+                      type: string
+                      description: Name of the experience category
+                      example: "Adventure"
+        '500':
+          description: Internal server error fetching experience categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch experience categories
