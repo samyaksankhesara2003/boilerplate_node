@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 
 import { log } from '@repo/logger';
-import { appConfig } from '@repo/config';
+import { jwtConfig } from '@repo/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,11 +25,11 @@ const { privateKey, publicKey } = generateKeyPairSync('rsa', {
     type: 'pkcs8',
     format: 'pem',
     cipher: 'aes-256-cbc',
-    passphrase: appConfig.jwtSecret,
+    passphrase: jwtConfig.jwtSecret,
   },
 });
 
 writeFileSync(path.join(keyDir, 'private.key'), privateKey);
-writeFileSync(path.join(keyDir, 'public.key'), publicKey);
+writeFileSync(path.join(keyDir, 'public.pub'), publicKey);
 
 log.info('✅ RSA keys generated successfully.');

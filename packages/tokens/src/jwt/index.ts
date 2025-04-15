@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 
-import { appConfig } from '@repo/config';
+import { jwtConfig } from '@repo/config';
 
-const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/public.key'));
 const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/private.key'));
+const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/public.pub'));
 
 /**
  * @description Sign a JWT token with the given data.
@@ -19,10 +19,10 @@ const signJwt = (details: unknown = null): string | null => {
   const token = jwt.sign({
     data: details
   }, {
-    key: PRIVATE_KEY, passphrase: appConfig.jwtSecret,
+    key: PRIVATE_KEY, passphrase: jwtConfig.jwtSecret,
   }, {
     algorithm: 'RS256',
-    expiresIn: appConfig.jwtExpiresIn
+    expiresIn: jwtConfig.jwtExpiresIn
   });
 
   return token;

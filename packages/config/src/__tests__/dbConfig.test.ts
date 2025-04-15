@@ -2,7 +2,7 @@ import { describe, it, expect } from "@jest/globals";
 import { dbConfig } from "../db";
 
 describe("dbConfig", () => {
-  it("loads environment variables", () => {
+  it("loads database environment variables", () => {
     expect(dbConfig.dbClient).toEqual("mysql");
     expect(dbConfig.dbHost).toEqual(process.env.DATABASE_HOST);
     expect(dbConfig.dbPort).toEqual(process.env.DATABASE_PORT);

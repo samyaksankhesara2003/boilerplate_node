@@ -1,5 +1,6 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
-import { BaseModel, Experience, User } from '../index';
+import { BaseModel } from './BaseModel';
+import { Experience, User } from '../index';
 
 class ExperienceHost extends BaseModel {
 

@@ -3,10 +3,13 @@ import compression from "compression";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import basicAuth from 'express-basic-auth';
 
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
-import { appConfig } from "@repo/config";
+import { appConfig, swaggerConfig, swaggerBasicAuthConfig } from "@repo/config";
 import { responseModifier } from "../middlewares/responseModifier";
 import routes from "../modules/index";
 
@@ -20,6 +23,9 @@ export const createServer = (): Express => {
         stream: {
           write: (message) => log.info(message.trim()),
         },
+        skip: (req) => {
+          return req?.baseUrl?.startsWith('/api-docs')
+        }
       })
     )
     .use(compression())
@@ -38,6 +44,19 @@ export const createServer = (): Express => {
     .catch((err) => {
       log.error('Unable to connect with the database', err);
     });
+
+  app.use(
+    '/api-docs',
+    basicAuth({
+      users: {
+        [`${swaggerBasicAuthConfig.userName}`]: `${swaggerBasicAuthConfig.password}`, // Set username and password
+      },
+      challenge: true, // Prompts a browser-based login dialog
+      unauthorizedResponse: () => 'Unauthorized access to Swagger documentation',
+    }),
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerJsDoc(swaggerConfig))
+  );
 
   app.get("/", (req: Request, res: Response): Response => {
     return res.withData("Health check", "SUCCESS", 200);

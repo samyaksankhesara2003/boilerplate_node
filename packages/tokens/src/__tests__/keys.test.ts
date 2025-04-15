@@ -5,6 +5,6 @@ import path from "path";
 describe('generateKeys', () => {
   it('should generate keys successfully', () => {
     expect(existsSync(path.join(__dirname, '../keys/private.key'))).toBeTruthy();
-    expect(existsSync(path.join(__dirname, '../keys/public.key'))).toBeTruthy();
+    expect(existsSync(path.join(__dirname, '../keys/public.pub'))).toBeTruthy();
   });
 });

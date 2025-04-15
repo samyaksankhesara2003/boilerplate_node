@@ -1,5 +1,6 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
-import { BaseModel, State } from '../index';
+import { BaseModel } from './BaseModel';
+import { State } from '../index';
 
 class Country extends BaseModel {
 

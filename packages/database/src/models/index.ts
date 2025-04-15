@@ -1,6 +1,3 @@
-// Core
-export { default as BaseModel } from './BaseModel';
-
 // Location
 export { default as Country } from './Country';
 export { default as State } from './State';

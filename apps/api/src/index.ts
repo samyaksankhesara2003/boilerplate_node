@@ -6,5 +6,6 @@ const port = appConfig.port || 5001;
 const server = createServer();
 
 server.listen(port, () => {
-  log.info(`${appConfig.appName} server is running on ${port}`);
+  log.info(`${appConfig.appName} server is running on ${port} in ${appConfig.environment} mode`);
+  log.info(`API documentation: ${appConfig.appBaseUrl}api-docs`);
 });

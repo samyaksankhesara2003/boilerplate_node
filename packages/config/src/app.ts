@@ -12,17 +12,9 @@ export const appConfig = {
 
     isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true,
     appDomain: process.env.APP_DOMAIN,
-    appUrl: process.env.APP_URL,
+    appBaseUrl: process.env.APP_BASE_URL,
     protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appProtocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appHost: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
-    appPort: process.env?.SERVER_PORT || 4000,
-
-    // JWT Config
-    jwtSecret: process.env.JWT_SECRET || 'Techuz',
-    jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'Techuz',
-    jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1d',
-    jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
+    appPort: process.env?.SERVER_PORT || 4000
 };
-
-export default appConfig;
