@@ -1,12 +1,12 @@
 import { config as loadEnv } from 'dotenv';
 import path from 'path';
-loadEnv({ path: path.resolve(__dirname,'../../../../.env') });
+loadEnv({ path: path.resolve(__dirname, '../../../../.env') });
 
 import { appConfig } from './app';
 
 const swaggerUsername = process.env.SWAGGER_USERNAME;
 const swaggerPassword = process.env.SWAGGER_PASSWORD;
-const swaggerApiBaseUrl = process.env.SWAGGER_API_BASE_URL;
+const swaggerBaseApiUrl = process.env.SWAGGER_API_BASE_URL;
 
 const options = {
     definition: {
@@ -18,15 +18,30 @@ const options = {
         },
         servers: [
             {
-                url: swaggerApiBaseUrl,
+                url: swaggerBaseApiUrl,
                 description: `${appConfig.environment} server`,
             },
-        ]
+        ],
+        components: {
+            securitySchemes: {
+                basicAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+        },
+        security: [
+            {
+                basicAuth: [],
+            },
+        ],
     },
     apis: [], // Path to route-specific YAML files
 };
 
 export const swaggerConfig = options;
+export const swaggerApiBaseUrl = swaggerBaseApiUrl;
 export const swaggerBasicAuthConfig = {
     userName: swaggerUsername,
     password: swaggerPassword
