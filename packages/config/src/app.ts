@@ -1,7 +1,3 @@
-import { config as loadEnv } from 'dotenv';
-import { envFilePath } from './envFilePath';
-loadEnv({ path: envFilePath });
-
 export const appConfig = {
     environment: process.env.NODE_ENV || 'development',
     appName: process.env.APP_NAME,

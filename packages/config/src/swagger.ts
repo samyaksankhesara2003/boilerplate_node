@@ -1,8 +1,4 @@
-import { config as loadEnv } from 'dotenv';
-import { envFilePath } from './envFilePath';
 import { appConfig } from './app';
-
-loadEnv({ path: envFilePath });
 
 const swaggerUsername = process.env.SWAGGER_USERNAME;
 const swaggerPassword = process.env.SWAGGER_PASSWORD;

@@ -28,13 +28,13 @@
     "dev": "bunchee --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
-    "test": "jest",
+    "test": "dotenv -e ../../.env -- jest",
     "make-migration": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex migrate:make --knexfile=./src/knexfile.ts",
-    "migrate": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex migrate:latest --knexfile=./src/knexfile.ts",
+    "migrate": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' dotenv -e ../../.env -- knex migrate:latest --knexfile=./src/knexfile.ts",
     "make-seed": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex seed:make --knexfile=./src/knexfile.ts",
-    "run-seed": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex seed:run --knexfile=./src/knexfile.ts",
-    "rollback": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex migrate:rollback --knexfile=./src/knexfile.ts",
-    "clear-db": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex migrate:rollback --all --knexfile=./src/knexfile.ts"
+    "run-seed": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' dotenv -e ../../.env -- knex seed:run --knexfile=./src/knexfile.ts",
+    "rollback": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' dotenv -e ../../.env -- knex migrate:rollback --knexfile=./src/knexfile.ts",
+    "clear-db": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' dotenv -e ../../.env -- knex migrate:rollback --all --knexfile=./src/knexfile.ts"
   },
   "jest": {
     "preset": "@repo/jest-presets/node"

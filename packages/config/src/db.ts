@@ -1,7 +1,3 @@
-import { config as loadEnv } from 'dotenv';
-import { envFilePath } from './envFilePath';
-loadEnv({ path: envFilePath });
-
 export const dbConfig = {
     dbClient: "mysql",
     dbHost: process.env.DATABASE_HOST,
