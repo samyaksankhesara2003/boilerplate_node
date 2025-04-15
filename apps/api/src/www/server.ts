@@ -13,6 +13,10 @@ import { appConfig, swaggerConfig, swaggerBasicAuthConfig } from "@repo/config";
 import { responseModifier } from "../middlewares/responseModifier";
 import routes from "../modules/index";
 
+/**
+ * @description Creates an Express server with security, logging, and Swagger documentation.
+ * @returns {Express} An Express server instance.
+ */
 export const createServer = (): Express => {
   const app = express();
   app
@@ -90,6 +94,7 @@ export const createServer = (): Express => {
     return res.withData("Health check", "SUCCESS", 200);
   });
 
+  // Routes
   app.use("/api", routes);
 
   // Global error handler
