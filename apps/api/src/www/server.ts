@@ -49,7 +49,7 @@ export const createServer = (): Express => {
   app.get('/api-docs/swagger.json', (req: Request, res: Response): Response => {
     const swaggerSpec = swaggerJsDoc({
       ...swaggerConfig,
-      apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml']
+      apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
     });
 
     // Just return the Swagger JSON
@@ -68,7 +68,10 @@ export const createServer = (): Express => {
     }),
     swaggerUi.serve,
     swaggerUi.setup(
-      swaggerJsDoc({ ...swaggerConfig, apis: ['../**/**/*.swagger.yaml', '../**/**/**/**/*.swagger.yaml'] }),
+      swaggerJsDoc({
+        ...swaggerConfig,
+        apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
+      }),
       {
         swaggerOptions: {
           url: '/swagger.json',
