@@ -1,6 +1,6 @@
 import { config as loadEnv } from 'dotenv';
-import path from 'path';
-loadEnv({ path: path.resolve(__dirname,'../../../../.env') });
+import { envFilePath } from './envFilePath';
+loadEnv({ path: envFilePath });
 
 export const jwtConfig = {
     jwtSecret: process.env.JWT_SECRET || 'Techuz',
