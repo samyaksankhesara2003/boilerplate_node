@@ -1,0 +1,126 @@
+paths:
+  /user/auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Sign up a new user
+      description: Creates a new user account and returns a JWT token with user details.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: John
+                last_name:
+                  type: string
+                  example: Doe
+                email:
+                  type: string
+                  example: john@example.com
+                password:
+                  type: string
+                  example: SecureP@ss123
+      responses:
+        '201':
+          description: Successful user registration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+                  loginDetails:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        example: john@example.com
+                      role:
+                        type: number
+                        example: 2
+                      status:
+                        type: number
+                        example: 1
+        '400':
+          description: Validation error or user already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: User already exists
+
+  /user/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Log in a user
+      description: Authenticates a user and returns a JWT token with user details.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: john@example.com
+                password:
+                  type: string
+                  example: SecureP@ss123
+      responses:
+        '200':
+          description: Successful user login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
+                  loginDetails:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      name:
+                        type: string
+                        example: John Doe
+                      email:
+                        type: string
+                        example: john@example.com
+                      role:
+                        type: number
+                        example: 2
+                      status:
+                        type: number
+                        example: 1
+        '400':
+          description: Invalid email or password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid email or password

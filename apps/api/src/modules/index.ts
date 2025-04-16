@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { countryRoutes } from './Common/Country/country.routes';
 import { stateRoutes } from './Common/State/state.routes';
+import { userRoutes } from './User/user.routes';
 import { experienceCategoryRoutes } from '../modules/ExperienceCategory/experienceCategory.routes';
 import { experienceRoutes } from '../modules/Experience/experience.routes';
 import { experiencePriceRoutes } from '../modules/ExperiencePrice/experiencePrice.routes';
@@ -18,7 +19,7 @@ router.use('/state', stateRoutes);
 // router.use('/admin', adminRoutes);
 
 // User routes
-// router.use('/user', userRoutes);
+router.use('/user', userRoutes);
 
 // Experience category routes
 router.use('/experience-category', experienceCategoryRoutes);

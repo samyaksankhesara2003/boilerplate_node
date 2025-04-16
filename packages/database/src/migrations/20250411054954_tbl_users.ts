@@ -17,7 +17,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('email').notNullable();
         table.string('profile_url').nullable();
         table.string('password').notNullable();
-        table.string('token').nullable();
+        table.text('token').nullable();
         table.string('reset_password_token').nullable();
         table.enum('role', ['1', '2', '3']).defaultTo('3').notNullable().comment('1 -> Admin, 2 -> Host, 3 -> User');
         table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');

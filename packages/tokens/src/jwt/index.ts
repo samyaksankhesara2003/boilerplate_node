@@ -9,12 +9,10 @@ const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, '../keys/public.pub')
 
 /**
  * @description Sign a JWT token with the given data.
- * @param {unknown} [details=null] The data to encode in the token.
- * @returns {string|null} The signed token, or null if no data was given.
+ * @param {unknown} details The data to encode in the token.
+ * @returns {string} The signed token
  */
-const signJwt = (details: unknown = null): string | null => {
-
-  if (!details) return null;
+const signJwt = (details: unknown): string => {
 
   const token = jwt.sign({
     data: details
@@ -34,10 +32,10 @@ const signJwt = (details: unknown = null): string | null => {
  * @returns {any} The decoded token if valid, otherwise throws an error.
  */
 const validateJwt = (token: string = '' as string): any => {
-  return jwt.verify(token, PUBLIC_KEY);
+  return jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
 };
 
-export default {
+export const jwtUtil = {
   signJwt,
   validateJwt,
 };

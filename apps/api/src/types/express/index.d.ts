@@ -5,6 +5,18 @@ export { };
 
 declare global {
   namespace Express {
+    export interface Request {
+      user?: {
+        id: number;
+        first_name: string;
+        last_name: string;
+        email: string;
+        profile_url: string;
+        role: number;
+        status: number;
+      };
+      // file?: File;
+    };
     interface Response {
       withData<T = any>(data: T, message?: string, statusCode?: number): this;
       withError(error: any, statusCode?: number): this;

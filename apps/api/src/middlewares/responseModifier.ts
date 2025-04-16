@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 
+/**
+ * @description Middleware to add custom response methods to the Express response object.
+ * @param {Request} req The Express request object.
+ * @param {Response} res The Express response object.
+ * @param {NextFunction} next The next middleware function.
+ */
 export const responseModifier = (
   req: Request,
   res: Response,

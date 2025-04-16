@@ -11,12 +11,12 @@ class User extends BaseModel {
     first_name!: string;
     last_name!: string;
     email!: string;
-    profile_url?: string;
+    profile_url!: string;
     password!: string;
-    token?: string;
-    resetPasswordToken?: string;
-    role!: 1 | 2 | 3;       // 1 -> Admin, 2 -> Host, 3 -> User
-    status!: 1 | 2;     // 1 -> Active, 2 -> Inactive
+    token!: string;
+    resetPasswordToken!: string;
+    role!: number;       // 1 -> Admin, 2 -> Host, 3 -> User
+    status!: number;     // 1 -> Active, 2 -> Inactive
 
     experience_bookings?: ExperienceBooking[];
     experience_transactions?: ExperienceTransaction[];

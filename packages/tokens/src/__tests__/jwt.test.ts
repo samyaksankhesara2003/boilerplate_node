@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import jwtUtil from '../jwt/index';
+import { jwtUtil } from '../jwt/index';
 
 const { signJwt, validateJwt } = jwtUtil;
 
@@ -10,11 +10,6 @@ describe("jwt", () => {
     expect(token).not.toBeNull();
     const decoded = validateJwt(token as string);
     expect(decoded).toMatchObject({ data });
-  });
-
-  it("returns null when given no data", () => {
-    const token = signJwt();
-    expect(token).toBeNull();
   });
 
   it("throws when given an invalid token", () => {
