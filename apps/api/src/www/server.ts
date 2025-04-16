@@ -9,7 +9,7 @@ import basicAuth from 'express-basic-auth';
 
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
-import { appConfig, swaggerConfig, swaggerBasicAuthConfig } from "@repo/config";
+import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
 import { responseModifier } from "../middlewares/responseModifier";
 import routes from "../modules/index";
 
@@ -52,7 +52,7 @@ export const createServer = (): Express => {
   // Serve the Swagger JSON specification
   app.get('/api-docs/swagger.json', (req: Request, res: Response): Response => {
     const swaggerSpec = swaggerJsDoc({
-      ...swaggerConfig,
+      ...swaggerJsDocConfig,
       apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
     });
 
@@ -73,18 +73,11 @@ export const createServer = (): Express => {
     swaggerUi.serve,
     swaggerUi.setup(
       swaggerJsDoc({
-        ...swaggerConfig,
+        ...swaggerJsDocConfig,
         apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
       }),
       {
-        swaggerOptions: {
-          url: '/swagger.json',
-          filter: true,
-          supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-          // tagsSorter: 'alpha',
-          // operationsSorter: 'alpha',
-          docExpansion: 'none'
-        },
+        swaggerOptions: swaggerOptionsConfig,
         explorer: true,
       }
     )

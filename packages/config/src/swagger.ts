@@ -4,7 +4,7 @@ const swaggerUsername = process.env.SWAGGER_USERNAME;
 const swaggerPassword = process.env.SWAGGER_PASSWORD;
 const swaggerBaseApiUrl = process.env.SWAGGER_API_BASE_URL;
 
-const options = {
+const swaggerJsDocOptions = {
     definition: {
         openapi: '3.0.0',
         info: {
@@ -36,7 +36,38 @@ const options = {
     apis: [], // Path to route-specific YAML files
 };
 
-export const swaggerConfig = options;
+const swaggerOptions = {
+    url: '/swagger.json',
+    filter: true,
+    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+    // tagsSorter: 'alpha',
+    // operationsSorter: 'alpha',
+    tagsSorter: (a: string, b: string): number => {
+        const order = [
+            'Auth',
+            'Profile',
+            'Experience',
+            'Experience Category',
+            'Experience Price',
+            'Experience Schedule',
+            'Country',
+            'State'
+        ];
+
+        const indexA = order.indexOf(a);
+        const indexB = order.indexOf(b);
+
+        if (indexA === -1 && indexB === -1) return a.localeCompare(b); // Sort alphabetically if both tags are unknown
+        if (indexA === -1) return 1;  // Tag A is unknown, place it after B
+        if (indexB === -1) return -1; // Tag B is unknown, place it after A
+
+        return indexA - indexB;
+    },
+    docExpansion: 'none'
+};
+
+export const swaggerJsDocConfig = swaggerJsDocOptions;
+export const swaggerOptionsConfig = swaggerOptions;
 export const swaggerApiBaseUrl = swaggerBaseApiUrl;
 export const swaggerBasicAuthConfig = {
     userName: swaggerUsername,
