@@ -9,7 +9,6 @@ import { jwtConfig } from '@repo/config';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// const keyDir = path.join(__dirname, '../../dist/keys');
 const keyDir = path.join(__dirname, '../keys');
 
 if (!existsSync(keyDir)) {
