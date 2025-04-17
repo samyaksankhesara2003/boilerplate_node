@@ -14,6 +14,8 @@ const listExperienceService = async (query: IExperienceQuery): Promise<Experienc
         const experienceCategoryAttributes = ['id', 'name', 'status'];
         const experiencePriceAttributes = ['id', 'experience_id', 'min_guests', 'max_guests', 'price', 'service_fee', 'price_type', 'currency'];
         const experienceScheduleAttributes = ['id', 'experience_id', 'available_date', 'available_time', 'min_guests', 'max_guests', 'status'];
+        const experienceHostAttributes = ['id', 'user_id', 'experience_id'];
+        const userAttributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'role'];
 
         const experienceQuery = Experience
             .query()
@@ -22,13 +24,16 @@ const listExperienceService = async (query: IExperienceQuery): Promise<Experienc
                 country(selectCountry),
                 experience_category(selectExperienceCategory),
                 experience_price(selectExperiencePrice),
-                experience_schedules(selectExperienceSchedule)
+                experience_schedules(selectExperienceSchedule),
+                experience_hosts(selectExperienceHost).user(selectUser)
             ]`)
             .modifiers({
                 selectCountry: builder => builder.select(...countryAttributes),
                 selectExperienceCategory: builder => builder.select(...experienceCategoryAttributes),
                 selectExperiencePrice: builder => builder.select(...experiencePriceAttributes),
-                selectExperienceSchedule: builder => builder.select(...experienceScheduleAttributes)
+                selectExperienceSchedule: builder => builder.select(...experienceScheduleAttributes),
+                selectExperienceHost: builder => builder.select(...experienceHostAttributes),
+                selectUser: builder => builder.select(...userAttributes)
             });
 
         if (experience_category_id) experienceQuery.where({ experience_category_id });

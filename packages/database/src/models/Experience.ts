@@ -1,6 +1,6 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
-import { Country, ExperienceCategory, ExperiencePrice, ExperienceSchedule } from '../index';
+import { Country, ExperienceCategory, ExperienceHost, ExperiencePrice, ExperienceSchedule } from '../index';
 
 class Experience extends BaseModel {
 
@@ -24,7 +24,8 @@ class Experience extends BaseModel {
     country?: Country;
     experience_category?: ExperienceCategory;
     experience_price?: ExperiencePrice;
-    experience_schedules?: ExperienceSchedule;
+    experience_schedules?: ExperienceSchedule[];
+    experience_hosts?: ExperienceHost[];
 
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
         return {
@@ -47,6 +48,11 @@ class Experience extends BaseModel {
                 relation: Model.HasManyRelation,
                 modelClass: ExperienceSchedule,
                 join: { from: 'experiences.id', to: 'experience_schedules.experience_id' }
+            },
+            experience_hosts: {
+                relation: Model.HasManyRelation,
+                modelClass: ExperienceHost,
+                join: { from: 'experiences.id', to: 'experience_hosts.experience_id' }
             }
         };
     };

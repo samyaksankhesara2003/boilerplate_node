@@ -6,6 +6,7 @@ import { experienceCategoryRoutes } from '../modules/ExperienceCategory/experien
 import { experienceRoutes } from '../modules/Experience/experience.routes';
 import { experiencePriceRoutes } from '../modules/ExperiencePrice/experiencePrice.routes';
 import { experienceScheduleRoutes } from '../modules/ExperienceSchedule/experienceSchedule.routes';
+// import userAuthMiddleware from '../middlewares/userAuth.middleware';
 
 const router: Router = Router();
 
