@@ -27,6 +27,9 @@ This Turborepo includes the following packages and apps:
 - `@repo/logger`: isomorphic logger (a small wrapper around console.log)
 - `@repo/ui`: a dummy React UI library (which contains `<CounterButton>` and `<Link>` components)
 - `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
+- `@repo/config`: shared configurations
+- `@repo/db`: database schema and migrations using Knex and Objection
+- `@repo/tokens`: JWT tokens generation and validation utility
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
