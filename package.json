@@ -16,7 +16,8 @@
     "run-seed": "turbo run --filter=@repo/db run-seed",
     "rollback": "turbo run --filter=@repo/db rollback",
     "clear-db": "turbo run --filter=@repo/db clear-db",
-    "generate-keys": "turbo run --filter @repo/tokens generate-keys"
+    "generate-keys": "turbo run --filter @repo/tokens generate-keys",
+    "generate-graph": "turbo run build test --graph > ./graphs/graph.dot && dot -T png ./graphs/graph.dot -o ./graphs/graph.png"
   },
   "devDependencies": {
     "dotenv-cli": "^8.0.0",

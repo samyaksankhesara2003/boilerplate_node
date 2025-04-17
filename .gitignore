@@ -15,3 +15,6 @@ public/dist
 # Ignore the private and public keys
 packages/tokens/src/keys/private.key
 packages/tokens/src/keys/public.pub
+
+# Ignore the Graphs
+graphs
