@@ -47,6 +47,7 @@ const swaggerOptions = {
             'Auth',
             'Profile',
             'Experience',
+            'Experience Booking',
             'Experience Category',
             'Experience Price',
             'Experience Schedule',
@@ -63,7 +64,7 @@ const swaggerOptions = {
 
         return indexA - indexB;
     },
-    docExpansion: 'none'
+    // docExpansion: 'none'
 };
 
 export const swaggerJsDocConfig = swaggerJsDocOptions;

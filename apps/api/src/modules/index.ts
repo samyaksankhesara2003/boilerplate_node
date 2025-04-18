@@ -6,7 +6,8 @@ import { experienceCategoryRoutes } from '../modules/ExperienceCategory/experien
 import { experienceRoutes } from '../modules/Experience/experience.routes';
 import { experiencePriceRoutes } from '../modules/ExperiencePrice/experiencePrice.routes';
 import { experienceScheduleRoutes } from '../modules/ExperienceSchedule/experienceSchedule.routes';
-// import userAuthMiddleware from '../middlewares/userAuth.middleware';
+import { experienceBookingRoutes } from './ExperienceBooking/experienceBooking.routes';
+import userAuthMiddleware from '../middlewares/userAuth.middleware';
 
 const router: Router = Router();
 
@@ -27,6 +28,9 @@ router.use('/experience-category', experienceCategoryRoutes);
 
 // Experience routes
 router.use('/experience', experienceRoutes);
+
+// Experience Booking routes
+router.use('/experience-booking', userAuthMiddleware, experienceBookingRoutes);
 
 // Experience price routes
 router.use('/experience-price', experiencePriceRoutes);
