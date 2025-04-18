@@ -1,6 +1,50 @@
 import { log } from '@repo/logger';
 import { Experience } from '@repo/db';
-import { IExperienceQuery } from './experience.types';
+import { IExperienceParams, IExperienceQuery } from './experience.types';
+
+const getExperienceService = async (params: IExperienceParams): Promise<Experience> => {
+    try {
+        const { experience_id } = params;
+
+        const experienceAttributes = [
+            'id', 'experience_category_id', 'country_id', 'title', 'description', 'duration',
+            'banner_url', 'rating', 'review_count', 'features', 'duration_type', 'language', 'status'
+        ];
+        const countryAttributes = ['id', 'name'];
+        const experienceCategoryAttributes = ['id', 'name', 'status'];
+        const experiencePriceAttributes = ['id', 'experience_id', 'min_guests', 'max_guests', 'price', 'service_fee', 'price_type', 'currency'];
+        const experienceScheduleAttributes = ['id', 'experience_id', 'available_date', 'available_time', 'min_guests', 'max_guests', 'status'];
+        const experienceHostAttributes = ['id', 'user_id', 'experience_id'];
+        const userAttributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'role'];
+
+        const experience = await Experience
+            .query()
+            .select(...experienceAttributes)
+            .withGraphFetched(`[
+                country(selectCountry),
+                experience_category(selectExperienceCategory),
+                experience_price(selectExperiencePrice),
+                experience_schedules(selectExperienceSchedule),
+                experience_hosts(selectExperienceHost).user(selectUser)
+            ]`)
+            .modifiers({
+                selectCountry: builder => builder.select(...countryAttributes),
+                selectExperienceCategory: builder => builder.select(...experienceCategoryAttributes),
+                selectExperiencePrice: builder => builder.select(...experiencePriceAttributes),
+                selectExperienceSchedule: builder => builder.select(...experienceScheduleAttributes),
+                selectExperienceHost: builder => builder.select(...experienceHostAttributes),
+                selectUser: builder => builder.select(...userAttributes)
+            })
+            .findById(experience_id);
+
+        if (!experience) throw new Error('Experience not found');
+
+        return experience;
+    } catch (error) {
+        log.error('getExperienceService Catch: ', error);
+        throw error;
+    }
+};
 
 const listExperienceService = async (query: IExperienceQuery): Promise<Experience[]> => {
     try {
@@ -62,5 +106,6 @@ const listExperienceService = async (query: IExperienceQuery): Promise<Experienc
 };
 
 export const experienceService = {
+    getExperienceService,
     listExperienceService
 };

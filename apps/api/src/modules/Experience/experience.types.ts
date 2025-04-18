@@ -1,3 +1,7 @@
+export interface IExperienceParams {
+    experience_id: number;
+};
+
 export interface IExperienceQuery {
     experience_category_id?: number;
     country_id?: number;

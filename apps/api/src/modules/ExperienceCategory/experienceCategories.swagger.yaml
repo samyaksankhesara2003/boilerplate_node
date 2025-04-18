@@ -1,4 +1,52 @@
 paths:
+  /experience-category/{experience_category_id}:
+    get:
+      tags:
+        - Experience Category
+      summary: Get a single experience category
+      description: Returns a single experience category by ID.
+      parameters:
+        - name: experience_category_id
+          in: path
+          required: true
+          schema:
+            type: number
+          description: ID of the experience category to retrieve
+          example: 1
+      responses:
+        '200':
+          description: A single experience category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Unique ID of the experience category
+                    example: 1
+                  name:
+                    type: string
+                    description: Name of the experience category
+                    example: "Adventure"
+                  status:
+                    type: integer
+                    description: Status of the experience category
+                    enum:
+                      - 1
+                      - 2
+                    example: 1
+        '500':
+          description: Internal server error fetching experience categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch experience categories
+
   /experience-category:
     get:
       tags:
@@ -24,13 +72,20 @@ paths:
                   type: object
                   properties:
                     id:
-                      type: string
+                      type: number
                       description: Unique ID of the experience category
-                      example: "exp-cat-123"
+                      example: 1
                     name:
                       type: string
                       description: Name of the experience category
                       example: "Adventure"
+                    status:
+                      type: integer
+                      description: Status of the experience category
+                      enum:
+                        - 1
+                        - 2
+                      example: 1
         '500':
           description: Internal server error fetching experience categories
           content:

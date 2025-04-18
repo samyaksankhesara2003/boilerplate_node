@@ -1,6 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import  { stateService } from './state.service';
 
+const getState = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+  try {
+    const { params } = req;
+    const data = await stateService.getStateService({ state_id: parseInt(params.state_id, 10) });
+    return res.withData(data, 'SUCCESS', 200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const listStates = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { params, query } = req;
@@ -12,5 +22,6 @@ const listStates = async (req: Request, res: Response, next: NextFunction): Prom
 };
 
 export const stateController = {
+  getState,
   listStates
 };

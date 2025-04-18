@@ -1,4 +1,45 @@
 paths:
+  /country/{country_id}:
+    get:
+      tags:
+        - Country
+      summary: Get a single country by ID
+      description: Returns details of a specific country by its ID.
+      parameters:
+        - name: country_id
+          in: path
+          required: true
+          schema:
+            type: number
+          description: ID of the country to retrieve
+          example: 1
+      responses:
+        '200':
+          description: A single country
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Country ID
+                    example: 1
+                  name:
+                    type: string
+                    description: Full country name
+                    example: United States
+        '500':
+          description: Internal server error fetching country
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch country
+
   /country:
     get:
       tags:
@@ -23,10 +64,10 @@ paths:
                 items:
                   type: object
                   properties:
-                    code:
-                      type: string
-                      description: Country code (e.g., US, IN, GB)
-                      example: US
+                    id:
+                      type: number
+                      description: Country ID
+                      example: 1
                     name:
                       type: string
                       description: Full country name

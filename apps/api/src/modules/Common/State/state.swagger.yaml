@@ -1,4 +1,45 @@
 paths:
+  /state/{state_id}:
+    get:
+      tags:
+        - State
+      summary: Get a state by ID
+      description: Returns a state by ID
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          schema:
+            type: number
+          description: ID of the state to retrieve
+          example: 1
+      responses:
+        '200':
+          description: A single state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: State ID
+                    example: 1
+                  name:
+                    type: string
+                    description: Full state name
+                    example: California
+        '500':
+          description: Internal server error fetching state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Failed to fetch state
+
   /state/{country_id}:
     get:
       tags:
@@ -30,18 +71,14 @@ paths:
                 items:
                   type: object
                   properties:
-                    code:
-                      type: string
-                      description: State code (e.g., CA, NY, TX)
-                      example: CA
+                    id:
+                      type: number
+                      description: State ID
+                      example: 1
                     name:
                       type: string
                       description: Full state name
                       example: California
-                    country_id:
-                      type: number
-                      description: ID of the country this state belongs to
-                      example: 1
         '500':
           description: Internal server error fetching states
           content:
