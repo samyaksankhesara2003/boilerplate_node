@@ -30,6 +30,7 @@ This Turborepo includes the following packages and apps:
 - `@repo/config`: shared configurations
 - `@repo/db`: database schema and migrations using Knex and Objection
 - `@repo/tokens`: JWT tokens generation and validation utility
+- `@repo/stripe`: Stripe API client
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 

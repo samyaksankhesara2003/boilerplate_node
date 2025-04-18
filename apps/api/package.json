@@ -21,6 +21,7 @@
     "@repo/db": "workspace:*",
     "@repo/logger": "workspace:*",
     "@repo/tokens": "workspace:*",
+    "@repo/stripe": "workspace:*",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "express": "4.21.2",

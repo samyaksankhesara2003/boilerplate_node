@@ -4,7 +4,7 @@ import { IExperienceQuery } from './experience.types';
 
 const listExperienceService = async (query: IExperienceQuery): Promise<Experience[]> => {
     try {
-        const { experience_category_id, country_id } = query;
+        const { experience_category_id, country_id, min_price, max_price, rating } = query;
 
         const experienceAttributes = [
             'id', 'experience_category_id', 'country_id', 'title', 'description', 'duration',
@@ -37,7 +37,20 @@ const listExperienceService = async (query: IExperienceQuery): Promise<Experienc
             });
 
         if (experience_category_id) experienceQuery.where({ experience_category_id });
+
         if (country_id) experienceQuery.where({ country_id });
+
+        if (rating) experienceQuery.where('rating', '>=', rating);
+
+        if (min_price || max_price) {
+            experienceQuery.whereExists(
+                Experience.relatedQuery('experience_price')
+                    .where(builder => {
+                        if (min_price) builder.where('price', '>=', min_price);
+                        if (max_price) builder.where('price', '<=', max_price);
+                    })
+            );
+        }
 
         const experiences = await experienceQuery;
 
