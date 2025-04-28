@@ -9,6 +9,7 @@ import basicAuth from 'express-basic-auth';
 
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
+import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-handler";
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
 import routes from "../modules/index";
 
@@ -90,7 +91,8 @@ export const createServer = (): Express => {
   );
 
   app.get("/", (req: Request, res: Response): Response => {
-    return res.withData("Health check", "SUCCESS", 200);
+    // return res.withData("Health check", "SUCCESS", 200);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS);
   });
 
   // Routes
@@ -99,7 +101,8 @@ export const createServer = (): Express => {
   // Global error handler
   app.use((err: any, req: Request, res: Response, next: NextFunction): Response => {
     log.error("Global error handler: ", err);
-    return res.withError(err);
+    // return res.withError(err);
+    return sendResponse(res, StatusCodes.INTERNAL_SERVER_ERROR, ResponseMessages.COMMON.ERROR);
   });
 
   return app;
