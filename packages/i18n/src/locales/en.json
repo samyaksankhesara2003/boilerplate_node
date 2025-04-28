@@ -5,11 +5,51 @@
     "user": {
         "fetch_success": "User fetched successfully",
         "not_found": "User not found",
-        "create_success": "User created successfully"
+        "signup_success": "Signup successfully"
     },
     "auth": {
         "login_success": "Login successful",
         "invalid_credentials": "Invalid credentials"
+    },
+    "profile": {
+        "fetch_success": "Profile fetched successfully",
+        "update_success": "Profile updated successfully",
+        "password_update_success": "Password updated successfully"
+    },
+    "experience_category": {
+        "fetch_success": "Experience category fetched successfully",
+        "not_found": "Experience category not found",
+        "list_success": "Experience category list fetched successfully"        
+    },
+    "experience": {
+        "fetch_success": "Experience fetched successfully",
+        "not_found": "Experience not found",
+        "create_success": "Experience created successfully"
+    },
+    "experience_price": {
+        "fetch_success": "Experience price fetched successfully",
+        "not_found": "Experience price not found"
+    },
+    "experience_schedule": {
+        "fetch_success": "Experience schedule fetched successfully",
+        "not_found": "Experience schedule not found",
+        "list_success": "Experience schedule list fetched successfully"
+    },
+    "experience_booking": {
+        "fetch_success": "Experience booking fetched successfully",
+        "not_found": "Experience booking not found",
+        "list_success": "Experience booking list fetched successfully",
+        "create_success": "Experience booking created successfully"
+    },
+    "country": {
+        "fetch_success": "Country fetched successfully",
+        "not_found": "Country not found",
+        "list_success": "Country list fetched successfully"
+    },
+    "state": {
+        "fetch_success": "State fetched successfully",
+        "not_found": "State not found",
+        "list_success": "State list fetched successfully"
     },
     "server": {
         "error": "Internal server error"

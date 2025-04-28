@@ -10,7 +10,6 @@ import basicAuth from 'express-basic-auth';
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
-import { responseModifier } from "../middlewares/responseModifier";
 import routes from "../modules/index";
 
 /**
@@ -45,8 +44,7 @@ export const createServer = (): Express => {
     .use(express.urlencoded({ extended: false }))
     .use(cors({
       origin: appConfig?.allowedHosts?.split(',') ?? '*'
-    }))
-    .use(responseModifier);
+    }));
 
   knex
     .raw('SELECT 1')

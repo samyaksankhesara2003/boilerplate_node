@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
 import  { profileService } from './profile.service';
 import { IUser } from './profile.types';
 
@@ -6,7 +7,7 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
   try {
     const { user } = req;
     const data = await profileService.getProfileService(user as IUser);
-    return res.withData(data, 'SUCCESS', 200);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.FETCH_SUCCESS, data);
   } catch (error) {
     next(error);
   }
@@ -16,7 +17,7 @@ const updateProfile = async (req: Request, res: Response, next: NextFunction): P
   try {
     const { user, body } = req;
     const data = await profileService.updateProfileService(user as IUser, body);
-    return res.withData(data, 'Profile updated', 200);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.UPDATE_SUCCESS, data);
   } catch (error) {
     next(error);
   }
@@ -26,7 +27,7 @@ const changePassword = async (req: Request, res: Response, next: NextFunction): 
   try {
     const { user, body } = req;
     const data = await profileService.changePasswordService(user as IUser, body);
-    return res.withData(data, 'Password updated', 200);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.PASSWORD_UPDATE_SUCCESS, data);
   } catch (error) {
     next(error);
   }
