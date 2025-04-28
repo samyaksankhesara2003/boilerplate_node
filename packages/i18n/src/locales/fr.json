@@ -1,0 +1,7 @@
+{
+    "user": {
+        "fetch_success": "Utilisateur récupéré avec succès",
+        "create_success": "Utilisateur créé avec succès",
+        "not_found": "Utilisateur non trouvé"
+    }
+}

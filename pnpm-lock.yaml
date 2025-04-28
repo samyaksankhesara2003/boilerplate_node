@@ -380,6 +380,40 @@ importers:
         specifier: 5.8.2
         version: 5.8.2
 
+  packages/i18n:
+    dependencies:
+      i18next:
+        specifier: ^25.0.1
+        version: 25.0.1(typescript@5.8.2)
+    devDependencies:
+      '@jest/globals':
+        specifier: ^29.7.0
+        version: 29.7.0
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../config-eslint
+      '@repo/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@types/node':
+        specifier: ^22.14.0
+        version: 22.14.0
+      bunchee:
+        specifier: ^6.4.0
+        version: 6.4.0(typescript@5.8.2)
+      eslint:
+        specifier: ^9.24.0
+        version: 9.24.0
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@22.14.0)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.14.0)(typescript@5.8.2))
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
   packages/jest-presets:
     dependencies:
       jest:
@@ -394,6 +428,40 @@ importers:
         version: 29.7.0
 
   packages/logger:
+    devDependencies:
+      '@jest/globals':
+        specifier: ^29.7.0
+        version: 29.7.0
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../config-eslint
+      '@repo/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../config-typescript
+      '@types/node':
+        specifier: ^22.14.0
+        version: 22.14.0
+      bunchee:
+        specifier: ^6.4.0
+        version: 6.4.0(typescript@5.8.2)
+      eslint:
+        specifier: ^9.24.0
+        version: 9.24.0
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@22.14.0)(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.14.0)(typescript@5.8.2))
+      typescript:
+        specifier: 5.8.2
+        version: 5.8.2
+
+  packages/response-handler:
+    dependencies:
+      '@repo/i18n':
+        specifier: workspace:*
+        version: link:../i18n
     devDependencies:
       '@jest/globals':
         specifier: ^29.7.0
@@ -785,6 +853,10 @@ packages:
 
   '@babel/runtime@7.26.9':
     resolution: {integrity: sha512-aA63XwOkcl4xxQa3HjPMqOP6LiK0ZDv3mUPYEFXkpHbaFjtGggE1A61FjFzJnB+p7/oy2gA8E+rcBNl/zC1tMg==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.27.0':
+    resolution: {integrity: sha512-VtPOkrdPHZsKc/clNqyi9WUA8TINkZ4cGk63UUE3u4pmB2k+ZMQRDuIOagv8UVd6j7k0T3+RRIb7beKTebNbcw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.26.9':
@@ -3561,6 +3633,14 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
+  i18next@25.0.1:
+    resolution: {integrity: sha512-8S8PyZbrymJZn3DaN70/34JYWNhsqrU6yA4MuzcygJBv+41dgNMocEA8h+kV1P7MCc1ll03lOTOIXE7mpNCicw==}
+    peerDependencies:
+      typescript: ^5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
@@ -6318,6 +6398,10 @@ snapshots:
       - supports-color
 
   '@babel/runtime@7.26.9':
+    dependencies:
+      regenerator-runtime: 0.14.1
+
+  '@babel/runtime@7.27.0':
     dependencies:
       regenerator-runtime: 0.14.1
 
@@ -9292,6 +9376,12 @@ snapshots:
       - supports-color
 
   human-signals@2.1.0: {}
+
+  i18next@25.0.1(typescript@5.8.2):
+    dependencies:
+      '@babel/runtime': 7.27.0
+    optionalDependencies:
+      typescript: 5.8.2
 
   iconv-lite@0.4.24:
     dependencies:

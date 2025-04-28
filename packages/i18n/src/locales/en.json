@@ -1,0 +1,17 @@
+{
+    "common": {
+        "success": "Success"
+    },
+    "user": {
+        "fetch_success": "User fetched successfully",
+        "not_found": "User not found",
+        "create_success": "User created successfully"
+    },
+    "auth": {
+        "login_success": "Login successful",
+        "invalid_credentials": "Invalid credentials"
+    },
+    "server": {
+        "error": "Internal server error"
+    }
+}
