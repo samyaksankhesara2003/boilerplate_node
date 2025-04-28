@@ -31,6 +31,8 @@ This Turborepo includes the following packages and apps:
 - `@repo/db`: database schema and migrations using Knex and Objection
 - `@repo/tokens`: JWT tokens generation and validation utility
 - `@repo/stripe`: Stripe API client
+- `@repo/i18n`: Internationalization (i18n) utilities for multi-language support (fetching translated messages dynamically).
+- `@repo/response-handler`: Utility to standardize API responses.
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
