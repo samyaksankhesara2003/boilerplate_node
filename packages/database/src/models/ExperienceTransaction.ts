@@ -11,12 +11,13 @@ class ExperienceTransaction extends BaseModel {
     user_id!: number
     experience_booking_id!: number
     stripe_payment_intent_id!: string
-    stripe_charge_id?: string
-    currency!: 1 | 2
     amount!: number
     stripe_invoice_url?: string
     stripe_response?: any
-    payment_status!: 1 | 2 | 3  // 1 -> Pending, 2 -> Success, 3 -> Failed
+    currency!: 1 | 2    // 1 -> USD, 2 -> INR
+    payment_type!: 1 | 2 | 3 // 1 -> Full Payment, 2 -> Partial Payment, 3 -> Refund
+    payment_status!: 1 | 2 | 3 | 4  // 1 -> Pending, 2 -> Success, 3 -> Failed, 4 -> Cancelled
+    payment_method?: 1 | 2 | 3 // 1 -> Stripe, 2 -> PayPal, 3 -> Other
 
     user!: User;
     experience_booking?: ExperienceBooking;

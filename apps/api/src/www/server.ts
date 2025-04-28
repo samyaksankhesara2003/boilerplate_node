@@ -32,8 +32,16 @@ export const createServer = (): Express => {
         }
       })
     )
+    .use((req: Request, res: Response, next: NextFunction) => {
+      if (
+        (req.originalUrl === '/experience-booking/payment-verification/webhook')
+      ) {
+        next();
+      } else {
+        express.json()(req, res, next);
+      }
+    })
     .use(compression())
-    .use(express.json())
     .use(express.urlencoded({ extended: false }))
     .use(cors({
       origin: appConfig?.allowedHosts?.split(',') ?? '*'

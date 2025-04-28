@@ -32,8 +32,18 @@ const bookExperience = async (req: Request, res: Response, next: NextFunction): 
   }
 };
 
+const bookingExperiencePaymentVerificationWebhook = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+  try {
+    const data = await experienceBookingService.bookingExperiencePaymentVerificationWebhookService(req);
+    return res.withData(data, 'SUCCESS', 200);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const experienceBookingController = {
   getBookingExperience,
   listBookingExperience,
-  bookExperience
+  bookExperience,
+  bookingExperiencePaymentVerificationWebhook
 };

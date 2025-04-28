@@ -27,8 +27,7 @@
     "clean": "rm -rf dist",
     "dev": "bunchee --watch",
     "lint": "eslint src/",
-    "check-types": "tsc --noEmit",
-    "test": "dotenv -e ../../.env -- jest"
+    "check-types": "tsc --noEmit"
   },
   "jest": {
     "preset": "@repo/jest-presets/node"

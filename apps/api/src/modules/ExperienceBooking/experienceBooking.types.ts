@@ -19,3 +19,8 @@ export interface IExperienceBody {
     service_fee: number;
     total_amount: number;
 };
+
+export interface IBookExperienceResponse {
+    payment_intent_id: string;
+    payment_intent_client_secret: string | null;
+};

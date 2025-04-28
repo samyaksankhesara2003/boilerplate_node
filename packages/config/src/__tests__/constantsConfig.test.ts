@@ -63,6 +63,24 @@ describe("constants", () => {
                     1: "Active",
                     2: "Inactive",
                 }),
+                experienceBookingStatus: expect.objectContaining({
+                    'Pending': 1,
+                    'Accepted': 2,
+                    'Rejected': 3
+                }),
+                experienceBookingStatusNumberToName: expect.objectContaining({
+                    1: 'Pending',
+                    2: 'Accepted',
+                    3: 'Rejected'
+                }),
+                stripeSupportedCurrencyType: expect.objectContaining({
+                    'USD': 1,
+                    'INR': 2,
+                }),
+                stripeSupportedCurrencyTypeNumberToName: expect.objectContaining({
+                    1: 'USD',
+                    2: 'INR',
+                }),
                 emailTemplateName: expect.objectContaining({
                     "Registration": "registration",
                     "Forget Password": "forgetPassword",

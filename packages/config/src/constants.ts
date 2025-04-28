@@ -69,6 +69,39 @@ export const constants = {
         2: 'Inactive',
     },
 
+    experienceBookingStatus: {
+        'Pending': 1,
+        'Accepted': 2,
+        'Rejected': 3
+    },
+    experienceBookingStatusNumberToName: {
+        1: 'Pending',
+        2: 'Accepted',
+        3: 'Rejected'
+    },
+
+    stripeSupportedCurrencyType: {
+        'USD': 1,
+        'INR': 2,
+    },
+    stripeSupportedCurrencyTypeNumberToName: {
+        1: 'USD',
+        2: 'INR',
+    },
+
+    paymentStatus: {
+        'Pending': 1,
+        'Completed': 2,
+        'Failed': 3,
+        'Cancelled': 4,
+    },
+    paymentStatusNumberToName: {
+        1: 'Pending',
+        2: 'Completed',
+        3: 'Failed',
+        4: 'Cancelled',
+    },
+
     emailTemplateName: {
         'Registration': 'registration',
         'Forget Password': 'forgetPassword',
@@ -103,4 +136,4 @@ export const constants = {
             message: 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
         },
     },
-};
+} as const;
