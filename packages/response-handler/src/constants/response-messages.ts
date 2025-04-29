@@ -2,6 +2,7 @@ export const ResponseMessages = {
     COMMON: {
         SUCCESS: 'common.success',
         ERROR: 'common.error',
+        VALIDATION_ERROR: 'common.validation_error',
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',

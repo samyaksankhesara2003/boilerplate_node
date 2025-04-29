@@ -33,6 +33,7 @@ This Turborepo includes the following packages and apps:
 - `@repo/stripe`: Stripe API client
 - `@repo/i18n`: Internationalization (i18n) utilities for multi-language support (fetching translated messages dynamically).
 - `@repo/response-handler`: Utility to standardize API responses.
+- `@repo/validator`: a wrapper around Joi, providing utilities for validating and sanitizing user input.
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 

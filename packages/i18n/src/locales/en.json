@@ -1,6 +1,8 @@
 {
     "common": {
-        "success": "Success"
+        "success": "Success",
+        "error": "Error",
+        "validation_error": "Validation error"
     },
     "user": {
         "fetch_success": "User fetched successfully",
