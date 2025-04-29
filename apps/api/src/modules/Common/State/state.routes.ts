@@ -4,6 +4,6 @@ import { stateController } from './state.controller';
 const router: Router = Router();
 
 router.get('/:state_id', stateController.getState);
-router.get('/:country_id', stateController.listStates);
+router.get('/', stateController.listStates);
 
 export const stateRoutes = router;

@@ -1,7 +1,7 @@
 import { log } from '@repo/logger';
 import { State } from '@repo/db';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
-import { IGetStateParams, IStateParams, IStateQuery } from './state.types';
+import { IGetStateParams, IStateQuery } from './state.types';
 
 const getStateService = async (params: IGetStateParams): Promise<State> => {
     try {
@@ -20,10 +20,9 @@ const getStateService = async (params: IGetStateParams): Promise<State> => {
     }
 };
 
-const listStatesService = async (params: IStateParams, query: IStateQuery): Promise<State []> => {
+const listStatesService = async (query: IStateQuery): Promise<State[]> => {
     try {
-        const { country_id } = params;
-        const {search} = query;
+        const { country_id, search } = query;
 
         const stateAttributes = ['id', 'name'];
 

@@ -48,7 +48,7 @@ paths:
                     type: string
                     example: Failed to fetch state
 
-  /state/{country_id}:
+  /state:
     get:
       tags:
         - State
@@ -64,7 +64,7 @@ paths:
             default: en
           description: Language code for localized responses (default is "en")
         - name: country_id
-          in: path
+          in: query
           required: true
           schema:
             type: number
