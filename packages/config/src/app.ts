@@ -4,6 +4,7 @@ export const appConfig = {
     port: process.env.SERVER_PORT || 4000,
     logging: { debugSQL: !!process.env.DEBUG_SQL || false },
     enableLogging: !!process.env.ENABLE_LOGGING || false,
+    logDbQueries: process.env.LOG_DB_QUERIES ? (process.env.LOG_DB_QUERIES === 'true' ? true : false) : true,
     allowedHosts: process.env.ALLOWED_HOSTS,
 
     isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true,

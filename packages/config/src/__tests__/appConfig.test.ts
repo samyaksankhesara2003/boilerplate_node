@@ -12,6 +12,9 @@ describe("appConfig", () => {
         expect(appConfig.enableLogging).toEqual(
             !!process.env.ENABLE_LOGGING || false
         );
+        expect(appConfig.logDbQueries).toEqual(
+            process.env.LOG_DB_QUERIES ? (process.env.LOG_DB_QUERIES === 'true' ? true : false) : true
+        );
         expect(appConfig.allowedHosts).toEqual(process.env.ALLOWED_HOSTS);
         expect(appConfig.isHttps).toEqual(
             process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true

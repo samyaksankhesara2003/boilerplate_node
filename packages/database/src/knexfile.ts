@@ -4,7 +4,6 @@ import { dbConfig } from '@repo/config';
 const config: { [key: string]: Knex.Config } = {
   development: {
     client: dbConfig['dbClient'],
-    debug: true,
     connection: {
       host: dbConfig['dbHost'],
       user: dbConfig['dbUsername'],

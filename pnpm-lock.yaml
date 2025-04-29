@@ -348,6 +348,9 @@ importers:
       '@repo/config':
         specifier: workspace:*
         version: link:../config
+      '@repo/logger':
+        specifier: workspace:*
+        version: link:../logger
       knex:
         specifier: ^3.1.0
         version: 3.1.0(mysql@2.18.1)
