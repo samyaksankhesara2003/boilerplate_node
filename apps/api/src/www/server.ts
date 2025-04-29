@@ -13,6 +13,7 @@ import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-hand
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
 import routes from "../modules/index";
 import { languageMiddleware } from "../middlewares/language.middleware";
+import { errorHandler } from "../middlewares/errorHandler.middleware";
 
 /**
  * @description Creates an Express server with security, logging, and Swagger documentation.
@@ -93,7 +94,6 @@ export const createServer = (): Express => {
   );
 
   app.get("/", (req: Request, res: Response): Response => {
-    // return res.withData("Health check", "SUCCESS", 200);
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS);
   });
 
@@ -101,11 +101,7 @@ export const createServer = (): Express => {
   app.use("/api", routes);
 
   // Global error handler
-  app.use((err: any, req: Request, res: Response, next: NextFunction): Response => {
-    log.error("Global error handler: ", err);
-    // return res.withError(err);
-    return sendResponse(res, StatusCodes.INTERNAL_SERVER_ERROR, ResponseMessages.COMMON.ERROR);
-  });
+  app.use(errorHandler);
 
   return app;
 };

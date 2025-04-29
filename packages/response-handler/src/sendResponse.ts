@@ -1,3 +1,4 @@
+import { appConfig } from '@repo/config';
 import { getTranslatedMessage } from '@repo/i18n';
 
 export function sendResponse(
@@ -5,7 +6,8 @@ export function sendResponse(
     statusCode: number,
     messageKey: string,
     data: any = {},
-    language: string = 'en'
+    language: string = 'en',
+    error?: Error
 ) {
     const success = statusCode >= 200 && statusCode < 400;
     const message = getTranslatedMessage(messageKey, language);
@@ -17,6 +19,8 @@ export function sendResponse(
     };
 
     if (data && Object.keys(data).length > 0) response.data = data;
+
+    if (appConfig.environment === 'development' && error) response.stack = error.stack;
 
     return res.status(statusCode).json(response);
 };

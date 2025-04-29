@@ -2,6 +2,7 @@ import { log } from '@repo/logger';
 import { User } from '@repo/db';
 import { constants } from '@repo/config';
 import { jwtUtil } from '@repo/tokens';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 
 import { ISignUpBody, ILoginBody, ISignUpResponse, ILoginResponse } from './auth.types';
 
@@ -17,7 +18,7 @@ const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
             .where({ email: email })
             .first();
 
-        if (userDetails) throw new Error('User already exists');
+        if (userDetails) throw new CustomError(ResponseMessages.USER.ALREADY_EXISTS, StatusCodes.CONFLICT);
 
         const user = await User
             .query(trx)
@@ -77,9 +78,9 @@ const loginService = async (body: ILoginBody): Promise<ILoginResponse> => {
             .where({ email: email })
             .first();
 
-        if (!user || user.deleted_at) throw new Error('User not found');
+        if (!user || user.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.BAD_REQUEST);
 
-        if (+user.status !== constants.userStatus['Active']) throw new Error('User is not active');
+        if (+user.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
 
         // const isPasswordValid = passwordHelper.comparePassword(password, user.password);
         const isPasswordValid = password === user.password;

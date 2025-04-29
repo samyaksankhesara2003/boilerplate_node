@@ -1,5 +1,6 @@
 import { log } from '@repo/logger';
 import { ExperienceCategory } from '@repo/db';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { IExperienceCategoryParams, IExperienceCategoryQuery } from './experienceCategory.types';
 
 const getExperienceCategoryService = async (params: IExperienceCategoryParams): Promise<ExperienceCategory> => {
@@ -12,7 +13,7 @@ const getExperienceCategoryService = async (params: IExperienceCategoryParams): 
             .select(...experienceCategoryAttributes)
             .findById(experience_category_id);
 
-        if (!experienceCategory) throw new Error('Experience Category not found');
+        if (!experienceCategory) throw new CustomError(ResponseMessages.EXPERIENCE_CATEGORY.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return experienceCategory;
     } catch (error) {

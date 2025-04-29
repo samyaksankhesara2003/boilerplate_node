@@ -5,6 +5,8 @@
     "user": {
         "fetch_success": "Utilisateur récupéré avec succès",
         "not_found": "Utilisateur non trouvé",
+        "already_exists": "Utilisateur existe déjà",
+        "not_active": "Utilisateur n'est pas actif",
         "signup_success": "Inscription réussie"
     },
     "auth": {
@@ -14,7 +16,8 @@
     "profile": {
         "fetch_success": "Profil récupéré avec succès",
         "update_success": "Profil mis à jour avec succès",
-        "password_update_success": "Mot de passe mis à jour avec succès"
+        "password_update_success": "Mot de passe mis à jour avec succès",
+        "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel"
     },
     "experience_category": {
         "fetch_success": "Catégorie d'expérience récupérée avec succès",

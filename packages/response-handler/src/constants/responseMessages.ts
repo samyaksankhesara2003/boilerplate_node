@@ -7,6 +7,8 @@ export const ResponseMessages = {
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',
         NOT_FOUND: 'user.not_found',
+        ALREADY_EXISTS: 'user.already_exists',
+        NOT_ACTIVE: 'user.not_active',
         SIGNUP_SUCCESS: 'user.signup_success',
     },
     AUTH: {
@@ -17,6 +19,7 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'profile.fetch_success',
         UPDATE_SUCCESS: 'profile.update_success',
         PASSWORD_UPDATE_SUCCESS: 'profile.password_update_success',
+        PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'profile.password_cannot_be_same_as_current',
     },
     EXPERIENCE_CATEGORY: {
         FETCH_SUCCESS: 'experience_category.fetch_success',

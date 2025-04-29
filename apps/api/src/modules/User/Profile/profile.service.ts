@@ -1,6 +1,7 @@
 import { log } from '@repo/logger';
 import { User } from '@repo/db';
 import { constants } from '@repo/config';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 
 import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody } from './profile.types';
 
@@ -14,9 +15,9 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
             .select(...userAttributes)
             .findById(id);
 
-        if (!userDetails || userDetails.deleted_at) throw new Error('User not found');
+        if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
 
-        if (+userDetails.status !== constants.userStatus['Active']) throw new Error('User is not active');
+        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
            
         return userDetails;
     } catch (error) {
@@ -34,9 +35,9 @@ const updateProfileService = async (user: IUser, body: IUpdateProfileBody): Prom
             .query()
             .findById(id);
 
-        if (!userDetails || userDetails.deleted_at) throw new Error('User not found');
+        if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
 
-        if (+userDetails.status !== constants.userStatus['Active']) throw new Error('User is not active');
+        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
 
         await userDetails.$query().patch({ first_name, last_name });
 
@@ -56,17 +57,16 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
             .query()
             .findById(id);
 
-        if (!userDetails || userDetails.deleted_at) throw new Error('User not found');
+        if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
 
-        if (+userDetails.status !== constants.userStatus['Active']) throw new Error('User is not active');
+        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
 
-        
         // const isPasswordValid = passwordHelper.comparePassword(current_password, userDetails.password);
         const isPasswordValid = current_password === userDetails.password;
         if (!isPasswordValid) throw new Error('Invalid password');
         // userDetails.password = passwordHelper.encryptPassword(new_password);
         
-        if (userDetails.password === new_password) throw new Error('New password cannot be same as current password');
+        if (userDetails.password === new_password) throw new CustomError(ResponseMessages.PROFILE.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
 
         await userDetails.$query().patch({ password: new_password });
 

@@ -1,5 +1,6 @@
 import { log } from '@repo/logger';
 import { State } from '@repo/db';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { IGetStateParams, IStateParams, IStateQuery } from './state.types';
 
 const getStateService = async (params: IGetStateParams): Promise<State> => {
@@ -10,7 +11,7 @@ const getStateService = async (params: IGetStateParams): Promise<State> => {
 
         const state = await State.query().select(...stateAttributes).findById(state_id);
 
-        if (!state) throw new Error('State not found');
+        if (!state) throw new CustomError(ResponseMessages.STATE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return state;
     } catch (error) {

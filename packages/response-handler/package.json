@@ -34,6 +34,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/config": "workspace:*",
     "@repo/i18n": "workspace:*"
   },
   "devDependencies": {

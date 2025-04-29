@@ -1,5 +1,6 @@
 import { log } from '@repo/logger';
 import { Experience } from '@repo/db';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { IExperienceParams, IExperienceQuery } from './experience.types';
 
 const getExperienceService = async (params: IExperienceParams): Promise<Experience> => {
@@ -37,7 +38,7 @@ const getExperienceService = async (params: IExperienceParams): Promise<Experien
             })
             .findById(experience_id);
 
-        if (!experience) throw new Error('Experience not found');
+        if (!experience) throw new CustomError(ResponseMessages.EXPERIENCE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return experience;
     } catch (error) {

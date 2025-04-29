@@ -7,6 +7,8 @@
     "user": {
         "fetch_success": "User fetched successfully",
         "not_found": "User not found",
+        "already_exists": "User already exists",
+        "not_active": "User is not active",
         "signup_success": "Signup successfully"
     },
     "auth": {
@@ -16,7 +18,8 @@
     "profile": {
         "fetch_success": "Profile fetched successfully",
         "update_success": "Profile updated successfully",
-        "password_update_success": "Password updated successfully"
+        "password_update_success": "Password updated successfully",
+        "password_cannot_be_same_as_current": "Password cannot be the same as the current password"
     },
     "experience_category": {
         "fetch_success": "Experience category fetched successfully",

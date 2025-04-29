@@ -1,5 +1,6 @@
 import { log } from '@repo/logger';
 import { Country } from '@repo/db';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { ICountryParams, ICountryQuery } from './country.types';
 
 const getCountryService = async (params: ICountryParams): Promise<Country> => {
@@ -13,7 +14,7 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
             .select(...countryAttributes)
             .findById(country_id);
 
-        if (!country) throw new Error('Country not found');
+        if (!country) throw new CustomError(ResponseMessages.COUNTRY.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return country;
     } catch (error) {

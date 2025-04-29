@@ -1,7 +1,7 @@
 import { describe, it, expect, jest } from "@jest/globals";
 import { sendResponse } from '../sendResponse';
-import { ResponseMessages } from '../constants/response-messages';
-import { StatusCodes } from '../constants/status-codes';
+import { ResponseMessages } from '../constants/responseMessages';
+import { StatusCodes } from '../constants/statusCodes';
 
 describe('sendResponse', () => {
     it('should send a response with translated message', () => {

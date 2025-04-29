@@ -1,6 +1,7 @@
 import { log } from '@repo/logger';
 import { constants } from '@repo/config';
 import { stripeService } from '@repo/stripe';
+import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { Experience, ExperienceBooking, ExperiencePrice, ExperienceTransaction } from '@repo/db';
 import { IExperienceParams, IExperienceBody, IBookExperienceParams, IBookExperienceResponse } from './experienceBooking.types';
 import { IUser } from '../User/Profile/profile.types';
@@ -20,7 +21,7 @@ const getBookingExperienceService = async (user: IUser, params: IExperienceParam
                 user_id: user.id
             });
 
-        if (!experienceBooking) throw new Error('Experience Booking not found');
+        if (!experienceBooking) throw new CustomError(ResponseMessages.EXPERIENCE_BOOKING.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return experienceBooking;
     } catch (error) {
@@ -69,14 +70,14 @@ const bookExperienceService = async (user: IUser, params: IBookExperienceParams,
                 experience_id
             });
 
-        if (!experiencePrice) throw new Error('Experience Price not found');
+        if (!experiencePrice) throw new CustomError(ResponseMessages.EXPERIENCE_PRICE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const experienceData = await Experience
             .query()
             .select('id')
             .findById(experience_id);
 
-        if (!experienceData) throw new Error('Experience not found');
+        if (!experienceData) throw new CustomError(ResponseMessages.EXPERIENCE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const experienceBooking = await ExperienceBooking
             .query(trx)
@@ -137,7 +138,7 @@ const bookingExperiencePaymentVerificationWebhookService = async (request: any):
         if (!transaction) {
             await trx.rollback();
             if (event?.data?.object?.invoice) return true;
-            throw new Error("Booking not found");
+            throw new CustomError(ResponseMessages.EXPERIENCE_BOOKING.NOT_FOUND, StatusCodes.NOT_FOUND);
         }
 
         if (transaction.payment_status === +constants.paymentStatus['Completed']) {
