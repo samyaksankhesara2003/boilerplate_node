@@ -24,6 +24,7 @@
     "experience": {
         "fetch_success": "Experience fetched successfully",
         "not_found": "Experience not found",
+        "list_success": "Experience list fetched successfully",
         "create_success": "Experience created successfully"
     },
     "experience_price": {
