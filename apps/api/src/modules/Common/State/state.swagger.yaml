@@ -6,6 +6,14 @@ paths:
       summary: Get a state by ID
       description: Returns a state by ID
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: state_id
           in: path
           required: true
@@ -47,6 +55,14 @@ paths:
       summary: Get a list of states
       description: Returns a list of states, optionally filtered by country ID or searched by name/code.
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: country_id
           in: path
           required: true

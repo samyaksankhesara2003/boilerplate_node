@@ -6,6 +6,14 @@ paths:
       summary: Get a list of experience schedules
       description: Returns a list of schedules associated with a specific experience.
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_id
           in: path
           required: true

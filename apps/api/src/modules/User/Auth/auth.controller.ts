@@ -4,9 +4,9 @@ import  { authService } from './auth.service';
 
 const signUp = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { body } = req;
+    const { body, language } = req;
     const data = await authService.signUpService(body);
-    return sendResponse(res, StatusCodes.CREATED, ResponseMessages.USER.SIGNUP_SUCCESS, data);
+    return sendResponse(res, StatusCodes.CREATED, ResponseMessages.USER.SIGNUP_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
@@ -14,9 +14,9 @@ const signUp = async (req: Request, res: Response, next: NextFunction): Promise<
 
 const login = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { body } = req;
+    const { body, language } = req;
     const data = await authService.loginService(body);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.AUTH.LOGIN_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.AUTH.LOGIN_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }

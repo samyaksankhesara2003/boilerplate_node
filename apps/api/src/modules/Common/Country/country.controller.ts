@@ -4,9 +4,9 @@ import { countryService } from './country.service';
 
 const getCountry = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { params } = req;
+    const { params, language } = req;
     const data = await countryService.getCountryService({ country_id: parseInt(params.country_id, 10) });
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COUNTRY.FETCH_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COUNTRY.FETCH_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
@@ -14,9 +14,9 @@ const getCountry = async (req: Request, res: Response, next: NextFunction): Prom
 
 const listCountries = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { query } = req;
+    const { query, language } = req;
     const data = await countryService.listCountriesService(query);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COUNTRY.LIST_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COUNTRY.LIST_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }

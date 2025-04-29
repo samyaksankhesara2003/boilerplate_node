@@ -6,6 +6,14 @@ paths:
       summary: Get an experience by ID
       description: Returns an experience by ID
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_id
           in: path
           required: true
@@ -192,6 +200,14 @@ paths:
       summary: Get a list of experiences
       description: Returns a list of experiences filtered by category and country.
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_category_id
           in: query
           required: false

@@ -5,9 +5,9 @@ import { IUser } from './profile.types';
 
 const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { user } = req;
+    const { user, language } = req;
     const data = await profileService.getProfileService(user as IUser);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.FETCH_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.FETCH_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
@@ -15,9 +15,9 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
 
 const updateProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { user, body } = req;
+    const { user, body, language } = req;
     const data = await profileService.updateProfileService(user as IUser, body);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.UPDATE_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.UPDATE_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
@@ -25,9 +25,9 @@ const updateProfile = async (req: Request, res: Response, next: NextFunction): P
 
 const changePassword = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { user, body } = req;
+    const { user, body, language } = req;
     const data = await profileService.changePasswordService(user as IUser, body);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.PASSWORD_UPDATE_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.PASSWORD_UPDATE_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }

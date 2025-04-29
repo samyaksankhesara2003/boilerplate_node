@@ -6,6 +6,15 @@ paths:
       summary: Sign up a new user
       description: Creates a new user account and returns a JWT token with user details.
       security: []
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
       requestBody:
         required: true
         content:
@@ -72,6 +81,15 @@ paths:
       summary: Log in a user
       description: Authenticates a user and returns a JWT token with user details.
       security: []
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
       requestBody:
         required: true
         content:

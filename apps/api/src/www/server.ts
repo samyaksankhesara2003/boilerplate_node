@@ -12,6 +12,7 @@ import { log } from "@repo/logger";
 import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-handler";
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
 import routes from "../modules/index";
+import { languageMiddleware } from "../middlewares/language.middleware";
 
 /**
  * @description Creates an Express server with security, logging, and Swagger documentation.
@@ -32,6 +33,7 @@ export const createServer = (): Express => {
         }
       })
     )
+    .use(languageMiddleware)
     .use((req: Request, res: Response, next: NextFunction) => {
       if (
         (req.originalUrl === '/experience-booking/payment-verification/webhook')

@@ -6,6 +6,7 @@ export { };
 declare global {
   namespace Express {
     export interface Request {
+      language?: string;
       user?: {
         id: number;
         first_name: string;

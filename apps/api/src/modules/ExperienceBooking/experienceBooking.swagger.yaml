@@ -6,6 +6,14 @@ paths:
       summary: Get an experience booking by ID
       description: Get an experience booking
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_booking_id
           in: path
           required: true
@@ -70,6 +78,14 @@ paths:
       summary: List all experience bookings
       description: List all experience bookings
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_id
           in: query
           required: false
@@ -154,6 +170,14 @@ paths:
       summary: Book an experience by ID
       description: Book an experience
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: experience_id
           in: path
           required: true

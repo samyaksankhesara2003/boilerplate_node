@@ -4,6 +4,15 @@
       - Profile
     summary: Get user profile
     description: Returns the profile details of the currently authenticated user.
+    parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        schema:
+          type: string
+          enum: [en, fr]
+          default: en
+        description: Language code for localized responses (default is "en")
     responses:
       '200':
         description: Successfully fetched user profile
@@ -49,6 +58,15 @@
       - Profile
     summary: Update user profile
     description: Updates the profile information of the authenticated user.
+    parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        schema:
+          type: string
+          enum: [en, fr]
+          default: en
+        description: Language code for localized responses (default is "en")
     requestBody:
       required: true
       content:
@@ -113,6 +131,15 @@
       - Profile
     summary: Change user password
     description: Allows the authenticated user to change their password.
+    parameters:
+      - name: Accept-Language
+        in: header
+        required: true
+        schema:
+          type: string
+          enum: [en, fr]
+          default: en
+        description: Language code for localized responses (default is "en")
     requestBody:
       required: true
       content:

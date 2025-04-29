@@ -6,6 +6,14 @@ paths:
       summary: Get a single country by ID
       description: Returns details of a specific country by its ID.
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: country_id
           in: path
           required: true
@@ -47,6 +55,14 @@ paths:
       summary: Get a list of countries
       description: Returns a list of available countries with optional search by name or code.
       parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is "en")
         - name: search
           in: query
           required: false

@@ -4,9 +4,9 @@ import  { stateService } from './state.service';
 
 const getState = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { params } = req;
+    const { params, language } = req;
     const data = await stateService.getStateService({ state_id: parseInt(params.state_id, 10) });
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATE.FETCH_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATE.FETCH_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
@@ -14,9 +14,9 @@ const getState = async (req: Request, res: Response, next: NextFunction): Promis
 
 const listStates = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { params, query } = req;
+    const { params, query, language } = req;
     const data = await stateService.listStatesService(params, query);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATE.LIST_SUCCESS, data);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATE.LIST_SUCCESS, data, language);
   } catch (error) {
     next(error);
   }
