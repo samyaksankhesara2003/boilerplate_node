@@ -1,6 +1,6 @@
-import { describe, it, expect } from "@jest/globals";
 import { existsSync } from "fs";
 import path from "path";
+import { describe, it, expect } from "@jest/globals";
 
 describe('generateKeys', () => {
   it('should generate keys successfully', () => {

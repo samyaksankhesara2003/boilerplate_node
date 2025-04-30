@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import { constants } from "../constants";
 
-describe("constants", () => {
+describe("constantsConfig", () => {
     it("exports the right object", () => {
         expect(constants).toEqual(
             expect.objectContaining({

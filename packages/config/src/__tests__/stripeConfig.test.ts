@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import { stripeConfig } from "../stripe";
 
-describe("jwtConfig", () => {
+describe("stripeConfig", () => {
     it("loads stripe environment variables", () => {
         expect(stripeConfig.stripeLiveMode).toEqual(Number(process.env.STRIPE_LIVE_MODE) || 0);
         expect(stripeConfig.stripeSecretKey).toEqual(process.env.STRIPE_SECRET_KEY || '');

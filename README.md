@@ -34,6 +34,7 @@ This Turborepo includes the following packages and apps:
 - `@repo/i18n`: Internationalization (i18n) utilities for multi-language support (fetching translated messages dynamically).
 - `@repo/response-handler`: Utility to standardize API responses.
 - `@repo/validator`: a wrapper around Joi, providing utilities for validating and sanitizing user input.
+- `@repo/mailer`: Handles email functionality, including sending emails using predefined templates and configurations.
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
