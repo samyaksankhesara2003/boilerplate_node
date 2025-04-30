@@ -3,6 +3,8 @@ export const ResponseMessages = {
         SUCCESS: 'common.success',
         ERROR: 'common.error',
         VALIDATION_ERROR: 'common.validation_error',
+        NOT_AUTHENTICATED: 'common.not_authenticated',
+        SESSION_EXPIRED: 'common.session_expired',
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',

@@ -3,6 +3,12 @@ import path from 'path';
 import fs from 'fs/promises';
 import { appConfig } from '@repo/config';
 
+/**
+ * @description Render a template with EJS and wrap it in the base layout.
+ * @param templateName The name of the template to render, without the `.ejs` extension.
+ * @param context The context object to pass to the template.
+ * @returns The rendered HTML string.
+ */
 export async function renderTemplate(templateName: string, context: any): Promise<string> {
   const templatesDir = path.join(__dirname, 'templates');
   const templatePath = path.join(templatesDir, `${templateName}.ejs`);

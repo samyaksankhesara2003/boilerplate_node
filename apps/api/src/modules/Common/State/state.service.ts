@@ -3,6 +3,11 @@ import { State } from '@repo/db';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { IGetStateParams, IStateQuery } from './state.types';
 
+/**
+ * @description Fetches a state by its ID.
+ * @param {IGetStateParams} params - The parameters containing the state ID.
+ * @returns {Promise<State>} A Promise that resolves to a State object.
+ */
 const getStateService = async (params: IGetStateParams): Promise<State> => {
     try {
         const { state_id } = params;
@@ -20,6 +25,11 @@ const getStateService = async (params: IGetStateParams): Promise<State> => {
     }
 };
 
+/**
+ * @description Lists all states for a given country ID.
+ * @param {IStateQuery} query - The query containing country ID and search params.
+ * @returns {Promise<State[]>} A Promise that resolves to an array of State objects.
+ */
 const listStatesService = async (query: IStateQuery): Promise<State[]> => {
     try {
         const { country_id, search } = query;

@@ -2,7 +2,9 @@
     "common": {
         "success": "Success",
         "error": "Error",
-        "validation_error": "Validation error"
+        "validation_error": "Validation error",
+        "not_authenticated": "Not authenticated",
+        "session_expired": "Session expired"
     },
     "user": {
         "fetch_success": "User fetched successfully",

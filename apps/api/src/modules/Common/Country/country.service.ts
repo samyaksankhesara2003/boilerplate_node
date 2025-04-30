@@ -3,6 +3,11 @@ import { Country } from '@repo/db';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { ICountryParams, ICountryQuery } from './country.types';
 
+/**
+ * @description Fetches a country by its ID.
+ * @param {ICountryParams} params - The parameters containing the country ID.
+ * @returns {Promise<Country>} A Promise that resolves to a Country object.
+ */
 const getCountryService = async (params: ICountryParams): Promise<Country> => {
     try {
         const { country_id } = params;
@@ -23,6 +28,11 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
     }
 };
 
+/**
+ * @description Lists all countries.
+ * @param {ICountryQuery} query - The query containing search params.
+ * @returns {Promise<Country[]>} A Promise that resolves to an array of Country objects.
+ */
 const listCountriesService = async (query: ICountryQuery): Promise<Country[]> => {
     try {
         const { search } = query;

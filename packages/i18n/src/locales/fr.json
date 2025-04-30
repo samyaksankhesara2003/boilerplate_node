@@ -1,6 +1,10 @@
 {
     "common": {
-        "success": "Succès"
+        "success": "Succès",
+        "error": "Erreur",
+        "validation_error": "Erreur de validation",
+        "not_authenticated": "Non authentifié",
+        "session_expired": "Session expirée"
     },
     "user": {
         "fetch_success": "Utilisateur récupéré avec succès",

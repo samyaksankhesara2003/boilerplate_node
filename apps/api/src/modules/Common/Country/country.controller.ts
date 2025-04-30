@@ -2,6 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
 import { countryService } from './country.service';
 
+/**
+ * @description Handles GET /countries/:country_id requests.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @param {NextFunction} next - The Express next function.
+ * @returns {Promise<Response | void>} A Promise that resolves to an Express response object or void.
+ */
 const getCountry = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { params, language } = req;
@@ -12,6 +19,13 @@ const getCountry = async (req: Request, res: Response, next: NextFunction): Prom
   }
 };
 
+/**
+ * @description Handles GET /countries requests.
+ * @param {Request} req - The Express request object.
+ * @param {Response} res - The Express response object.
+ * @param {NextFunction} next - The Express next function.
+ * @returns {Promise<Response | void>} A Promise that resolves to an Express response object or void.
+ */
 const listCountries = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { query, language } = req;

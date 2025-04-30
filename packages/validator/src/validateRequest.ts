@@ -9,7 +9,12 @@ type SchemaGroup = {
     headers?: Record<string, Joi.Schema>;
 };
 
-export const validateRequest = (schemas: SchemaGroup) => {
+/**
+ * @description Creates a middleware function that validates the request against the provided schemas.
+ * @param schemas - The object containing the schemas to validate against.
+ * @returns A middleware function that validates the request.
+ */
+export const validateRequest = (schemas: SchemaGroup): any => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             for (const key of Object.keys(schemas) as (keyof SchemaGroup)[]) {

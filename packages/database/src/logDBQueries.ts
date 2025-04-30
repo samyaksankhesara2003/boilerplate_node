@@ -3,6 +3,11 @@ import { QueryContext } from 'objection';
 import { Knex } from 'knex';
 import { log } from '@repo/logger';
 
+/**
+ * @description Enables logging of database queries using Objection.js's event listeners.
+ * @param {Knex} knex The Knex instance to attach the event listeners to.
+ * @returns {void} Void
+ */
 export const logDbQueries = (knex: Knex): void => {
     const queryTimings: Record<string, number> = {};
 
