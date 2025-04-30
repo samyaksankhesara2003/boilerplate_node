@@ -22,8 +22,8 @@
     }
   },
   "scripts": {
-    "build": "bunchee",
     "prebuild": "rm -rf dist",
+    "build": "bunchee && cp -r src/templates dist/cjs/templates && cp -r src/templates dist/es/templates",
     "clean": "rm -rf dist",
     "dev": "bunchee --watch",
     "lint": "eslint src/",

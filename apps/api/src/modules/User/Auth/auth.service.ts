@@ -1,7 +1,8 @@
-import { log } from '@repo/logger';
 import { User } from '@repo/db';
-import { constants } from '@repo/config';
+import { log } from '@repo/logger';
 import { jwtUtil } from '@repo/tokens';
+import { constants } from '@repo/config';
+import { sendMail, TEMPLATES } from '@repo/mailer';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 
 import { ISignUpBody, ILoginBody, ISignUpResponse, ILoginResponse } from './auth.types';
@@ -59,6 +60,10 @@ const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
         //     template: constant.templateName['Account Verification'],
         //     subject: 'Welcome to Oasis!',
         // });
+
+        sendMail(user.email, 'Welcome to Oasis!', TEMPLATES.WELCOME, {
+            name: user.first_name
+        });
 
         await trx.commit();
         return { token, loginDetails: data };

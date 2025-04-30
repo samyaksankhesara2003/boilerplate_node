@@ -1,6 +1,7 @@
 import ejs from 'ejs';
 import path from 'path';
 import fs from 'fs/promises';
+import { appConfig } from '@repo/config';
 
 export async function renderTemplate(templateName: string, context: any): Promise<string> {
   const templatesDir = path.join(__dirname, 'templates');
@@ -12,7 +13,20 @@ export async function renderTemplate(templateName: string, context: any): Promis
     fs.readFile(layoutPath, 'utf-8'),
   ]);
 
-  const bodyHtml = ejs.render(templateContent, context, { async: false });
+  const fullContext = {
+    ...context,
+    appName: appConfig.appName,
+  };
 
-  return ejs.render(layoutContent, { ...context, body: bodyHtml }, { async: false });
+  const ejsOptions = {
+    async: false,
+    filename: templatePath,
+    views: [templatesDir],
+  };
+
+  const bodyHtml = ejs.render(templateContent, fullContext, ejsOptions);
+  return ejs.render(layoutContent, { ...fullContext, body: bodyHtml }, {
+    ...ejsOptions,
+    filename: layoutPath,
+  });
 };
