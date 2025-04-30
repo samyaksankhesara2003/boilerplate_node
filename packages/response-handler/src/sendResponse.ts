@@ -18,7 +18,7 @@ export function sendResponse(
     data: any = {},
     language: string = 'en',
     error?: Error
-): Response {
+): any {
     const success = statusCode >= 200 && statusCode < 400;
     const message = getTranslatedMessage(messageKey, language);
 

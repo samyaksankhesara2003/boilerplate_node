@@ -4,6 +4,7 @@ import { jwtUtil } from '@repo/tokens';
 import { constants } from '@repo/config';
 import { sendMail, TEMPLATES } from '@repo/mailer';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
+import { comparePassword, hashPassword } from '@repo/utils';
 
 import { ISignUpBody, ILoginBody, ISignUpResponse, ILoginResponse } from './auth.types';
 
@@ -27,8 +28,7 @@ const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
                 first_name: first_name,
                 last_name: last_name,
                 email: email,
-                // password: passwordHelper.encryptPassword(body.password),
-                password: password,
+                password: await hashPassword(password),
                 role: constants.role['User'],
                 status: constants.userStatus['Active'],
             });
@@ -61,9 +61,7 @@ const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
         //     subject: 'Welcome to Oasis!',
         // });
 
-        sendMail(user.email, 'Welcome to Oasis!', TEMPLATES.WELCOME, {
-            name: user.first_name
-        });
+        sendMail(user.email, 'Welcome to Oasis!', TEMPLATES.WELCOME, { name: user.first_name + ' ' + user.last_name });
 
         await trx.commit();
         return { token, loginDetails: data };
@@ -87,9 +85,9 @@ const loginService = async (body: ILoginBody): Promise<ILoginResponse> => {
 
         if (+user.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
 
-        // const isPasswordValid = passwordHelper.comparePassword(password, user.password);
-        const isPasswordValid = password === user.password;
-        if (!isPasswordValid) throw new Error('Invalid password');
+        const isPasswordValid = await comparePassword(password, user.password);
+
+        if (!isPasswordValid) throw new CustomError(ResponseMessages.PASSWORD.INVALID_PASSWORD, StatusCodes.UNAUTHORIZED);
 
         const data = {
             id: user.id,

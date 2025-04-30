@@ -27,7 +27,7 @@ const changePassword = async (req: Request, res: Response, next: NextFunction): 
   try {
     const { user, body, language } = req;
     const data = await profileService.changePasswordService(user as IUser, body);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.PASSWORD_UPDATE_SUCCESS, data, language);
+    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PASSWORD.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, data, language);
   } catch (error) {
     next(error);
   }

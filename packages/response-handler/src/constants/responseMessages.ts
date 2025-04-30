@@ -19,9 +19,12 @@ export const ResponseMessages = {
     },
     PROFILE: {
         FETCH_SUCCESS: 'profile.fetch_success',
-        UPDATE_SUCCESS: 'profile.update_success',
-        PASSWORD_UPDATE_SUCCESS: 'profile.password_update_success',
-        PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'profile.password_cannot_be_same_as_current',
+        UPDATE_SUCCESS: 'profile.update_success'
+    },
+    PASSWORD: {
+        INVALID_PASSWORD: 'password.invalid_password',
+        PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'password.password_cannot_be_same_as_current',
+        PASSWORD_CHANGE_SUCCESS: 'password.password_change_success',
     },
     EXPERIENCE_CATEGORY: {
         FETCH_SUCCESS: 'experience_category.fetch_success',

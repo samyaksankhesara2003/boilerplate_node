@@ -4,6 +4,7 @@ import { constants } from '@repo/config';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 
 import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody } from './profile.types';
+import { comparePassword, hashPassword } from '@repo/utils';
 
 const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
     try {
@@ -61,12 +62,13 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
 
         if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
 
-        // const isPasswordValid = passwordHelper.comparePassword(current_password, userDetails.password);
-        const isPasswordValid = current_password === userDetails.password;
-        if (!isPasswordValid) throw new Error('Invalid password');
-        // userDetails.password = passwordHelper.encryptPassword(new_password);
+        const isPasswordValid = comparePassword(current_password, userDetails.password);
+
+        if (!isPasswordValid) throw new CustomError(ResponseMessages.PASSWORD.INVALID_PASSWORD, StatusCodes.UNAUTHORIZED);
+
+        userDetails.password = await hashPassword(new_password);
         
-        if (userDetails.password === new_password) throw new CustomError(ResponseMessages.PROFILE.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
+        if (userDetails.password === new_password) throw new CustomError(ResponseMessages.PASSWORD.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
 
         await userDetails.$query().patch({ password: new_password });
 

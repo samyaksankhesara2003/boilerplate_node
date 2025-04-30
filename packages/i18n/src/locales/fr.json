@@ -19,8 +19,11 @@
     },
     "profile": {
         "fetch_success": "Profil récupéré avec succès",
-        "update_success": "Profil mis à jour avec succès",
-        "password_update_success": "Mot de passe mis à jour avec succès",
+        "update_success": "Profil mis à jour avec succès"
+    },
+    "password": {
+        "invalid_password": "Mot de passe invalide",
+        "password_change_success": "Mot de passe changé avec succès",
         "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel"
     },
     "experience_category": {
