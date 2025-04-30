@@ -50,6 +50,7 @@ export const createServer = (): Express => {
       origin: appConfig?.allowedHosts?.split(',') ?? '*'
     }));
 
+  // Test DB connection
   knex
     .raw('SELECT 1')
     .then(() => {
@@ -93,6 +94,7 @@ export const createServer = (): Express => {
     )
   );
 
+  // Test API
   app.get("/", (req: Request, res: Response): Response => {
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS);
   });
