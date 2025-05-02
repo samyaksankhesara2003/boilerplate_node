@@ -3,5 +3,6 @@ export * from "./db";
 export * from "./mailer";
 export * from "./jwt";
 export * from "./swagger";
+export * from "./storage";
 export * from "./stripe";
 export * from "./constants";

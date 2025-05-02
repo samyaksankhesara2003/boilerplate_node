@@ -36,6 +36,7 @@ This Turborepo includes the following packages and apps:
 - `@repo/validator`: a wrapper around Joi, providing utilities for validating and sanitizing user input.
 - `@repo/mailer`: Handles email functionality, including sending emails using predefined templates and configurations.
 - `@repo/utils`: utility functions for string manipulation, date formatting, object manipulation, and more.
+- `@repo/storage-service`: a simple AWS S3 service that can be used for uploading, downloading, and deleting files.
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 

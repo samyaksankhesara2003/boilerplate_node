@@ -13,7 +13,7 @@ paths:
             type: string
             enum: [en, fr]
             default: en
-          description: Language code for localized responses (default is "en")
+          description: Language code for localized responses (default is en)
         - name: state_id
           in: path
           required: true
@@ -62,7 +62,7 @@ paths:
             type: string
             enum: [en, fr]
             default: en
-          description: Language code for localized responses (default is "en")
+          description: Language code for localized responses (default is en)
         - name: country_id
           in: query
           required: true

@@ -13,7 +13,7 @@ paths:
             type: string
             enum: [en, fr]
             default: en
-          description: Language code for localized responses (default is "en")
+          description: Language code for localized responses (default is en)
         - name: experience_booking_id
           in: path
           required: true
@@ -85,7 +85,7 @@ paths:
             type: string
             enum: [en, fr]
             default: en
-          description: Language code for localized responses (default is "en")
+          description: Language code for localized responses (default is en)
         - name: experience_id
           in: query
           required: false
@@ -177,7 +177,7 @@ paths:
             type: string
             enum: [en, fr]
             default: en
-          description: Language code for localized responses (default is "en")
+          description: Language code for localized responses (default is en)
         - name: experience_id
           in: path
           required: true
