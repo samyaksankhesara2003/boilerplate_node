@@ -1,5 +1,6 @@
 import { appConfig } from '@repo/config';
 import { getTranslatedMessage } from '@repo/i18n';
+import { StatusCodes } from './constants/statusCodes';
 
 /**
  * @description Sends a response with a translated message, data and error stack (for development environment).
@@ -19,7 +20,7 @@ export function sendResponse(
     language: string = 'en',
     error?: Error
 ): any {
-    const success = statusCode >= 200 && statusCode < 400;
+    const success = statusCode >= StatusCodes.SUCCESS && statusCode < StatusCodes.BAD_REQUEST;
     const message = getTranslatedMessage(messageKey, language);
 
     const response: any = {
