@@ -4,11 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsup",
-    "prebuild": "rm -rf dist",
     "clean": "rm -rf dist",
-    "start": "dotenv -e ../../.env -- node dist/index.cjs",
+    "prebuild": "rm -rf dist",
+    "build": "tsup",
     "dev": "dotenv -e ../../.env -- tsup --watch --onSuccess \"node dist/index.cjs\"",
+    "start": "dotenv -e ../../.env -- node dist/index.cjs",
     "check-types": "tsc --noEmit",
     "lint": "eslint src/ --max-warnings 0",
     "test": "dotenv -e ../../.env -- jest --detectOpenHandles"

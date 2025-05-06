@@ -22,9 +22,9 @@
     }
   },
   "scripts": {
-    "build": "bunchee",
-    "prebuild": "rm -rf dist",
     "clean": "rm -rf dist",
+    "prebuild": "rm -rf dist",
+    "build": "bunchee",
     "dev": "bunchee --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit"
