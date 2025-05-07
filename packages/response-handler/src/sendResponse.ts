@@ -17,8 +17,8 @@ export function sendResponse(
     statusCode: number,
     messageKey: string,
     data: any = {},
-    language: string = 'en',
-    error?: Error
+    language: string | undefined = 'en',
+    error: Error | null = null
 ): any {
     const success = statusCode >= StatusCodes.SUCCESS && statusCode < StatusCodes.BAD_REQUEST;
     const message = getTranslatedMessage(messageKey, language);
@@ -31,7 +31,7 @@ export function sendResponse(
 
     if (data && Object.keys(data).length > 0) response.data = data;
 
-    if (appConfig.environment === 'development' && error) response.stack = error.stack;
+    if (appConfig.nodeEnv === 'development' && error) response.stack = error.stack;
 
     return res.status(statusCode).json(response);
 };

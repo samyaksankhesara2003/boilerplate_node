@@ -17,7 +17,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
   const messageKey = err.message || 'common.error';
   const language = (req as Request).language || 'en'; // ensure language middleware sets this
 
-  if (appConfig.environment !== 'development') log.error(`[${statusCode}] ${messageKey}`, err);
+  if (appConfig.nodeEnv !== 'development') log.error(`[${statusCode}] ${messageKey}`, err);
 
-  return sendResponse(res, statusCode, messageKey, null, language);
+  return sendResponse(res, statusCode, messageKey, undefined, language);
 };

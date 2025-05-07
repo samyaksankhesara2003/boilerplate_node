@@ -11,20 +11,14 @@
   "types": "./dist/es/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/es/index.d.ts",
-        "default": "./dist/es/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/index.d.cts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "types": "./dist/es/index.d.ts",
+      "default": "./dist/es/index.js"
     }
   },
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "rimraf dist",
-    "build": "bunchee && cp -r src/templates dist/cjs/templates && cp -r src/templates dist/es/templates",
+    "build": "bunchee && cp -r src/templates dist/es/templates",
     "dev": "bunchee ./src/index.ts --format esm --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",

@@ -9,7 +9,7 @@ describe("swaggerConfig", () => {
         expect(swaggerJsDocConfig.definition.info.version).toEqual('1.0.0');
         expect(swaggerJsDocConfig.definition.info.description).toEqual(`API documentation for the ${appConfig.appName} app`);
         expect(swaggerJsDocConfig.definition.servers[0].url).toEqual(process.env.SWAGGER_API_BASE_URL);
-        expect(swaggerJsDocConfig.definition.servers[0].description).toEqual(`${appConfig.environment} server`);
+        expect(swaggerJsDocConfig.definition.servers[0].description).toEqual(`${appConfig.nodeEnv} server`);
     });
 
     it("loads swagger basic auth configuration", () => {

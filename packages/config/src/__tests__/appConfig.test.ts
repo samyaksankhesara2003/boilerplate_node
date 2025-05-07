@@ -3,9 +3,9 @@ import { appConfig } from "../app";
 
 describe("appConfig", () => {
     it("loads application environment variables", () => {
-        expect(appConfig.environment).toEqual(process.env.NODE_ENV || 'development');
+        expect(appConfig.nodeEnv).toEqual(process.env.NODE_ENV || 'development');
         expect(appConfig.appName).toEqual(process.env.APP_NAME);
-        expect(appConfig.port).toEqual(process.env.SERVER_PORT || 4000);
+        expect(appConfig.appPort).toEqual(process.env?.APP_PORT || 4000);
         expect(appConfig.logging.debugSQL).toEqual(
             !!process.env.DEBUG_SQL || false
         );
@@ -30,6 +30,5 @@ describe("appConfig", () => {
         expect(appConfig.appHost).toEqual(
             process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https'
         );
-        expect(appConfig.appPort).toEqual(process.env?.SERVER_PORT || 4000);
     });
 });

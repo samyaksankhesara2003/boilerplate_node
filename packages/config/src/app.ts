@@ -1,7 +1,7 @@
 export const appConfig = {
-    environment: process.env.NODE_ENV || 'development',
+    nodeEnv: process.env.NODE_ENV || 'development',
     appName: process.env.APP_NAME,
-    port: process.env.SERVER_PORT || 4000,
+    appPort: process.env?.APP_PORT || 4000,
     logging: { debugSQL: !!process.env.DEBUG_SQL || false },
     enableLogging: !!process.env.ENABLE_LOGGING || false,
     logDbQueries: process.env.LOG_DB_QUERIES ? (process.env.LOG_DB_QUERIES === 'true' ? true : false) : true,
@@ -13,5 +13,4 @@ export const appConfig = {
     protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appProtocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appHost: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
-    appPort: process.env?.SERVER_PORT || 4000
 };

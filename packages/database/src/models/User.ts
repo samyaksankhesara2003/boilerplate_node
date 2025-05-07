@@ -1,6 +1,5 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
-import { ExperienceBooking, ExperienceReview, ExperienceTransaction } from '../index';
 
 class User extends BaseModel {
 
@@ -18,28 +17,8 @@ class User extends BaseModel {
     role!: number;       // 1 -> Admin, 2 -> Host, 3 -> User
     status!: number;     // 1 -> Active, 2 -> Inactive
 
-    experience_bookings?: ExperienceBooking[];
-    experience_transactions?: ExperienceTransaction[];
-    experience_reviews?: ExperienceReview[];
-
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
-        return {
-            experience_bookings: {
-                relation: Model.HasManyRelation,
-                modelClass: ExperienceBooking,
-                join: { from: 'users.id', to: 'experience_bookings.user_id' }
-            },
-            experience_transactions: {
-                relation: Model.HasManyRelation,
-                modelClass: ExperienceTransaction,
-                join: { from: 'users.id', to: 'experience_transactions.user_id' }
-            },
-            experience_reviews: {
-                relation: Model.HasManyRelation,
-                modelClass: ExperienceReview,
-                join: { from: 'users.id', to: 'experience_reviews.user_id' }
-            }
-        };
+        return {};
     };
 };
 
