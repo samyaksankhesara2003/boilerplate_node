@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "turbo run clean",
     "build": "turbo run build",
-    "dev": "turbo run dev --concurrency=20",
+    "dev": "pnpm build && turbo run dev --concurrency=20",
     "start": "turbo run start --concurrency=20",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
@@ -22,6 +22,7 @@
   "devDependencies": {
     "dotenv-cli": "^8.0.0",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "turbo": "^2.5.0"
   },
   "packageManager": "pnpm@9.15.4",

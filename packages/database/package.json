@@ -22,10 +22,10 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf dist",
-    "prebuild": "rm -rf dist",
+    "clean": "rimraf dist",
+    "prebuild": "rimraf dist",
     "build": "bunchee",
-    "dev": "bunchee --watch",
+    "dev": "bunchee ./src/index.ts --format esm --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
     "test": "dotenv -e ../../.env -- jest",

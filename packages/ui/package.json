@@ -32,7 +32,7 @@
   },
   "scripts": {
     "build": "bunchee",
-    "dev": "bunchee --watch",
+    "dev": "bunchee ./src/index.ts --format esm --watch",
     "check-types": "tsc --noEmit",
     "lint": "eslint src/",
     "test": "jest"
