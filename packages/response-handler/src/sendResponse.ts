@@ -16,7 +16,7 @@ export function sendResponse(
     res: any,
     statusCode: number,
     messageKey: string,
-    data: any = {},
+    data: any | Record<string, unknown> | null | undefined = null,
     language: string | undefined = 'en',
     error: Error | null = null
 ): any {
@@ -29,7 +29,7 @@ export function sendResponse(
         message,
     };
 
-    if (data && Object.keys(data).length > 0) response.data = data;
+    if (data) response.data = data;
 
     if (appConfig.nodeEnv === 'development' && error) response.stack = error.stack;
 

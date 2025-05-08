@@ -22,7 +22,7 @@
     "dev": "bunchee ./src/index.ts --format esm --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
-    "test": "dotenv -e ../../.env -- jest",
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' dotenv -e ../../.env -- jest",
     "make-migration": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex migrate:make --knexfile=./src/knexfile.ts",
     "migrate": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' dotenv -e ../../.env -- knex migrate:latest --knexfile=./src/knexfile.ts",
     "make-seed": "NODE_OPTIONS='--loader ts-node/esm --no-warnings' knex seed:make --knexfile=./src/knexfile.ts",

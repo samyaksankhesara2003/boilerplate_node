@@ -12,7 +12,7 @@
     "start": "dotenv -e ../../.env -- node dist/index.js",
     "check-types": "tsc --noEmit",
     "lint": "eslint src/ --max-warnings 0",
-    "test": "dotenv -e ../../.env -- jest --detectOpenHandles"
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' dotenv -e ../../.env -- jest --detectOpenHandles"
   },
   "jest": {
     "preset": "@repo/jest-presets/node"

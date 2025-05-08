@@ -1,11 +1,15 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import jwt from 'jsonwebtoken';
 
 import { jwtConfig } from '@repo/config';
 
-const PRIVATE_KEY = fs.readFileSync(path.resolve(__dirname, '../../src/keys/private.key'));
-const PUBLIC_KEY = fs.readFileSync(path.resolve(__dirname, '../../src/keys/public.pub'));
+const privateKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/keys/private.key');
+const publicKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/keys/public.pub');
+
+const PRIVATE_KEY = fs.readFileSync(privateKeyPath);
+const PUBLIC_KEY = fs.readFileSync(publicKeyPath);
 
 /**
  * @description Sign a JWT token with the given data.

@@ -1,10 +1,14 @@
+import path from 'path';
 import { existsSync } from "fs";
-import path from "path";
+import { fileURLToPath } from 'url';
 import { describe, it, expect } from "@jest/globals";
+
+const privateKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../keys/private.key');
+const publicKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../keys/public.pub');
 
 describe('generateKeys', () => {
   it('should generate keys successfully', () => {
-    expect(existsSync(path.join(__dirname, '../keys/private.key'))).toBeTruthy();
-    expect(existsSync(path.join(__dirname, '../keys/public.pub'))).toBeTruthy();
+    expect(existsSync(privateKeyPath)).toBeTruthy();
+    expect(existsSync(publicKeyPath)).toBeTruthy();
   });
 });

@@ -15,7 +15,7 @@ const swaggerJsDocOptions = {
         servers: [
             {
                 url: swaggerBaseApiUrl,
-                description: `${appConfig.environment} server`,
+                description: `${appConfig.nodeEnv} server`,
             },
         ],
         components: {
@@ -46,11 +46,6 @@ const swaggerOptions = {
         const order = [
             'Auth',
             'Profile',
-            'Experience',
-            'Experience Booking',
-            'Experience Category',
-            'Experience Price',
-            'Experience Schedule',
             'Country',
             'State'
         ];

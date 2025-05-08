@@ -1,60 +1,65 @@
-import { describe, it, expect, jest, beforeEach } from '@jest/globals';
+import { describe, beforeAll, beforeEach, it, expect, jest } from '@jest/globals';
 import { appConfig, mailerConfig } from '@repo/config';
-import { sendMail } from '../sendMail';
-import { transporter } from '../transporter';
-import { renderTemplate } from '../templateRenderer';
 import { TEMPLATES, TemplateName } from '../templateConstants';
 
-// Mock the transporter and renderTemplate with explicit types
-jest.mock('../transporter', () => ({
-  transporter: {
-    sendMail: jest.fn(),
-  },
-}));
+// 1) ESM mocks *before* any other imports
+beforeAll(async () => {
+  jest.unstable_mockModule('../templateRenderer', () => ({
+    renderTemplate: jest.fn<(templateName: TemplateName, context: any) => Promise<string>>(),
+  }));
+  jest.unstable_mockModule('../transporter', () => ({
+    transporter: { sendMail: jest.fn() },
+  }));
+});
 
-// Explicitly type the renderTemplate mock
-jest.mock('../templateRenderer', () => ({
-  renderTemplate: jest.fn() as jest.MockedFunction<(templateName: TemplateName, context: any) => Promise<string>>,
-}));
+// 2) Now dynamically import the mocked modules plus our function under test
+let renderTemplate: jest.Mock<(tmpl: TemplateName, ctx: any) => Promise<string>>;
+let transporter: { sendMail: jest.Mock };
+let sendMail: (to: string, subject: string, tmpl: TemplateName, ctx: any) => Promise<void>;
+
+beforeAll(async () => {
+  const templMod = (await import('../templateRenderer')) as unknown as {
+    renderTemplate: typeof renderTemplate
+  };
+  renderTemplate = templMod.renderTemplate;
+
+  const transMod = (await import('../transporter')) as unknown as {
+    transporter: { sendMail: jest.Mock }
+  };
+  transporter = transMod.transporter;
+
+  ({ sendMail } = await import('../sendMail'));
+});
 
 describe('sendMail', () => {
-  beforeEach(() => {
-    jest.clearAllMocks(); // Reset mocks before each test
+
+  beforeEach(async () => {
+    jest.clearAllMocks();
   });
 
   it('should send an email with valid template', async () => {
-    const mockTemplateName: TemplateName = TEMPLATES.FORGOT_PASSWORD; // Valid template name from TEMPLATES
-    const mockContext = { name: 'John', resetLink: 'https://example.com/reset' };
-    const mockSubject = 'Password Reset Request';
-    const mockTo = 'user@yopmail.com';
+    const tmpl = TEMPLATES.FORGOT_PASSWORD;
+    const ctx = { name: 'John', resetLink: 'https://example.com/reset' };
+    const subj = 'Password Reset';
+    const to = 'user@yopmail.com';
 
-    // Mock renderTemplate to return mocked HTML
-    (renderTemplate as jest.MockedFunction<typeof renderTemplate>).mockResolvedValue('<html><body>Mocked HTML</body></html>');
+    renderTemplate.mockResolvedValue('<html>Mock</html>');
 
-    // Call the sendMail function
-    await sendMail(mockTo, mockSubject, mockTemplateName, mockContext);
+    await sendMail(to, subj, tmpl, ctx);
 
-    // Check if renderTemplate was called with correct arguments
-    expect(renderTemplate).toHaveBeenCalledWith(mockTemplateName, mockContext);
-
-    // Check if transporter.sendMail was called with correct arguments
+    expect(renderTemplate).toHaveBeenCalledWith(tmpl, ctx);
     expect(transporter.sendMail).toHaveBeenCalledWith({
       from: `${appConfig.appName} <${mailerConfig.fromEmail}>`,
-      to: mockTo,
-      subject: mockSubject,
-      html: '<html><body>Mocked HTML</body></html>',
+      to,
+      subject: subj,
+      html: '<html>Mock</html>',
     });
   });
 
-  it('should throw an error for an invalid template', async () => {
-    const invalidTemplateName = 'invalidTemplate' as TemplateName;  // Invalid template
-    const mockContext = { name: 'John' };
-    const mockSubject = 'Test Subject';
-    const mockTo = 'user@example.com';
-
-    // Expect sendMail to throw an error for an invalid template name
-    await expect(sendMail(mockTo, mockSubject, invalidTemplateName, mockContext))
+  it('should throw for invalid template', async () => {
+    const bad = 'nope' as TemplateName;
+    await expect(sendMail('a@b.c', 'S', bad, {}))
       .rejects
-      .toThrowError(`Template ${invalidTemplateName} not found in TEMPLATES.`);
+      .toThrow(`Template ${bad} not found in TEMPLATES.`);
   });
 });

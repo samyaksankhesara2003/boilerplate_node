@@ -22,7 +22,7 @@
     "dev": "bunchee ./src/index.ts --format esm --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
-    "test": "jest"
+    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' jest"
   },
   "jest": {
     "preset": "@repo/jest-presets/node"
