@@ -5,10 +5,6 @@ import { countryService } from './country.service';
 /**
  * @author Jitendra Singh
  * @description Handles GET /countries/:country_id requests.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @param {NextFunction} next - The Express next function.
- * @returns {Promise<Response | void>} A Promise that resolves to an Express response object or void.
  */
 const getCountry = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
@@ -23,10 +19,6 @@ const getCountry = async (req: Request, res: Response, next: NextFunction): Prom
 /**
  * @author Jitendra Singh
  * @description Handles GET /countries requests.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @param {NextFunction} next - The Express next function.
- * @returns {Promise<Response | void>} A Promise that resolves to an Express response object or void.
  */
 const listCountries = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {

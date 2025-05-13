@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { validateRequest } from '@repo/validator';
-import { countryValidation } from './country.validation';
+import { countryValidation } from './helpers/country.validation';
 import { countryController } from './country.controller';
 
 const router: Router = Router();

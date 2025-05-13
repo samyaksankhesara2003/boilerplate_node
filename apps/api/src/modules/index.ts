@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { countryRoutes } from './Common/Country/country.routes';
-import { stateRoutes } from './Common/State/state.routes';
-import { userRoutes } from './User/user.routes';
+import { countryRoutes } from './common/country/country.routes';
+import { stateRoutes } from './common/state/state.routes';
+import { userRoutes } from './user/user.routes';
 
 const router: Router = Router();
 
@@ -10,9 +10,6 @@ router.use('/country', countryRoutes);
 
 // State routes
 router.use('/state', stateRoutes);
-
-// Admin routes
-// router.use('/admin', adminRoutes);
 
 // User routes
 router.use('/user', userRoutes);

@@ -10,7 +10,7 @@ dist-ssr
 .cache
 server/dist
 public/dist
-.pnpm-lock.yaml
+pnpm-lock.yaml
 
 # Ignore the private and public keys
 packages/tokens/src/keys/private.key
