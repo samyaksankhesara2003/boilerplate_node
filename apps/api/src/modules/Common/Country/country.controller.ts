@@ -3,6 +3,7 @@ import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-hand
 import { countryService } from './country.service';
 
 /**
+ * @author Jitendra Singh
  * @description Handles GET /countries/:country_id requests.
  * @param {Request} req - The Express request object.
  * @param {Response} res - The Express response object.
@@ -20,6 +21,7 @@ const getCountry = async (req: Request, res: Response, next: NextFunction): Prom
 };
 
 /**
+ * @author Jitendra Singh
  * @description Handles GET /countries requests.
  * @param {Request} req - The Express request object.
  * @param {Response} res - The Express response object.

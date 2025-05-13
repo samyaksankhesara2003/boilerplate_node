@@ -3,7 +3,7 @@ import { mailerConfig } from "../mailer";
 
 describe("mailerConfig", () => {
     it("loads mailer environment variables", () => {
-        expect(mailerConfig.fromEmail).toEqual(process.env.FROM_EMAIL);
+        expect(mailerConfig.smtpFromEmail).toEqual(process.env.SMTP_FROM_EMAIL);
         expect(mailerConfig.smtpHost).toEqual(process.env.SMTP_HOST);
         expect(mailerConfig.smtpPort).toEqual(Number(process.env.SMTP_PORT));
         expect(mailerConfig.smtpUser).toEqual(process.env.SMTP_USER);

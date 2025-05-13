@@ -1,5 +1,5 @@
 export const mailerConfig = {
-    fromEmail: process.env.FROM_EMAIL,
+    smtpFromEmail: process.env.SMTP_FROM_EMAIL,
     smtpHost: process.env.SMTP_HOST,
     smtpPort: Number(process.env.SMTP_PORT),
     smtpUser: process.env.SMTP_USER,

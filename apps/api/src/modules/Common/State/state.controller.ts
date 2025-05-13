@@ -3,6 +3,7 @@ import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-hand
 import  { stateService } from './state.service';
 
 /**
+ * @author Jitendra Singh
  * @description Handles GET /states/:state_id requests.
  * @param {Request} req - The Express request object.
  * @param {Response} res - The Express response object.
@@ -20,6 +21,7 @@ const getState = async (req: Request, res: Response, next: NextFunction): Promis
 };
 
 /**
+ * @author Jitendra Singh
  * @description Handles GET /states requests.
  * @param {Request} req - The Express request object.
  * @param {Response} res - The Express response object.

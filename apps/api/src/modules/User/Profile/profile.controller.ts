@@ -3,6 +3,14 @@ import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-hand
 import  { profileService } from './profile.service';
 import { IUser } from './profile.types';
 
+/**
+ * @author Jitendra Singh
+ * @description Retrieves the profile information for the authenticated user.
+ * @param {Request} req - The Express request object containing user details.
+ * @param {Response} res - The Express response object for sending the response.
+ * @param {NextFunction} next - The Express next function for error handling.
+ * @returns {Promise<Response | void>} A Promise that resolves with the user's profile data or passes an error to the next middleware.
+ */
 const getProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { user, language } = req;
@@ -13,6 +21,14 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
   }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Updates the profile information for the authenticated user.
+ * @param {Request} req - The Express request object containing user and body details.
+ * @param {Response} res - The Express response object for sending the response.
+ * @param {NextFunction} next - The Express next function for error handling.
+ * @returns {Promise<Response | void>} A Promise that resolves with the updated user's profile data or passes an error to the next middleware.
+ */
 const updateProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { user, body, language } = req;
@@ -23,6 +39,14 @@ const updateProfile = async (req: Request, res: Response, next: NextFunction): P
   }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Updates the password for the authenticated user.
+ * @param {Request} req - The Express request object containing user and body details.
+ * @param {Response} res - The Express response object for sending the response.
+ * @param {NextFunction} next - The Express next function for error handling.
+ * @returns {Promise<Response | void>} A Promise that resolves with the response message or passes an error to the next middleware.
+ */
 const changePassword = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { user, body, language } = req;

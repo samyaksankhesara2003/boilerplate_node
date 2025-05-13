@@ -16,7 +16,7 @@
     }
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist && rimraf .turbo",
     "prebuild": "rimraf dist",
     "build": "tsup && cp -r src/templates dist/templates",
     "dev": "dotenv -e ../../.env -- tsup --watch",

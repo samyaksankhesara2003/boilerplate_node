@@ -4,6 +4,7 @@ import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handl
 import { ICountryParams, ICountryQuery } from './country.types';
 
 /**
+ * @author Jitendra Singh
  * @description Fetches a country by its ID.
  * @param {ICountryParams} params - The parameters containing the country ID.
  * @returns {Promise<Country>} A Promise that resolves to a Country object.
@@ -29,6 +30,7 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
 };
 
 /**
+ * @author Jitendra Singh
  * @description Lists all countries.
  * @param {ICountryQuery} query - The query containing search params.
  * @returns {Promise<Country[]>} A Promise that resolves to an array of Country objects.

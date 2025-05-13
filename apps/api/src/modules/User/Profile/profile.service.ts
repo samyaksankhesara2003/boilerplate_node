@@ -6,6 +6,13 @@ import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handl
 import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody } from './profile.types';
 import { comparePassword, hashPassword } from '@repo/utils';
 
+/**
+ * @author Jitendra Singh
+ * @description Retrieves the profile information for the given user.
+ * @param {IUser} user - The user object containing the user ID.
+ * @returns {Promise<IGetProfileResponse>} A Promise that resolves to the user's profile data.
+ * @throws {CustomError} - If the user does not exist, or if the user is not active.
+ */
 const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
     try {
         const { id } = user;
@@ -27,6 +34,14 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
     }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Updates the profile information for the given user.
+ * @param {IUser} user - The user object containing the user ID.
+ * @param {IUpdateProfileBody} body - The request body containing the updated profile information.
+ * @returns {Promise<void>} A Promise that resolves when the user's profile has been successfully updated.
+ * @throws {CustomError} - If the user does not exist, or if the user is not active.
+ */
 const updateProfileService = async (user: IUser, body: IUpdateProfileBody): Promise<void> => {
     try {
         const { id } = user;
@@ -49,6 +64,14 @@ const updateProfileService = async (user: IUser, body: IUpdateProfileBody): Prom
     }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Changes the password for the given user.
+ * @param {IUser} user - The user object containing the user ID.
+ * @param {IChangePasswordBody} body - The request body containing the current and new passwords.
+ * @returns {Promise<void>} A Promise that resolves when the user's password has been successfully changed.
+ * @throws {CustomError} - If the user does not exist, or if the user is not active, or if the current password is invalid, or if the new password is the same as the current password.
+ */
 const changePasswordService = async (user: IUser, body: IChangePasswordBody): Promise<void> => {
     try {
         const { id } = user;

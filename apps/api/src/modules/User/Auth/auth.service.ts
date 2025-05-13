@@ -8,6 +8,13 @@ import { comparePassword, hashPassword } from '@repo/utils';
 
 import { ISignUpBody, ILoginBody, ISignUpResponse, ILoginResponse } from './auth.types';
 
+/**
+ * @author Jitendra Singh
+ * @description Creates a new user in the database and sends a welcome email to the user.
+ * @param {ISignUpBody} body - The body of the request containing the user details.
+ * @returns {Promise<ISignUpResponse>} - A promise that resolves to a response containing the user's token and login details.
+ * @throws {CustomError} - If the user already exists, or if there is an error creating the user or sending the email.
+ */
 const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
     const trx = await User.startTransaction();
     try {
@@ -72,6 +79,13 @@ const signUpService = async (body: ISignUpBody): Promise<ISignUpResponse> => {
     }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Logs in a user if the credentials are valid and returns a token and login details.
+ * @param {ILoginBody} body - The body of the request containing the user credentials.
+ * @returns {Promise<ILoginResponse>} - A promise that resolves to a response containing the user's token and login details.
+ * @throws {CustomError} - If the user does not exist, or if the password is invalid, or if the user is not active.
+ */
 const loginService = async (body: ILoginBody): Promise<ILoginResponse> => {
     try {
         const { email, password } = body;

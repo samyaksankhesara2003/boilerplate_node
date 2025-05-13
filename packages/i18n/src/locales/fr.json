@@ -26,32 +26,6 @@
         "password_change_success": "Mot de passe changé avec succès",
         "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel"
     },
-    "experience_category": {
-        "fetch_success": "Catégorie d'expérience récupérée avec succès",
-        "not_found": "Catégorie d'expérience non trouvée",
-        "list_success": "Liste des catégories d'expérience récupérée avec succès"
-    },
-    "experience": {
-        "fetch_success": "Expérience récupérée avec succès",
-        "not_found": "Expérience non trouvée",
-        "list_success": "Liste des expériences récupérée avec succès",
-        "create_success": "Expérience créée avec succès"
-    },
-    "experience_price": {
-        "fetch_success": "Prix de l'expérience récupéré avec succès",
-        "not_found": "Prix de l'expérience non trouvé"
-    },
-    "experience_schedule": {
-        "fetch_success": "Horaire de l'expérience récupéré avec succès",
-        "not_found": "Horaire de l'expérience non trouvé",
-        "list_success": "Liste des horaires d'expérience récupérée avec succès"
-    },
-    "experience_booking": {
-        "fetch_success": "Réservation d'expérience récupérée avec succès",
-        "not_found": "Réservation d'expérience non trouvée",
-        "list_success": "Liste des réservations d'expérience récupérée avec succès",
-        "create_success": "Réservation d'expérience créée avec succès"
-    },
     "country": {
         "fetch_success": "Pays récupéré avec succès",
         "not_found": "Pays non trouvé",
