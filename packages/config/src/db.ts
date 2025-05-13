@@ -5,5 +5,5 @@ export const dbConfig = {
     dbUsername: process.env.DATABASE_USERNAME,
     dbPassword: process.env.DATABASE_PASSWORD,
     dbName: process.env.DATABASE_NAME,
-    dbCharset: process.env.DATABASE_CHARSET
+    dbCharset: "utf8mb4",
 };

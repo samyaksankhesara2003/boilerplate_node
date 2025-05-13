@@ -26,32 +26,6 @@ export const ResponseMessages = {
         PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'password.password_cannot_be_same_as_current',
         PASSWORD_CHANGE_SUCCESS: 'password.password_change_success',
     },
-    EXPERIENCE_CATEGORY: {
-        FETCH_SUCCESS: 'experience_category.fetch_success',
-        NOT_FOUND: 'experience_category.not_found',
-        LIST_SUCCESS: 'experience_category.list_success',
-    },
-    EXPERIENCE: {
-        FETCH_SUCCESS: 'experience.fetch_success',
-        NOT_FOUND: 'experience.not_found',
-        CREATE_SUCCESS: 'experience.create_success',
-        LIST_SUCCESS: 'experience.list_success',
-    },
-    EXPERIENCE_PRICE: {
-        FETCH_SUCCESS: 'experience_price.fetch_success',
-        NOT_FOUND: 'experience_price.not_found',
-    },
-    EXPERIENCE_SCHEDULE: {
-        FETCH_SUCCESS: 'experience_schedule.fetch_success',
-        NOT_FOUND: 'experience_schedule.not_found',
-        LIST_SUCCESS: 'experience_schedule.list_success',
-    },
-    EXPERIENCE_BOOKING: {
-        FETCH_SUCCESS: 'experience_booking.fetch_success',
-        NOT_FOUND: 'experience_booking.not_found',
-        LIST_SUCCESS: 'experience_booking.list_success',
-        CREATE_SUCCESS: 'experience_booking.create_success',
-    },
     COUNTRY: {
         FETCH_SUCCESS: 'country.fetch_success',
         NOT_FOUND: 'country.not_found',

@@ -25,7 +25,7 @@ export async function sendMail(
 
     // Send the email using the configured transporter
     await transporter.sendMail({
-        from: `${appConfig.appName} <${mailerConfig.fromEmail}>`,
+        from: `${appConfig.appName} <${mailerConfig.smtpFromEmail}>`,
         to,
         subject,
         html,

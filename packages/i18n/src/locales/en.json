@@ -26,32 +26,6 @@
         "password_change_success": "Password changed successfully",
         "password_cannot_be_same_as_current": "Password cannot be the same as the current password"
     },
-    "experience_category": {
-        "fetch_success": "Experience category fetched successfully",
-        "not_found": "Experience category not found",
-        "list_success": "Experience category list fetched successfully"        
-    },
-    "experience": {
-        "fetch_success": "Experience fetched successfully",
-        "not_found": "Experience not found",
-        "list_success": "Experience list fetched successfully",
-        "create_success": "Experience created successfully"
-    },
-    "experience_price": {
-        "fetch_success": "Experience price fetched successfully",
-        "not_found": "Experience price not found"
-    },
-    "experience_schedule": {
-        "fetch_success": "Experience schedule fetched successfully",
-        "not_found": "Experience schedule not found",
-        "list_success": "Experience schedule list fetched successfully"
-    },
-    "experience_booking": {
-        "fetch_success": "Experience booking fetched successfully",
-        "not_found": "Experience booking not found",
-        "list_success": "Experience booking list fetched successfully",
-        "create_success": "Experience booking created successfully"
-    },
     "country": {
         "fetch_success": "Country fetched successfully",
         "not_found": "Country not found",

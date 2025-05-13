@@ -9,6 +9,5 @@ describe("dbConfig", () => {
     expect(dbConfig.dbUsername).toEqual(process.env.DATABASE_USERNAME);
     expect(dbConfig.dbPassword).toEqual(process.env.DATABASE_PASSWORD);
     expect(dbConfig.dbName).toEqual(process.env.DATABASE_NAME);
-    expect(dbConfig.dbCharset).toEqual(process.env.DATABASE_CHARSET);
   });
 });

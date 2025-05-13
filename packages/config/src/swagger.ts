@@ -2,7 +2,7 @@ import { appConfig } from './app';
 
 const swaggerUsername = process.env.SWAGGER_USERNAME;
 const swaggerPassword = process.env.SWAGGER_PASSWORD;
-const swaggerBaseApiUrl = process.env.SWAGGER_API_BASE_URL;
+const swaggerBaseApiUrl = process.env.APP_BASE_URL + "" + process.env.SWAGGER_API_BASE_URL;
 
 const swaggerJsDocOptions = {
     definition: {

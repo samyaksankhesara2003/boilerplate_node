@@ -2,7 +2,7 @@
   "name": "repo",
   "private": true,
   "scripts": {
-    "clean": "turbo run clean",
+    "clean": "turbo run clean && rimraf .turbo",
     "build": "turbo run build --concurrency=20",
     "dev": "turbo run dev --concurrency=20",
     "start": "turbo run start --concurrency=20",

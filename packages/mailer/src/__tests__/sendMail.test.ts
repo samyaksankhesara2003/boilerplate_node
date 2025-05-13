@@ -49,7 +49,7 @@ describe('sendMail', () => {
 
     expect(renderTemplate).toHaveBeenCalledWith(tmpl, ctx);
     expect(transporter.sendMail).toHaveBeenCalledWith({
-      from: `${appConfig.appName} <${mailerConfig.fromEmail}>`,
+      from: `${appConfig.appName} <${mailerConfig.smtpFromEmail}>`,
       to,
       subject: subj,
       html: '<html>Mock</html>',
