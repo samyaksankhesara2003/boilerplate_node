@@ -2,4 +2,4 @@
 export { knex } from "./connection";
 
 // models
-export * from './models';
+export * from './models/index';

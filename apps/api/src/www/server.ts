@@ -11,9 +11,9 @@ import { knex } from "@repo/db";
 import { log } from "@repo/logger";
 import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-handler";
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
-import routes from "../modules/index";
 import { languageMiddleware } from "../middlewares/language.middleware";
 import { errorHandler } from "../middlewares/errorHandler.middleware";
+import routes from "../modules/index";
 
 /**
  * @description Creates an Express server with security, logging, and Swagger documentation.

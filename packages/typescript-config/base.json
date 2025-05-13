@@ -6,10 +6,12 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "inlineSources": false,
     "isolatedModules": true,
+    "lib": ["es2022"],
     "module": "ESNext",
+    "moduleDetection": "force",
     "moduleResolution": "Bundler",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -17,7 +19,8 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "target": "ES2022"
   },
   "exclude": ["node_modules"]
 }

@@ -6,20 +6,20 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/es/index.js",
-  "module": "./dist/es/index.js",
-  "types": "./dist/es/index.d.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/es/index.d.ts",
-      "default": "./dist/es/index.js"
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
     }
   },
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "rimraf dist",
-    "build": "bunchee",
-    "dev": "bunchee ./src/index.ts --format esm --watch",
+    "build": "tsup",
+    "dev": "dotenv -e ../../.env -- tsup --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' dotenv -e ../../.env -- jest"
@@ -31,14 +31,8 @@
     "i18next": "^25.0.1"
   },
   "devDependencies": {
-    "@jest/globals": "^29.7.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.14.0",
-    "bunchee": "^6.4.0",
-    "eslint": "^9.24.0",
-    "jest": "^29.7.0",
-    "typescript": "5.8.2"
+    "@repo/typescript-config": "workspace:*"
   }
 }

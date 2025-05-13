@@ -1,5 +1,6 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
+import { Country } from '../index';
 
 class State extends BaseModel {
 
@@ -10,8 +11,16 @@ class State extends BaseModel {
     country_id!: number;
     name!: string;
 
+    country!: Country;
+
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
-        return {};
+        return {
+            country: {
+                relation: Model.BelongsToOneRelation,
+                modelClass: Country,
+                join: { from: 'states.country_id', to: 'countries.id' }
+            }
+        };
     };
 };
 

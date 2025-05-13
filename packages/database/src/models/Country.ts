@@ -1,5 +1,6 @@
 import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
+import { State } from '../index';
 
 class Country extends BaseModel {
 
@@ -11,8 +12,16 @@ class Country extends BaseModel {
     emoji!: string;
     country_code!: string;
 
+    states!: State[];
+
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {
-        return {};
+        return {
+            states: {
+                relation: Model.HasManyRelation,
+                modelClass: State,
+                join: { from: 'countries.id', to: 'states.country_id' }
+            }
+        };
     };
 };
 

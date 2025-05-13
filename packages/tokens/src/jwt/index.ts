@@ -5,11 +5,23 @@ import jwt from 'jsonwebtoken';
 
 import { jwtConfig } from '@repo/config';
 
-const privateKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/keys/private.key');
-const publicKeyPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../src/keys/public.pub');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const PRIVATE_KEY = fs.readFileSync(privateKeyPath);
-const PUBLIC_KEY = fs.readFileSync(publicKeyPath);
+// For development (src directory)
+const devPrivateKeyPath = path.resolve(__dirname, '../../../packages/tokens/src/keys/private.key');
+const devPublicKeyPath = path.resolve(__dirname, '../../../packages/tokens/src/keys/public.pub');
+
+// For production (dist directory)
+const prodPrivateKeyPath = path.resolve(__dirname, '../keys/private.key');
+const prodPublicKeyPath = path.resolve(__dirname, '../keys/public.pub');
+
+const PRIVATE_KEY = fs.existsSync(devPrivateKeyPath)
+  ? fs.readFileSync(devPrivateKeyPath)
+  : fs.readFileSync(prodPrivateKeyPath);
+
+const PUBLIC_KEY = fs.existsSync(devPublicKeyPath)
+  ? fs.readFileSync(devPublicKeyPath)
+  : fs.readFileSync(prodPublicKeyPath);
 
 /**
  * @description Sign a JWT token with the given data.

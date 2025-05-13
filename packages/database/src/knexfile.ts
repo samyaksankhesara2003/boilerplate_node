@@ -1,7 +1,7 @@
 import type { Knex } from 'knex';
 import { dbConfig } from '@repo/config';
 
-const config: { [key: string]: Knex.Config } = {
+export const config: { [key: string]: Knex.Config } = {
   development: {
     client: dbConfig['dbClient'],
     connection: {
@@ -25,5 +25,3 @@ const config: { [key: string]: Knex.Config } = {
     },
   },
 };
-
-export default config;

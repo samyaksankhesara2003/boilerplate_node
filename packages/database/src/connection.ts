@@ -1,10 +1,10 @@
 import { Model as ObjectionModel } from 'objection';
 import knexGenerator from 'knex';
 import { appConfig } from '@repo/config';
-import db from './knexfile';
+import { config as dbConfig } from './knexfile';
 import { logDbQueries } from './logDBQueries';
 
-const knex = knexGenerator({ ...db.development });
+const knex = knexGenerator({ ...dbConfig.development });
 const Model = ObjectionModel.knex(knex);
 
 // LOG_DB_QUERIES

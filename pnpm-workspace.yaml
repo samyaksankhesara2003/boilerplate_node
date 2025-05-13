@@ -1,3 +1,8 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  - apps/*
+  - packages/*
+onlyBuiltDependencies:
+  - '@scarf/scarf'
+  - '@swc/core'
+  - esbuild
+  - sharp

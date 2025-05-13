@@ -1,6 +1,6 @@
-import { knex } from "..";
 import { describe, it, expect, jest, afterAll } from "@jest/globals";
 import { log } from "@repo/logger";
+import { knex } from "../connection";
 
 describe("@repo/db", () => {
   it("prints a message", async () => {

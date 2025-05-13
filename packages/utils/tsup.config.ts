@@ -4,7 +4,7 @@ export default defineConfig((options: Options) => ({
   entry: ['src/index.ts'],
   format: ['esm'],
   target: 'es2022',
-  clean: true,
+  clean: process.env.NODE_ENV === 'development' ? false : true,
   dts: true,
   sourcemap: true,
   splitting: true,

@@ -16,7 +16,7 @@ export const logDbQueries = (knex: Knex): void => {
             queryTimings[query.__knexQueryUid] = Date.now();
         })
         .on('query-response', (response: any, query: QueryContext) => {
-            const startTime = queryTimings[query.__knexQueryUid];
+            const startTime = queryTimings[query.__knexQueryUid] || Date.now();
             const endTime = Date.now();
             const durationSec = ((endTime - startTime) / 1000).toFixed(3);
             delete queryTimings[query.__knexQueryUid];

@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "type": "module",
   "private": true,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
     "prebuild": "rimraf dist",
     "build": "tsup",
     "dev": "dotenv -e ../../.env -- tsx watch src/index.ts",
-    "prestart": "pnpm run build",
-    "start": "dotenv -e ../../.env -- node dist/index.js",
+    "start": "dotenv -e ../../.env -- node dist/index.mjs",
     "check-types": "tsc --noEmit",
     "lint": "eslint src/ --max-warnings 0",
     "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' dotenv -e ../../.env -- jest --detectOpenHandles"
@@ -23,11 +24,11 @@
     "@repo/logger": "workspace:*",
     "@repo/mailer": "workspace:*",
     "@repo/response-handler": "workspace:*",
+    "@repo/storage-service": "workspace:*",
     "@repo/stripe": "workspace:*",
     "@repo/tokens": "workspace:*",
-    "@repo/validator": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/storage-service": "workspace:*",
+    "@repo/validator": "workspace:*",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "express": "4.21.2",
@@ -39,7 +40,6 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@jest/globals": "^29.7.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
     "@repo/typescript-config": "workspace:*",
@@ -48,15 +48,10 @@
     "@types/express": "4.17.21",
     "@types/helmet": "^4.0.0",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.14.0",
     "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
-    "eslint": "^9.24.0",
-    "jest": "^29.7.0",
     "supertest": "^7.1.0",
-    "tsup": "^8.4.0",
-    "tsx": "^4.19.4",
-    "typescript": "5.8.2"
+    "tsx": "^4.19.4"
   }
 }
