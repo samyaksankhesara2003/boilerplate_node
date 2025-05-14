@@ -1,23 +1,23 @@
-import express, { Request, Response, NextFunction, type Express } from "express";
-import compression from "compression";
+import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import cors from "cors";
+import compression from "compression";
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import basicAuth from 'express-basic-auth';
+import express, { Request, Response, NextFunction, type Express } from "express";
 
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
 import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-handler";
 import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
-import { languageMiddleware } from "../middlewares/language.middleware";
-import { errorHandler } from "../middlewares/errorHandler.middleware";
 import routes from "../modules/index";
+import { errorHandler } from "../middlewares/errorHandler.middleware";
+import { languageMiddleware } from "../middlewares/language.middleware";
 
 /**
+ * @author Jitendra Singh
  * @description Creates an Express server with security, logging, and Swagger documentation.
- * @returns {Express} An Express server instance.
  */
 export const createServer = (): Express => {
   const app = express();
@@ -36,29 +36,19 @@ export const createServer = (): Express => {
     )
     .use(languageMiddleware)
     .use((req: Request, res: Response, next: NextFunction) => {
-      if (
-        (req.originalUrl === '/experience-booking/payment-verification/webhook')
-      ) {
-        next();
-      } else {
-        express.json()(req, res, next);
-      }
+      if ((req.originalUrl === '/experience-booking/payment-verification/webhook')) next();
+      else express.json()(req, res, next);
     })
     .use(compression())
     .use(express.urlencoded({ extended: false }))
-    .use(cors({
-      origin: appConfig?.allowedHosts?.split(',') ?? '*'
-    }));
+    .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
 
   // Test DB connection
-  knex
-    .raw('SELECT 1')
-    .then(() => {
-      log.info('Connected with the database');
-    })
-    .catch((err) => {
-      log.error('Unable to connect with the database', err);
-    });
+  knex.raw('SELECT 1').then(() => {
+    log.info('Connected with the database');
+  }).catch((err) => {
+    log.error('Unable to connect with the database', err);
+  });
 
   // Serve the Swagger JSON specification
   app.get('/api-docs/swagger.json', (req: Request, res: Response): Response => {

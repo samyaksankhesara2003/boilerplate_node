@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
-import { profileService } from './profile.service';
 import { IUser } from './helpers/profile.types';
+import { profileService } from './profile.service';
 
 /**
  * @author Jitendra Singh

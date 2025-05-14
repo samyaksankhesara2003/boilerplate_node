@@ -1,20 +1,11 @@
 import { Router } from 'express';
+import { validateRequest } from '@repo/validator';
 import { authController } from './auth.controller';
+import { authValidation } from './helpers/auth.validation';
 
 const router: Router = Router();
 
-router.post('/signup', authController.signUp);
-
-// router.get('/verify-account/:token',);
-
-router.post('/login', authController.login);
-
-// router.patch('/forget-password',);
-
-// router.patch('/reset-password/:token',);
-
-// router.get('/verify-reset-password-link/:token',);
-
-// router.patch('/resend-account-verification-link',);
+router.post('/signup', validateRequest(authValidation.signupSchema), authController.signUp);
+router.post('/login', validateRequest(authValidation.loginSchema), authController.login);
 
 export const authRoutes = router;

@@ -1,26 +1,6 @@
-import { log } from '@repo/logger';
 import { State } from '@repo/db';
-import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
-import { IGetStateParams, IStateQuery } from './helpers/state.types';
-
-/**
- * @author Jitendra Singh
- * @description Fetches a state by its ID.
- */
-const getStateService = async (params: IGetStateParams): Promise<State> => {
-    try {
-        const { state_id } = params;
-
-        const stateAttributes = ['id', 'name'];
-        const state = await State.query().select(...stateAttributes).findById(state_id);
-        if (!state) throw new CustomError(ResponseMessages.STATE.NOT_FOUND, StatusCodes.NOT_FOUND);
-
-        return state;
-    } catch (error) {
-        log.error('getStateService Catch: ', error);
-        throw error;
-    }
-};
+import { log } from '@repo/logger';
+import { IStateQuery } from './helpers/state.types';
 
 /**
  * @author Jitendra Singh
@@ -43,6 +23,5 @@ const listStatesService = async (query: IStateQuery): Promise<State[]> => {
 };
 
 export const stateService = {
-    getStateService,
     listStatesService
 };
