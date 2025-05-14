@@ -4,8 +4,8 @@
   "scripts": {
     "clean": "turbo run clean && rimraf .turbo",
     "build": "turbo run build --concurrency=20",
-    "dev": "turbo run dev --concurrency=20",
-    "start": "turbo run start --concurrency=20",
+    "dev": "pnpm build && turbo run dev --filter=api --concurrency=20",
+    "start": "pnpm build && turbo run start --filter=api --concurrency=20",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
     "test": "turbo run test",
