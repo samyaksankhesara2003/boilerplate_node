@@ -1,4 +1,4 @@
-import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
+import { RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
 
 class User extends BaseModel {
@@ -22,4 +22,4 @@ class User extends BaseModel {
     };
 };
 
-export default  User;
+export default User;
