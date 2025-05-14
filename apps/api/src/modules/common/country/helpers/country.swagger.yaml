@@ -1,10 +1,11 @@
 paths:
-  /country/{country_id}:
+  /common/country/{country_id}:
     get:
       tags:
         - Country
       summary: Get a single country by ID
       description: Returns details of a specific country by its ID.
+      security: []
       parameters:
         - name: Accept-Language
           in: header
@@ -48,12 +49,13 @@ paths:
                     type: string
                     example: Failed to fetch country
 
-  /country:
+  /common/country:
     get:
       tags:
         - Country
       summary: Get a list of countries
       description: Returns a list of available countries with optional search by name or code.
+      security: []
       parameters:
         - name: Accept-Language
           in: header

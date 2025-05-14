@@ -1,10 +1,11 @@
 paths:
-  /state:
+  /common/state:
     get:
       tags:
         - State
       summary: Get a list of states
       description: Returns a list of states, optionally filtered by country ID or searched by name/code.
+      security: []
       parameters:
         - name: Accept-Language
           in: header

@@ -4,7 +4,7 @@ const updateProfileSchema = {
     body: {
         first_name: Joi.string().required(),
         last_name: Joi.string().required(),
-        profile_url: Joi.string().required()
+        profile_url: Joi.string().optional()
     }
 };
 

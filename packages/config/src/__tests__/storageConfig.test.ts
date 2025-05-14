@@ -8,7 +8,7 @@ describe("storageConfig", () => {
         expect(storageConfig.s3BucketEndpoint).toEqual(process.env.S3_BUCKET_ENDPOINT);
         expect(storageConfig.s3BucketPort).toEqual(Number(process.env.S3_BUCKET_PORT));
         expect(storageConfig.s3BucketUseSSL).toEqual(process.env.S3_BUCKET_USE_SSL === 'true' || false);
-        expect(storageConfig.s3BucketAccessKeyId).toEqual(process.env.S3_BUCKET_ACCESS_KEY_ID);
+        expect(storageConfig.s3BucketAccessKey).toEqual(process.env.S3_BUCKET_ACCESS_KEY);
         expect(storageConfig.s3BucketSecretAccessKey).toEqual(process.env.S3_BUCKET_SECRET_ACCESS_KEY);
         expect(storageConfig.s3BucketBaseUrl).toEqual(process.env.S3_BUCKET_BASE_URL);
         expect(storageConfig.s3BucketPrivate).toEqual(process.env.S3_BUCKET_PRIVATE === 'true' || false);

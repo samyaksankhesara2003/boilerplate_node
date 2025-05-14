@@ -71,7 +71,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
@@ -81,9 +81,10 @@ paths:
                 last_name:
                   type: string
                   example: Doe
-                profile_url:
+                profile_image:
                   type: string
-                  example: https://example.com/profile.jpg
+                  format: binary
+                  description: Profile image file to upload
       responses:
         "200":
           description: Profile updated successfully
@@ -126,7 +127,7 @@ paths:
         "401":
           description: Unauthorized - Invalid or missing token
 
-  /profile/password:
+  /user/profile/password:
     patch:
       tags:
         - Profile

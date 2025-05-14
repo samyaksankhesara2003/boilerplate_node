@@ -1,14 +1,14 @@
 import { Router, Request, Response } from 'express';
-import { commonRoutes } from './common/index';
-import { userRoutes } from './user';
+import { stateRoutes } from './state/state.routes';
+import { countryRoutes } from './country/country.routes';
 
 const router: Router = Router();
 
 // Country routes
-router.use('/common', commonRoutes);
+router.use('/country', countryRoutes);
 
-// User routes
-router.use('/user', userRoutes);
+// State routes
+router.use('/state', stateRoutes);
 
 // Catch-all route for 404
 router.use((req: Request, res: Response) => {
@@ -18,4 +18,4 @@ router.use((req: Request, res: Response) => {
     });
 });
 
-export default router;
+export const commonRoutes = router;

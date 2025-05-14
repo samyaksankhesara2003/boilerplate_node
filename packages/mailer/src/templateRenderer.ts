@@ -1,7 +1,11 @@
 import ejs from 'ejs';
 import path from 'path';
 import fs from 'fs/promises';
+import { fileURLToPath } from 'url';
 import { appConfig } from '@repo/config';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * @description Render a template with EJS and wrap it in the base layout.

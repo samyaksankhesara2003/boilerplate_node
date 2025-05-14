@@ -23,8 +23,8 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
  */
 const updateProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
-    const { user, body, language } = req;
-    const data = await profileService.updateProfileService(user as IUser, body);
+    const { user, file, body, language } = req;
+    const data = await profileService.updateProfileService(user as IUser, body, file as Express.Multer.File);
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.UPDATE_SUCCESS, data, language);
   } catch (error) {
     next(error);

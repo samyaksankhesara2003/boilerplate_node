@@ -20,7 +20,7 @@ const s3Client = new S3Client({
     region: storageConfig.s3BucketRegion,
     endpoint: storageConfig.s3BucketEndpoint,
     credentials: {
-        accessKeyId: storageConfig.s3BucketAccessKeyId!,
+        accessKeyId: storageConfig.s3BucketAccessKey!,
         secretAccessKey: storageConfig.s3BucketSecretAccessKey!,
     },
 });
@@ -40,7 +40,12 @@ const uploadFile = async (
     body: Buffer | string | ReadableStream | Blob
 ): Promise<PutObjectCommandOutput> => {
     try {
-        const result = await s3Client.send(new PutObjectCommand({ Bucket: bucketName, Key: key, Body: body }));
+        const result = await s3Client.send(new PutObjectCommand({
+            // ACL: 'public-read-write',
+            Bucket: bucketName,
+            Key: key,
+            Body: body
+        }));
         return result;
     } catch (error) {
         log.error(`Error uploading file to S3: ${error}`);
@@ -62,7 +67,12 @@ const uploadMultipleFiles = async (
 ): Promise<PutObjectCommandOutput[]> => {
     try {
         const uploadPromises = files.map(file =>
-            s3Client.send(new PutObjectCommand({ Bucket: bucketName, Key: file.key, Body: file.body }))
+            s3Client.send(new PutObjectCommand({
+                // ACL: 'public-read-write',
+                Bucket: bucketName,
+                Key: file.key,
+                Body: file.body
+            }))
         );
         return await Promise.all(uploadPromises);
     } catch (error) {
