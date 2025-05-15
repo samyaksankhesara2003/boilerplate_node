@@ -1,10 +1,14 @@
 export const ResponseMessages = {
+    SERVER: {
+        ERROR: 'server.error',
+    },
     COMMON: {
         SUCCESS: 'common.success',
         ERROR: 'common.error',
         VALIDATION_ERROR: 'common.validation_error',
         NOT_AUTHENTICATED: 'common.not_authenticated',
         SESSION_EXPIRED: 'common.session_expired',
+        UNSUPPORTED_FILE_TYPE: 'common.unsupported_file_type',
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',
@@ -35,8 +39,5 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'state.fetch_success',
         NOT_FOUND: 'state.not_found',
         LIST_SUCCESS: 'state.list_success',
-    },
-    SERVER: {
-        ERROR: 'server.error',
     }
 } as const;

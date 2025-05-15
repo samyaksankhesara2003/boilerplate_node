@@ -24,9 +24,9 @@ export const constants = {
         'LOGOUT': 2
     },
 
-    // File Validations
+    // File Validations and Sizes (in MB)
     defaultFileSize: 10,
-    profileFileSize: 10,
+    profileImageSize: 10,
 
     // File Types
     supportedProfileImageTypes: ['image/jpg', 'image/jpeg', 'image/png'],
@@ -52,8 +52,8 @@ export const constants = {
     },
 
     adminStatus: {
-        Active: 1,
-        Inactive: 2,
+        'Active': 1,
+        'Inactive': 2,
     },
     adminStatusNumberToName: {
         1: 'Active',
@@ -115,25 +115,27 @@ export const constants = {
     },
 
     notificationColor: {
-        Red: '0xFFB32218',
-        Yellow: '0xFFB54707',
-        Green: '0xFF039754',
-        Black: '0xFF475467',
-        Blue: '0xFF311B92',
+        'Red': '0xFFB32218',
+        'Yellow': '0xFFB54707',
+        'Green': '0xFF039754',
+        'Black': '0xFF475467',
+        'Blue': '0xFF311B92',
     },
     notificationColorFontWeight: {
-        Red: 700,
-        Yellow: 700,
-        Green: 700,
-        Black: 400,
-        Blue: 700,
+        'Red': 700,
+        'Yellow': 700,
+        'Green': 700,
+        'Black': 400,
+        'Blue': 700,
     },
 
     rateLimiter: {
         LOGIN_RATE_LIMIT: {
-            windowMs: 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
-            maxLimit: 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
-            message: 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
+            'windowMs': 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
+            'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
+            'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
         },
     },
 } as const;
+
+export type SupportedProfileImageType = typeof constants.supportedProfileImageTypes[number];

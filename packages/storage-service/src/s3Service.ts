@@ -175,6 +175,7 @@ const deleteFolder = async (
         }));
 
         log.info(`Folder ${prefix} and its contents deleted.`);
+        return;
     } catch (error) {
         log.error(`Error deleting folder from S3: ${error}`);
         throw new Error(`Failed to delete folder ${prefix} from ${bucketName}`);

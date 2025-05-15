@@ -28,6 +28,8 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/config": "workspace:*",
+    "@repo/response-handler": "workspace:*",
     "bcryptjs": "^3.0.2"
   },
   "devDependencies": {

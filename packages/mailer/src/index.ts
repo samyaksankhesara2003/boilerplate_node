@@ -1,4 +1,5 @@
 import { sendMail } from './sendMail';
+import { SUBJECTS } from './subjectConstants';
 import { TEMPLATES } from './templateConstants';
 
-export { sendMail, TEMPLATES };
+export { sendMail, SUBJECTS, TEMPLATES };

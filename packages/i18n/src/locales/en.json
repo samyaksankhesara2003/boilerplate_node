@@ -4,7 +4,8 @@
         "error": "Error",
         "validation_error": "Validation error",
         "not_authenticated": "Not authenticated",
-        "session_expired": "Session expired"
+        "session_expired": "Session expired",
+        "unsupported_file_type": "Unsupported file type"
     },
     "user": {
         "fetch_success": "User fetched successfully",

@@ -1,10 +1,14 @@
 {
+    "server": {
+        "error": "Erreur interne du serveur"
+    },
     "common": {
         "success": "Succès",
         "error": "Erreur",
         "validation_error": "Erreur de validation",
         "not_authenticated": "Non authentifié",
-        "session_expired": "Session expirée"
+        "session_expired": "Session expirée",
+        "unsupported_file_type": "Type de fichier non supporté"
     },
     "user": {
         "fetch_success": "Utilisateur récupéré avec succès",
@@ -35,8 +39,5 @@
         "fetch_success": "État récupéré avec succès",
         "not_found": "État non trouvé",
         "list_success": "Liste des états récupérée avec succès"
-    },
-    "server": {
-        "error": "Erreur interne du serveur"
     }
 }

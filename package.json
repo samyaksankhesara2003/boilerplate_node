@@ -8,7 +8,7 @@
     "start": "pnpm build && turbo run start --filter=api --concurrency=20",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test",
+    "test": "pnpm build && turbo run test",
     "check-types": "turbo run check-types",
     "make-migration": "turbo run --filter=@repo/db make-migration -- --",
     "migrate": "turbo run --filter=@repo/db migrate",

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
+import { validateFileSize } from '@repo/utils';
+import { constants, SupportedProfileImageType } from '@repo/config';
+import { StatusCodes, ResponseMessages, sendResponse, CustomError } from '@repo/response-handler';
 import { IUser } from './helpers/profile.types';
 import { profileService } from './profile.service';
 
@@ -24,6 +26,12 @@ const getProfile = async (req: Request, res: Response, next: NextFunction): Prom
 const updateProfile = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   try {
     const { user, file, body, language } = req;
+
+    if (file) {
+      if (!(constants.supportedProfileImageTypes).includes(file.mimetype as SupportedProfileImageType)) throw new CustomError(ResponseMessages.COMMON.UNSUPPORTED_FILE_TYPE, StatusCodes.UNSUPPORTED_MEDIA_TYPE);
+      validateFileSize(file.size, constants.profileImageSize);
+    }
+
     const data = await profileService.updateProfileService(user as IUser, body, file as Express.Multer.File);
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROFILE.UPDATE_SUCCESS, data, language);
   } catch (error) {

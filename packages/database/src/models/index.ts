@@ -1,11 +1,6 @@
 // Location
-import { locationModels } from './location';
+export { default as Country } from './location/country';
+export { default as State } from './location/state';
 
 // User
-import User from './User';
-
-// Models
-export const models = {
-    ...locationModels,
-    User,
-}
+export { default as User } from './User';

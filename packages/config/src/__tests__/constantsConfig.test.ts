@@ -23,7 +23,7 @@ describe("constantsConfig", () => {
                     "LOGOUT": 2,
                 }),
                 defaultFileSize: 10,
-                profileFileSize: 10,
+                profileImageSize: 10,
                 supportedProfileImageTypes: expect.arrayContaining([
                     "image/jpg",
                     "image/jpeg",
