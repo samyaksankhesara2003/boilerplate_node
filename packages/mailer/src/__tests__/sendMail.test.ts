@@ -8,13 +8,13 @@ beforeAll(async () => {
     renderTemplate: jest.fn<(templateName: TemplateName, context: any) => Promise<string>>(),
   }));
   jest.unstable_mockModule('../transporter', () => ({
-    transporter: { sendMail: jest.fn() },
+    transporter: { send: jest.fn() },
   }));
 });
 
 // 2) Now dynamically import the mocked modules plus our function under test
 let renderTemplate: jest.Mock<(tmpl: TemplateName, ctx: any) => Promise<string>>;
-let transporter: { sendMail: jest.Mock };
+let transporter: { send: jest.Mock };
 let sendMail: (to: string, subject: string, tmpl: TemplateName, ctx: any) => Promise<void>;
 
 beforeAll(async () => {
@@ -24,7 +24,7 @@ beforeAll(async () => {
   renderTemplate = templMod.renderTemplate;
 
   const transMod = (await import('../transporter')) as unknown as {
-    transporter: { sendMail: jest.Mock }
+    transporter: { send: jest.Mock }
   };
   transporter = transMod.transporter;
 
@@ -48,7 +48,7 @@ describe('sendMail', () => {
     await sendMail(to, subj, tmpl, ctx);
 
     expect(renderTemplate).toHaveBeenCalledWith(tmpl, ctx);
-    expect(transporter.sendMail).toHaveBeenCalledWith({
+    expect(transporter.send).toHaveBeenCalledWith({
       from: `${appConfig.appName} <${mailerConfig.smtpSendgridUsername}>`,
       to,
       subject: subj,
