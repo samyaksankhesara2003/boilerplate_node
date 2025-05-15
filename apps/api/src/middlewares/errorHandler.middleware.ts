@@ -4,12 +4,8 @@ import { appConfig } from '@repo/config';
 import { CustomError, sendResponse } from '@repo/response-handler';
 
 /**
+ * @author Jitendra Singh
  * @description A custom Express error handler middleware to catch and handle errors.
- * @param {Error} err - The error to handle.
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @param {NextFunction} next - The next middleware function to call.
- * @returns {Response} The response object that was sent.
  */
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): Response => {
   const isCustomError = err instanceof CustomError;
