@@ -24,7 +24,7 @@ export async function sendMail(
     const html = await renderTemplate(templateName, context);
 
     // Send the email using the configured transporter
-    await transporter.sendMail({
+    await transporter.send({
         from: `${appConfig.appName} <${mailerConfig.smtpSendgridUsername}>`,
         to,
         subject,

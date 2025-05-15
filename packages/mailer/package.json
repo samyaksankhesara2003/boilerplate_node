@@ -29,16 +29,13 @@
   },
   "dependencies": {
     "@repo/config": "workspace:*",
-    "ejs": "^3.1.10",
-    "nodemailer": "^7.0.3",
-    "nodemailer-sendgrid": "^1.0.3"
+    "@sendgrid/mail": "^8.1.5",
+    "ejs": "^3.1.10"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/ejs": "^3.1.5",
-    "@types/nodemailer": "^6.4.17",
-    "@types/nodemailer-sendgrid": "^1.0.3"
+    "@types/ejs": "^3.1.5"
   }
 }
