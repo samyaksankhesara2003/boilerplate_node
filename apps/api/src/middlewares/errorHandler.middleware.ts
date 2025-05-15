@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { log } from '@repo/logger';
-import { appConfig } from '@repo/config';
-import { CustomError, sendResponse } from '@repo/response-handler';
+import { appConfig, constants } from '@repo/config';
+import { CustomError, sendResponse, StatusCodes } from '@repo/response-handler';
 
 /**
  * @author Jitendra Singh
@@ -9,9 +9,9 @@ import { CustomError, sendResponse } from '@repo/response-handler';
  */
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction): Response => {
   const isCustomError = err instanceof CustomError;
-  const statusCode = isCustomError ? err.statusCode : 500;
+  const statusCode = isCustomError ? err.statusCode : StatusCodes.INTERNAL_SERVER_ERROR;
   const messageKey = err.message || 'common.error';
-  const language = (req as Request).language || 'en'; // ensure language middleware sets this
+  const language = (req as Request).language || constants.defaultLanguage;
 
   if (appConfig.nodeEnv !== 'development') log.error(`[${statusCode}] ${messageKey}`, err);
 
