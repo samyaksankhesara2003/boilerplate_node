@@ -5,6 +5,14 @@ describe("constantsConfig", () => {
     it("exports the right object", () => {
         expect(constants).toEqual(
             expect.objectContaining({
+                defaultLanguage: "en",
+                supportedLanguages: expect.arrayContaining([
+                    "en",
+                    "fr",
+                    "es",
+                    "de",
+                    "hi",
+                ]),
                 passwordsaltRound: 10,
                 adminResetForgetLink: "admin/auth/reset-password",
                 adminAccountVerificationLink: "admin/auth/verify-account",
@@ -62,16 +70,6 @@ describe("constantsConfig", () => {
                 userStatusNumberToName: expect.objectContaining({
                     1: "Active",
                     2: "Inactive",
-                }),
-                experienceBookingStatus: expect.objectContaining({
-                    'Pending': 1,
-                    'Accepted': 2,
-                    'Rejected': 3
-                }),
-                experienceBookingStatusNumberToName: expect.objectContaining({
-                    1: 'Pending',
-                    2: 'Accepted',
-                    3: 'Rejected'
                 }),
                 stripeSupportedCurrencyType: expect.objectContaining({
                     'USD': 1,

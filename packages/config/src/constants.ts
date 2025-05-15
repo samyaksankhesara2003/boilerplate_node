@@ -1,4 +1,9 @@
 export const constants = {
+
+    // Languages
+    defaultLanguage: 'en',
+    supportedLanguages: ['en', 'fr', 'es', 'de', 'hi'],
+
     // Password
     passwordsaltRound: 10,
 
@@ -69,17 +74,6 @@ export const constants = {
         2: 'Inactive',
     },
 
-    experienceBookingStatus: {
-        'Pending': 1,
-        'Accepted': 2,
-        'Rejected': 3
-    },
-    experienceBookingStatusNumberToName: {
-        1: 'Pending',
-        2: 'Accepted',
-        3: 'Rejected'
-    },
-
     stripeSupportedCurrencyType: {
         'USD': 1,
         'INR': 2,
@@ -138,4 +132,5 @@ export const constants = {
     },
 } as const;
 
+export type SupportedLanguage = typeof constants.supportedLanguages[number];
 export type SupportedProfileImageType = typeof constants.supportedProfileImageTypes[number];
