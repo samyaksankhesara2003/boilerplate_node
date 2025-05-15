@@ -36,7 +36,7 @@ export const createServer = (): Express => {
     )
     .use(languageMiddleware)
     .use((req: Request, res: Response, next: NextFunction) => {
-      if ((req.originalUrl === '/experience-booking/payment-verification/webhook')) next();
+      if ((req.originalUrl === '/payment-verification/webhook')) next();
       else express.json()(req, res, next);
     })
     .use(compression())

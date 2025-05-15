@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { stateRoutes } from './state/state.routes';
 import { countryRoutes } from './country/country.routes';
 
@@ -11,11 +12,6 @@ router.use('/country', countryRoutes);
 router.use('/state', stateRoutes);
 
 // Catch-all route for 404
-router.use((req: Request, res: Response) => {
-    res.status(404).json({
-        error: 'Not found',
-        path: req.originalUrl,
-    });
-});
+router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
 
 export const commonRoutes = router;

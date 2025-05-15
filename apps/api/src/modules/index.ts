@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { commonRoutes } from './common/index';
 import { userRoutes } from './user';
 
@@ -11,11 +12,6 @@ router.use('/common', commonRoutes);
 router.use('/user', userRoutes);
 
 // Catch-all route for 404
-router.use((req: Request, res: Response) => {
-    res.status(404).json({
-        error: 'Not found',
-        path: req.originalUrl,
-    });
-});
+router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
 
 export default router;
