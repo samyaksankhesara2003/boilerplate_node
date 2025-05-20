@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { stateRoutes } from './state/state.routes';
 import { countryRoutes } from './country/country.routes';
 import { faqRoutes } from './faq/faq.routes';
+import { activityRoutes } from './activity/activity.routes';
 
 const router: Router = Router();
 
@@ -13,5 +14,8 @@ router.use('/state', stateRoutes);
 
 // FAQ routes
 router.use('/faq', faqRoutes);
+
+// Activity routes
+router.use('/activity-log', activityRoutes);
 
 export const commonRoutes = router;

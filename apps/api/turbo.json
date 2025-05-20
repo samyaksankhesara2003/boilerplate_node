@@ -16,7 +16,9 @@
         "@repo/mailer#dev",
         "@repo/stripe#dev",
         "@repo/response-handler#dev",
-        "@repo/db#dev"
+        "@repo/db#dev",
+        "@repo/firebase-auth#dev",
+        "@repo/sms-service#dev"
       ]
     }
   }
