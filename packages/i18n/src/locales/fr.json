@@ -1,43 +1,48 @@
 {
-    "server": {
-        "error": "Erreur interne du serveur"
-    },
-    "common": {
-        "success": "Succès",
-        "error": "Erreur",
-        "validation_error": "Erreur de validation",
-        "not_authenticated": "Non authentifié",
-        "session_expired": "Session expirée",
-        "unsupported_file_type": "Type de fichier non supporté"
-    },
-    "user": {
-        "fetch_success": "Utilisateur récupéré avec succès",
-        "not_found": "Utilisateur non trouvé",
-        "already_exists": "Utilisateur existe déjà",
-        "not_active": "Utilisateur n'est pas actif",
-        "signup_success": "Inscription réussie"
-    },
-    "auth": {
-        "login_success": "Connexion réussie",
-        "invalid_credentials": "Informations d'identification invalides"
-    },
-    "profile": {
-        "fetch_success": "Profil récupéré avec succès",
-        "update_success": "Profil mis à jour avec succès"
-    },
-    "password": {
-        "invalid_password": "Mot de passe invalide",
-        "password_change_success": "Mot de passe changé avec succès",
-        "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel"
-    },
-    "country": {
-        "fetch_success": "Pays récupéré avec succès",
-        "not_found": "Pays non trouvé",
-        "list_success": "Liste des pays récupérée avec succès"
-    },
-    "state": {
-        "fetch_success": "État récupéré avec succès",
-        "not_found": "État non trouvé",
-        "list_success": "Liste des états récupérée avec succès"
-    }
+  "server": {
+    "error": "Erreur interne du serveur"
+  },
+  "common": {
+    "success": "Succès",
+    "error": "Erreur",
+    "validation_error": "Erreur de validation",
+    "not_authenticated": "Non authentifié",
+    "session_expired": "Session expirée",
+    "unsupported_file_type": "Type de fichier non supporté"
+  },
+  "user": {
+    "fetch_success": "Utilisateur récupéré avec succès",
+    "not_found": "Utilisateur non trouvé",
+    "already_exists": "Utilisateur existe déjà",
+    "not_active": "Utilisateur n'est pas actif",
+    "signup_success": "Inscription réussie"
+  },
+  "auth": {
+    "login_success": "Connexion réussie",
+    "invalid_credentials": "Informations d'identification invalides"
+  },
+  "profile": {
+    "fetch_success": "Profil récupéré avec succès",
+    "update_success": "Profil mis à jour avec succès"
+  },
+  "password": {
+    "invalid_password": "Mot de passe invalide",
+    "password_change_success": "Mot de passe changé avec succès",
+    "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel"
+  },
+  "country": {
+    "fetch_success": "Pays récupéré avec succès",
+    "not_found": "Pays non trouvé",
+    "list_success": "Liste des pays récupérée avec succès"
+  },
+  "state": {
+    "fetch_success": "État récupéré avec succès",
+    "not_found": "État non trouvé",
+    "list_success": "Liste des états récupérée avec succès"
+  },
+  "notification": {
+    "fetch_success": "Notification récupérée avec succès",
+    "not_found": "Notification non trouvée",
+    "list_success": "Liste des notifications récupérée avec succès"
+  }
 }

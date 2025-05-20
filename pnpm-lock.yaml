@@ -56,9 +56,15 @@ importers:
       '@repo/mailer':
         specifier: workspace:*
         version: link:../../packages/mailer
+      '@repo/notifications':
+        specifier: workspace:*
+        version: link:../../packages/notifications
       '@repo/response-handler':
         specifier: workspace:*
         version: link:../../packages/response-handler
+      '@repo/socket':
+        specifier: workspace:*
+        version: link:../../packages/socket
       '@repo/storage-service':
         specifier: workspace:*
         version: link:../../packages/storage-service
@@ -331,6 +337,40 @@ importers:
         specifier: ^3.1.5
         version: 3.1.5
 
+  packages/notifications:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../database
+      objection:
+        specifier: ^3.1.1
+        version: 3.1.5(knex@3.1.0(mysql@2.18.1))
+      socket.io:
+        specifier: ^4.7.4
+        version: 4.8.1
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/socket.io':
+        specifier: ^3.0.2
+        version: 3.0.2
+      eslint:
+        specifier: ^9.24.0
+        version: 9.24.0
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(@swc/core@1.11.24)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
   packages/response-handler:
     dependencies:
       '@repo/config':
@@ -349,6 +389,46 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+
+  packages/socket:
+    dependencies:
+      '@repo/chat':
+        specifier: workspace:*
+        version: link:../chat
+      '@repo/config':
+        specifier: workspace:*
+        version: link:../config
+      '@repo/notifications':
+        specifier: workspace:*
+        version: link:../notifications
+      objection:
+        specifier: ^3.1.5
+        version: 3.1.5(knex@3.1.0(mysql@2.18.1))
+      socket.io:
+        specifier: ^4.7.4
+        version: 4.8.1
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/socket.io':
+        specifier: ^3.0.2
+        version: 3.0.2
+      eslint:
+        specifier: ^9.24.0
+        version: 9.24.0
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(@swc/core@1.11.24)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   packages/storage-service:
     dependencies:

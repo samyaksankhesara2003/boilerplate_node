@@ -3,6 +3,11 @@ import { SOCKET_EVENTS } from '../constants/events';
 import { ChatService } from '../services/chat.service';
 import { IJoinRoomPayload, IMessageHistoryParams, ISendMessagePayload } from '../types/message.types';
 
+/**
+ * @author Sanjay Balai
+ * @description ChatHandler class for handling chat events
+ */
+
 export class ChatHandler {
   private io: Server;
   private typingUsers: Map<number, Set<number>> = new Map(); // Map<userId, Set<typingToUserId>>

@@ -7,3 +7,5 @@ export { default as User } from './User';
 
 // Message
 export { default as Message } from './Message';
+// Notification
+export { default as Notification } from './Notification';

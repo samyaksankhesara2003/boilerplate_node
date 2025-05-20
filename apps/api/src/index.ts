@@ -1,6 +1,6 @@
-import { socketManager } from '@repo/chat';
 import { appConfig } from '@repo/config';
 import { log } from '@repo/logger';
+import { socketManager } from '@repo/socket';
 import { createServer as createHttpServer } from 'http'; // <-- Add this
 import { createServer } from './www/server';
 

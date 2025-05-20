@@ -8,6 +8,10 @@ import {
 	ISendMessagePayload,
 } from '../types/message.types';
 
+/**
+ * @author Sanjay Balai
+ * @description ChatService class for handling chat operations
+ */
 export class ChatService {
   /**
    * Send a message to a user

@@ -39,5 +39,10 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'state.fetch_success',
         NOT_FOUND: 'state.not_found',
         LIST_SUCCESS: 'state.list_success',
+    },
+    NOTIFICATION: {
+        FETCH_SUCCESS: 'notification.fetch_success',
+        NOT_FOUND: 'notification.not_found',
+        LIST_SUCCESS: 'notification.list_success',
     }
 } as const;

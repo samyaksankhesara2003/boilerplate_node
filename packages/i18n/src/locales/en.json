@@ -1,43 +1,48 @@
 {
-    "common": {
-        "success": "Success",
-        "error": "Error",
-        "validation_error": "Validation error",
-        "not_authenticated": "Not authenticated",
-        "session_expired": "Session expired",
-        "unsupported_file_type": "Unsupported file type"
-    },
-    "user": {
-        "fetch_success": "User fetched successfully",
-        "not_found": "User not found",
-        "already_exists": "User already exists",
-        "not_active": "User is not active",
-        "signup_success": "Signup successfully"
-    },
-    "auth": {
-        "login_success": "Login successful",
-        "invalid_credentials": "Invalid credentials"
-    },
-    "profile": {
-        "fetch_success": "Profile fetched successfully",
-        "update_success": "Profile updated successfully"
-    },
-    "password": {
-        "invalid_password": "Invalid password",
-        "password_change_success": "Password changed successfully",
-        "password_cannot_be_same_as_current": "Password cannot be the same as the current password"
-    },
-    "country": {
-        "fetch_success": "Country fetched successfully",
-        "not_found": "Country not found",
-        "list_success": "Country list fetched successfully"
-    },
-    "state": {
-        "fetch_success": "State fetched successfully",
-        "not_found": "State not found",
-        "list_success": "State list fetched successfully"
-    },
-    "server": {
-        "error": "Internal server error"
-    }
+  "common": {
+    "success": "Success",
+    "error": "Error",
+    "validation_error": "Validation error",
+    "not_authenticated": "Not authenticated",
+    "session_expired": "Session expired",
+    "unsupported_file_type": "Unsupported file type"
+  },
+  "user": {
+    "fetch_success": "User fetched successfully",
+    "not_found": "User not found",
+    "already_exists": "User already exists",
+    "not_active": "User is not active",
+    "signup_success": "Signup successfully"
+  },
+  "auth": {
+    "login_success": "Login successful",
+    "invalid_credentials": "Invalid credentials"
+  },
+  "profile": {
+    "fetch_success": "Profile fetched successfully",
+    "update_success": "Profile updated successfully"
+  },
+  "password": {
+    "invalid_password": "Invalid password",
+    "password_change_success": "Password changed successfully",
+    "password_cannot_be_same_as_current": "Password cannot be the same as the current password"
+  },
+  "country": {
+    "fetch_success": "Country fetched successfully",
+    "not_found": "Country not found",
+    "list_success": "Country list fetched successfully"
+  },
+  "state": {
+    "fetch_success": "State fetched successfully",
+    "not_found": "State not found",
+    "list_success": "State list fetched successfully"
+  },
+  "server": {
+    "error": "Internal server error"
+  },
+  "notification": {
+    "fetch_success": "Notification fetched successfully",
+    "not_found": "Notification not found",
+    "list_success": "Notification list fetched successfully"
+  }
 }

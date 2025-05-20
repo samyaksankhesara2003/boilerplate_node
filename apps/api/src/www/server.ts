@@ -1,19 +1,19 @@
+import compression from "compression";
 import cors from "cors";
+import express, { NextFunction, Request, Response, type Express } from "express";
+import basicAuth from 'express-basic-auth';
 import helmet from "helmet";
 import morgan from "morgan";
-import compression from "compression";
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import basicAuth from 'express-basic-auth';
-import express, { Request, Response, NextFunction, type Express } from "express";
 
+import { appConfig, swaggerBasicAuthConfig, swaggerJsDocConfig, swaggerOptionsConfig } from "@repo/config";
 import { knex } from "@repo/db";
 import { log } from "@repo/logger";
-import { StatusCodes, ResponseMessages, sendResponse } from "@repo/response-handler";
-import { appConfig, swaggerJsDocConfig, swaggerOptionsConfig, swaggerBasicAuthConfig } from "@repo/config";
-import routes from "../modules/index";
+import { ResponseMessages, sendResponse, StatusCodes } from "@repo/response-handler";
 import { errorHandler } from "../middlewares/errorHandler.middleware";
 import { languageMiddleware } from "../middlewares/language.middleware";
+import routes from "../modules/index";
 
 /**
  * @author Jitendra Singh

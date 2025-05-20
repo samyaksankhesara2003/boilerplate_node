@@ -1,11 +1,14 @@
+import { ChatHandler } from '@repo/chat';
+import { appConfig } from '@repo/config';
+import { NotificationHandler } from '@repo/notifications';
 import { Server } from 'socket.io';
-import { SOCKET_EVENTS } from '../constants/events';
-import { ChatHandler } from './chat.handler';
+import { SOCKET_EVENTS } from './constants/events';
 
 export class SocketManager {
   private static instance: SocketManager;
   private io: Server | null = null;
   private chatHandler: ChatHandler | null = null;
+  private notificationHandler: NotificationHandler | null = null;
 
   private constructor() {}
 
@@ -24,7 +27,7 @@ export class SocketManager {
 
     this.io = new Server(server, {
       cors: {
-        origin: '*',
+        origin: appConfig?.allowedHosts?.split(',') ?? '*',
         methods: ['GET', 'POST'],
         credentials: false,
       },
@@ -32,6 +35,8 @@ export class SocketManager {
 
     // Initialize chat handler
     this.chatHandler = new ChatHandler(this.io);
+    // Initialize notification handler
+    this.notificationHandler = new NotificationHandler(this.io);
 
     // Handle connection errors
     this.io.on(SOCKET_EVENTS.ERROR, (error) => {
