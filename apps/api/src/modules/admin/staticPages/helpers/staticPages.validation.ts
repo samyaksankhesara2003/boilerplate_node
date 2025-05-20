@@ -16,6 +16,7 @@ const QUERY = {
 
 const SCHEMA = {
     body: {
+        id: Joi.number().optional(),
         page: Joi.string().required(),
         content: Joi.string().required()
     }

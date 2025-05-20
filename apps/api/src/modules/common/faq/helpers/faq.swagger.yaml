@@ -19,7 +19,7 @@ paths:
           schema:
             type: string
           description: Status of the FAQ
-          example: "active"
+          example: 1
         - name: perPage
           in: query
           required: false

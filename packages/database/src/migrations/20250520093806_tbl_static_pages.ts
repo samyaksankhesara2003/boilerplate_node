@@ -16,6 +16,8 @@ export async function up(knex: Knex): Promise<void> {
         table.text('content').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+
+        table.unique(['page']);
     });
 };
 

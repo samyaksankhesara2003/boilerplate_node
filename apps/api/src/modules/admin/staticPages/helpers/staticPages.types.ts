@@ -5,6 +5,7 @@ export interface Params {
 }
 
 export interface Schema {
+    id?: number;
     page: string;
     content: string;
 }

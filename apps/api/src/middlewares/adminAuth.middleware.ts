@@ -21,7 +21,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
         if (!user) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         if (user.token !== token) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
-        if (user.role !== constants.role.Admin) {
+        if (+user.role !== constants.role.Admin) {
             return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         }
 

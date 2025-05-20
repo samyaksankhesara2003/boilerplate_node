@@ -56,9 +56,8 @@ const listService = async (queryParams: Query) => {
  */
 const createOrUpdateService = async (data: Schema) => {
     try {
-        const row = await getService(data.page, ['id']);
-        await model.query().patch(data).where('id', row.id);
-        return;
+        const row = await model.query().upsertGraph(data);
+        return row;
     } catch (error) {
         log.error('updateService Catch: ', error);
         throw error;

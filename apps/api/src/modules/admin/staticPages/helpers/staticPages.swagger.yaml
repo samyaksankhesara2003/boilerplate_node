@@ -5,6 +5,41 @@ paths:
         - Static Pages
       summary: Get all static pages
       description: Returns all static pages.
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+          example: "ABOUT_US"
+        - name: perPage
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Number of records per page
+          example: 10
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Page number
+          example: 1
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Order by field
+          example: "created_at"
+        - name: orderDir
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Order direction
+          example: "asc"
       responses:
         "200":
           description: A list of static pages
@@ -25,6 +60,8 @@ paths:
                       example: ABOUT_US
                     content:
                       type: string
+                      description: The content of the static page
+                      example: This is the content of the static page about us
         "500":
           description: Internal server error fetching static pages
           content:
@@ -35,6 +72,59 @@ paths:
                   error:
                     type: string
                     example: Failed to fetch static pages
+    put:
+      tags:
+        - Static Pages
+      summary: Update a static page by name
+      description: Updates a static page with a content by its name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                  example: 1
+                page:
+                  type: string
+                  example: ABOUT_US
+                content:
+                  type: string
+                  example: This is the content of the static page about us
+      responses:
+        "200":
+          description: Static page updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: string
+                  content:
+                    type: string
+        "201":
+          description: Static page created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  page:
+                    type: string
+                  content:
+                    type: string
+        "500":
+          description: Internal server error updating static page
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 
   /admin/static-pages/{page}:
     get:
@@ -76,57 +166,6 @@ paths:
                   error:
                     type: string
                     example: Failed to fetch static page
-    put:
-      tags:
-        - Static Pages
-      summary: Update a static page by name
-      description: Updates a static page with a content by its name.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                page:
-                  type: string
-                  example: ABOUT_US
-                content:
-                  type: string
-                  example: This is the content of the static page about us
-      responses:
-        "200":
-          description: Static page updated successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  page:
-                    type: string
-                  content:
-                    type: string
-        "201":
-          description: Static page created successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  page:
-                    type: string
-                  content:
-                    type: string
-        "500":
-          description: Internal server error updating static page
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-
     delete:
       tags:
         - Static Pages
@@ -137,7 +176,7 @@ paths:
           in: path
           required: true
           schema:
-            type: number
+            type: string
           description: Name of the static page to delete
           example: ABOUT_US
       responses:
