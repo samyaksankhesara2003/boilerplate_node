@@ -46,6 +46,9 @@
                       type:
                         type: number
                         description: Type of feedback.
+                      status:
+                        type: number
+                        description: Type of status e.g active and inactive
           '404':
             description: No feedbacks found.
           '500':

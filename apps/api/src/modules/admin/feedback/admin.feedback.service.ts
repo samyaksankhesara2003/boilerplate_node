@@ -16,7 +16,7 @@ const getAllFeedBackService = async (
   try {
     const { user_id, status } = listing_filter;
 
-    const feedback_Attributes = ["id","user_id","module_id","rating","text","type"];
+    const feedback_Attributes = ["id","user_id","module_id","rating","text","type","status"];
 
     const totalFeedbacks = await Feedback.query().select(...feedback_Attributes)
       .modify((query) => {
