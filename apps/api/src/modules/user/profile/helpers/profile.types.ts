@@ -3,6 +3,7 @@ export interface IUser {
     first_name: string;
     last_name: string;
     email: string;
+    mobile_number: string;
     profile_url: string;
     role: number;
     status: number;
@@ -19,4 +20,9 @@ export interface IUpdateProfileBody {
 export interface IChangePasswordBody {
     current_password: string;
     new_password: string;
+};
+
+export interface ILogoutBody {
+    device_type: number;
+    ip_address: string;
 };

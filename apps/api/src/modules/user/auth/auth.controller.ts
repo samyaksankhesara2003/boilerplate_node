@@ -4,26 +4,12 @@ import { authService } from './auth.service';
 
 /**
  * @author Jitendra Singh
- * @description Creates a new user.
+ * @description Authenticates a user via social media (Google, Facebook, Apple), email and password, or phone.
  */
-const signUp = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+const socialSignIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { body, language } = req;
-    const data = await authService.signUpService(body);
-    return sendResponse(res, StatusCodes.CREATED, ResponseMessages.USER.SIGNUP_SUCCESS, data, language);
-  } catch (error) {
-    next(error);
-  }
-};
-
-/**
- * @author Jitendra Singh
- * @description Logs in a user.
- */
-const login = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
-  try {
-    const { body, language } = req;
-    const data = await authService.loginService(body);
+    const data = await authService.socialSignInService(body);
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.AUTH.LOGIN_SUCCESS, data, language);
   } catch (error) {
     next(error);
@@ -31,6 +17,5 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
 };
 
 export const authController = {
-  signUp,
-  login
+  socialSignIn
 };

@@ -1,10 +1,10 @@
 paths:
-  /user/auth/signup:
+  /user/auth/social-signin:
     post:
       tags:
         - Auth
-      summary: Sign up a new user
-      description: Creates a new user account and returns a JWT token with user details.
+      summary: Authenticates a user via social media (Google, Facebook, Apple), email and password, or phone.
+      description: Authenticates a user via social media (Google, Facebook, Apple), email and password, or phone, and returns a JWT token with user details.
       security: []
       parameters:
         - name: Accept-Language
@@ -15,8 +15,14 @@ paths:
             enum: [en, fr]
             default: en
           description: Language code for localized responses (default is en)
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
       requestBody:
-        required: true
+        required: false
         content:
           application/json:
             schema:
@@ -28,84 +34,14 @@ paths:
                 last_name:
                   type: string
                   example: Doe
-                email:
-                  type: string
-                  example: john@example.com
-                password:
-                  type: string
-                  example: SecureP@ss123
-      responses:
-        '201':
-          description: Successful user registration
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6...
-                  loginDetails:
-                    type: object
-                    properties:
-                      id:
-                        type: number
-                        example: 1
-                      name:
-                        type: string
-                        example: John Doe
-                      email:
-                        type: string
-                        example: john@example.com
-                      role:
-                        type: number
-                        example: 2
-                      status:
-                        type: number
-                        example: 1
-        '400':
-          description: Validation error or user already exists
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: User already exists
-
-  /user/auth/login:
-    post:
-      tags:
-        - Auth
-      summary: Log in a user
-      description: Authenticates a user and returns a JWT token with user details.
-      security: []
-      parameters:
-        - name: Accept-Language
-          in: header
-          required: true
-          schema:
-            type: string
-            enum: [en, fr]
-            default: en
-          description: Language code for localized responses (default is en)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: john@example.com
-                password:
-                  type: string
-                  example: SecureP@ss123
+                device_type:
+                  type: integer
+                  enum: [1, 2, 3]
+                  enumNames: ['MOBILE', 'DESKTOP', 'TABLET']
+                  example: 1
       responses:
         '200':
-          description: Successful user login
+          description: Signed in successfully
           content:
             application/json:
               schema:
@@ -126,6 +62,9 @@ paths:
                       email:
                         type: string
                         example: john@example.com
+                      mobile_number:
+                        type: string
+                        example: 1234567890
                       role:
                         type: number
                         example: 2
@@ -133,7 +72,7 @@ paths:
                         type: number
                         example: 1
         '400':
-          description: Invalid email or password
+          description: Validation error.
           content:
             application/json:
               schema:
@@ -141,4 +80,24 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Invalid email or password
+                    example: Validation error
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error

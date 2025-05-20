@@ -34,6 +34,9 @@ paths:
                   email:
                     type: string
                     example: john@example.com
+                  mobile_number:
+                    type: string
+                    example: +91 1234567890
                   profile_url:
                     type: string
                     example: https://example.com/profile.jpg
@@ -53,6 +56,16 @@ paths:
                   error:
                     type: string
                     example: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error
 
     patch:
       tags:
@@ -126,6 +139,24 @@ paths:
                     example: Invalid input data
         "401":
           description: Unauthorized - Invalid or missing token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error
 
   /user/profile/password:
     patch:
@@ -181,3 +212,80 @@ paths:
                     example: Current password is incorrect
         "401":
           description: Unauthorized - Invalid or missing token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error
+
+  /user/profile/logout:
+    post:
+      tags:
+        - Profile
+      summary: Log out user
+      description: Logs out the authenticated user and updates their `token` to `null`.
+      parameters:
+        - name: Accept-Language
+          in: header
+          required: true
+          schema:
+            type: string
+            enum: [en, fr]
+            default: en
+          description: Language code for localized responses (default is en)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_type:
+                  type: number
+                  enum: [1, 2, 3]
+                  enumNames: [Mobile, Desktop, Tablet]
+                  example: 2
+      responses:
+        "200":
+          description: User logged out successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+        "401":
+          description: Unauthorized - Invalid or missing token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal Server Error

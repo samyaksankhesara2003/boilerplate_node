@@ -9,5 +9,6 @@ const router: Router = Router();
 router.get('/', profileController.getProfile);
 router.patch('/', multer().single('profile_image'), validateRequest(profileValidation.updateProfileSchema), profileController.updateProfile);
 router.patch('/password', validateRequest(profileValidation.changePasswordSchema), profileController.changePassword);
+router.post('/logout', validateRequest(profileValidation.logoutSchema), profileController.logout);
 
 export const profileRoutes = router;
