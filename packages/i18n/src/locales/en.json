@@ -39,5 +39,15 @@
     },
     "server": {
         "error": "Internal server error"
+    },
+    "feedback":{
+        "fetch_success": "feedback fetched successfully",
+        "save_success": "Feedback saved successfully",
+        "save_failed": "Feedback save failed",
+        "not_found": "feedback not found",
+        "list_success": "Feedback list fetched successfully",
+        "module_id_required" : "Module ID is required for this type of feedback",
+        "max_rating_limit": "Maximum rating limit is 5",
+        "property_required": "Fields like type or user_id or text should be required"
     }
 }

@@ -39,5 +39,15 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'state.fetch_success',
         NOT_FOUND: 'state.not_found',
         LIST_SUCCESS: 'state.list_success',
+    },
+    FEEDBACK:{
+        FETCH_SUCCESS: 'feedback.fetch_success',
+        SAVE_SUCCESS: 'feedback.save_success',
+        SAVE_FAILED: 'feedback.save_failed',
+        NOT_FOUND: 'feedback.not_found',
+        LIST_SUCCESS: 'feedback.list_success',
+        MODULE_ID_REQUIRED : 'feedback.module_id_required',
+        MAX_RATING_LIMIT: 'feedback.max_rating_limit',
+        PROPERTY_REQUIRED: 'feedback.property_required',
     }
 } as const;
