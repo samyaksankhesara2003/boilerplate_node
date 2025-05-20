@@ -8,4 +8,10 @@ const router: Router = Router();
 
 router.post('/social-signin', verifyFirebaseToken, validateRequest(authValidation.socialSignInSchema), authController.socialSignIn);
 
+router.post('/forget-password', validateRequest(authValidation.forgetPasswordSchema), authController.forgetPassword);
+  
+router.get('/verify-reset-password-link/:token', validateRequest(authValidation.verifyResetPasswordLinkSchema), authController.verifyResetPasswordLink);
+
+router.patch('/reset-password/:token', validateRequest(authValidation.resetPasswordSchema), authController.resetPassword);
+  
 export const authRoutes = router;

@@ -1,5 +1,5 @@
 import { initializeApp, cert, App } from 'firebase-admin/app';
-import { getAuth } from 'firebase-admin/auth';
+import { Auth, getAuth } from 'firebase-admin/auth';
 import { firebaseAuthConfig } from '@repo/config';
 
 let firebaseApp: App | undefined;
@@ -35,7 +35,7 @@ export function initFirebase(): App {
  * @description Gets the Firebase Auth instance.
  * @returns {import('firebase-admin/auth').Auth} The Firebase Auth instance.
  */
-export function getFirebaseAuth() {
+export function getFirebaseAuth(): Auth {
     if (!firebaseApp) initFirebase();
     return getAuth(firebaseApp!);
 };
