@@ -14,7 +14,7 @@ const QUERY = {
     }
 };
 
-const SCHEMA = {
+const CREATE_OR_UPDATE = {
     body: {
         id: Joi.number().optional(),
         page: Joi.string().required(),
@@ -25,5 +25,5 @@ const SCHEMA = {
 export const staticPagesValidation = {
     PARAMS,
     QUERY,
-    SCHEMA
+    CREATE_OR_UPDATE
 }; 
