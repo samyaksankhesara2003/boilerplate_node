@@ -32,7 +32,6 @@ export class NotificationHandler {
       socket.on(
         SOCKET_EVENTS.JOIN_NOTIFICATION_ROOM,
         async (payload: IJoinRoomPayload) => {
-          console.log('roomId==>', payload);
           await socket.join(payload.room_id);
         }
       );

@@ -23,14 +23,12 @@ export class ChatHandler {
 					socket.on(
             SOCKET_EVENTS.JOIN_ROOM,
             async (payload: IJoinRoomPayload) => {
-              console.log('roomId==>', payload);
               await this.handleJoinRoom(socket, payload.room_id);
             }
           );
 
       // Leave room event
 					socket.on(SOCKET_EVENTS.LEAVE_ROOM, (payload: IJoinRoomPayload) => {
-							 console.log('roomId==>', payload.room_id);
         this.handleLeaveRoom(socket, payload.room_id);
       });
 
@@ -84,12 +82,10 @@ export class ChatHandler {
 
   private async handleJoinRoom(socket: Socket, roomId: string): Promise<void> {
     await socket.join(roomId);
-    console.log(`User joined room ${roomId}`);
   }
 
   private handleLeaveRoom(socket: Socket, roomId: string): void {
     socket.leave(roomId);
-    console.log(`User left room ${roomId}`);
   }
 
   private async handleSendMessage(
@@ -97,7 +93,6 @@ export class ChatHandler {
     payload: ISendMessagePayload
   ): Promise<void> {
     try {
-      console.log('socket==>', payload);      
       // Save message to database
       const message = await ChatService.sendMessage(payload);
 
@@ -164,6 +159,5 @@ export class ChatHandler {
 
   private handleDisconnect(socket: Socket): void {
     // Clean up any typing indicators or other state
-    console.log('Client disconnected');
   }
 } 
