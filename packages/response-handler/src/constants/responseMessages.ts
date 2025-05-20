@@ -16,6 +16,7 @@ export const ResponseMessages = {
         ALREADY_EXISTS: 'user.already_exists',
         NOT_ACTIVE: 'user.not_active',
         SIGNUP_SUCCESS: 'user.signup_success',
+        ACCOUNT_DELETED: 'user.account_deleted',
     },
     AUTH: {
         LOGIN_SUCCESS: 'auth.login_success',
@@ -26,6 +27,12 @@ export const ResponseMessages = {
         UPDATE_SUCCESS: 'profile.update_success'
     },
     PASSWORD: {
+        INVALID_FORGET_PASSWORD_LINK: 'password.invalid_forget_password_link',
+        INVALID_RESET_PASSWORD_LINK: 'password.invalid_reset_password_link',
+        FORGET_PASSWORD_LINK_EXPIRED: 'password.forget_password_link_expired',
+        LINK_VERIFICATION_SUCCESS: 'password.link_verification_success',
+        FORGOT_PASSWORD_SUCCESS: 'password.forgot_password_success',
+        RESET_PASSWORD_SUCCESS: 'password.reset_password_success',
         INVALID_PASSWORD: 'password.invalid_password',
         PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'password.password_cannot_be_same_as_current',
         PASSWORD_CHANGE_SUCCESS: 'password.password_change_success',

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { generateRandomNumber, generateRandomString } from '../random/random';
+import { generateRandomNumber, generateRandomString } from '../random';
 
 describe('generateRandomNumber', () => {
     it('should return a number within range', () => {

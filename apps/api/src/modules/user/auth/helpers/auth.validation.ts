@@ -15,6 +15,30 @@ const socialSignInSchema = {
     }
 };
 
+const forgetPasswordSchema = {
+    body: {
+        email: Joi.string().email().required()
+    }
+};
+
+const verifyResetPasswordLinkSchema = {
+    params: {
+        token: Joi.string().required()
+    }
+};
+
+const resetPasswordSchema = {
+    params: {
+        token: Joi.string().required()
+    },
+    body: {
+        password: Joi.string().required()
+    }
+};
+
 export const authValidation = {
-    socialSignInSchema
+    socialSignInSchema,
+    forgetPasswordSchema,
+    verifyResetPasswordLinkSchema,
+    resetPasswordSchema
 };
