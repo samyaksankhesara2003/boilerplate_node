@@ -1,0 +1,50 @@
+{
+    "server": {
+        "error": "Erreur interne du serveur"
+    },
+    "common": {
+        "success": "Succès",
+        "error": "Erreur",
+        "validation_error": "Erreur de validation",
+        "not_authenticated": "Non authentifié",
+        "session_expired": "Session expirée",
+        "unsupported_file_type": "Type de fichier non supporté"
+    },
+    "user": {
+        "fetch_success": "Utilisateur récupéré avec succès",
+        "not_found": "Utilisateur non trouvé",
+        "already_exists": "Utilisateur existe déjà",
+        "not_active": "Utilisateur n'est pas actif",
+        "signup_success": "Inscription réussie",
+        "account_deleted": "Votre compte a été supprimé. Veuillez contacter le support."
+    },
+    "auth": {
+        "login_success": "Connexion réussie",
+        "invalid_credentials": "Informations d'identification invalides"
+    },
+    "profile": {
+        "fetch_success": "Profil récupéré avec succès",
+        "update_success": "Profil mis à jour avec succès"
+    },
+    "password": {
+        "invalid_password": "Invalid password",
+        "password_change_success": "Password changed successfully",
+        "password_cannot_be_same_as_current": "Password cannot be the same as the current password",
+        "invalid_forget_password_link": "Invalid forget password link",
+        "invalid_reset_password_link": "Invalid reset password link",
+        "forget_password_link_expired": "Forget password link expired",
+        "link_verification_success": "Link verification successful",
+        "forgot_password_success": "Forgot password successfully",
+        "reset_password_success": "Password reset successfully"
+    },
+    "country": {
+        "fetch_success": "Pays récupéré avec succès",
+        "not_found": "Pays non trouvé",
+        "list_success": "Liste des pays récupérée avec succès"
+    },
+    "state": {
+        "fetch_success": "État récupéré avec succès",
+        "not_found": "État non trouvé",
+        "list_success": "Liste des états récupérée avec succès"
+    }
+}

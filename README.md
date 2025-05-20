@@ -1,1 +1,49 @@
 # Turbo Repo Demo
+
+This Turborepo starter is maintained by the Techuz team.
+
+This example also shows how to use [Workspace Configurations](https://turbo.build/docs/core-concepts/monorepos/configuring-workspaces).
+
+## Using this example
+
+Run the following command:
+
+```sh
+git clone https://github.com/techuz/turbo-repo-demo.git
+```
+
+## What's inside?
+
+This Turborepo includes the following packages and apps:
+
+### Apps and Packages
+
+- `api`: an [Express](https://expressjs.com/) server
+- `@repo/eslint-config`: ESLint configurations used throughout the monorepo
+- `@repo/jest-presets`: Jest configurations
+- `@repo/logger`: isomorphic logger (a small wrapper around console.log)
+- `@repo/ui`: a dummy React UI library (which contains `<CounterButton>` and `<Link>` components)
+- `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
+- `@repo/config`: shared configurations
+- `@repo/db`: database schema and migrations using Knex and Objection
+- `@repo/tokens`: JWT tokens generation and validation utility
+- `@repo/stripe`: Stripe API client
+- `@repo/i18n`: Internationalization (i18n) utilities for multi-language support (fetching translated messages dynamically).
+- `@repo/response-handler`: Utility to standardize API responses.
+- `@repo/validator`: a wrapper around Joi, providing utilities for validating and sanitizing user input.
+- `@repo/mailer`: Handles email functionality, including sending emails using predefined templates and configurations.
+- `@repo/utils`: utility functions for string manipulation, date formatting, object manipulation, and more.
+- `@repo/storage-service`: a simple AWS S3 service that can be used for uploading, downloading, and deleting files.
+- `@repo/sms-service`: SMS service utilities
+- `@repo/firebase-auth`: Firebase authentication integration for handling user authentication and authorization using Firebase services.
+
+Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This Turborepo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Jest](https://jestjs.io) test runner for all things JavaScript
+- [Prettier](https://prettier.io) for code formatting
