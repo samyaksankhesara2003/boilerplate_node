@@ -1,7 +1,7 @@
-import { Router, Request, Response } from 'express';
-import { sendResponse, StatusCodes } from '@repo/response-handler';
+import { Router } from 'express';
 import { stateRoutes } from './state/state.routes';
 import { countryRoutes } from './country/country.routes';
+import { faqRoutes } from './faq/faq.routes';
 
 const router: Router = Router();
 
@@ -11,7 +11,7 @@ router.use('/country', countryRoutes);
 // State routes
 router.use('/state', stateRoutes);
 
-// Catch-all route for 404
-router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
+// FAQ routes
+router.use('/faq', faqRoutes);
 
 export const commonRoutes = router;
