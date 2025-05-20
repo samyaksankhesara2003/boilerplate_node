@@ -16,7 +16,8 @@
         "@repo/mailer#dev",
         "@repo/stripe#dev",
         "@repo/response-handler#dev",
-        "@repo/db#dev"
+        "@repo/db#dev",
+        "@repo/chat#dev"
       ]
     }
   }
