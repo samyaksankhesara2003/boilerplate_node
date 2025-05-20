@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
 import { _service } from './staticPages.service';
 import { Query } from './helpers/staticPages.types';
+
 /**
  * @author Jainam Shah
  * @description Get a particular row by its ID.

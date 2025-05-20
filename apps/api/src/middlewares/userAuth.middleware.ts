@@ -22,7 +22,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
         if (!user) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         if (user.token !== token) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
-        if (user.status !== constants.status.Active) {
+        if (+user.status !== constants.status.Active) {
             return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         }
 
