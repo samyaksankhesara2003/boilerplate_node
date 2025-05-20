@@ -16,26 +16,19 @@ const getAllFeedBackService = async (
   try {
     const { user_id, status } = listing_filter;
 
-    const feedback_Attributes = ['id', 'user_id', 'module_id', 'rating', 'text', 'type'];
+    const feedback_Attributes = ["id","user_id","module_id","rating","text","type"];
 
+    const totalFeedbacks = await Feedback.query().select(...feedback_Attributes)
+      .modify((query) => {
+        if (user_id) {
+          query.where("user_id", user_id);
+        }
+        if (status) {
+          query.where("status", status);
+        }
+      });
 
-    const totalFeedbacks = await Feedback.query().select(...feedback_Attributes).modify((query) => {
-      if (user_id) {
-        query.where("user_id", user_id);
-      }
-      if (status) {
-        query.where("status", status);
-      }
-    });
-
-
-
-    if (!totalFeedbacks || totalFeedbacks.length === 0) {
-      throw new CustomError(
-        ResponseMessages.FEEDBACK.NOT_FOUND,
-        StatusCodes.NOT_FOUND
-      );
-    }
+    if (!totalFeedbacks || totalFeedbacks.length === 0) throw new CustomError(ResponseMessages.FEEDBACK.NOT_FOUND,StatusCodes.NOT_FOUND);
 
     return totalFeedbacks;
   } catch (error) {

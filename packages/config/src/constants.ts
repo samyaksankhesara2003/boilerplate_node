@@ -129,7 +129,13 @@ export const constants = {
             'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
             'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
         },
-    },
+    },    
+
+    //Feedback types 
+    feedback_type:{
+        'System': 1,
+        'Module': 2
+    }
 } as const;
 
 export type SupportedLanguage = typeof constants.supportedLanguages[number];

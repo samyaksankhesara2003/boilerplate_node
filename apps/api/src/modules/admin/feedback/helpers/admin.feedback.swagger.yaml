@@ -1,0 +1,52 @@
+  paths:
+    /admin/feedback/getAllFeedbacks:
+      get:
+        summary: Get all feedbacks
+        description: Retrieve a list of feedbacks based on filters like `user_id` and `status`.
+        tags:
+          - Get feedbacks
+        parameters:
+          - in: query
+            name: user_id
+            required: false
+            schema:
+              type: number
+            description: Filter feedbacks by user ID.
+          - in: query
+            name: status
+            required: false
+            schema:
+              type: number
+            description: Filter feedbacks by status (e.g., 1 for active , 2 for inactive)
+        responses:
+          '200':
+            description: Successfully retrieved feedbacks.
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        description: Feedback ID.
+                      user_id:
+                        type: number
+                        description: ID of the user who submitted the feedback.
+                      module_id:
+                        type: number
+                        description: ID of the module related to the feedback.
+                      rating:
+                        type: number
+                        description: Rating given in the feedback.
+                      text:
+                        type: string
+                        description: Feedback text.
+                      type:
+                        type: number
+                        description: Type of feedback.
+          '404':
+            description: No feedbacks found.
+          '500':
+            description: Internal server error.

@@ -1,10 +1,8 @@
-import { Router } from 'express';
-import {adminfeedbackController} from './admin.feedback.controller';
-
-
+import { Router } from "express";
+import { adminfeedbackController } from "./admin.feedback.controller";
 
 const router: Router = Router();
 
-router.get('/getAllFeedbacks', adminfeedbackController.getAllFeedbacks);
+router.get("/getAllFeedbacks", adminfeedbackController.getAllFeedbacks);
 
 export const adminfeedbackRoutes = router;

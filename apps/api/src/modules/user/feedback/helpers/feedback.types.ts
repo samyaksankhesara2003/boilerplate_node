@@ -6,4 +6,3 @@ export interface IFeedback {
     type: number;
 };
 
-export interface IPostFeedbackResponse extends IFeedback {};
