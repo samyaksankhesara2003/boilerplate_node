@@ -4,7 +4,6 @@ import { log } from '@repo/logger';
 import { jwtUtil } from '@repo/tokens';
 import { constants } from '@repo/config';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
-
 /**
  * @author Jitendra Singh
  * @description Express middleware that authenticates a user based on a JWT token in the request headers.
@@ -22,7 +21,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
         if (!user) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         if (user.token !== token) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
-        if (user.status !== constants.status.Active) {
+        if (user.role !== constants.role.Admin) {
             return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         }
 

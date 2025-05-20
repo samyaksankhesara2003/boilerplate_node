@@ -10,11 +10,10 @@ import type { Knex } from "knex";
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('faqs', (table) => {
+    await knex.schema.createTable('static_pages', (table) => {
         table.increments('id').primary();
-        table.string('question').notNullable();
-        table.text('answer').notNullable();
-        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1-> Active, 2-> Inactive');
+        table.string('page', 20).notNullable();
+        table.text('content').notNullable();
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });
@@ -31,5 +30,5 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists('faqs');
+    await knex.schema.dropTableIfExists('static_pages');
 };

@@ -20,21 +20,10 @@ const getPageNumber = (pageNumber: number) => {
     return null;
 }
 
-export const createPagination = (
-    totalRecords: number,
-    pageNumber: number,
-    recordPerPage: number,
-    result?: Array<unknown>
-) => {
-    const pages = Math.ceil(totalRecords / recordPerPage);
+export const createPagination = (total: number, page: number, perPage: number, result?: Array<unknown>) => {
+    const pages = Math.ceil(total / perPage);
     return {
         result,
-        pagination: {
-            currentPage: pageNumber,
-            recordPerPage,
-            totalRecords,
-            previous: getPageNumber(pageNumber),
-            next: pageNumber < pages ? pageNumber + 1 : null,
-        }
+        pagination: { page: +page, perPage: +perPage, total, prev: getPageNumber(+page), next: +page < pages ? +page + 1 : null }
     }
 }

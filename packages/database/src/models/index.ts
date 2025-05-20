@@ -5,6 +5,9 @@ export { default as State } from './common/location/state';
 // FAQ
 export { default as FAQ } from './common/faq';
 
+// Pages
+export { default as StaticPages } from './common/staticPages';
+
 // User
 export { default as User } from './User';
 

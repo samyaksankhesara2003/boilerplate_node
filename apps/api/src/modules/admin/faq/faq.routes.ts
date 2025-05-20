@@ -9,5 +9,8 @@ const controller = faqController;
 const router: Router = Router();
 
 router.get('/', validateRequest(validation.QUERY), controller.list);
+router.post('/', validateRequest(validation.SCHEMA), controller.create);
+router.put('/', validateRequest(validation.SCHEMA), controller.update);
+router.delete('/:id', validateRequest(validation.PARAMS), controller.remove);
 
 export const faqRoutes = router; 
