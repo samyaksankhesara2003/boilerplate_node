@@ -6,7 +6,7 @@ import { _service } from './staticPages.service';
  * @author Jainam Shah
  * @description Get a particular row by its ID.
  */
-const get = async (req: Request, res: Response, next: NextFunction) => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
         const data = await _service.getService(params.page);

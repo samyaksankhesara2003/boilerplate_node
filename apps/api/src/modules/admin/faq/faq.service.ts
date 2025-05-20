@@ -1,6 +1,6 @@
 import { FAQ } from '@repo/db';
 import { log } from '@repo/logger';
-import { createPagination } from '@repo/utils';
+import { createPagination, PaginationResponse } from '@repo/utils';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { Query, Schema } from './helpers/faq.types';
 
@@ -11,7 +11,7 @@ const commonAttributes = ['id', 'question', 'answer', 'status'];
  * @author Jainam Shah
  * @description Fetches a row by its ID.
  */
-const getService = async (id: number, attributes: string[] = commonAttributes) => {
+const getService = async (id: number, attributes: string[] = commonAttributes): Promise<FAQ> => {
     try {
         const row = await model.query().select(...attributes).findById(id);
         if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
@@ -27,7 +27,7 @@ const getService = async (id: number, attributes: string[] = commonAttributes) =
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query) => {
+const listService = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, status, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;
@@ -60,7 +60,7 @@ const listService = async (queryParams: Query) => {
  * @author Jainam Shah
  * @description Creates a new row.
  */
-const createService = async (data: Schema) => {
+const createService = async (data: Schema): Promise<FAQ> => {
     try {
         const row = await model.query().insert(data);
         return row;
@@ -74,7 +74,7 @@ const createService = async (data: Schema) => {
  * @author Jainam Shah
  * @description Updates a particular row by its ID.
  */
-const updateService = async (id: number, data: Schema) => {
+const updateService = async (id: number, data: Schema): Promise<void> => {
     try {
         const row = await getService(id, ['id']);
         await model.query().patch(data).where('id', row.id);
@@ -89,7 +89,7 @@ const updateService = async (id: number, data: Schema) => {
  * @author Jainam Shah
  * @description Deletes a particular row by its ID.
  */
-const removeService = async (id: number) => {
+const removeService = async (id: number): Promise<void> => {
     try {
         const row = await getService(id, ['id']);
         await model.query().deleteById(row.id);

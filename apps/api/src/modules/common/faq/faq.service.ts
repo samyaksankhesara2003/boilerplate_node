@@ -1,6 +1,6 @@
 import { FAQ } from '@repo/db';
 import { log } from '@repo/logger';
-import { createPagination } from '@repo/utils';
+import { createPagination, PaginationResponse } from '@repo/utils';
 import { Query } from './helpers/faq.types';
 
 const model = FAQ;
@@ -10,7 +10,7 @@ const commonAttributes = ['id', 'question', 'answer'];
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query) => {
+const listService = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, status, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;

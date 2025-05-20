@@ -27,3 +27,14 @@ export const createPagination = (total: number, page: number, perPage: number, r
         pagination: { page: +page, perPage: +perPage, total, prev: getPageNumber(+page), next: +page < pages ? +page + 1 : null }
     }
 }
+
+export interface PaginationResponse {
+    result: unknown[] | undefined;
+    pagination: {
+        page: number;
+        perPage: number;
+        total: number;
+        prev: number | null;
+        next: number | null;
+    }
+}

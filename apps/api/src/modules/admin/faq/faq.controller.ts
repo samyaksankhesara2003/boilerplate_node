@@ -7,7 +7,7 @@ import { Query } from './helpers/faq.types';
  * @author Jainam Shah
  * @description List all rows.
  */
-const list = async (req: Request, res: Response, next: NextFunction) => {
+const list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
         const data = await _service.listService(query as unknown as Query);
@@ -21,7 +21,7 @@ const list = async (req: Request, res: Response, next: NextFunction) => {
  * @author Jainam Shah
  * @description Create a new row.
  */
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
         console.log(body, 'body')
@@ -36,7 +36,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
  * @author Jainam Shah
  * @description Update a row by its ID.
  */
-const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
         const data = await _service.updateService(+body.id, body);
@@ -50,7 +50,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
  * @author Jainam Shah
  * @description Delete a row by its ID.
  */
-const remove = async (req: Request, res: Response, next: NextFunction) => {
+const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
         const data = await _service.removeService(+params.id);
