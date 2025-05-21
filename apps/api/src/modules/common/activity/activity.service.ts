@@ -1,5 +1,5 @@
-import { ActivityLog } from '@repo/db';
 import { log } from '@repo/logger';
+import { ActivityLog } from '@repo/db';
 import { constants } from '@repo/config';
 import { IActivityLog, IActivityLogQuery } from './helpers/activity.types';
 
@@ -34,17 +34,9 @@ const listActivityLogsService = async (query: IActivityLogQuery): Promise<Activi
  */
 const createActivityLogService = async (body: IActivityLog): Promise<void> => {
     try {
-        const { user_id, activity_id, ip_address, device_type, activity_type } = body;
+        body.device_type = body.device_type || constants.deviceType['DESKTOP'];
 
-        await ActivityLog
-            .query()
-            .insert({
-                user_id,
-                activity_id: activity_id,
-                ip_address: ip_address,
-                device_type: device_type || constants.deviceType['DESKTOP'],
-                activity_type: activity_type
-            });
+        await ActivityLog.query().insert(body);
 
         return;
     } catch (error) {

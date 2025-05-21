@@ -479,9 +479,15 @@ importers:
 
   packages/validator:
     dependencies:
+      '@repo/config':
+        specifier: workspace:*
+        version: link:../config
       '@repo/response-handler':
         specifier: workspace:*
         version: link:../response-handler
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       express:
         specifier: 5.1.0
         version: 5.1.0

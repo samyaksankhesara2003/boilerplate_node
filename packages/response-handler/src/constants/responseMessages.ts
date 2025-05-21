@@ -9,6 +9,12 @@ export const ResponseMessages = {
         NOT_AUTHENTICATED: 'common.not_authenticated',
         SESSION_EXPIRED: 'common.session_expired',
         UNSUPPORTED_FILE_TYPE: 'common.unsupported_file_type',
+        NOT_FOUND: 'common.not_found',
+        FETCH_SUCCESS: 'common.fetch_success',
+        LIST_SUCCESS: 'common.list_success',
+        CREATE_SUCCESS: 'common.create_success',
+        UPDATE_SUCCESS: 'common.update_success',
+        DELETE_SUCCESS: 'common.delete_success',
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',
