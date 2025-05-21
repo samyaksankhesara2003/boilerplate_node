@@ -1,24 +1,42 @@
-export interface ISignUpBody {
+export interface ISocialSignInBody {
+    social_id: string;
     first_name: string;
     last_name: string;
     email: string;
+    mobile_number: string;
     password: string;
+    profile_url: string;
+    auth_type: number;
+    device_type: number;
 };
 
-export interface ISignUpResponse {
+export interface ISocialSignInResponse {
     token: string;
     loginDetails: {
         id: number;
         name: string;
         email: string;
+        mobile_number?: string;
         role: number;
         status: number;
     };
 };
 
-export interface ILoginBody {
+export interface IForgetPasswordBody {
     email: string;
-    password: string;
+    client_base_url: string;
 };
 
-export interface ILoginResponse extends ISignUpResponse {};
+export interface IVerifyResetPasswordLinkParams {
+    token: string;
+};
+
+export interface IVerifyResetPasswordLinkResponse {
+    is_valid_link: boolean;
+};
+
+export interface IResetPasswordParams extends IVerifyResetPasswordLinkParams {}
+
+export interface IResetPasswordBody {
+    password: string;
+};

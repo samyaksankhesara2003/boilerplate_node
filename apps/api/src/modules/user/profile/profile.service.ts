@@ -4,7 +4,8 @@ import { constants, storageConfig } from '@repo/config';
 import { comparePassword, hashPassword } from '@repo/utils';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { deleteFile, getPresignedUrl, s3Client, uploadFile } from '@repo/storage-service';
-import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody } from './helpers/profile.types';
+import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody, ILogoutBody } from './helpers/profile.types';
+import { activityLogService } from '../../common/activity/activity.service';
 
 /**
  * @author Jitendra Singh
@@ -13,7 +14,7 @@ import { IUser, IGetProfileResponse, IUpdateProfileBody, IChangePasswordBody } f
 const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
     try {
         const { id } = user;
-        const userAttributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'role', 'status'];
+        const userAttributes = ['id', 'first_name', 'last_name', 'email', 'mobile_number', 'profile_url', 'role', 'status'];
 
         const userDetails = await User.query().select(...userAttributes).findById(id);
 
@@ -89,8 +90,45 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
     }
 };
 
+/**
+ * @author Jitendra Singh
+ * @description Logs out the given user.
+ */
+const logoutService = async (user: IUser, body: ILogoutBody): Promise<void> => {
+    console.log("logoutService body: ", body);
+    try {
+        const { ip_address, device_type } = body;
+
+        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'token', 'auth_type', 'role', 'status'];
+
+        const userDetails = await User
+            .query()
+            .select(...userAttributes)
+            .findById(user.id);
+
+        if (!userDetails) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
+
+        await userDetails
+            .$query()
+            .patch({ token: null });
+
+        await activityLogService.createActivityLogService({
+            user_id: user.id,
+            ip_address: ip_address,
+            device_type: device_type || constants.deviceType['DESKTOP'],
+            activity_type: constants.activityType['LOGOUT'],
+        });
+
+        return;
+    } catch (error) {
+        log.error('logoutService Catch: ', error);
+        throw error;
+    }
+};
+
 export const profileService = {
     getProfileService,
     updateProfileService,
-    changePasswordService
+    changePasswordService,
+    logoutService
 };

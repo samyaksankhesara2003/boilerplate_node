@@ -41,7 +41,8 @@ export const createServer = (): Express => {
     })
     .use(compression())
     .use(express.urlencoded({ extended: false }))
-    .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
+    // .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
+    .use(cors({ origin: '*' }));
 
   // Test DB connection
   knex.raw('SELECT 1').then(() => {
@@ -51,14 +52,14 @@ export const createServer = (): Express => {
   });
 
   // Serve the Swagger JSON specification
-  app.get('/api-docs/swagger.json', (req: Request, res: Response): Response => {
+  app.get('/api-docs/swagger.json', (req: Request, res: Response): void => {
     const swaggerSpec = swaggerJsDoc({
       ...swaggerJsDocConfig,
       apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
     });
 
     // Just return the Swagger JSON
-    return res.json(swaggerSpec);
+    res.json(swaggerSpec);
   });
 
   // Serve the Swagger UI
@@ -85,7 +86,7 @@ export const createServer = (): Express => {
   );
 
   // Test API
-  app.get("/", (req: Request, res: Response): Response => {
+  app.get("/", (req: Request, res: Response): void => {
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS);
   });
 

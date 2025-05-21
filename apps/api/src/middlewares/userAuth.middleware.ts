@@ -8,7 +8,7 @@ import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-hand
  * @author Jitendra Singh
  * @description Express middleware that authenticates a user based on a JWT token in the request headers.
  */
-export default async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+export default async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
 
@@ -28,7 +28,6 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
         return next();
     } catch (error) {
         log.error(error);
-        // return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.SESSION_EXPIRED);
         next(error);
     }
 };

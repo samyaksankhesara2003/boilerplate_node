@@ -9,3 +9,5 @@ export { default as User } from './User';
 export { default as Message } from './Message';
 // Notification
 export { default as Notification } from './Notification';
+// Activity
+export { default as ActivityLog } from './ActivityLog';

@@ -37,6 +37,8 @@ This Turborepo includes the following packages and apps:
 - `@repo/chat`: Real-time chat functionality with support for private and group messaging, message history, and presence indicators.
 - `@repo/notification`: A notification service that handles in-app notifications and inbox messages.
 - `@repo/socket`: WebSocket service for real-time bidirectional communication, supporting features like connection management, event handling, and room-based messaging.
+- `@repo/sms-service`: SMS service utilities
+- `@repo/firebase-auth`: Firebase authentication integration for handling user authentication and authorization using Firebase services.
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 

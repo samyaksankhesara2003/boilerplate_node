@@ -19,7 +19,9 @@
         "@repo/db#dev",
         "@repo/chat#dev",
         "@repo/socket#dev",
-        "@repo/notifications#dev"
+        "@repo/notifications#dev",
+        "@repo/firebase-auth#dev",
+        "@repo/sms-service#dev"
       ]
     }
   }
