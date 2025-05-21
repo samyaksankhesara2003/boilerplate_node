@@ -6,7 +6,7 @@ import { stateService } from './state.service';
  * @author Jitendra Singh
  * @description Handles GET /states requests.
  */
-const listStates = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+const listStates = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query, language } = req;
     const data = await stateService.listStatesService(query);

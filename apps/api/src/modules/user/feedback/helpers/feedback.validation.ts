@@ -3,7 +3,7 @@ import Joi from 'joi';
 
 const postFeedbackSchema = {
     body: {
-        module_id: Joi.number().required(),
+        module_id: Joi.number(),
         feedback: Joi.string().required(),
         rating : Joi.number().positive().min(0).max(5).optional(),
         status : Joi.string(),

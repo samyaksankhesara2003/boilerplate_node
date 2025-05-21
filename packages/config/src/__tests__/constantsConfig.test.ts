@@ -37,15 +37,27 @@ describe("constantsConfig", () => {
                     "image/jpeg",
                     "image/png",
                 ]),
+                authType: expect.objectContaining({
+                    'EMAIL': 1,
+                    'PHONE': 2,
+                    'GOOGLE': 3,
+                    'FACEBOOK': 4,
+                    'APPLE': 5,
+                }),
+                authTypeNumberToName: expect.objectContaining({
+                    1: 'EMAIL',
+                    2: 'PHONE',
+                    3: 'GOOGLE',
+                    4: 'FACEBOOK',
+                    5: 'APPLE',
+                }),
                 role: expect.objectContaining({
                     "Admin": 1,
-                    "Host": 2,
-                    "User": 3,
+                    "User": 2,
                 }),
                 roleNumberToName: expect.objectContaining({
                     1: "Admin",
-                    2: "Host",
-                    3: "User",
+                    2: "User",
                 }),
                 status: expect.objectContaining({
                     "Active": 1,

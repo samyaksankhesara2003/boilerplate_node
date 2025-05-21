@@ -1,22 +1,44 @@
+import { constants } from '@repo/config';
 import Joi from 'joi';
 
-const signupSchema = {
+const socialSignInSchema = {
     body: {
-        first_name: Joi.string().required(),
-        last_name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required()
+        social_id: Joi.string().required(),
+        first_name: Joi.string().optional(),
+        last_name: Joi.string().optional(),
+        email: Joi.string().email().optional(),
+        mobile_number: Joi.string().optional(),
+        password: Joi.string().optional(),
+        profile_url: Joi.string().optional(),
+        auth_type: Joi.number().valid(...Object.values(constants.authType)).required(),
+        device_type: Joi.number().valid(...Object.values(constants.deviceType)).optional()
     }
 };
 
-const loginSchema = {
+const forgetPasswordSchema = {
     body: {
-        email: Joi.string().email().required(),
+        email: Joi.string().email().required()
+    }
+};
+
+const verifyResetPasswordLinkSchema = {
+    params: {
+        token: Joi.string().required()
+    }
+};
+
+const resetPasswordSchema = {
+    params: {
+        token: Joi.string().required()
+    },
+    body: {
         password: Joi.string().required()
     }
 };
 
 export const authValidation = {
-    signupSchema,
-    loginSchema
+    socialSignInSchema,
+    forgetPasswordSchema,
+    verifyResetPasswordLinkSchema,
+    resetPasswordSchema
 };

@@ -2,7 +2,7 @@ paths:
   /user/feedback/create:
     post:
       tags:
-        - Feedback System
+        - Feedback
       summary: Post user feedback
       description: Returns the feedback data that saved.
       parameters:

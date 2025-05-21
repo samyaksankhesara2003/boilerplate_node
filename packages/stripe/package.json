@@ -27,9 +27,9 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
-    "@repo/logger": "workspace:*",
     "@repo/config": "workspace:*",
-    "stripe": "^18.0.0"
+    "@repo/logger": "workspace:*",
+    "stripe": "^18.1.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

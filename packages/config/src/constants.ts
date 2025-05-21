@@ -23,7 +23,7 @@ export const constants = {
         'TABLET': 3
     },
 
-    // Signin activity types
+    // Activity types
     activityType: {
         'LOGIN': 1,
         'LOGOUT': 2
@@ -36,17 +36,33 @@ export const constants = {
     // File Types
     supportedProfileImageTypes: ['image/jpg', 'image/jpeg', 'image/png'],
 
+    // Auth Types
+    authType: {
+        'EMAIL': 1,
+        'PHONE': 2,
+        'GOOGLE': 3,
+        'FACEBOOK': 4,
+        'APPLE': 5,
+    },
+    authTypeNumberToName: {
+        1: 'EMAIL',
+        2: 'PHONE',
+        3: 'GOOGLE',
+        4: 'FACEBOOK',
+        5: 'APPLE',
+    },
+
+    // User Roles
     role: {
         'Admin': 1,
-        'Host': 2,
-        'User': 3,
+        'User': 2,
     },
     roleNumberToName: {
         1: 'Admin',
-        2: 'Host',
-        3: 'User',
+        2: 'User',
     },
 
+    // Common Status
     status: {
         'Active': 1,
         'Inactive': 2,
