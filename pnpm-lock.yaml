@@ -479,6 +479,9 @@ importers:
 
   packages/validator:
     dependencies:
+      '@repo/config':
+        specifier: workspace:*
+        version: link:../config
       '@repo/response-handler':
         specifier: workspace:*
         version: link:../response-handler

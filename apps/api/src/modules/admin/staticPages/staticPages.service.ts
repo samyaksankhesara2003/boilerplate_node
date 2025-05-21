@@ -1,6 +1,6 @@
 import { log } from '@repo/logger';
 import { StaticPages } from '@repo/db';
-import { createPagination } from '@repo/utils';
+import { createPagination, PaginationResponse } from '@repo/utils';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { Schema, Query } from './helpers/staticPages.types';
 
@@ -11,7 +11,7 @@ const commonAttributes = ['id', 'page', 'content'];
  * @author Jainam Shah
  * @description Fetches a row by its ID.
  */
-const getService = async (page: string, attributes: string[] = commonAttributes) => {
+const getService = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
     try {
         const row = await model.query().select(...attributes).where('page', page).first();
         if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
@@ -27,7 +27,7 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query) => {
+const listService = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;
@@ -54,7 +54,7 @@ const listService = async (queryParams: Query) => {
  * @author Jainam Shah
  * @description Updates a particular row by its ID.
  */
-const createOrUpdateService = async (data: Schema) => {
+const createOrUpdateService = async (data: Schema): Promise<StaticPages> => {
     try {
         const row = await model.query().upsertGraph(data);
         return row;
@@ -68,7 +68,7 @@ const createOrUpdateService = async (data: Schema) => {
  * @author Jainam Shah
  * @description Deletes a particular row by its ID.
  */
-const removeService = async (page: string) => {
+const removeService = async (page: string): Promise<void> => {
     try {
         const row = await getService(page, ['id']);
         await model.query().deleteById(row.id);
