@@ -1,6 +1,7 @@
 export const ResponseMessages = {
     SERVER: {
         ERROR: 'server.error',
+        SSL_CERTIFICATES_NOT_FOUND: 'server.ssl_certificates_not_found',
     },
     COMMON: {
         SUCCESS: 'common.success',
@@ -57,5 +58,9 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'notification.fetch_success',
         NOT_FOUND: 'notification.not_found',
         LIST_SUCCESS: 'notification.list_success',
+        NOTIFICATION_HANDLER_NOT_INITIALIZED: 'notification.notification_handler_not_initialized',
+    },
+    SOCKET: {
+        SOCKET_NOT_INITIALIZED: 'socket.socket_not_initialized',
     }
 } as const;

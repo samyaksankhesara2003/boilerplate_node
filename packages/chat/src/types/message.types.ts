@@ -1,11 +1,11 @@
 export interface IMessage {
   id: number;
   sender_id: number;
-	receiver_id: number;
-	room_id?: string;
+  receiver_id: number;
+  room_id?: string;
   message: string;
   attachment_url?: string;
-  status: 'sent' | 'delivered' | 'read';
+  status: string;
   read_at?: Date;
   created_at: Date;
   updated_at: Date;
@@ -38,5 +38,4 @@ export interface IPaginatedMessages {
 
 export interface IJoinRoomPayload {
   room_id: string;
- 
 }

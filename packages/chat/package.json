@@ -27,9 +27,9 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/config": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/logger": "workspace:*",
-    "objection": "^3.1.5",
     "socket.io": "^4.7.4"
   },
   "devDependencies": {
@@ -37,7 +37,6 @@
     "@repo/typescript-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
     "@types/socket.io": "^3.0.2",
-    "eslint": "^9.24.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"

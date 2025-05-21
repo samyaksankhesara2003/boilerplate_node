@@ -1,6 +1,7 @@
 import { ChatHandler } from '@repo/chat';
 import { appConfig } from '@repo/config';
 import { NotificationHandler } from '@repo/notifications';
+import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { Server } from 'socket.io';
 import { SOCKET_EVENTS } from './constants/events';
 
@@ -48,7 +49,10 @@ export class SocketManager {
 
   getIO(): Server {
     if (!this.io) {
-      throw new Error('Socket.IO is not initialized');
+      throw new CustomError(
+        ResponseMessages.SOCKET.SOCKET_NOT_INITIALIZED,
+        StatusCodes.FORBIDDEN
+      );
     }
     return this.io;
   }

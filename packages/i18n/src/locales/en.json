@@ -51,11 +51,16 @@
     "list_success": "State list fetched successfully"
   },
   "server": {
-    "error": "Internal server error"
+    "error": "Internal server error",
+    "ssl_certificates_not_found": "SSL certificates not found"
   },
   "notification": {
     "fetch_success": "Notification fetched successfully",
     "not_found": "Notification not found",
-    "list_success": "Notification list fetched successfully"
+    "list_success": "Notification list fetched successfully",
+    "notification_handler_not_initialized": "Notification handler not initialized"
+  },
+  "socket": {
+    "socket_not_initialized": "Socket not initialized"
   }
 }

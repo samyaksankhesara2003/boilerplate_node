@@ -1,6 +1,7 @@
 {
   "server": {
-    "error": "Erreur interne du serveur"
+    "error": "Erreur interne du serveur",
+    "ssl_certificates_not_found": "Certificats SSL non trouvés"
   },
   "common": {
     "success": "Succès",
@@ -50,6 +51,10 @@
   "notification": {
     "fetch_success": "Notification récupérée avec succès",
     "not_found": "Notification non trouvée",
-    "list_success": "Liste des notifications récupérée avec succès"
+    "list_success": "Liste des notifications récupérée avec succès",
+    "notification_handler_not_initialized": "Notification handler non initialisé"
+  },
+  "socket": {
+    "socket_not_initialized": "Socket non initialisé"
   }
 }

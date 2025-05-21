@@ -7,7 +7,7 @@ import { notificationService } from './notification.service';
  * @author Sanjay Balai
  * @description Handles GET /notification requests.
  */
-const getNotifications = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+const getNotifications = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query, language } = req;
     const data = await notificationService.getNotificationsService(query as INotificationQuery);
@@ -21,7 +21,7 @@ const getNotifications = async (req: Request, res: Response, next: NextFunction)
  * @author Sanjay Balai
  * @description Handles PUT /notification/mark-as-read requests.
  */
-const markAsRead = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+const markAsRead = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query, language } = req;
     const data = await notificationService.markAsReadService(query as unknown as INotificationMarkAsRead);
@@ -35,7 +35,7 @@ const markAsRead = async (req: Request, res: Response, next: NextFunction): Prom
  * @author Sanjay Balai
  * @description Handles GET /notification/count requests.
  */
-const getUnreadCount = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+const getUnreadCount = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { query, language } = req;
     const data = await notificationService.getUnreadCountService(query as unknown as INotificationCount);   

@@ -1,12 +1,36 @@
 import { appConfig } from '@repo/config';
 import { log } from '@repo/logger';
+import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { socketManager } from '@repo/socket';
-import { createServer as createHttpServer } from 'http'; // <-- Add this
+import fs from 'fs';
+import { createServer as createHttpServer } from 'http';
+import { createServer as createHttpsServer } from 'https';
 import { createServer } from './www/server';
 
 const port = appConfig.appPort || 5001;
 const app = createServer();
-const server = createHttpServer(app); // <-- Create HTTP server from Express app
+
+// Create server based on protocol
+let server;
+if (appConfig.isHttps) {
+  const keyPath = appConfig.sslKeyPath || '';
+  const certPath = appConfig.sslCertPath || '';
+
+  if (!fs.existsSync(keyPath) || !fs.existsSync(certPath)) {
+    throw new CustomError(
+      ResponseMessages.SERVER.SSL_CERTIFICATES_NOT_FOUND,
+      StatusCodes.NOT_FOUND
+    );
+  }
+
+  const sslOptions = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath),
+  };
+  server = createHttpsServer(sslOptions, app);
+} else {
+  server = createHttpServer(app);
+}
 
 // Initialize Socket.IO with the HTTP server
 socketManager.initialize(server);

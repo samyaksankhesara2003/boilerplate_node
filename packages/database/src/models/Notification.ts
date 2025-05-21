@@ -4,7 +4,7 @@ import User from './User';
 class Message extends BaseModel {
   static tableName = 'notifications';
 
-  receiver_type!: string;
+  receiver_type!: string; // 1 -> Admin, 2 -> Sub Admin, 3 -> User
   receiver_id!: number;
   room_id!: string;
   title!: string;
@@ -12,7 +12,8 @@ class Message extends BaseModel {
   redirection_type?: string;
   redirection_url?: string;
   type!: string;
-  is_read!: string;
+  is_read!: string; // 0 -> Unread, 1 -> Read
+  receiver!: User;
 
   static relationMappings = {
     receiver: {
@@ -24,7 +25,6 @@ class Message extends BaseModel {
       },
     },
   };
-
 }
 
 export default Message; 

@@ -1,3 +1,8 @@
+import {
+	CustomError,
+	ResponseMessages,
+	StatusCodes,
+} from '@repo/response-handler';
 import { Server, Socket } from 'socket.io';
 import { SOCKET_EVENTS } from '../constants/events';
 import { IJoinRoomPayload } from '../types/notification.types';
@@ -14,16 +19,24 @@ export class NotificationHandler {
 
   static getIO(): Server {
     if (!NotificationHandler.instance) {
-      throw new Error('NotificationHandler not initialized');
+      throw new CustomError(
+        ResponseMessages.NOTIFICATION.NOTIFICATION_HANDLER_NOT_INITIALIZED,
+        StatusCodes.FORBIDDEN
+      );
     }
     return NotificationHandler.instance.io;
   }
 
   static async emitNotification(roomId: string, notification: any) {
     if (!NotificationHandler.instance) {
-      throw new Error('NotificationHandler not initialized');
+      throw new CustomError(
+        ResponseMessages.NOTIFICATION.NOTIFICATION_HANDLER_NOT_INITIALIZED,
+        StatusCodes.FORBIDDEN
+      );
     }
-    NotificationHandler.instance.io.to(roomId).emit(SOCKET_EVENTS.RECEIVE_NOTIFICATION, notification);
+    NotificationHandler.instance.io
+      .to(roomId)
+      .emit(SOCKET_EVENTS.RECEIVE_NOTIFICATION, notification);
   }
 
   private setupEventHandlers() {
@@ -37,4 +50,4 @@ export class NotificationHandler {
       );
     });
   }
-} 
+}

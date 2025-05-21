@@ -1,6 +1,6 @@
-import { Message } from '@repo/db';
+import { constants } from '@repo/config';
+import { Message, QueryBuilder } from '@repo/db';
 import { log } from '@repo/logger';
-import { QueryBuilder } from 'objection';
 import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from '../constants/events';
 import {
 	IMessage,
@@ -8,7 +8,6 @@ import {
 	IPaginatedMessages,
 	ISendMessagePayload,
 } from '../types/message.types';
-
 /**
  * @author Sanjay Balai
  * @description ChatService class for handling chat operations
@@ -27,7 +26,7 @@ export class ChatService {
         room_id: payload.room_id,
         message: payload.message,
         attachment_url: payload.attachment_url,
-        status: 'sent',
+        status: `${constants.messageStatus.Sent}`,
       });
 
       return message;
