@@ -12,7 +12,7 @@ export const defaultPagination: Pagination = {
     orderDir: 'desc',
 }
 
-const getPageNumber = (pageNumber: number) => {
+const getPageNumber = (pageNumber: number): number | null => {
     if (pageNumber > 0) {
         if (pageNumber === 1) return null;
         else return pageNumber - 1;
@@ -20,7 +20,7 @@ const getPageNumber = (pageNumber: number) => {
     return null;
 }
 
-export const createPagination = (total: number, page: number, perPage: number, result?: Array<unknown>) => {
+export const createPagination = (total: number, page: number, perPage: number, result?: Array<unknown>): PaginationResponse => {
     const pages = Math.ceil(total / perPage);
     return {
         result,

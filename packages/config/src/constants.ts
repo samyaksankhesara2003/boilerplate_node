@@ -7,6 +7,12 @@ export const constants = {
     // Password
     passwordsaltRound: 10,
 
+    // Pagination
+    orderDir: {
+        ASC: 'asc',
+        DESC: 'desc',
+    },
+
     // Links
     adminResetForgetLink: 'admin/auth/reset-password',
     adminAccountVerificationLink: 'admin/auth/verify-account',
