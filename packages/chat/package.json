@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@repo/db": "workspace:*",
+    "@repo/logger": "workspace:*",
     "objection": "^3.1.5",
     "socket.io": "^4.7.4"
   },

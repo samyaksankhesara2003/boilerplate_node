@@ -159,6 +159,9 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../database
+      '@repo/logger':
+        specifier: workspace:*
+        version: link:../logger
       objection:
         specifier: ^3.1.5
         version: 3.1.5(knex@3.1.0(mysql@2.18.1))
@@ -345,6 +348,9 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../database
+      '@repo/logger':
+        specifier: workspace:*
+        version: link:../logger
       objection:
         specifier: ^3.1.1
         version: 3.1.5(knex@3.1.0(mysql@2.18.1))
