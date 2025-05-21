@@ -5,7 +5,13 @@
     "validation_error": "Validation error",
     "not_authenticated": "Not authenticated",
     "session_expired": "Session expired",
-    "unsupported_file_type": "Unsupported file type"
+    "unsupported_file_type": "Unsupported file type",
+    "not_found": "Row not found",
+    "fetch_success": "Row fetched successfully",
+    "list_success": "List fetched successfully",
+    "create_success": "Row created successfully",
+    "update_success": "Row updated successfully",
+    "delete_success": "Row deleted successfully"
   },
   "user": {
     "fetch_success": "User fetched successfully",

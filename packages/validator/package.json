@@ -28,6 +28,8 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/utils": "workspace:*",
+    "@repo/config": "workspace:*",
     "@repo/response-handler": "workspace:*",
     "joi": "^17.13.3"
   },
