@@ -21,8 +21,10 @@
     "build": "tsup",
     "dev": "dotenv -e ../../.env -- tsup --watch",
     "lint": "eslint src/",
-    "check-types": "tsc --noEmit",
-    "test": "NODE_OPTIONS='--experimental-vm-modules --no-warnings' dotenv -e ../../.env -- jest"
+    "check-types": "tsc --noEmit"
+  },
+  "jest": {
+    "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
     "@repo/chat": "workspace:*",
@@ -35,6 +37,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/socket.io": "^3.0.2",
+    "@repo/jest-presets": "workspace:*",
     "eslint": "^9.24.0",
     "rimraf": "^6.0.1",
     "tsup": "^8.4.0",

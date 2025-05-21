@@ -169,6 +169,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
@@ -352,6 +355,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
@@ -411,6 +417,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/jest-presets':
+        specifier: workspace:*
+        version: link:../jest-presets
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
