@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import { paginationSchema } from '@repo/validator';
 
-const LIST_SCHEMA = {
+const ListSchema = {
     query: {
         search: Joi.string().optional(),
         status: Joi.number().valid(1, 2).optional(),
@@ -9,7 +9,7 @@ const LIST_SCHEMA = {
     }
 };
 
-const CREATE_SCHEMA = {
+const CreateSchema = {
     body: {
         question: Joi.string().required(),
         answer: Joi.string().required(),
@@ -17,7 +17,7 @@ const CREATE_SCHEMA = {
     }
 };
 
-const UPDATE_SCHEMA = {
+const UpdateSchema = {
     body: {
         id: Joi.number().required(),
         question: Joi.string().required(),
@@ -26,15 +26,15 @@ const UPDATE_SCHEMA = {
     }
 };
 
-const DELETE_SCHEMA = {
+const DeleteSchema = {
     params: {
         id: Joi.number().required()
     }
 };
 
 export const faqValidation = {
-    LIST_SCHEMA,
-    CREATE_SCHEMA,
-    UPDATE_SCHEMA,
-    DELETE_SCHEMA,
+    ListSchema,
+    CreateSchema,
+    UpdateSchema,
+    DeleteSchema,
 }; 
