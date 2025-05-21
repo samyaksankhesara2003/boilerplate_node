@@ -34,9 +34,6 @@ paths:
                 module_id:
                   type: number
                   example: 1
-                module_type_id:
-                  type: number
-                  example: 1
                 rating:
                   type: number
                   example: 4
