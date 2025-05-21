@@ -1,18 +1,15 @@
 import { BaseModel } from './BaseModel';
 
-
-
-
 class Feedback extends BaseModel {
 
     static get tableName() {
-        return 'feedback';
+        return 'feedbacks';
     };
 
     user_id!: number;
     module_id!: number | null;
     rating!: number;
-    text!: string;
+    feedback!: string;
     type!: number;
     status!: number;
 }

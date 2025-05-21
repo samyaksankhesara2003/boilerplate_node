@@ -11,13 +11,13 @@ import { constants } from '@repo/config';
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('feedback', (table) => {
+    await knex.schema.createTable('feedbacks', (table) => {
         table.increments('id').primary();
-        table.integer('user_id').notNullable();
+        table.integer('user_id').unsigned().notNullable();
         table.integer('module_id').unsigned().nullable();
-        table.string('text').notNullable();
+        table.string('feedback').notNullable();
         table.tinyint('rating', 1).defaultTo(0).unsigned().notNullable();
-        table.enum('type', ['1', '2', '3']).defaultTo('1').notNullable().comment('1 -> System');
+        table.enum('type', ['1','2']).defaultTo('1').notNullable().comment('1 -> System,2 -> Module');
         table.enum('status', ['1', '2']).defaultTo(constants.status.Active).notNullable().comment('1 -> Active, 2 -> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
@@ -35,5 +35,5 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists('feedback');
+    await knex.schema.dropTableIfExists('feedbacks');
 };

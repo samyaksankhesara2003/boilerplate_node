@@ -2,7 +2,7 @@ paths:
   /user/feedback/create:
     post:
       tags:
-        - Feedback
+        - Feedback System
       summary: Post user feedback
       description: Returns the feedback data that saved.
       parameters:
@@ -21,9 +21,6 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
-                  type: number
-                  example: 123
                 type:
                   type: number
                   example: 1
@@ -31,7 +28,7 @@ paths:
                   Type of feedback:
                     - 1 = System
                     - 2 = Module
-                text:
+                feedback:
                   type: string
                   example: module is perfectly working
                 module_id:
@@ -43,7 +40,7 @@ paths:
               required:
                 - user_id
                 - type
-                - text
+                - feedback
               if:
                 properties:
                   type:
@@ -65,7 +62,7 @@ paths:
                   user_id:
                     type: number
                     example: 103
-                  text:
+                  feedback:
                     type: string
                     example: This is a feedback message.
                   module_id:

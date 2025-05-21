@@ -1,22 +1,13 @@
 import { log } from "@repo/logger";
 import { Feedback } from "@repo/db";
-import {
-  IGetAllFeedback,
-  IListingFilter,
-} from "./helpers/admin.feedback.types";
-import {
-  CustomError,
-  ResponseMessages,
-  StatusCodes,
-} from "@repo/response-handler";
+import { CustomError, ResponseMessages, StatusCodes } from "@repo/response-handler";
+import { IListingFilter } from "./helpers/admin.feedback.types";
 
-const getAllFeedBackService = async (
-  listing_filter: IListingFilter
-): Promise<IGetAllFeedback[]> => {
+const getAllFeedBackService = async (listing_filter: IListingFilter): Promise<Feedback[]> => {
   try {
     const { user_id, status } = listing_filter;
 
-    const feedback_Attributes = ["id","user_id","module_id","rating","text","type","status"];
+    const feedback_Attributes = ["id","user_id","module_id","rating","feedback","type","status"];
 
     const totalFeedbacks = await Feedback.query().select(...feedback_Attributes)
       .modify((query) => {
@@ -32,7 +23,7 @@ const getAllFeedBackService = async (
 
     return totalFeedbacks;
   } catch (error) {
-    log.error("postFeedbackService Catch: ", error);
+    log.error("getAllFeedBackService Catch: ", error);
     throw error;
   }
 };

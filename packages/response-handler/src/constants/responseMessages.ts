@@ -45,9 +45,6 @@ export const ResponseMessages = {
         SAVE_SUCCESS: 'feedback.save_success',
         SAVE_FAILED: 'feedback.save_failed',
         NOT_FOUND: 'feedback.not_found',
-        LIST_SUCCESS: 'feedback.list_success',
-        MODULE_ID_REQUIRED : 'feedback.module_id_required',
-        MAX_RATING_LIMIT: 'feedback.max_rating_limit',
-        PROPERTY_REQUIRED: 'feedback.property_required',
+        LIST_SUCCESS: 'feedback.list_success'
     }
 } as const;

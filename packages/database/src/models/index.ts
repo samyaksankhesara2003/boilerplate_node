@@ -6,4 +6,4 @@ export { default as State } from './location/state';
 export { default as User } from './User';
 
 // Feedback
-export { default as Feedback } from './feedback';
+export { default as Feedback } from './Feedback';
