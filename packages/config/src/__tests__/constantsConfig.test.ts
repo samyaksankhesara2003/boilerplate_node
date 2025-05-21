@@ -119,6 +119,10 @@ describe("constantsConfig", () => {
                         "message": "You have exceeded the your hourly rate limit. Please contact Support.",
                     }),
                 }),
+                feedbackType: expect.objectContaining({
+                        "System": 1,
+                        "Module": 2,
+                }),
             })
         );
     });

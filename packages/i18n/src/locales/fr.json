@@ -46,5 +46,12 @@
         "fetch_success": "État récupéré avec succès",
         "not_found": "État non trouvé",
         "list_success": "Liste des états récupérée avec succès"
+    },
+    "feedback": {
+        "fetch_success": "commentaires récupérés avec succès",
+        "save_success": "commentaires enregistrés avec succès",
+        "save_failed": "Échec de l'enregistrement du commentaire",
+        "not_found": "commentaire introuvable",
+        "list_success": "Liste de commentaires récupérée avec succès"
     }
 }

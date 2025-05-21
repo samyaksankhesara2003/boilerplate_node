@@ -19,3 +19,4 @@ router.use('/common', commonRoutes);
 router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
 
 export default router;
+    
