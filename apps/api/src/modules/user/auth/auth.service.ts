@@ -122,6 +122,11 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
 
         // const resetPasswordLink =  await firebaseService.generatePasswordResetLink(userDetails.email, `${client_base_url}/${constants.userResetForgetLink}?email=${email}`);
 
+        // const emailData = {
+        //     name: userDetails.fullname,
+        //     reset_password_link: resetPasswordLink
+        // };
+
         const resetPasswordToken = generateRandomString(25);
 
         const token = jwtUtil.signJwt({
