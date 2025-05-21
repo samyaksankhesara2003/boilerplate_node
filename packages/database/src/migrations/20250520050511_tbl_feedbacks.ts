@@ -14,8 +14,9 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.integer('user_id').unsigned().notNullable();
         table.integer('module_id').unsigned().nullable();
-        table.string('feedback').nullable();
-        table.tinyint('rating', 1).defaultTo(0).unsigned().nullable();
+        table.integer('module_type_id').unsigned().nullable();
+        table.string('feedback').notNullable();
+        table.tinyint('rating', 1).unsigned().nullable();
         table.enum('type', ['1','2']).defaultTo('1').notNullable().comment('1 -> System,2 -> Module');
         table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();

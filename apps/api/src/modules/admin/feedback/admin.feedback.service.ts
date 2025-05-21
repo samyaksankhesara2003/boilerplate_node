@@ -1,6 +1,5 @@
 import { log } from "@repo/logger";
 import { Feedback } from "@repo/db";
-import { CustomError, ResponseMessages, StatusCodes } from "@repo/response-handler";
 import { IListingFilter } from "./helpers/admin.feedback.types";
 
 /**
@@ -22,8 +21,6 @@ const getAllFeedBackService = async (listing_filter: IListingFilter): Promise<Fe
           query.where("status", status);
         }
       });
-
-    if (!totalFeedbacks || totalFeedbacks.length === 0) throw new CustomError(ResponseMessages.FEEDBACK.NOT_FOUND,StatusCodes.NOT_FOUND);
 
     return totalFeedbacks;
   } catch (error) {

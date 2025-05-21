@@ -1,5 +1,5 @@
   paths:
-    /admin/feedback/getAllFeedbacks:
+    /admin/feedback/:
       get:
         summary: Get all feedbacks
         description: Retrieve a list of feedbacks based on filters like `user_id` and `status`.
@@ -44,6 +44,9 @@
                       module_id:
                         type: number
                         description: ID of the module related to the feedback.
+                      module_type_id:
+                        type: number
+                        description: ID of the module type
                       rating:
                         type: number
                         description: Rating given in the feedback.

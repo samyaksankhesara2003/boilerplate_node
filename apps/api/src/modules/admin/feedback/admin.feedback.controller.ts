@@ -8,9 +8,7 @@ import { adminfeedbackService } from './admin.feedback.service';
  */
 const getAllFeedbacks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { ...listing_filter } = req.query;
-
-    const data = await adminfeedbackService.getAllFeedBackService(listing_filter);
+    const data = await adminfeedbackService.getAllFeedBackService(req.query);
 
     return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.FEEDBACK.LIST_SUCCESS, data);
   } catch (error) {
@@ -18,6 +16,6 @@ const getAllFeedbacks = async (req: Request, res: Response, next: NextFunction):
   }
 };
 
-export const adminfeedbackController = {
+export const adminFeedbackController = {
   getAllFeedbacks,
 };

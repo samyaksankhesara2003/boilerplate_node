@@ -1,5 +1,5 @@
 paths:
-  /user/feedback/create:
+  /user/feedback/:
     post:
       tags:
         - Feedback
@@ -34,6 +34,9 @@ paths:
                 module_id:
                   type: number
                   example: 1
+                module_type_id:
+                  type: number
+                  example: 1
                 rating:
                   type: number
                   example: 4
@@ -47,6 +50,7 @@ paths:
               then:
                 required:
                   - module_id
+                  - feedback
       responses:
         "200":
           description: Successfully created user feedback

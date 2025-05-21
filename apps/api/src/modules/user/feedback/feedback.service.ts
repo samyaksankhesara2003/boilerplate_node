@@ -7,10 +7,8 @@ import { IFeedback } from "./helpers/feedback.types";
  * @description Save feedback in database
  */
 const postFeedbackService = async (body: IFeedback): Promise<Feedback> => {
-  try {
-    const {user_id, module_id, rating, feedback, type} = body;
-    
-    const feedbackData = await Feedback.query().insert({user_id, module_id, rating, feedback, type});
+  try {    
+    const feedbackData = await Feedback.query().insert(body);
 
     return feedbackData;
   } catch (error) {
