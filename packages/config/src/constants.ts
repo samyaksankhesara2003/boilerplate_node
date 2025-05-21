@@ -154,7 +154,7 @@ export const constants = {
     },    
 
     //Feedback types 
-    feedback_type:{
+    feedbackType:{
         'System': 1,
         'Module': 2
     }

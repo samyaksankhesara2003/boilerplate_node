@@ -3,6 +3,10 @@ import { Feedback } from "@repo/db";
 import { CustomError, ResponseMessages, StatusCodes } from "@repo/response-handler";
 import { IListingFilter } from "./helpers/admin.feedback.types";
 
+/**
+ * @author Yagnesh Acharya
+ * @description Fetch All feedbacks from database based on their user_id and status of feedback , both fields are optional
+ */
 const getAllFeedBackService = async (listing_filter: IListingFilter): Promise<Feedback[]> => {
   try {
     const { user_id, status } = listing_filter;

@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
 import { adminfeedbackService } from './admin.feedback.service';
 
-const getAllFeedbacks = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+/**
+ * @author Yagnesh Acharya
+ * @description Fetch All feedbacks based on user_id and status , both fields are optional 
+ */
+const getAllFeedbacks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { ...listing_filter } = req.query;
 

@@ -1,5 +1,4 @@
 import type { Knex } from "knex";
-import { constants } from '@repo/config';
 
 /**
  * Run the migrations.
@@ -15,10 +14,10 @@ export async function up(knex: Knex): Promise<void> {
         table.increments('id').primary();
         table.integer('user_id').unsigned().notNullable();
         table.integer('module_id').unsigned().nullable();
-        table.string('feedback').notNullable();
-        table.tinyint('rating', 1).defaultTo(0).unsigned().notNullable();
+        table.string('feedback').nullable();
+        table.tinyint('rating', 1).defaultTo(0).unsigned().nullable();
         table.enum('type', ['1','2']).defaultTo('1').notNullable().comment('1 -> System,2 -> Module');
-        table.enum('status', ['1', '2']).defaultTo(constants.status.Active).notNullable().comment('1 -> Active, 2 -> Inactive');
+        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });

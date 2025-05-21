@@ -40,7 +40,6 @@ paths:
               required:
                 - user_id
                 - type
-                - feedback
               if:
                 properties:
                   type:

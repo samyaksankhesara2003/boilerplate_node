@@ -8,10 +8,10 @@ class Feedback extends BaseModel {
 
     user_id!: number;
     module_id!: number | null;
-    rating!: number;
-    feedback!: string;
-    type!: number;
-    status!: number;
+    rating!: number | null;
+    feedback!: string | null;
+    type!: number;   // 1 -> System , 2 -> Module ... 
+    status!: number; // 1 -> Active , 2 -> Inactive
 }
 
 export default Feedback;
