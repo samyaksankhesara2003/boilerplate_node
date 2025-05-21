@@ -24,7 +24,6 @@ const list = async (req: Request, res: Response, next: NextFunction): Promise<vo
 const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        console.log(body, 'body')
         const data = await _service.createService(body);
         return sendResponse(res, StatusCodes.CREATED, ResponseMessages.COMMON.CREATE_SUCCESS, data, language);
     } catch (error) {
