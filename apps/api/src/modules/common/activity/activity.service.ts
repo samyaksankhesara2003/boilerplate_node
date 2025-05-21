@@ -32,7 +32,7 @@ const listActivityLogsService = async (query: IActivityLogQuery): Promise<Activi
  * @author Jitendra Singh
  * @description Logs an activity by inserting a new record into the Activity Log table.
  */
-const createActivityLogService = async (body: IActivityLog) => {
+const createActivityLogService = async (body: IActivityLog): Promise<void> => {
     try {
         body.device_type = body.device_type || constants.deviceType['DESKTOP'];
 
