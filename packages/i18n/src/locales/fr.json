@@ -57,5 +57,12 @@
   },
   "socket": {
     "socket_not_initialized": "Socket non initialisé"
+  },
+  "feedback": {
+    "fetch_success": "commentaires récupérés avec succès",
+    "save_success": "commentaires enregistrés avec succès",
+    "save_failed": "Échec de l'enregistrement du commentaire",
+    "not_found": "commentaire introuvable",
+    "list_success": "Liste de commentaires récupérée avec succès"
   }
 }
