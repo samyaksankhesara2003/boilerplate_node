@@ -36,7 +36,6 @@
   "dependencies": {
     "@repo/config": "workspace:*",
     "@repo/logger": "workspace:*",
-    "@repo/utils": "workspace:*",
     "colors": "^1.4.0",
     "knex": "^3.1.0",
     "mysql": "^2.18.1",
