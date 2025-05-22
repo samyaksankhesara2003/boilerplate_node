@@ -3,12 +3,14 @@ import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { authRoutes } from './auth/auth.routes';
 import { profileRoutes } from './profile/profile.routes';
 import userAuthMiddleware from '../../middlewares/userAuth.middleware';
+import { feedbackRoutes } from './feedback/feedback.routes';
 
 const router: Router = Router();
 
 // User routes
 router.use('/auth', authRoutes);
 router.use('/profile', userAuthMiddleware, profileRoutes);
+router.use('/feedback', userAuthMiddleware, feedbackRoutes);
 
 // Catch-all route for 404
 router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));

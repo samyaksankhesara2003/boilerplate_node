@@ -47,7 +47,9 @@ const swaggerOptions = {
             'Auth',
             'Profile',
             'Country',
-            'State'
+            'State',
+            'Feedback',
+            'Admin'
         ];
 
         const indexA = order.indexOf(a);

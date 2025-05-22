@@ -52,5 +52,12 @@ export const ResponseMessages = {
         FETCH_SUCCESS: 'state.fetch_success',
         NOT_FOUND: 'state.not_found',
         LIST_SUCCESS: 'state.list_success',
+    },
+    FEEDBACK:{
+        FETCH_SUCCESS: 'feedback.fetch_success',
+        SAVE_SUCCESS: 'feedback.save_success',
+        SAVE_FAILED: 'feedback.save_failed',
+        NOT_FOUND: 'feedback.not_found',
+        LIST_SUCCESS: 'feedback.list_success'
     }
 } as const;
