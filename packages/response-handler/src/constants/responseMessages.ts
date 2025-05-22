@@ -62,5 +62,12 @@ export const ResponseMessages = {
     },
     SOCKET: {
         SOCKET_NOT_INITIALIZED: 'socket.socket_not_initialized',
+    },
+    FEEDBACK:{
+        FETCH_SUCCESS: 'feedback.fetch_success',
+        SAVE_SUCCESS: 'feedback.save_success',
+        SAVE_FAILED: 'feedback.save_failed',
+        NOT_FOUND: 'feedback.not_found',
+        LIST_SUCCESS: 'feedback.list_success'
     }
 } as const;

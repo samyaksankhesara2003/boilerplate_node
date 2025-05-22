@@ -171,6 +171,12 @@ export const constants = {
         0: 'Unread',
         1: 'Read',
     },
+
+    //Feedback types 
+    feedbackType:{
+        'System': 1,
+        'Module': 2
+    }
 } as const;
 
 export type SupportedLanguage = typeof constants.supportedLanguages[number];
