@@ -1,6 +1,4 @@
 import { QueryContext, RelationMappings, RelationMappingsThunk } from 'objection';
-import { generateRandomString } from '@repo/utils'
-import { constants } from '@repo/config';
 import { BaseModel } from './BaseModel';
 class User extends BaseModel {
 
@@ -35,17 +33,15 @@ class User extends BaseModel {
     };
 
     async $beforeInsert(ctx:QueryContext) {    
-        const base = this.first_name?.toLowerCase().replace(/\s+/g, '-');
-        let slug = `${base}-${generateRandomString(constants.slugLength)}`;
+        let count = 1;
+        const base = this.fullname?.replace(' ','-')
+        let slug = `${base}-${count}`;
     
-        let count = 0;
         while (await User.query(ctx.transaction).findOne({ slug })) {
-          slug = `${base}-${generateRandomString(constants.slugLength)}`;
+          slug = `${base}-${count}`;
           count++;
-          if (count > 3) break; // Max retries 3
         }
-    
-        this.slug = `${base}-${generateRandomString(constants.slugLength)}`;
+        this.slug = `${base}-${count}`;
     }
 };
 
