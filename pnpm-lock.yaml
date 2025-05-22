@@ -178,6 +178,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../logger
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       colors:
         specifier: ^1.4.0
         version: 1.4.0
