@@ -1,5 +1,4 @@
-import { describe, it, expect, jest, afterAll } from "@jest/globals";
-
+import { describe, it, expect } from "@jest/globals";
 import { generateCSV } from "../csv";
 
 describe("@repo/file-service/csv", () => {
@@ -10,9 +9,5 @@ describe("@repo/file-service/csv", () => {
         ];
         const csvData = await generateCSV(jsonData);
         expect(csvData).toBe(`name,age\nJohn,30\nJane,25`);
-    });
-
-    afterAll(() => {
-        jest.resetAllMocks();
     });
 });

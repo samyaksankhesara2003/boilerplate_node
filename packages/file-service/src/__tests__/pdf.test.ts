@@ -1,4 +1,4 @@
-import { describe, it, expect, jest, afterAll } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 import { generatePdfFromTemplate } from "../pdf";
 import { TemplateNames } from "../pdf/constants/templateConstants";
 import { ITemplateDataMap } from "../pdf/types/templateDataTypes";
@@ -16,9 +16,5 @@ describe("@repo/file-service/pdf", () => {
         };
         const pdfData = await generatePdfFromTemplate(TemplateNames.INVOICE, data);
         expect(pdfData).toBeInstanceOf(Buffer);
-    });
-
-    afterAll(() => {
-        jest.resetAllMocks();
     });
 });

@@ -1,4 +1,4 @@
-import { describe, it, expect, jest, afterAll } from "@jest/globals";
+import { describe, it, expect } from "@jest/globals";
 import { generateExcel } from "../excel";
 
 describe("@repo/file-service/excel", () => {
@@ -21,9 +21,5 @@ describe("@repo/file-service/excel", () => {
         ];
         const excelData = await generateExcel(jsonData);
         expect(excelData).toBeInstanceOf(Buffer);
-    });
-
-    afterAll(() => {
-        jest.resetAllMocks();
     });
 });
