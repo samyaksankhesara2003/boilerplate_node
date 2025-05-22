@@ -23,7 +23,8 @@
         "@repo/db#dev",
         "@repo/firebase-auth#dev",
         "@repo/sms-service#dev",
-        "@repo/redis#dev"
+        "@repo/redis#dev",
+        "@repo/file-service#dev"
       ]
     }
   }
