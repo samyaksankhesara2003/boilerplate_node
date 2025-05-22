@@ -64,5 +64,11 @@
     "save_failed": "Échec de l'enregistrement du commentaire",
     "not_found": "commentaire introuvable",
     "list_success": "Liste de commentaires récupérée avec succès"
+  },
+  "bookmark": {
+    "fetch_success": "Bookmark fetched successfully",
+    "not_found": "Bookmark not found",
+    "list_success": "Bookmark list fetched successfully",
+    "already_exists": "Bookmark already exists"
   }
 }

@@ -176,7 +176,15 @@ export const constants = {
     feedbackType:{
         'System': 1,
         'Module': 2
-    }
+    },
+    bookmarkType:{
+        'User': 1,
+        'Blog': 2
+    },
+    bookmarkTypeNumberToName: {
+        1: 'User',
+        2: 'Blog',
+    },
 } as const;
 
 export type SupportedLanguage = typeof constants.supportedLanguages[number];
