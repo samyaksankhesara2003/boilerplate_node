@@ -31,6 +31,7 @@
     "@repo/validator": "workspace:*",
     "@repo/sms-service": "workspace:*",
     "@repo/firebase-auth": "workspace:*",
+    "@repo/file-service": "workspace:*",
     "compression": "^1.8.0",
     "cors": "^2.8.5",
     "express": "5.1.0",
