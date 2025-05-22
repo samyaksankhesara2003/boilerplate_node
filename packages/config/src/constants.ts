@@ -151,12 +151,15 @@ export const constants = {
             'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
             'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
         },
-    },    
+    },
 
-    //Feedback types 
-    feedbackType:{
+    feedbackType: {
         'System': 1,
         'Module': 2
+    },
+
+    redisKey: {
+        CountryList: 'CountryList',
     }
 } as const;
 

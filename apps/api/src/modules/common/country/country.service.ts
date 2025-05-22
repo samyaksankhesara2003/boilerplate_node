@@ -1,5 +1,7 @@
 import { log } from '@repo/logger';
 import { Country } from '@repo/db';
+import { constants } from '@repo/config';
+import { getRedisData, setRedisData } from '@repo/redis';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { ICountryParams, ICountryQuery } from './helpers/country.types';
 
@@ -31,10 +33,16 @@ const listCountriesService = async (query: ICountryQuery): Promise<Country[]> =>
         const { search } = query;
         const countryAttributes = ['id', 'name'];
 
+        if (!search) {
+            const data = await getRedisData(constants.redisKey.CountryList);
+            if (data) return data;
+        }
+
         const countryQuery = Country.query().select(...countryAttributes);
         if (search) countryQuery.where('name', 'like', `%${search}%`);
         const countries = await countryQuery;
 
+        await setRedisData(constants.redisKey.CountryList, countries);
         return countries;
     } catch (error) {
         log.error('listCountriesService Catch: ', error);
