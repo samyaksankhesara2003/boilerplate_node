@@ -21,7 +21,8 @@
   },
   "auth": {
     "login_success": "Connexion réussie",
-    "invalid_credentials": "Informations d'identification invalides"
+    "invalid_credentials": "Informations d'identification invalides",
+    "unauthorized": "Non autorisé"
   },
   "profile": {
     "fetch_success": "Profil récupéré avec succès",

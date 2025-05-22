@@ -23,7 +23,9 @@
   },
   "auth": {
     "login_success": "Login successful",
-    "invalid_credentials": "Invalid credentials"
+    "invalid_credentials": "Invalid credentials",
+    "unauthorized": "Unauthorized",
+    "access_denied": "Access denied"
   },
   "profile": {
     "fetch_success": "Profile fetched successfully",

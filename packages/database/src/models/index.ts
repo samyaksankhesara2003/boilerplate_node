@@ -17,3 +17,5 @@ export { default as Message } from './Message';
 export { default as Notification } from './Notification';
 // Activity
 export { default as ActivityLog } from './ActivityLog';
+// RBAC
+export { default as RBACPermission } from './RBACPermission';

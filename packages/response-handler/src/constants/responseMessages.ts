@@ -28,6 +28,8 @@ export const ResponseMessages = {
     AUTH: {
         LOGIN_SUCCESS: 'auth.login_success',
         INVALID_CREDENTIALS: 'auth.invalid_credentials',
+        UNAUTHORIZED: 'auth.unauthorized',
+        ACCESS_DENIED: 'auth.access_denied',
     },
     PROFILE: {
         FETCH_SUCCESS: 'profile.fetch_success',

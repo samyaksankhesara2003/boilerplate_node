@@ -5,7 +5,7 @@ export const appConfig = {
     logDbQueries: process.env.DATABASE_LOG_QUERIES ? (process.env.DATABASE_LOG_QUERIES === 'true' ? true : false) : true,
     allowedHosts: process.env.ALLOWED_HOSTS,
 
-    isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true,
+    isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? true : false) : false,
     appBaseUrl: process.env.APP_BASE_URL,
     frontendBaseUrl: process.env.FRONTEND_BASE_URL!,
     protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
