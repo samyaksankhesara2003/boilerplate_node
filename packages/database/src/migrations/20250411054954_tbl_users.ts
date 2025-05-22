@@ -24,6 +24,7 @@ export async function up(knex: Knex): Promise<void> {
         table.enum('auth_type', ['1', '2', '3', '4', '5']).notNullable().comment('1 -> Email, 2 -> Phone, 3 -> Google, 4 -> Facebook, 5 -> Apple');
         table.enum('role', ['1', '2']).defaultTo('2').notNullable().comment('1 -> Admin, 2 -> User');
         table.enum('status', ['1', '2']).defaultTo('2').notNullable().comment('1 -> Active, 2 -> Inactive');
+        table.string('slug').notNullable().unique()
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         table.timestamp('deleted_at').nullable();

@@ -7,6 +7,9 @@ export const constants = {
     // Password
     passwordsaltRound: 10,
 
+    // Slug Length
+    slugLength: 10,
+
     // Pagination
     orderDir: {
         ASC: 'asc',
