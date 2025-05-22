@@ -9,7 +9,7 @@ import { getFirebaseAuth } from './firebase';
  * @description Express middleware to verify a Firebase token from the Authorization header.
  * @returns {Promise<void>} When the middleware is done.
  */
-export async function verifyFirebaseToken(req: Request, res: Response, next: NextFunction): Promise<any> {
+export async function verifyFirebaseToken(req: Request, res: Response, next: NextFunction): Promise<void> {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
 

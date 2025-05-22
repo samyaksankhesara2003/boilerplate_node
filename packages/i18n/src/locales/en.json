@@ -52,5 +52,12 @@
     },
     "server": {
         "error": "Internal server error"
+    },
+    "feedback":{
+        "fetch_success": "feedback fetched successfully",
+        "save_success": "Feedback saved successfully",
+        "save_failed": "Feedback save failed",
+        "not_found": "feedback not found",
+        "list_success": "Feedback list fetched successfully"
     }
 }

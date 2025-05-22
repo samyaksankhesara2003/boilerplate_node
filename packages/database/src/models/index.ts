@@ -13,3 +13,6 @@ export { default as User } from './User';
 
 // Activity
 export { default as ActivityLog } from './ActivityLog';
+
+// Feedback
+export { default as Feedback } from './Feedback';
