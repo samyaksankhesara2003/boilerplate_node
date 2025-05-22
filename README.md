@@ -36,6 +36,7 @@ This Turborepo includes the following packages and apps:
 - `@repo/storage-service`: a simple AWS S3 service that can be used for uploading, downloading, and deleting files.
 - `@repo/sms-service`: SMS service utilities
 - `@repo/firebase-auth`: Firebase authentication integration for handling user authentication and authorization using Firebase services.
+- `@repo/file-service`: Generate CSV, Excel, and PDF files
 
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
