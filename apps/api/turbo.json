@@ -21,7 +21,8 @@
         "@repo/socket#dev",
         "@repo/notifications#dev",
         "@repo/firebase-auth#dev",
-        "@repo/sms-service#dev"
+        "@repo/sms-service#dev",
+        "@repo/file-service#dev"
       ]
     }
   }
