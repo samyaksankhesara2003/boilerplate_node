@@ -11,7 +11,7 @@ class Message extends BaseModel {
   room_id!: string;
   message!: string;
   attachment_url?: string;
-  status!: string; // 1 -> sent, 2 -> delivered, 3 -> read
+  status!: number; // 1 -> sent, 2 -> delivered, 3 -> read
   read_at?: Date;
 
   static relationMappings = {

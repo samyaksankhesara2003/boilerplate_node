@@ -27,7 +27,7 @@ export class NotificationService {
         redirection_type: payload.redirection_type,
         redirection_url: payload.redirection_url,
         type: payload.type,
-        is_read: `${constants.isRead.Unread}`,
+        is_read: constants.isRead.Unread,
       });
       
       const processedNotification = await this.processNotificationContent(notification as unknown as INotification);

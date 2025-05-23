@@ -37,19 +37,18 @@ const swaggerJsDocOptions = {
 };
 
 const swaggerOptions = {
-    url: '/swagger.json',
+    // url: '/swagger.json',
     filter: true,
     supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
     // tagsSorter: 'alpha',
     // operationsSorter: 'alpha',
     tagsSorter: (a: string, b: string): number => {
         const order = [
-            'Auth',
-            'Profile',
             'Country',
             'State',
-            'Feedback',
-            'Admin'
+            'Auth',
+            'Profile',
+            'Feedback'
         ];
 
         const indexA = order.indexOf(a);

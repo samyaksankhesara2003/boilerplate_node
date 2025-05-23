@@ -11,8 +11,8 @@ export const appConfig = {
     protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appProtocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appHost: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
-    sslKeyPath: process.env.SSL_KEY_PATH,
-    sslCertPath: process.env.SSL_CERT_PATH,
+    sslKeyPath: process.env.SSL_KEY_PATH!,
+    sslCertPath: process.env.SSL_CERT_PATH!,
 
     chromiumPath: process.env.CHROMIUM_PATH || '/usr/bin/chromium-browser',
 };

@@ -30,6 +30,7 @@
     "@repo/config": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/logger": "workspace:*",
+    "@repo/utils": "workspace:*",
     "socket.io": "^4.7.4"
   },
   "devDependencies": {

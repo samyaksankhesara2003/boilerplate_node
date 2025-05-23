@@ -174,6 +174,9 @@ importers:
       '@repo/logger':
         specifier: workspace:*
         version: link:../logger
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
       socket.io:
         specifier: ^4.7.4
         version: 4.8.1
@@ -434,9 +437,6 @@ importers:
       '@repo/response-handler':
         specifier: workspace:*
         version: link:../response-handler
-      objection:
-        specifier: ^3.1.1
-        version: 3.1.5(knex@3.1.0(mysql@2.18.1))
       socket.io:
         specifier: ^4.7.4
         version: 4.8.1
@@ -453,18 +453,6 @@ importers:
       '@types/socket.io':
         specifier: ^3.0.2
         version: 3.0.2
-      eslint:
-        specifier: ^9.24.0
-        version: 9.24.0
-      rimraf:
-        specifier: ^6.0.1
-        version: 6.0.1
-      tsup:
-        specifier: ^8.4.0
-        version: 8.4.0(@swc/core@1.11.24)(postcss@8.5.3)(tsx@4.19.4)(typescript@5.8.3)(yaml@2.7.0)
-      typescript:
-        specifier: ^5.8.3
-        version: 5.8.3
 
   packages/response-handler:
     dependencies:
