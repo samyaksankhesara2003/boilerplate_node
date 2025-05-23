@@ -16,7 +16,9 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
         const { id } = user;
         const userAttributes = ['id', 'first_name', 'last_name', 'email', 'mobile_number', 'profile_url', 'role', 'status'];
 
-        const userDetails = await User.query().select(...userAttributes).findById(id);
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .findById(id);
 
         if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -79,7 +81,8 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
         if (!isPasswordValid) throw new CustomError(ResponseMessages.PASSWORD.INVALID_PASSWORD, StatusCodes.UNAUTHORIZED);
 
         userDetails.password = await hashPassword(new_password);
-        if (userDetails.password === new_password) throw new CustomError(ResponseMessages.PASSWORD.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
+        if (userDetails.password === new_password)
+            throw new CustomError(ResponseMessages.PASSWORD.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
 
         await userDetails.$query().patch({ password: new_password });
 
@@ -95,28 +98,25 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
  * @description Logs out the given user.
  */
 const logoutService = async (user: IUser, body: ILogoutBody): Promise<void> => {
-    console.log("logoutService body: ", body);
+    console.log('logoutService body: ', body);
     try {
         const { ip_address, device_type } = body;
 
         const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'token', 'auth_type', 'role', 'status'];
 
-        const userDetails = await User
-            .query()
+        const userDetails = await User.query()
             .select(...userAttributes)
             .findById(user.id);
 
         if (!userDetails) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
 
-        await userDetails
-            .$query()
-            .patch({ token: null });
+        await userDetails.$query().patch({ token: null });
 
         await activityLogService.createActivityLogService({
             user_id: user.id,
             ip_address: ip_address,
             device_type: device_type || constants.deviceType['DESKTOP'],
-            activity_type: constants.activityType['LOGOUT'],
+            activity_type: constants.activityType['LOGOUT']
         });
 
         return;

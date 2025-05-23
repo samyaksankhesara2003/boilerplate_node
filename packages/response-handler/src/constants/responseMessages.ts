@@ -1,7 +1,7 @@
 export const ResponseMessages = {
     SERVER: {
         ERROR: 'server.error',
-        SSL_CERTIFICATES_NOT_FOUND: 'server.ssl_certificates_not_found',
+        SSL_CERTIFICATES_NOT_FOUND: 'server.ssl_certificates_not_found'
     },
     COMMON: {
         SUCCESS: 'common.success',
@@ -15,7 +15,7 @@ export const ResponseMessages = {
         LIST_SUCCESS: 'common.list_success',
         CREATE_SUCCESS: 'common.create_success',
         UPDATE_SUCCESS: 'common.update_success',
-        DELETE_SUCCESS: 'common.delete_success',
+        DELETE_SUCCESS: 'common.delete_success'
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',
@@ -23,11 +23,11 @@ export const ResponseMessages = {
         ALREADY_EXISTS: 'user.already_exists',
         NOT_ACTIVE: 'user.not_active',
         SIGNUP_SUCCESS: 'user.signup_success',
-        ACCOUNT_DELETED: 'user.account_deleted',
+        ACCOUNT_DELETED: 'user.account_deleted'
     },
     AUTH: {
         LOGIN_SUCCESS: 'auth.login_success',
-        INVALID_CREDENTIALS: 'auth.invalid_credentials',
+        INVALID_CREDENTIALS: 'auth.invalid_credentials'
     },
     PROFILE: {
         FETCH_SUCCESS: 'profile.fetch_success',
@@ -42,28 +42,28 @@ export const ResponseMessages = {
         RESET_PASSWORD_SUCCESS: 'password.reset_password_success',
         INVALID_PASSWORD: 'password.invalid_password',
         PASSWORD_CANNOT_BE_SAME_AS_CURRENT: 'password.password_cannot_be_same_as_current',
-        PASSWORD_CHANGE_SUCCESS: 'password.password_change_success',
+        PASSWORD_CHANGE_SUCCESS: 'password.password_change_success'
     },
     COUNTRY: {
         FETCH_SUCCESS: 'country.fetch_success',
         NOT_FOUND: 'country.not_found',
-        LIST_SUCCESS: 'country.list_success',
+        LIST_SUCCESS: 'country.list_success'
     },
     STATE: {
         FETCH_SUCCESS: 'state.fetch_success',
         NOT_FOUND: 'state.not_found',
-        LIST_SUCCESS: 'state.list_success',
+        LIST_SUCCESS: 'state.list_success'
     },
     NOTIFICATION: {
         FETCH_SUCCESS: 'notification.fetch_success',
         NOT_FOUND: 'notification.not_found',
         LIST_SUCCESS: 'notification.list_success',
-        NOTIFICATION_HANDLER_NOT_INITIALIZED: 'notification.notification_handler_not_initialized',
+        NOTIFICATION_HANDLER_NOT_INITIALIZED: 'notification.notification_handler_not_initialized'
     },
     SOCKET: {
-        SOCKET_NOT_INITIALIZED: 'socket.socket_not_initialized',
+        SOCKET_NOT_INITIALIZED: 'socket.socket_not_initialized'
     },
-    FEEDBACK:{
+    FEEDBACK: {
         FETCH_SUCCESS: 'feedback.fetch_success',
         SAVE_SUCCESS: 'feedback.save_success',
         SAVE_FAILED: 'feedback.save_failed',

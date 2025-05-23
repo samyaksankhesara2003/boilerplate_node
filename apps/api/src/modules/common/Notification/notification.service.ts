@@ -16,12 +16,10 @@ const getNotificationsService = async (query: INotificationQuery): Promise<INoti
             startRange = (+pageNumber - 1) * +recordPerPage,
             orderBy = query.orderBy || defaultPagination.orderBy,
             endRange = +pageNumber * +recordPerPage - 1,
-            orderDir = defaultPagination.orderDir,
+            orderDir = defaultPagination.orderDir
         } = query;
 
-        const result = await Notification.query()
-            .orderBy(orderBy, orderDir)
-            .range(startRange, endRange);
+        const result = await Notification.query().orderBy(orderBy, orderDir).range(startRange, endRange);
 
         // Process notifications to replace dynamic variables
         const processedNotifications = await NotificationService.processNotifications(result.results);
@@ -36,49 +34,42 @@ const getNotificationsService = async (query: INotificationQuery): Promise<INoti
  * @author Sanjay Balai
  * @description Marks a notification as read.
  */
-const markAsReadService = async (
-  query: INotificationMarkAsRead
-): Promise<null> => {
-  try {
-    const { id } = query;
-    await Notification.query()
-      .patch({ is_read: constants.isRead.Read })
-      .where('id', id)
-        .where('is_read', constants.isRead.Unread);
-      
-      return null
-  } catch (error) {
-    log.error('markAsReadService Catch: ', error);
-    throw error;
-  }
+const markAsReadService = async (query: INotificationMarkAsRead): Promise<null> => {
+    try {
+        const { id } = query;
+        await Notification.query().patch({ is_read: constants.isRead.Read }).where('id', id).where('is_read', constants.isRead.Unread);
+
+        return null;
+    } catch (error) {
+        log.error('markAsReadService Catch: ', error);
+        throw error;
+    }
 };
 
 /**
  * @author Sanjay Balai
  * @description Gets the unread count of notifications.
  */
-const getUnreadCountService = async (
-  query: INotificationCount
-    ): Promise<Notification|undefined> => {
-  try {
-    const { receiverType, receiverId } = query;
-    const count = await Notification.query()
-      .where({
-        receiver_type: receiverType,
-        receiver_id: receiverId,
-        is_read: constants.isRead.Unread,
-      })
-      .count('id', { as: 'notification_count' })
-      .first();
-    return count;
-  } catch (error) {
-    log.error('getUnreadCountService Catch: ', error);
-    throw error;
-  }
+const getUnreadCountService = async (query: INotificationCount): Promise<Notification | undefined> => {
+    try {
+        const { receiverType, receiverId } = query;
+        const count = await Notification.query()
+            .where({
+                receiver_type: receiverType,
+                receiver_id: receiverId,
+                is_read: constants.isRead.Unread
+            })
+            .count('id', { as: 'notification_count' })
+            .first();
+        return count;
+    } catch (error) {
+        log.error('getUnreadCountService Catch: ', error);
+        throw error;
+    }
 };
 
 export const notificationService = {
-  getNotificationsService,
-  markAsReadService,
-  getUnreadCountService,
+    getNotificationsService,
+    markAsReadService,
+    getUnreadCountService
 };

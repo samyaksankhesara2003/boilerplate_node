@@ -1,9 +1,9 @@
 import XLSX from 'xlsx';
 
 export interface ISheetData {
-  name: string;
-  data: any[];
-};
+    name: string;
+    data: any[];
+}
 
 /**
  * @author Jitendra Singh
@@ -12,14 +12,14 @@ export interface ISheetData {
  * @returns {Promise<Buffer>} - A promise that resolves to a buffer containing the Excel data.
  */
 export async function generateExcel(jsonData: ISheetData[]): Promise<Buffer> {
-  const workbook = XLSX.utils.book_new();
+    const workbook = XLSX.utils.book_new();
 
-  jsonData.forEach((sheet: ISheetData) => {
-    const worksheet = XLSX.utils.json_to_sheet(sheet.data);
-    XLSX.utils.book_append_sheet(workbook, worksheet, sheet.name);
-  });
+    jsonData.forEach((sheet: ISheetData) => {
+        const worksheet = XLSX.utils.json_to_sheet(sheet.data);
+        XLSX.utils.book_append_sheet(workbook, worksheet, sheet.name);
+    });
 
-  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
 
-  return excelBuffer;
-};
+    return excelBuffer;
+}

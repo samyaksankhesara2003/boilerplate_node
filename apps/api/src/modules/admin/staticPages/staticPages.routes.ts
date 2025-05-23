@@ -13,4 +13,4 @@ router.get('/', validateRequest(validation.QUERY), controller.list);
 router.put('/', validateRequest(validation.CREATE_OR_UPDATE), controller.createOrUpdate);
 router.delete('/:page', validateRequest(validation.PARAMS), controller.remove);
 
-export const staticPagesRoutes = router; 
+export const staticPagesRoutes = router;

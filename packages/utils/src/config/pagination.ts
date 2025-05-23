@@ -9,8 +9,8 @@ export const defaultPagination: Pagination = {
     page: 1,
     perPage: 10,
     orderBy: 'created_at',
-    orderDir: 'desc',
-}
+    orderDir: 'desc'
+};
 
 const getPageNumber = (pageNumber: number): number | null => {
     if (pageNumber > 0) {
@@ -18,15 +18,15 @@ const getPageNumber = (pageNumber: number): number | null => {
         else return pageNumber - 1;
     }
     return null;
-}
+};
 
 export const createPagination = (total: number, page: number, perPage: number, result?: Array<unknown>): PaginationResponse => {
     const pages = Math.ceil(total / perPage);
     return {
         result,
         pagination: { page: +page, perPage: +perPage, total, prev: getPageNumber(+page), next: +page < pages ? +page + 1 : null }
-    }
-}
+    };
+};
 
 export interface PaginationResponse {
     result: unknown[] | undefined;
@@ -36,5 +36,5 @@ export interface PaginationResponse {
         total: number;
         prev: number | null;
         next: number | null;
-    }
+    };
 }

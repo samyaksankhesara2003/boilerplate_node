@@ -1,4 +1,4 @@
-import { StatusCodes } from "./constants/statusCodes";
+import { StatusCodes } from './constants/statusCodes';
 
 /**
  * @description CustomError is a class that extends the built-in Error class.
@@ -13,4 +13,4 @@ export class CustomError extends Error {
         this.name = 'CustomError';
         Error.captureStackTrace(this, this.constructor);
     }
-};
+}

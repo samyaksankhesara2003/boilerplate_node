@@ -64,4 +64,4 @@ export const staticPagesController = {
     list,
     createOrUpdate,
     remove
-}; 
+};

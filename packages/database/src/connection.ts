@@ -11,4 +11,3 @@ const Model = ObjectionModel.knex(knex);
 if (appConfig.logDbQueries) logDbQueries(knex);
 
 export { knex, Model, QueryBuilder };
-

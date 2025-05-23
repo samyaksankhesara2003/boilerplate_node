@@ -7,5 +7,5 @@ const getCountrySchema = {
 };
 
 export const countryValidation = {
-    getCountrySchema,
+    getCountrySchema
 };

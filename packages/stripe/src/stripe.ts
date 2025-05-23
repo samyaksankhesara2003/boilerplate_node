@@ -15,7 +15,7 @@ const createPaymentIntent = async (currency: 'INR' | 'USD', amount: number, cust
             customer: customer_id,
             amount: amount * 100,
             currency: currency,
-            automatic_payment_methods: { enabled: true },
+            automatic_payment_methods: { enabled: true }
             // payment_method_types: ['card'],
         });
         if (!paymentIntent) throw new Error('Error creating payment intent');

@@ -16,4 +16,3 @@ router.use('/feedback', userAuthMiddleware, feedbackRoutes);
 router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
 
 export const userRoutes = router;
-
