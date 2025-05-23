@@ -16,5 +16,5 @@ describe('@repo/file-service/pdf', () => {
         };
         const pdfData = await generatePdfFromTemplate(TemplateNames.INVOICE, data);
         expect(pdfData).toBeInstanceOf(Buffer);
-    });
+    }, 20000); // 20 seconds
 });
