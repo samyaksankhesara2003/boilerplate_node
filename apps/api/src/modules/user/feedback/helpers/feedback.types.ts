@@ -4,4 +4,4 @@ export interface IFeedback {
     rating: number | null;
     feedback: string;
     type: number;
-};
+}

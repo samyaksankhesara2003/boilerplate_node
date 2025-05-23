@@ -26,7 +26,7 @@ export function sendResponse(
     const response: any = {
         success,
         statusCode,
-        message,
+        message
     };
 
     if (data) response.data = data;
@@ -34,4 +34,4 @@ export function sendResponse(
     if (appConfig.nodeEnv === 'development' && error) response.stack = error.stack;
 
     return res.status(statusCode).json(response);
-};
+}

@@ -1,4 +1,4 @@
-import { Pagination } from "@repo/utils";
+import { Pagination } from '@repo/utils';
 
 export interface Params {
     id: number;

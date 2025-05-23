@@ -15,4 +15,4 @@ export function validateFileSize(fileSizeInBytes: number | undefined, maxSizeInM
     if (sizeInMB > maxSizeInMB) throw new CustomError(`Max file size is ${maxSizeInMB} MB`, StatusCodes.BAD_REQUEST);
 
     return true;
-};
+}

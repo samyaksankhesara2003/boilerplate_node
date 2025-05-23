@@ -5,7 +5,7 @@ const ListSchema = {
     query: {
         search: Joi.string().optional(),
         status: Joi.number().valid(1, 2).optional(),
-        ...paginationSchema,
+        ...paginationSchema
     }
 };
 
@@ -36,5 +36,5 @@ export const faqValidation = {
     ListSchema,
     CreateSchema,
     UpdateSchema,
-    DeleteSchema,
-}; 
+    DeleteSchema
+};

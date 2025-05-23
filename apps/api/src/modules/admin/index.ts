@@ -17,7 +17,6 @@ router.use('/faq', adminAuthMiddleware, faqRoutes);
 router.use('/static-pages', adminAuthMiddleware, staticPagesRoutes);
 
 // Feedback routes
-router.use('/feedback', adminAuthMiddleware , adminFeedbackRoutes);
+router.use('/feedback', adminAuthMiddleware, adminFeedbackRoutes);
 
 export const adminRoutes = router;
-

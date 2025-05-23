@@ -13,7 +13,11 @@ const commonAttributes = ['id', 'page', 'content'];
  */
 const getService = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
     try {
-        const row = await model.query().select(...attributes).where('page', page).first();
+        const row = await model
+            .query()
+            .select(...attributes)
+            .where('page', page)
+            .first();
         if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return row;
@@ -33,7 +37,8 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const startRange = (page - 1) * perPage;
         const endRange = page * perPage - 1;
 
-        const query = await model.query()
+        const query = await model
+            .query()
             .select(...commonAttributes)
             .where(modifyQuery => {
                 if (search) modifyQuery.where('page', 'like', `%${search}%`);
@@ -84,4 +89,4 @@ export const _service = {
     listService,
     createOrUpdateService,
     removeService
-}; 
+};

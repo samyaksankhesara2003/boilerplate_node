@@ -26,4 +26,4 @@ export const staticPagesValidation = {
     PARAMS,
     QUERY,
     CREATE_OR_UPDATE
-}; 
+};

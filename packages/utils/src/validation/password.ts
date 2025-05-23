@@ -17,4 +17,4 @@ export function validatePassword(password: string): { valid: boolean; errors: st
     if (!/[^A-Za-z0-9]/.test(password)) errors.push('Password must include at least one special character.');
 
     return { valid: errors.length === 0, errors };
-};
+}

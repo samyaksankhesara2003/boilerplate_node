@@ -13,4 +13,4 @@ router.post('/', validateRequest(validation.CreateSchema), controller.create);
 router.put('/', validateRequest(validation.UpdateSchema), controller.update);
 router.delete('/:id', validateRequest(validation.DeleteSchema), controller.remove);
 
-export const faqRoutes = router; 
+export const faqRoutes = router;

@@ -1,14 +1,10 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from '@jest/globals';
 import { stripeService } from '../stripe';
 
 describe('stripeService', () => {
     describe('createPaymentIntent', () => {
         it('creates a payment intent', async () => {
-            const paymentIntent = await stripeService.createPaymentIntent(
-                'INR',
-                1000,
-                'test-customer-id'
-            );
+            const paymentIntent = await stripeService.createPaymentIntent('INR', 1000, 'test-customer-id');
 
             expect(paymentIntent).toHaveProperty('id');
             expect(paymentIntent).toHaveProperty('amount');
@@ -18,11 +14,7 @@ describe('stripeService', () => {
 
         it('throws an error if the payment intent cannot be created', async () => {
             try {
-                await stripeService.createPaymentIntent(
-                    'USD',
-                    1000,
-                    'test-customer-id'
-                );
+                await stripeService.createPaymentIntent('USD', 1000, 'test-customer-id');
             } catch (error: unknown) {
                 expect(error).toBeInstanceOf(Error);
                 expect((error as Error).message).toEqual('Error creating payment intent');
@@ -32,10 +24,7 @@ describe('stripeService', () => {
 
     describe('verifyWebhookRequest', () => {
         it('verifies a webhook request', async () => {
-            const event = await stripeService.verifyWebhookRequest(
-                'test-signature',
-                JSON.stringify({ type: 'payment_succeeded' })
-            );
+            const event = await stripeService.verifyWebhookRequest('test-signature', JSON.stringify({ type: 'payment_succeeded' }));
 
             expect(event).toHaveProperty('type');
             expect(event).toHaveProperty('data');
@@ -43,10 +32,7 @@ describe('stripeService', () => {
 
         it('throws an error if the request cannot be verified', async () => {
             try {
-                await stripeService.verifyWebhookRequest(
-                    'invalid-signature',
-                    JSON.stringify({ type: 'payment_succeeded' })
-                );
+                await stripeService.verifyWebhookRequest('invalid-signature', JSON.stringify({ type: 'payment_succeeded' }));
             } catch (error: unknown) {
                 expect(error).toBeInstanceOf(Error);
                 expect((error as Error).message).toEqual('Error verifying webhook request');
@@ -54,4 +40,3 @@ describe('stripeService', () => {
         });
     });
 });
-

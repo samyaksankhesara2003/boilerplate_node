@@ -9,8 +9,12 @@ const socialSignInSchema = {
         email: Joi.string().email().optional(),
         mobile_number: Joi.string().optional(),
         password: Joi.string().optional(),
-        auth_type: Joi.number().valid(...Object.values(constants.authType)).required(),
-        device_type: Joi.number().valid(...Object.values(constants.deviceType)).optional()
+        auth_type: Joi.number()
+            .valid(...Object.values(constants.authType))
+            .required(),
+        device_type: Joi.number()
+            .valid(...Object.values(constants.deviceType))
+            .optional()
     }
 };
 

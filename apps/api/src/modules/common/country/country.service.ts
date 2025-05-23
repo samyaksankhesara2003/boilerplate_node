@@ -12,7 +12,9 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
         const { country_id } = params;
         const countryAttributes = ['id', 'name'];
 
-        const country = await Country.query().select(...countryAttributes).findById(country_id);
+        const country = await Country.query()
+            .select(...countryAttributes)
+            .findById(country_id);
         if (!country) throw new CustomError(ResponseMessages.COUNTRY.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return country;
