@@ -71,5 +71,8 @@ export const ResponseMessages = {
         SAVE_FAILED: 'feedback.save_failed',
         NOT_FOUND: 'feedback.not_found',
         LIST_SUCCESS: 'feedback.list_success'
+    },
+    REFERRAL:{
+        LIST_SUCCESS: 'referral.list_success'
     }
 } as const;

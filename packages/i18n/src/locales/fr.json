@@ -64,5 +64,8 @@
     "save_failed": "Échec de l'enregistrement du commentaire",
     "not_found": "commentaire introuvable",
     "list_success": "Liste de commentaires récupérée avec succès"
+  },
+  "referral": {
+    "list_success": "Liste des références récupérée avec succès"
   }
 }

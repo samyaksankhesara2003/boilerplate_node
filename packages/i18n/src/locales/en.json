@@ -71,5 +71,8 @@
     "save_failed": "Feedback save failed",
     "not_found": "feedback not found",
     "list_success": "Feedback list fetched successfully"
+  },
+  "referral": {
+    "list_success": "Referral list fetched successfully"
   }
 }

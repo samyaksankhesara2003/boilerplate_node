@@ -22,3 +22,6 @@ export { default as RBACPermission } from './RBACPermission';
 
 // Feedback
 export { default as Feedback } from './Feedback';
+
+// Referral
+export { default as ReferralHistory } from './ReferralHistory';
