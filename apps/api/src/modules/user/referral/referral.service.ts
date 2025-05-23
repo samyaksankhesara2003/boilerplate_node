@@ -1,6 +1,6 @@
 import { ReferralHistory } from '@repo/db';
 import { log } from '@repo/logger';
-import { defaultPagination } from '@repo/utils';
+import { createPagination, defaultPagination } from '@repo/utils';
 import { IReferralQuery } from './helpers/referral.types';
 
 /**
@@ -9,25 +9,31 @@ import { IReferralQuery } from './helpers/referral.types';
  */
 const getReferralHistoryService = async (params: IReferralQuery) => {
   try {
-			const {
-         user_id = params.user_id,
-         recordPerPage = params.recordPerPage || defaultPagination.perPage,
-         pageNumber = params.pageNumber || defaultPagination.page,
-         startRange = (+pageNumber - 1) * +recordPerPage,
-         orderBy = params.orderBy || defaultPagination.orderBy,
-         endRange = +pageNumber * +recordPerPage - 1,
-         orderDir = defaultPagination.orderDir,
-       } = params;
+    const {
+      user_id = params.user_id,
+      perPage = params.perPage || defaultPagination.perPage,
+      page = params.page || defaultPagination.page,
+      orderBy = params.orderBy || defaultPagination.orderBy,
+      orderDir = defaultPagination.orderDir,
+				} = params;
 
+    const startRange = (+page - 1) * +perPage;
+    const endRange = +page * +perPage - 1;
 
     const referrals = await ReferralHistory.query()
       .where('referrer_id', user_id!)
       .withGraphFetched('[referrer, referred]')
       .orderBy(orderBy, orderDir)
-					.range(startRange, endRange);
-			
+      .range(startRange, endRange);
 
-    return referrals.results;
+    const rows = createPagination(
+      referrals.total,
+      page,
+      perPage,
+      referrals.results
+    );
+
+    return rows;
   } catch (error) {
     log.error('getReferralHistoryService: ', error);
     throw error;
@@ -36,4 +42,4 @@ const getReferralHistoryService = async (params: IReferralQuery) => {
 
 export const referralService = {
   getReferralHistoryService,
-}; 
+};
