@@ -34,6 +34,9 @@ This Turborepo includes the following packages and apps:
 - `@repo/mailer`: Handles email functionality, including sending emails using predefined templates and configurations.
 - `@repo/utils`: utility functions for string manipulation, date formatting, object manipulation, and more.
 - `@repo/storage-service`: a simple AWS S3 service that can be used for uploading, downloading, and deleting files.
+- `@repo/chat`: Real-time chat functionality with support for private and group messaging, message history, and presence indicators.
+- `@repo/notification`: A notification service that handles in-app notifications and inbox messages.
+- `@repo/socket`: WebSocket service for real-time bidirectional communication, supporting features like connection management, event handling, and room-based messaging.
 - `@repo/sms-service`: SMS service utilities
 - `@repo/firebase-auth`: Firebase authentication integration for handling user authentication and authorization using Firebase services.
 - `@repo/file-service`: Generate CSV, Excel, and PDF files

@@ -19,13 +19,16 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/chat": "workspace:*",
     "@repo/config": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/logger": "workspace:*",
+    "@repo/notifications": "workspace:*",
     "@repo/mailer": "workspace:*",
     "@repo/response-handler": "workspace:*",
     "@repo/storage-service": "workspace:*",
     "@repo/stripe": "workspace:*",
+    "@repo/socket": "workspace:*",
     "@repo/tokens": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validator": "workspace:*",

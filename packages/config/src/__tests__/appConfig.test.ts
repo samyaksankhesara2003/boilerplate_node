@@ -1,4 +1,4 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 import { appConfig } from "../app";
 
 describe("appConfig", () => {
@@ -24,5 +24,7 @@ describe("appConfig", () => {
         expect(appConfig.appHost).toEqual(
             process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https'
         );
+        expect(appConfig.sslKeyPath).toEqual(process.env.SSL_KEY_PATH);
+        expect(appConfig.sslCertPath).toEqual(process.env.SSL_CERT_PATH);
     });
 });

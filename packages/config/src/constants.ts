@@ -151,7 +151,26 @@ export const constants = {
             'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
             'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
         },
-    },    
+    },
+
+    messageStatus: {
+        'Sent': 1,
+        'Delivered': 2,
+        'Read': 3,
+    },
+    messageStatusNumberToName: {
+        1: 'Sent',
+        2: 'Delivered',
+        3: 'Read',
+    },
+    isRead: {
+        'Unread': 0,
+        'Read': 1,
+    },
+    isReadNumberToName: {
+        0: 'Unread',
+        1: 'Read',
+    },
 
     //Feedback types 
     feedbackType:{
