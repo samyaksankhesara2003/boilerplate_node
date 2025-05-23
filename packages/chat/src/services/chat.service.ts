@@ -1,7 +1,7 @@
 import { constants } from '@repo/config';
 import { Message, QueryBuilder } from '@repo/db';
 import { log } from '@repo/logger';
-import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from '../constants/events';
+import { defaultPagination } from '@repo/utils';
 import {
 	IMessage,
 	IMessageHistoryParams,
@@ -26,7 +26,7 @@ export class ChatService {
         room_id: payload.room_id,
         message: payload.message,
         attachment_url: payload.attachment_url,
-        status: `${constants.messageStatus.Sent}`,
+        status: constants.messageStatus.Sent,
       });
 
       return message;
@@ -46,14 +46,15 @@ export class ChatService {
       const {
         user_id,
         other_user_id,
-        page = 1,
-        limit = DEFAULT_PAGE_SIZE,
         before_date,
+        recordPerPage = params.recordPerPage || defaultPagination.perPage,
+        pageNumber = params.pageNumber || defaultPagination.page,
+        orderBy = params.orderBy || defaultPagination.orderBy,
+        orderDir = defaultPagination.orderDir,
       } = params;
 
-      // Ensure limit doesn't exceed maximum
-      const actualLimit = Math.min(limit, MAX_PAGE_SIZE);
-      const offset = (page - 1) * actualLimit;
+      const startRange = (pageNumber - 1) * recordPerPage;
+      const endRange = pageNumber * recordPerPage - 1;
 
       // Build query
       const query = Message.query()
@@ -78,22 +79,22 @@ export class ChatService {
       // Get total count
       const total = await query.clone().resultSize();
 
-      // Get messages
+      // Get messages with pagination and ordering
       const messages = await query
-        .limit(actualLimit)
-        .offset(offset)
-        .withGraphFetched('[sender, receiver]');
+        .withGraphFetched('[sender, receiver]')
+        .orderBy(orderBy, orderDir)
+        .range(startRange, endRange);
 
       return {
-        messages,
+        messages: messages.results,
         total,
-        page,
-        limit: actualLimit,
-        has_more: total > offset + messages.length,
+        page: pageNumber,
+        limit: recordPerPage,
+        has_more: total > endRange + 1,
       };
-				} catch (error) {
-					log.error('getMessageHistory: ', error);
-     throw error;
+    } catch (error) {
+      log.error('getMessageHistory: ', error);
+      throw error;
     }
   }
 
@@ -103,9 +104,9 @@ export class ChatService {
   static async markAsDelivered(messageId: number): Promise<void> {
     try {
       await Message.query()
-        .patch({ status: 'delivered' })
+        .patch({ status: constants.messageStatus.Delivered })
         .where('id', messageId)
-        .where('status', 'sent');
+        .andWhere('status', constants.messageStatus.Sent);
 				} catch (error) {
 						log.error('markAsDelivered: ', error);
       throw error;
@@ -119,11 +120,11 @@ export class ChatService {
     try {
       await Message.query()
         .patch({
-          status: 'read',
+          status: constants.messageStatus.Read,
           read_at: new Date(),
         })
         .where('id', messageId)
-        .whereIn('status', ['sent', 'delivered']);
+        .whereIn('status', [constants.messageStatus.Sent, constants.messageStatus.Delivered]);
 				} catch (error) {
 							log.error('markAsRead: ', error);
        throw error;
@@ -137,7 +138,7 @@ export class ChatService {
     try {
       return await Message.query()
         .where('receiver_id', userId)
-        .whereNot('status', 'read')
+        .whereNot('status', constants.messageStatus.Read)
         .resultSize();
 				} catch (error) {
 						log.error('getUnreadCount: ', error);

@@ -5,7 +5,7 @@ export interface IMessage {
   room_id?: string;
   message: string;
   attachment_url?: string;
-  status: string;
+  status: number;
   read_at?: Date;
   created_at: Date;
   updated_at: Date;
@@ -23,9 +23,13 @@ export interface ISendMessagePayload {
 export interface IMessageHistoryParams {
   user_id: number;
   other_user_id: number;
-  page?: number;
-  limit?: number;
   before_date?: Date;
+  recordPerPage?: number;
+  pageNumber?: number;
+  orderBy?: string;
+  orderDir?: 'asc' | 'desc';
+  startRange?: number;
+  endRange?: number;
 }
 
 export interface IPaginatedMessages {

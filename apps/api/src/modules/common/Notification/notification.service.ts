@@ -1,3 +1,4 @@
+import { constants } from '@repo/config';
 import { Notification } from '@repo/db';
 import { log } from '@repo/logger';
 import { INotification, NotificationService } from '@repo/notifications';
@@ -41,9 +42,9 @@ const markAsReadService = async (
   try {
     const { id } = query;
     await Notification.query()
-      .patch({ is_read: '1' })
+      .patch({ is_read: constants.isRead.Read })
       .where('id', id)
-        .where('is_read', '0');
+        .where('is_read', constants.isRead.Unread);
       
       return null
   } catch (error) {
@@ -65,7 +66,7 @@ const getUnreadCountService = async (
       .where({
         receiver_type: receiverType,
         receiver_id: receiverId,
-        is_read: '0',
+        is_read: constants.isRead.Unread,
       })
       .count('id', { as: 'notification_count' })
       .first();
