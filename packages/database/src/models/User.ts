@@ -25,7 +25,7 @@ class User extends BaseModel {
         return ['fullname'];
     }
     get fullname() {
-        return this.first_name ? `${this.first_name} ${this?.last_name || ''}` : null;
+        return this.first_name ? `${this.first_name} ${this?.last_name || ''}` : '';
     }
 
     static relationMappings: RelationMappings | RelationMappingsThunk = () => {

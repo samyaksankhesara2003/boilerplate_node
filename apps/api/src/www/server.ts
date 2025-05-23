@@ -51,15 +51,38 @@ export const createServer = (): Express => {
     log.error('Unable to connect with the database', err);
   });
 
-  // Serve the Swagger JSON specification
-  app.get('/api-docs/swagger.json', (req: Request, res: Response): void => {
-    const swaggerSpec = swaggerJsDoc({
-      ...swaggerJsDocConfig,
-      apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
-    });
+  // User swagger docs specification
+  const userSwaggerSpec = swaggerJsDoc({
+    ...swaggerJsDocConfig,
+    apis: [
+      './src/modules/common/*.swagger.yaml',
+      './src/modules/user/*.swagger.yaml',
+      './src/modules/common/**/*.swagger.yaml',
+      './src/modules/user/**/*.swagger.yaml'
+    ]
+  });
 
-    // Just return the Swagger JSON
-    res.json(swaggerSpec);
+  // Admin swagger docs specification
+  const adminSwaggerSpec = swaggerJsDoc({
+    ...swaggerJsDocConfig,
+    apis: [
+      './src/modules/common/*.swagger.yaml',
+      './src/modules/admin/*.swagger.yaml',
+      './src/modules/common/**/*.swagger.yaml',
+      './src/modules/admin/**/*.swagger.yaml'
+    ]
+  });
+
+  // Serve the user Swagger JSON specification
+  app.get('/user-swagger.json', (req: Request, res: Response): void => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(userSwaggerSpec);
+  });
+
+  // Serve the admin Swagger JSON specification
+  app.get('/admin-swagger.json', (req: Request, res: Response): void => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(adminSwaggerSpec);
   });
 
   // Serve the Swagger UI
@@ -68,21 +91,21 @@ export const createServer = (): Express => {
     basicAuth({
       users: {
         [`${swaggerBasicAuthConfig.userName}`]: `${swaggerBasicAuthConfig.password}`, // Set username and password
-      },
-      challenge: true, // Prompts a browser-based login dialog
-      unauthorizedResponse: () => 'Unauthorized access to Swagger documentation',
+      }, challenge: true
     }),
     swaggerUi.serve,
-    swaggerUi.setup(
-      swaggerJsDoc({
-        ...swaggerJsDocConfig,
-        apis: ['./src/modules/**/*.swagger.yaml', './src/modules/**/**/*.swagger.yaml']
-      }),
-      {
-        swaggerOptions: swaggerOptionsConfig,
-        explorer: true,
-      }
-    )
+    swaggerUi.setup(null, {
+      explorer: true,
+      customSiteTitle: `${appConfig.appName} - API Explorer`,
+      swaggerOptions: {
+        urls: [
+          { url: '/user-swagger.json', name: 'User APIs' },
+          { url: '/admin-swagger.json', name: 'Admin APIs' },
+        ],
+        filter: true,
+        tagsSorter: swaggerOptionsConfig.tagsSorter,
+      },
+    })
   );
 
   // Test API

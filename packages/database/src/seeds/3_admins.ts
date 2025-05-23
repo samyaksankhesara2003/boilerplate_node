@@ -15,12 +15,12 @@ export async function seed(knex: Knex): Promise<void> {
     await knex("users").insert([
         {
             id: 1,
-            social_id: 'zY7lB1eU65cySr0CYrlqkjut3kp2',
+            social_id: '24p2of2FT1absi8xNorklUoA9r82',
             first_name: "Techuz",
             last_name: "Admin",
-            email: "admin@yopmail.com",
+            email: "techuz@yopmail.com",
             profile_url: null,
-            // password: "$2b$10$92IXUNpkjO0rOQ5by",
+            password: null,
             token: null,
             reset_password_token: null,
             role: 1,    // 1 -> Admin
