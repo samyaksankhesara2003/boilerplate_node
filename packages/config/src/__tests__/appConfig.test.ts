@@ -11,7 +11,7 @@ describe("appConfig", () => {
         );
         expect(appConfig.allowedHosts).toEqual(process.env.ALLOWED_HOSTS);
         expect(appConfig.isHttps).toEqual(
-            process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : true
+            process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? true : false) : true
         );
         expect(appConfig.appBaseUrl).toEqual(process.env.APP_BASE_URL);
         expect(appConfig.frontendBaseUrl).toEqual(process.env.FRONTEND_BASE_URL);        
