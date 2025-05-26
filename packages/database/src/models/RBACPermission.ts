@@ -6,9 +6,9 @@ class RBACPermission extends BaseModel {
     }
 
     module_name!: string;
-    admin!: string;  // '1' -> Not Granted, '2' -> Granted
-    user!: string;   // '1' -> Not Granted, '2' -> Granted
-    manager!: string; // '1' -> Not Granted, '2' -> Granted
+    admin!: string;  // '1' -> Granted, '2' -> Not Granted
+    user!: string;   // '1' -> Granted, '2' -> Not Granted
+    manager!: string; // '1' -> Granted, '2' -> Not Granted
 }
 
 export default RBACPermission; 

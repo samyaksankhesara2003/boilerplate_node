@@ -163,11 +163,11 @@ export const constants = {
         3: 'Read'
     },
     isRead: {
-        Unread: 0,
+        Unread: 2,
         Read: 1
     },
     isReadNumberToName: {
-        0: 'Unread',
+        2: 'Unread',
         1: 'Read'
     },
 
@@ -177,8 +177,8 @@ export const constants = {
         Module: 2
     },
     rolePermissionType: {
-        'Not Granted': '1',
-        'Granted': '2'
+        'Granted': 1,
+        'Not Granted': 2
     }
 } as const;
 

@@ -13,7 +13,7 @@ export class NotificationService {
         try {
             const roomId = `notification_${payload.receiver_id}`;
 
-            let notification = await Notification.query().insert({
+            const notification = await Notification.query().insert({
                 receiver_type: payload.receiver_type,
                 receiver_id: payload.receiver_id,
                 room_id: roomId,

@@ -25,7 +25,7 @@ export const checkModuleAccess = (module: string, methods: string[] | string) =>
       }
 
       const permissions = await RBACPermission.query().whereIn('module_name', moduleList).select('module_name', roleName);
-      const hasAnyAccess = permissions.some((perm) => perm[roleName as keyof RBACPermission] === constants.rolePermissionType.Granted);
+      const hasAnyAccess = permissions.some((perm) => +(perm[roleName as keyof RBACPermission] || 0) === constants.rolePermissionType.Granted);
       if (!hasAnyAccess) {
         return next(new CustomError(
           ResponseMessages.AUTH.ACCESS_DENIED,

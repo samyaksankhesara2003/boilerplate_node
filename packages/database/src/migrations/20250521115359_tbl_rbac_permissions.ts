@@ -15,14 +15,14 @@ export async function up(knex: Knex): Promise<void> {
     table.string('module_name').notNullable();
     table
       .enum('admin', ['1', '2'])
-      .defaultTo('1')
+      .defaultTo('2')
       .notNullable()
-      .comment('1 -> Not Granted, 2 -> Granted');
+      .comment('1 -> Granted, 2 -> Not Granted');
     table
       .enum('user', ['1', '2'])
-      .defaultTo('1')
+      .defaultTo('2')
       .notNullable()
-      .comment('1 -> Not Granted, 2 -> Granted');
+      .comment('1 -> Granted, 2 -> Not Granted');
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
     table
       .timestamp('updated_at')
