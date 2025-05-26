@@ -9,7 +9,14 @@
     "validation_error": "Erreur de validation",
     "not_authenticated": "Non authentifié",
     "session_expired": "Session expirée",
-    "unsupported_file_type": "Type de fichier non supporté"
+    "unsupported_file_type": "Type de fichier non supporté",
+    "not_found": "Ligne non trouvée",
+    "fetch_success": "Ligne récupérée avec succès",
+    "list_success": "Liste récupérée avec succès",
+    "create_success": "Ligne créée avec succès",
+    "update_success": "Ligne mise à jour avec succès",
+    "update_failed": "Échec de la mise à jour des données",
+    "delete_success": "Ligne supprimée avec succès"
   },
   "user": {
     "fetch_success": "Utilisateur récupéré avec succès",
@@ -17,7 +24,10 @@
     "already_exists": "Utilisateur existe déjà",
     "not_active": "Utilisateur n'est pas actif",
     "signup_success": "Inscription réussie",
-    "account_deleted": "Votre compte a été supprimé. Veuillez contacter le support."
+    "account_deleted": "Votre compte a été supprimé. Veuillez contacter le support.",
+    "list_success": "Liste récupérée avec succès",
+    "update_success": "Ligne mise à jour avec succès",
+    "update_failed": "Échec de la mise à jour des données"
   },
   "auth": {
     "login_success": "Connexion réussie",

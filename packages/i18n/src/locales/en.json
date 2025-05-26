@@ -19,7 +19,10 @@
     "already_exists": "User already exists",
     "not_active": "User is not active",
     "signup_success": "Signup successfully",
-    "account_deleted": "Your account has been deleted. Please contact support."
+    "account_deleted": "Your account has been deleted. Please contact support.",
+    "list_success": "List fetched successfully",
+    "update_success": "Row updated successfully",
+    "update_failed": "Failed to update data"
   },
   "auth": {
     "login_success": "Login successful",
