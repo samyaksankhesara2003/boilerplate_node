@@ -1,5 +1,4 @@
 export const constants = {
-
     // Languages
     defaultLanguage: 'en',
     supportedLanguages: ['en', 'fr', 'es', 'de', 'hi'],
@@ -10,7 +9,7 @@ export const constants = {
     // Pagination
     orderDir: {
         ASC: 'asc',
-        DESC: 'desc',
+        DESC: 'desc'
     },
 
     // Links
@@ -24,15 +23,15 @@ export const constants = {
 
     // Device Types
     deviceType: {
-        'MOBILE': 1,
-        'DESKTOP': 2,
-        'TABLET': 3
+        MOBILE: 1,
+        DESKTOP: 2,
+        TABLET: 3
     },
 
     // Activity types
     activityType: {
-        'LOGIN': 1,
-        'LOGOUT': 2
+        LOGIN: 1,
+        LOGOUT: 2
     },
 
     // File Validations and Sizes (in MB)
@@ -44,105 +43,105 @@ export const constants = {
 
     // Auth Types
     authType: {
-        'EMAIL': 1,
-        'PHONE': 2,
-        'GOOGLE': 3,
-        'FACEBOOK': 4,
-        'APPLE': 5,
+        EMAIL: 1,
+        PHONE: 2,
+        GOOGLE: 3,
+        FACEBOOK: 4,
+        APPLE: 5
     },
     authTypeNumberToName: {
         1: 'EMAIL',
         2: 'PHONE',
         3: 'GOOGLE',
         4: 'FACEBOOK',
-        5: 'APPLE',
+        5: 'APPLE'
     },
 
     // User Roles
     role: {
-        'Admin': 1,
-        'User': 2,
+        Admin: 1,
+        User: 2
     },
     roleNumberToName: {
         1: 'Admin',
-        2: 'User',
+        2: 'User'
     },
 
     // Common Status
     status: {
-        'Active': 1,
-        'Inactive': 2,
+        Active: 1,
+        Inactive: 2
     },
     statusNumberToName: {
         1: 'Active',
-        2: 'Inactive',
+        2: 'Inactive'
     },
 
     adminStatus: {
-        'Active': 1,
-        'Inactive': 2,
+        Active: 1,
+        Inactive: 2
     },
     adminStatusNumberToName: {
         1: 'Active',
-        2: 'Inactive',
+        2: 'Inactive'
     },
 
     userStatus: {
-        'Active': 1,
-        'Inactive': 2,
+        Active: 1,
+        Inactive: 2
     },
     userStatusNumberToName: {
         1: 'Active',
-        2: 'Inactive',
+        2: 'Inactive'
     },
 
     stripeSupportedCurrencyType: {
-        'USD': 1,
-        'INR': 2,
+        USD: 1,
+        INR: 2
     },
     stripeSupportedCurrencyTypeNumberToName: {
         1: 'USD',
-        2: 'INR',
+        2: 'INR'
     },
 
     paymentStatus: {
-        'Pending': 1,
-        'Completed': 2,
-        'Failed': 3,
-        'Cancelled': 4,
+        Pending: 1,
+        Completed: 2,
+        Failed: 3,
+        Cancelled: 4
     },
     paymentStatusNumberToName: {
         1: 'Pending',
         2: 'Completed',
         3: 'Failed',
-        4: 'Cancelled',
+        4: 'Cancelled'
     },
 
     emailTemplateName: {
-        'Registration': 'registration',
-        'Forget Password': 'forgetPassword',
+        Registration: 'registration',
+        'Forget Password': 'forgetPassword'
     },
 
     customNotificationType: {
         /**
          * All general notifications
          */
-        'General Notification': 1,
+        'General Notification': 1
     },
 
     notificationColor: {
-        'Red': '0xFFB32218',
-        'Yellow': '0xFFB54707',
-        'Green': '0xFF039754',
-        'Black': '0xFF475467',
-        'Blue': '0xFF311B92',
+        Red: '0xFFB32218',
+        Yellow: '0xFFB54707',
+        Green: '0xFF039754',
+        Black: '0xFF475467',
+        Blue: '0xFF311B92'
     },
     notificationColorFontWeight: {
-        'Red': 700,
-        'Yellow': 700,
-        'Green': 700,
-        'Black': 400,
-        'Blue': 700,
+        Red: 700,
+        Yellow: 700,
+        Green: 700,
+        Black: 400,
+        Blue: 700
     },
 
     rateLimiter: {
@@ -153,15 +152,35 @@ export const constants = {
         },
     },
 
-    feedbackType: {
-        'System': 1,
-        'Module': 2
-    },
-
     redisKey: {
         CountryList: 'CountryList',
+    },
+
+    messageStatus: {
+        Sent: 1,
+        Delivered: 2,
+        Read: 3
+    },
+    messageStatusNumberToName: {
+        1: 'Sent',
+        2: 'Delivered',
+        3: 'Read'
+    },
+    isRead: {
+        Unread: 0,
+        Read: 1
+    },
+    isReadNumberToName: {
+        0: 'Unread',
+        1: 'Read'
+    },
+
+    //Feedback types
+    feedbackType: {
+        System: 1,
+        Module: 2
     }
 } as const;
 
-export type SupportedLanguage = typeof constants.supportedLanguages[number];
-export type SupportedProfileImageType = typeof constants.supportedProfileImageTypes[number];
+export type SupportedLanguage = (typeof constants.supportedLanguages)[number];
+export type SupportedProfileImageType = (typeof constants.supportedProfileImageTypes)[number];

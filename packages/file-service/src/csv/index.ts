@@ -7,5 +7,5 @@ import { json2csv } from 'json-2-csv';
  * @returns {Promise<string>} - the CSV data as a string
  */
 export async function generateCSV(jsonData: object[]): Promise<string> {
-  return json2csv(jsonData, { emptyFieldValue: '' });
-};
+    return json2csv(jsonData, { emptyFieldValue: '' });
+}

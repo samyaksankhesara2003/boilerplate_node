@@ -11,6 +11,10 @@ export { default as StaticPages } from './common/staticPages';
 // User
 export { default as User } from './User';
 
+// Message
+export { default as Message } from './Message';
+// Notification
+export { default as Notification } from './Notification';
 // Activity
 export { default as ActivityLog } from './ActivityLog';
 

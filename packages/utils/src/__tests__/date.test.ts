@@ -1,4 +1,4 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from '@jest/globals';
 import { formatDate } from '../format/date';
 
 describe('Date Formatter', () => {

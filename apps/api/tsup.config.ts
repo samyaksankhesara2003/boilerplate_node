@@ -1,15 +1,15 @@
-import { defineConfig , type Options} from 'tsup';
+import { defineConfig, type Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
-  entry: ['src/index.ts'],
-  format: ['esm'],
-  target: 'es2022',
-  clean: true,
-  dts: true,
-  sourcemap: true,
-  splitting: true,
-  bundle: true,
-  skipNodeModulesBundle: true,
-  outExtension: () => ({ js: '.mjs' }),
-  ...options
+    entry: ['src/index.ts'],
+    format: ['esm'],
+    target: 'es2022',
+    clean: true,
+    dts: true,
+    sourcemap: true,
+    splitting: true,
+    bundle: true,
+    skipNodeModulesBundle: true,
+    outExtension: () => ({ js: '.mjs' }),
+    ...options
 }));

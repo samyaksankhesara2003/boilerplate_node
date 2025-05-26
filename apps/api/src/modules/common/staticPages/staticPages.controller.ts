@@ -17,5 +17,5 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<voi
 };
 
 export const staticPagesController = {
-    get,
-}; 
+    get
+};
