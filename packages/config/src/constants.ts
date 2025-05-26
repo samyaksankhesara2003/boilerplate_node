@@ -175,6 +175,10 @@ export const constants = {
     feedbackType: {
         System: 1,
         Module: 2
+    },
+    rolePermissionType: {
+        'Not Granted': '1',
+        'Granted': '2'
     }
 } as const;
 
