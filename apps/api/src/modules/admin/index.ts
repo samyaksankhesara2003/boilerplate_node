@@ -21,6 +21,6 @@ router.use('/static-pages', adminAuthMiddleware, staticPagesRoutes);
 router.use('/feedback', adminAuthMiddleware, adminFeedbackRoutes);
 
 //admin user management routes
-router.use('/user', userRoutes);
+router.use('/user', adminAuthMiddleware, userRoutes);
 
 export const adminRoutes = router;
