@@ -1,7 +1,6 @@
 import { BaseModel } from '../BaseModel';
 
 class FAQ extends BaseModel {
-
     static get tableName() {
         return 'faqs';
     }
@@ -11,4 +10,4 @@ class FAQ extends BaseModel {
     status!: number;
 }
 
-export default FAQ; 
+export default FAQ;

@@ -10,4 +10,4 @@ const router: Router = Router();
 
 router.get('/', validateRequest(validation.QUERY), controller.list);
 
-export const faqRoutes = router; 
+export const faqRoutes = router;

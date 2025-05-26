@@ -11,7 +11,11 @@ const commonAttributes = ['id', 'page', 'content'];
  */
 const getService = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
     try {
-        const row = await model.query().select(...attributes).where('page', page).first();
+        const row = await model
+            .query()
+            .select(...attributes)
+            .where('page', page)
+            .first();
         if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return row;
@@ -22,5 +26,5 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
 };
 
 export const _service = {
-    getService,
-}; 
+    getService
+};

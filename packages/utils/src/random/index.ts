@@ -6,7 +6,7 @@
  */
 export function generateRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+}
 
 /**
  * @description Generates a random string of specified length using alphanumeric characters.
@@ -16,4 +16,4 @@ export function generateRandomNumber(min: number, max: number): number {
 export function generateRandomString(length: number): string {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     return Array.from({ length }, () => chars.charAt(Math.floor(Math.random() * chars.length))).join('');
-};
+}

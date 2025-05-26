@@ -7,6 +7,6 @@ export const transporter = nodemailer.createTransport({
     secure: mailerConfig.smtpSecure,
     auth: {
         user: mailerConfig.smtpUser,
-        pass: mailerConfig.smtpPass,
-    },
+        pass: mailerConfig.smtpPass
+    }
 });

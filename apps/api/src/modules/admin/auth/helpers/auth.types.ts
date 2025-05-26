@@ -7,7 +7,7 @@ export interface ISocialSignInBody {
     password: string;
     auth_type: number;
     device_type: number;
-};
+}
 
 export interface ISocialSignInResponse {
     token: string;
@@ -19,23 +19,23 @@ export interface ISocialSignInResponse {
         role: number;
         status: number;
     };
-};
+}
 
 export interface IForgetPasswordBody {
     email: string;
     client_base_url: string;
-};
+}
 
 export interface IVerifyResetPasswordLinkParams {
     token: string;
-};
+}
 
 export interface IVerifyResetPasswordLinkResponse {
     is_valid_link: boolean;
-};
+}
 
 export interface IResetPasswordParams extends IVerifyResetPasswordLinkParams {}
 
 export interface IResetPasswordBody {
     password: string;
-};
+}

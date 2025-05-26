@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import type { Knex } from 'knex';
 
 /**
  * Run the migrations.
@@ -10,12 +10,12 @@ import type { Knex } from "knex";
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('users', (table) => {
+    await knex.schema.createTable('users', table => {
         table.increments('id').primary();
         table.string('social_id').notNullable();
         table.string('first_name', 75).notNullable();
         table.string('last_name', 75).nullable();
-        table.string('slug').notNullable().unique()
+        table.string('slug').notNullable().unique();
         table.string('email').nullable();
         table.string('mobile_number', 20).nullable();
         table.string('profile_url').nullable();
@@ -31,7 +31,7 @@ export async function up(knex: Knex): Promise<void> {
 
         table.unique(['email', 'mobile_number']);
     });
-};
+}
 
 /**
  * Revert the migrations.
@@ -45,4 +45,4 @@ export async function up(knex: Knex): Promise<void> {
  */
 export async function down(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('users');
-};
+}

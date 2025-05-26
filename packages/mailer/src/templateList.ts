@@ -12,4 +12,4 @@ export function listAvailableTemplates(): string[] {
         .readdirSync(templatesDir)
         .filter(file => file.endsWith('.ejs') && !file.startsWith('layouts/'))
         .map(file => file.replace('.ejs', ''));
-};
+}
