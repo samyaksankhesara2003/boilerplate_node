@@ -13,9 +13,9 @@ export function createTwilioProvider(accountSid: string, authToken: string, from
         await client.messages.create({
             body: message,
             from: fromPhone,
-            to,
+            to
         });
     };
 
     return { sendSMS };
-};
+}

@@ -18,4 +18,3 @@ router.use('/bookmark', userAuthMiddleware, bookmarkRoutes);
 router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
 
 export const userRoutes = router;
-

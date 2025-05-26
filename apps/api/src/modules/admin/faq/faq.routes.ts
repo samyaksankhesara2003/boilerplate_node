@@ -14,4 +14,4 @@ router.post('/', checkModuleAccess(['faq_create_edit']), validateRequest(validat
 router.put('/', checkModuleAccess(['faq_create_edit']), validateRequest(validation.UpdateSchema), controller.update);
 router.delete('/:id', checkModuleAccess(['faq_delete']), validateRequest(validation.DeleteSchema), controller.remove);
 
-export const faqRoutes = router; 
+export const faqRoutes = router;

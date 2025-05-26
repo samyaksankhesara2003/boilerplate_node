@@ -2,7 +2,7 @@ import { appConfig } from './app';
 
 const swaggerUsername = process.env.SWAGGER_USERNAME;
 const swaggerPassword = process.env.SWAGGER_PASSWORD;
-const swaggerBaseApiUrl = process.env.APP_BASE_URL + "" + process.env.SWAGGER_API_BASE_URL;
+const swaggerBaseApiUrl = process.env.APP_BASE_URL + '' + process.env.SWAGGER_API_BASE_URL;
 
 const swaggerJsDocOptions = {
     definition: {
@@ -10,30 +10,30 @@ const swaggerJsDocOptions = {
         info: {
             title: `${appConfig.appName} API's`,
             version: '1.0.0',
-            description: `API documentation for the ${appConfig.appName} app`,
+            description: `API documentation for the ${appConfig.appName} app`
         },
         servers: [
             {
                 url: swaggerBaseApiUrl,
-                description: `${appConfig.nodeEnv} server`,
-            },
+                description: `${appConfig.nodeEnv} server`
+            }
         ],
         components: {
             securitySchemes: {
                 basicAuth: {
                     type: 'http',
                     scheme: 'bearer',
-                    bearerFormat: 'JWT',
-                },
-            },
+                    bearerFormat: 'JWT'
+                }
+            }
         },
         security: [
             {
-                basicAuth: [],
-            },
-        ],
+                basicAuth: []
+            }
+        ]
     },
-    apis: [], // Path to route-specific YAML files
+    apis: [] // Path to route-specific YAML files
 };
 
 const swaggerOptions = {
@@ -43,23 +43,17 @@ const swaggerOptions = {
     // tagsSorter: 'alpha',
     // operationsSorter: 'alpha',
     tagsSorter: (a: string, b: string): number => {
-        const order = [
-            'Country',
-            'State',
-            'Auth',
-            'Profile',
-            'Feedback'
-        ];
+        const order = ['Country', 'State', 'Auth', 'Profile', 'Feedback'];
 
         const indexA = order.indexOf(a);
         const indexB = order.indexOf(b);
 
         if (indexA === -1 && indexB === -1) return a.localeCompare(b); // Sort alphabetically if both tags are unknown
-        if (indexA === -1) return 1;  // Tag A is unknown, place it after B
+        if (indexA === -1) return 1; // Tag A is unknown, place it after B
         if (indexB === -1) return -1; // Tag B is unknown, place it after A
 
         return indexA - indexB;
-    },
+    }
     // docExpansion: 'none'
 };
 

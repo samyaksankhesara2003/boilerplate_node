@@ -47,4 +47,4 @@ export async function generatePdfFromTemplate<T extends TemplateKey>(templateNam
     } finally {
         if (browser) await browser.close();
     }
-};
+}

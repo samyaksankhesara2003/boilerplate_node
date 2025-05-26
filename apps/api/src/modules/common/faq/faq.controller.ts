@@ -18,5 +18,5 @@ const list = async (req: Request, res: Response, next: NextFunction): Promise<vo
 };
 
 export const faqController = {
-    list,
-}; 
+    list
+};

@@ -10,7 +10,7 @@ import { getFirebaseAuth } from './firebase';
 const generatePasswordResetLink = async (email: string, url: string): Promise<string> => {
     const actionCodeSettings = {
         url: url,
-        handleCodeInApp: true,
+        handleCodeInApp: true
     };
     return await getFirebaseAuth().generatePasswordResetLink(email, actionCodeSettings);
 };

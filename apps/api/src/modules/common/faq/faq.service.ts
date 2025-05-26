@@ -16,13 +16,13 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const startRange = (page - 1) * perPage;
         const endRange = page * perPage - 1;
 
-        const query = await model.query()
+        const query = await model
+            .query()
             .select(...commonAttributes)
             .where(modifyQuery => {
                 if (search) {
                     modifyQuery.where(builder => {
-                        builder.where('question', 'like', `%${search}%`)
-                            .orWhere('answer', 'like', `%${search}%`);
+                        builder.where('question', 'like', `%${search}%`).orWhere('answer', 'like', `%${search}%`);
                     });
                 }
                 if (status) modifyQuery.where('status', `${status}`);
@@ -40,5 +40,5 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
 };
 
 export const _service = {
-    listService,
-}; 
+    listService
+};

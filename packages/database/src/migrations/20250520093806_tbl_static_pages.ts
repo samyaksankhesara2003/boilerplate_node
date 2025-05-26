@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import type { Knex } from 'knex';
 
 /**
  * Run the migrations.
@@ -10,7 +10,7 @@ import type { Knex } from "knex";
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('static_pages', (table) => {
+    await knex.schema.createTable('static_pages', table => {
         table.increments('id').primary();
         table.string('page', 20).notNullable();
         table.text('content').notNullable();
@@ -19,7 +19,7 @@ export async function up(knex: Knex): Promise<void> {
 
         table.unique(['page']);
     });
-};
+}
 
 /**
  * Revert the migrations.
@@ -33,4 +33,4 @@ export async function up(knex: Knex): Promise<void> {
  */
 export async function down(knex: Knex): Promise<void> {
     await knex.schema.dropTableIfExists('static_pages');
-};
+}

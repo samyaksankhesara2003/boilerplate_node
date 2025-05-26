@@ -14,7 +14,7 @@ import { TEMPLATES, TemplateName } from './templateConstants';
 export async function sendMail(
     to: string,
     subject: string,
-    templateName: TemplateName,  // templateName is now typed as a valid template from TEMPLATES
+    templateName: TemplateName, // templateName is now typed as a valid template from TEMPLATES
     context: any
 ): Promise<void> {
     // Ensure the templateName is a valid template constant
@@ -28,6 +28,6 @@ export async function sendMail(
         from: `${appConfig.appName} <${mailerConfig.smtpFromEmail}>`,
         to,
         subject,
-        html,
+        html
     });
-};
+}

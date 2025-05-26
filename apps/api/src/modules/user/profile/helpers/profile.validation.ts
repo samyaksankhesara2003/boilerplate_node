@@ -18,7 +18,9 @@ const changePasswordSchema = {
 
 const logoutSchema = {
     body: {
-        device_type: Joi.number().valid(...Object.values(constants.deviceType)).required()
+        device_type: Joi.number()
+            .valid(...Object.values(constants.deviceType))
+            .required()
     }
 };
 

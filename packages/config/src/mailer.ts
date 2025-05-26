@@ -4,5 +4,5 @@ export const mailerConfig = {
     smtpPort: Number(process.env.SMTP_PORT!),
     smtpUser: process.env.SMTP_USER!,
     smtpPass: process.env.SMTP_PASS!,
-    smtpSecure: process.env.SMTP_SECURE === 'true' || false,
+    smtpSecure: process.env.SMTP_SECURE === 'true' || false
 };
