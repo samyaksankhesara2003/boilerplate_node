@@ -64,4 +64,4 @@ export const faqController = {
     create,
     update,
     remove
-}; 
+};

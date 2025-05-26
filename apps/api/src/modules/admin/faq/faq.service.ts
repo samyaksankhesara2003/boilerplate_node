@@ -13,7 +13,10 @@ const commonAttributes = ['id', 'question', 'answer', 'status'];
  */
 const getService = async (id: number, attributes: string[] = commonAttributes): Promise<FAQ> => {
     try {
-        const row = await model.query().select(...attributes).findById(id);
+        const row = await model
+            .query()
+            .select(...attributes)
+            .findById(id);
         if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return row;
@@ -33,13 +36,13 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const startRange = (page - 1) * perPage;
         const endRange = page * perPage - 1;
 
-        const query = await model.query()
+        const query = await model
+            .query()
             .select(...commonAttributes)
             .where(modifyQuery => {
                 if (search) {
                     modifyQuery.where(builder => {
-                        builder.where('question', 'like', `%${search}%`)
-                            .orWhere('answer', 'like', `%${search}%`);
+                        builder.where('question', 'like', `%${search}%`).orWhere('answer', 'like', `%${search}%`);
                     });
                 }
                 if (status) modifyQuery.where('status', `${status}`);
@@ -106,4 +109,4 @@ export const _service = {
     createService,
     updateService,
     removeService
-}; 
+};

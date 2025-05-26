@@ -7,5 +7,5 @@ const PARAMS = {
 };
 
 export const staticPagesValidation = {
-    PARAMS,
-}; 
+    PARAMS
+};

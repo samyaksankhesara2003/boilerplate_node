@@ -6,7 +6,6 @@ import { SMSProvider } from '../types';
  * @description No-operation provider. Returns the OTP instead of sending an SMS.
  */
 export function createNoopProvider(): SMSProvider {
-
     console.log('Creating noop provider');
     const sendSMS = async (to: string, message: string): Promise<any> => {
         const otpMatch = message.match(/\d{4,6}/); // matches 4–6 digit OTP
@@ -18,4 +17,4 @@ export function createNoopProvider(): SMSProvider {
     };
 
     return { sendSMS };
-};
+}

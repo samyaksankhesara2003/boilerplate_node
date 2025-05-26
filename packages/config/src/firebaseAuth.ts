@@ -9,5 +9,5 @@ export const firebaseAuthConfig = {
     tokenUri: process.env.FIREBASE_AUTH_TOKEN_URI,
     authProviderX509CertUrl: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
     clientX509CertUrl: process.env.FIREBASE_AUTH_CLIENT_X509_CERT_URL,
-    universeDomain: process.env.FIREBASE_AUTH_UNIVERSE_DOMAIN,
+    universeDomain: process.env.FIREBASE_AUTH_UNIVERSE_DOMAIN
 };

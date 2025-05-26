@@ -1,5 +1,5 @@
 // Knex
-export * from "./connection";
+export * from './connection';
 
 // models
 export * from './models/index';

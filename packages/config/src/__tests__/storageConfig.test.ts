@@ -1,8 +1,8 @@
-import { describe, it, expect } from "@jest/globals";
-import { storageConfig } from "../storage";
+import { describe, it, expect } from '@jest/globals';
+import { storageConfig } from '../storage';
 
-describe("storageConfig", () => {
-    it("loads storage environment variables", () => {
+describe('storageConfig', () => {
+    it('loads storage environment variables', () => {
         expect(storageConfig.s3BucketRegion).toEqual(process.env.S3_BUCKET_REGION);
         expect(storageConfig.s3BucketName).toEqual(process.env.S3_BUCKET_NAME);
         expect(storageConfig.s3BucketEndpoint).toEqual(process.env.S3_BUCKET_ENDPOINT);

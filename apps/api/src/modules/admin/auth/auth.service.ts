@@ -7,7 +7,15 @@ import { sendMail, SUBJECTS, TEMPLATES } from '@repo/mailer';
 import { generateRandomString, hashPassword } from '@repo/utils';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { activityLogService } from '../../common/activity/activity.service';
-import { IForgetPasswordBody, IResetPasswordBody, IResetPasswordParams, ISocialSignInBody, ISocialSignInResponse, IVerifyResetPasswordLinkParams, IVerifyResetPasswordLinkResponse } from './helpers/auth.types';
+import {
+    IForgetPasswordBody,
+    IResetPasswordBody,
+    IResetPasswordParams,
+    ISocialSignInBody,
+    ISocialSignInResponse,
+    IVerifyResetPasswordLinkParams,
+    IVerifyResetPasswordLinkResponse
+} from './helpers/auth.types';
 
 /**
  * @author Jitendra Singh
@@ -21,7 +29,10 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
 
         const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'auth_type', 'role', 'status'];
 
-        const userDetails = await User.query().select(...userAttributes).where({ social_id: social_id, role: constants.role['Admin'] }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ social_id: social_id, role: constants.role['Admin'] })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.AUTH.INVALID_CREDENTIALS, StatusCodes.BAD_REQUEST);
 
@@ -32,15 +43,15 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             mobile_number: userDetails.mobile_number,
             role: userDetails.role,
             status: userDetails.status
-        }
+        };
 
         const token = jwtUtil.signJwt(data);
-        await userDetails.$query(trx).patch({ token: token });;
+        await userDetails.$query(trx).patch({ token: token });
 
         await activityLogService.createActivityLogService({
             user_id: userDetails.id,
             device_type: device_type || constants.deviceType['DESKTOP'],
-            activity_type: constants.activityType['LOGIN'],
+            activity_type: constants.activityType['LOGIN']
         });
 
         await trx.commit();
@@ -62,9 +73,23 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
     try {
         const { email, client_base_url } = body;
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ email, role: constants.role['Admin'] }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ email, role: constants.role['Admin'] })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.AUTH.INVALID_CREDENTIALS, StatusCodes.BAD_REQUEST);
 
@@ -80,7 +105,7 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
         const token = jwtUtil.signJwt({
             user_id: userDetails.id,
             email: userDetails.email,
-            reset_password_token: resetPasswordToken,
+            reset_password_token: resetPasswordToken
         });
 
         await userDetails.$query().patch({ reset_password_token: resetPasswordToken });
@@ -113,12 +138,27 @@ const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkPa
 
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ id: decodedToken.data.user_id, role: constants.role['Admin'] }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ id: decodedToken.data.user_id, role: constants.role['Admin'] })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.AUTH.INVALID_CREDENTIALS, StatusCodes.BAD_REQUEST);
-        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) throw new CustomError(ResponseMessages.PASSWORD.INVALID_RESET_PASSWORD_LINK, StatusCodes.BAD_REQUEST);
+        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token)
+            throw new CustomError(ResponseMessages.PASSWORD.INVALID_RESET_PASSWORD_LINK, StatusCodes.BAD_REQUEST);
 
         return { is_valid_link: true };
     } catch (error) {
@@ -141,12 +181,27 @@ const resetPasswordService = async (params: IResetPasswordParams, body: IResetPa
 
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ id: decodedToken.data.user_id, role: constants.role['Admin'] }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ id: decodedToken.data.user_id, role: constants.role['Admin'] })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.AUTH.INVALID_CREDENTIALS, StatusCodes.BAD_REQUEST);
-        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) throw new CustomError(ResponseMessages.PASSWORD.INVALID_RESET_PASSWORD_LINK, StatusCodes.BAD_REQUEST);
+        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token)
+            throw new CustomError(ResponseMessages.PASSWORD.INVALID_RESET_PASSWORD_LINK, StatusCodes.BAD_REQUEST);
 
         const hashedPassword = await hashPassword(password);
         const dataToUpdate = {

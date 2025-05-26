@@ -1,10 +1,9 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from '@jest/globals';
 
 import { createNoopProvider } from '../providers/noop';
 import { SMSProvider } from '../types';
 
 describe('SMS Providers', () => {
-
     describe('Noop Provider', () => {
         it('should extract OTP from message and log it', async () => {
             const provider: SMSProvider = createNoopProvider();

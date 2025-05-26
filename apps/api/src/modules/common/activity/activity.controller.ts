@@ -7,15 +7,15 @@ import { activityLogService } from './activity.service';
  * @description Handles GET /activity-logs requests.
  */
 const listActivityLogs = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    const { query, language } = req;
-    const data = await activityLogService.listActivityLogsService(query);
-    return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
-  } catch (error) {
-    next(error);
-  }
+    try {
+        const { query, language } = req;
+        const data = await activityLogService.listActivityLogsService(query);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+    } catch (error) {
+        next(error);
+    }
 };
 
 export const activityController = {
-  listActivityLogs
+    listActivityLogs
 };

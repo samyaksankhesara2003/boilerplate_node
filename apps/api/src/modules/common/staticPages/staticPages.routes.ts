@@ -10,4 +10,4 @@ const router: Router = Router();
 
 router.get('/:page', validateRequest(validation.PARAMS), controller.get);
 
-export const staticPagesRoutes = router; 
+export const staticPagesRoutes = router;
