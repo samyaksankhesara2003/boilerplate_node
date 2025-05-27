@@ -44,7 +44,7 @@ const listCountriesService = async (query: ICountryQuery): Promise<Country[]> =>
         if (search) countryQuery.where('name', 'like', `%${search}%`);
         const countries = await countryQuery;
 
-        await setRedisData(constants.redisKey.CountryList, countries);
+        if (!search) await setRedisData(constants.redisKey.CountryList, countries);
         return countries;
     } catch (error) {
         log.error('listCountriesService Catch: ', error);
