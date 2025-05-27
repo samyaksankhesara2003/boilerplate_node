@@ -152,6 +152,10 @@ export const constants = {
         }
     },
 
+    redisKey: {
+        CountryList: 'CountryList',
+    },
+
     messageStatus: {
         Sent: 1,
         Delivered: 2,
@@ -163,11 +167,11 @@ export const constants = {
         3: 'Read'
     },
     isRead: {
-        Unread: 0,
+        Unread: 2,
         Read: 1
     },
     isReadNumberToName: {
-        0: 'Unread',
+        2: 'Unread',
         1: 'Read'
     },
 
@@ -184,6 +188,10 @@ export const constants = {
         1: 'User',
         2: 'Blog',
     },
+    rolePermissionType: {
+        'Granted': 1,
+        'Not Granted': 2
+    }
 } as const;
 
 export type SupportedLanguage = (typeof constants.supportedLanguages)[number];
