@@ -10,19 +10,19 @@ import type { Knex } from 'knex';
  * @returns Promise<void> - A promise that resolves when the migration is complete.
  */
 export async function up(knex: Knex): Promise<void> {
-  await knex.schema.createTable('rbac_permissions', (table) => {
+  await knex.schema.createTable('role_permissions', (table) => {
     table.increments('id').primary();
     table.string('module_name').notNullable();
     table
-      .enum('admin', ['0', '1'])
-      .defaultTo('0')
+      .enum('admin', ['1', '2'])
+      .defaultTo('2')
       .notNullable()
-      .comment('0 -> Not Granted, 1 -> Granted');
+      .comment('1 -> Granted, 2 -> Not Granted');
     table
-      .enum('user', ['0', '1'])
-      .defaultTo('0')
+      .enum('user', ['1', '2'])
+      .defaultTo('2')
       .notNullable()
-      .comment('0 -> Not Granted, 1 -> Granted');
+      .comment('1 -> Granted, 2 -> Not Granted');
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
     table
       .timestamp('updated_at')
@@ -42,5 +42,5 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTableIfExists('rbac_permissions');
+  await knex.schema.dropTableIfExists('role_permissions');
 }

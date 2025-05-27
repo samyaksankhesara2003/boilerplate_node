@@ -1,10 +1,10 @@
-import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { Request, Response, Router } from 'express';
+import { sendResponse, StatusCodes } from '@repo/response-handler';
 import userAuthMiddleware from '../../middlewares/userAuth.middleware';
 import { authRoutes } from './auth/auth.routes';
-import { bookmarkRoutes } from './bookmark/bookmark.routes';
-import { feedbackRoutes } from './feedback/feedback.routes';
 import { profileRoutes } from './profile/profile.routes';
+import { feedbackRoutes } from './feedback/feedback.routes';
+import { bookmarkRoutes } from './bookmark/bookmark.routes';
 
 const router: Router = Router();
 
