@@ -180,7 +180,7 @@ export const constants = {
         'System': 1,
         'Module': 2
     },
-    bookmarkType:{
+    bookmarkType: {
         'User': 1,
         'Blog': 2
     },

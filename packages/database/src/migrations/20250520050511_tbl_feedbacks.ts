@@ -12,12 +12,12 @@ import type { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('feedbacks', table => {
         table.increments('id').primary();
-        table.integer('user_id').unsigned().notNullable();
+        table.integer('user_id').unsigned().notNullable().references('id').inTable('users').onDelete('CASCADE');
         table.integer('module_id').unsigned().nullable();
         table.string('feedback').notNullable();
         table.tinyint('rating', 1).unsigned().nullable();
-        table.enum('type', ['1', '2']).defaultTo('1').notNullable().comment('1 -> System,2 -> Module');
-        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1 -> Active, 2 -> Inactive');
+        table.enum('type', ['1', '2']).defaultTo('1').notNullable().comment('1-> System, 2-> Module');
+        table.enum('status', ['1', '2']).defaultTo('1').notNullable().comment('1-> Active, 2-> Inactive');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
     });

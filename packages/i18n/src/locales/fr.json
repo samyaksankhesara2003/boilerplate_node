@@ -39,15 +39,15 @@
     "update_success": "Profil mis à jour avec succès"
   },
   "password": {
-    "invalid_password": "Invalid password",
-    "password_change_success": "Password changed successfully",
-    "password_cannot_be_same_as_current": "Password cannot be the same as the current password",
-    "invalid_forget_password_link": "Invalid forget password link",
-    "invalid_reset_password_link": "Invalid reset password link",
-    "forget_password_link_expired": "Forget password link expired",
-    "link_verification_success": "Link verification successful",
-    "forgot_password_success": "Forgot password successfully",
-    "reset_password_success": "Password reset successfully"
+    "invalid_password": "Mot de passe invalide",
+    "password_change_success": "Mot de passe modifié avec succès",
+    "password_cannot_be_same_as_current": "Le mot de passe ne peut pas être le même que le mot de passe actuel",
+    "invalid_forget_password_link": "Lien de réinitialisation de mot de passe invalide",
+    "invalid_reset_password_link": "Lien de réinitialisation de mot de passe invalide",
+    "forget_password_link_expired": "Lien de réinitialisation de mot de passe expiré",
+    "link_verification_success": "Vérification du lien réussie",
+    "forgot_password_success": "Mot de passe oublié avec succès",
+    "reset_password_success": "Mot de passe réinitialisé avec succès"
   },
   "country": {
     "fetch_success": "Pays récupéré avec succès",
@@ -76,9 +76,9 @@
     "list_success": "Liste de commentaires récupérée avec succès"
   },
   "bookmark": {
-    "fetch_success": "Bookmark fetched successfully",
-    "not_found": "Bookmark not found",
-    "list_success": "Bookmark list fetched successfully",
-    "already_exists": "Bookmark already exists"
+    "fetch_success": "Bookmark récupéré avec succès",
+    "not_found": "Bookmark non trouvé",
+    "list_success": "Liste des bookmarks récupérée avec succès",
+    "already_exists": "Bookmark existe déjà"
   }
 }
