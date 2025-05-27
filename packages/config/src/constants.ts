@@ -152,6 +152,10 @@ export const constants = {
         }
     },
 
+    redisKey: {
+        CountryList: 'CountryList',
+    },
+
     messageStatus: {
         Sent: 1,
         Delivered: 2,
