@@ -2,8 +2,9 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '@repo/db';
 import { log } from '@repo/logger';
 import { jwtUtil } from '@repo/tokens';
-import { constants } from '@repo/config';
+import { constants, jwtConfig } from '@repo/config';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
+import { getRedisData, setRedisData } from '@repo/redis';
 
 /**
  * @author Jainam Shah
@@ -17,10 +18,13 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
         const decoded = jwtUtil.validateJwt(token);
         if (!decoded) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
 
-        const attributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'token', 'role', 'status'];
-        let user = await User.query()
-            .select(...attributes)
-            .findById(decoded.data.id);
+        let user: User | undefined;
+        const data = await getRedisData(token);
+        if (data) user = data;
+        else {
+            const attributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'token', 'role', 'status', 'slug'];
+            user = await User.query().select(...attributes).findById(decoded.data.id);
+        }
 
         if (!user) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         if (user.token !== token) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
@@ -28,6 +32,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
             return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
         }
 
+        await setRedisData(token, user, jwtConfig.jwtExpiresIn);
         req.user = user;
         return next();
     } catch (error) {
