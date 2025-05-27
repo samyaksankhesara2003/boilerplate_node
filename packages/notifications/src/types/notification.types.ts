@@ -11,7 +11,6 @@ export interface INotification {
     is_read: number;
     created_at: Date;
     updated_at: Date;
-    deleted_at?: Date;
 }
 
 export interface ISendNotificationPayload {
