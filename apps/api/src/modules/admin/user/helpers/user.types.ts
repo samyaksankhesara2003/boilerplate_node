@@ -7,7 +7,7 @@ export interface IUserListingFilter extends Pagination {
 
 export interface IUserUpdateBody {
     id: number;
-    first_name?: string;
-    last_name?: string;
+    first_name: string;
+    last_name: string;
     profile_url?: string;
 }

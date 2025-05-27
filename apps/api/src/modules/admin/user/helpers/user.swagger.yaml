@@ -121,7 +121,7 @@
                     example: https://www.xyz.com/profilePicId
         responses:
           "200":
-            description: FAQ updated successfully
+            description: User updated successfully
             content:
               application/json:
                 schema:
@@ -134,7 +134,7 @@
                     answer:
                       type: string
           "500":
-            description: Internal server error updating FAQ
+            description: Internal server error updating User
             content:
               application/json:
                 schema:
@@ -220,6 +220,13 @@
         summary: Delete user
         description: Delete a user based `id` of user
         parameters:
+                - name: Accept-Language
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                    enum: [en, fr]
+                    default: en
                 - name: id
                   in: path
                   required: true
@@ -254,6 +261,13 @@
         summary: Update user status
         description: Update user status based on `user_id`
         parameters:
+                - name: Accept-Language
+                  in: header
+                  required: true
+                  schema:
+                    type: string
+                    enum: [en, fr]
+                    default: en
                 - name: id
                   in: path
                   required: true

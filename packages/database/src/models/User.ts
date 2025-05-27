@@ -17,7 +17,7 @@ class User extends BaseModel {
     auth_type!: number; // 1 -> Email, 2 -> Phone, 3 -> Google, 4 -> Facebook, 5 -> Apple
     role!: number; // 1 -> Admin, 2 -> User
     status!: number; // 1 -> Active, 2 -> Inactive
-    slug!: string | null;
+    slug!: string;
 
     // Define a virtual attribute for name
     static get virtualAttributes() {

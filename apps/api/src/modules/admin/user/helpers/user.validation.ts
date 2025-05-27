@@ -10,9 +10,7 @@ const getUserByIdSchema = {
 
 const getAllUserSchema = {
     query: {
-        status: Joi.number()
-            .valid(...Object.values(constants.status))
-            .optional(),
+        status: Joi.number().valid(...Object.values(constants.status)).optional(),
         search: Joi.string().optional(),
         ...paginationSchema
     }
@@ -21,8 +19,8 @@ const getAllUserSchema = {
 const updateUserSchema = {
     body: {
         id: Joi.number().required(),
-        first_name: Joi.string().optional(),
-        last_name: Joi.string().optional(),
+        first_name: Joi.string(),
+        last_name: Joi.string(),
         profile_url: Joi.string().optional()
     }
 };
