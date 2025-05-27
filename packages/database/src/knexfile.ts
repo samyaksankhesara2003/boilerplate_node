@@ -8,7 +8,8 @@ const baseConfig: Partial<Knex.Config> = {
         user: dbConfig['dbUsername'],
         password: dbConfig['dbPassword'],
         database: dbConfig['dbName'],
-        charset: dbConfig['dbCharset']
+        charset: dbConfig['dbCharset'],
+        timezone: 'UTC'
     },
     migrations: {
         directory: './migrations',
