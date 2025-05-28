@@ -1,8 +1,9 @@
 import { log } from '@repo/logger';
 import { QueryBuilder, User } from '@repo/db';
-import { constants } from '@repo/config';
+import { constants, storageConfig } from '@repo/config';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { createPagination, PaginationResponse } from '@repo/utils';
+import { deleteFile, s3Client, uploadFile, getPresignedUrl } from '@repo/storage-service';
 import { IUserListingFilter, IUserUpdateBody } from './helpers/user.types';
 
 const user_Attributes = ['id', 'first_name', 'last_name', 'profile_url', 'email', 'mobile_number', 'status', 'role'];
@@ -15,6 +16,8 @@ const getUserByIdService = async (id: number): Promise<User> => {
     try {
         const user = await User.query().select(user_Attributes).findById(id).where('role', constants.role.User);
         if (!user) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (user.profile_url) user.profile_url = await getPresignedUrl(storageConfig.s3BucketName, user.profile_url);
+
         return user;
     } catch (error) {
         log.error('getUserByIdService Catch: ', error);
@@ -51,6 +54,14 @@ const getAllUserService = async (query: IUserListingFilter): Promise<PaginationR
             .orderBy(orderBy, orderDir)
             .range(startRange, endRange);
 
+        await Promise.all(
+            users.results.map(async user => {
+                if (user.profile_url) {
+                    user.profile_url = await getPresignedUrl(storageConfig.s3BucketName, user.profile_url);
+                }
+            })
+        );
+
         const rows = createPagination(users.total, page, perPage, users.results);
         return rows;
     } catch (error) {
@@ -63,16 +74,24 @@ const getAllUserService = async (query: IUserListingFilter): Promise<PaginationR
  * @author Yagnesh Acharya
  * @description Update user
  */
-const updateUserService = async (body: IUserUpdateBody): Promise<void> => {
+const updateUserService = async (body: IUserUpdateBody, file: Express.Multer.File): Promise<void> => {
     try {
         const { id, ...userBody } = body;
         const userAttributes = ['id', 'first_name', 'last_name', 'profile_url'];
-        const userData = await User.query()
-            .select(...userAttributes)
-            .findById(id)
-            .where('role', constants.role.User);
+        const userData = await User.query().select(...userAttributes).findOne({ role: constants.role.User, id });
+
         if (!userData) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
-        await userData.$query().patch(userBody);
+        let profile_url = userData.profile_url;
+        if (!userData) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
+
+        if (file) {
+            if (profile_url) await deleteFile(s3Client, storageConfig.s3BucketName, profile_url);
+            profile_url = `USER-${id}/USER/${file.originalname}`;
+            await uploadFile(s3Client, storageConfig.s3BucketName, profile_url, file.buffer);
+        }
+
+        await userData.$query().patch({ ...userBody, profile_url });
+
         return;
     } catch (error) {
         log.error('updateUserService Catch: ', error);

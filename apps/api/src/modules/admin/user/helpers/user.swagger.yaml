@@ -100,25 +100,35 @@
           - Admin-user-management
         summary: Update a User by ID
         description: Updates a user with first name , last name , profile photo by its id
+        parameters:
+          - name: Accept-Language
+            in: header
+            required: true
+            schema:
+              type: string
+              enum: [en, fr]
+              default: en
+            description: Language code for localized responses (default is en)
         requestBody:
           required: true
           content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: number
-                    example: 1
-                  first_name:
-                    type: string
-                    example: John
-                  last_name:
-                    type: string
-                    example: Doe
-                  profile_url:
-                    type: string
-                    example: https://www.xyz.com/profilePicId
+            multipart/form-data:
+                schema:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    first_name:
+                      type: string
+                      example: John
+                    last_name:
+                      type: string
+                      example: Doe
+                    profile_url:
+                      type: string
+                      format: binary
+                      example: https://www.xyz.com/profilePicId
         responses:
           "200":
             description: User updated successfully
