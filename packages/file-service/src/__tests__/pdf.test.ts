@@ -5,7 +5,7 @@ import { ITemplateDataMap } from '../pdf/types/templateDataTypes';
 
 describe('@repo/file-service/pdf', () => {
     it('prints a message', async () => {
-        const data: ITemplateDataMap['INVOICE'] = {
+        const data: ITemplateDataMap['TEST'] = {
             customerName: 'Jitendra Singh',
             email: 'jitendra@example.com',
             items: [
@@ -14,7 +14,7 @@ describe('@repo/file-service/pdf', () => {
             ],
             totalAmount: 300
         };
-        const pdfData = await generatePdfFromTemplate(TemplateNames.INVOICE, data);
+        const pdfData = await generatePdfFromTemplate(TemplateNames.TEST, data);
         expect(pdfData).toBeInstanceOf(Buffer);
     }, 20000); // 20 seconds
 });

@@ -2,14 +2,22 @@ import { Router, Request, Response } from 'express';
 import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { authRoutes } from './auth/auth.routes';
 import { profileRoutes } from './profile/profile.routes';
-import userAuthMiddleware from '../../middlewares/userAuth.middleware';
 import { feedbackRoutes } from './feedback/feedback.routes';
+import { subscriptionRoutes } from './subscription/subscription.routes';
+import userAuthMiddleware from '../../middlewares/userAuth.middleware';
 
 const router: Router = Router();
 
-// User routes
+// Auth routes
 router.use('/auth', authRoutes);
+
+// Profile routes
 router.use('/profile', userAuthMiddleware, profileRoutes);
+
+// Subscription routes
+router.use('/subscription', subscriptionRoutes);
+
+// Feedback routes
 router.use('/feedback', userAuthMiddleware, feedbackRoutes);
 
 // Catch-all route for 404

@@ -2,6 +2,7 @@ import { User } from '@repo/db';
 import { log } from '@repo/logger';
 import { jwtUtil } from '@repo/tokens';
 import { constants } from '@repo/config';
+import { stripeService } from '@repo/stripe';
 import { firebaseService } from '@repo/firebase-auth';
 import { sendMail, SUBJECTS, TEMPLATES } from '@repo/mailer';
 import { generateRandomString, hashPassword } from '@repo/utils';
@@ -27,7 +28,19 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
     try {
         const { social_id, first_name, last_name, email, mobile_number, password, profile_url, auth_type, device_type } = body;
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'stripe_customer_id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
         const userDetails = await User.query()
             .select(...userAttributes)
@@ -35,7 +48,10 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             .first();
 
         if (!userDetails) {
+            const stripe_customer = await stripeService.createCustomer(first_name + ' ' + last_name, email);
+
             const user = await User.query(trx).insert({
+                stripe_customer_id: stripe_customer.id,
                 social_id: social_id,
                 first_name: first_name,
                 last_name: last_name,

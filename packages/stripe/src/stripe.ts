@@ -7,6 +7,23 @@ const stripeInstance = new Stripe(stripeConfig.stripeSecretKey);
 
 /**
  * @author Jitendra Singh
+ * @description Creates a new customer in Stripe.
+ */
+const createCustomer = async (name: string, email: string): Promise<Stripe.Customer> => {
+    try {
+        const customer = await stripeInstance.customers.create({ name, email });
+
+        if (!customer) throw new Error('Error creating customer');
+
+        return customer;
+    } catch (error) {
+        log.error('createCustomer Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
  * @description Create a Stripe payment intent.
  */
 const createPaymentIntent = async (currency: 'INR' | 'USD', amount: number, customer_id: string): Promise<Stripe.PaymentIntent> => {
@@ -29,13 +46,94 @@ const createPaymentIntent = async (currency: 'INR' | 'USD', amount: number, cust
 
 /**
  * @author Jitendra Singh
+ * @description Create a Stripe subscription for the given customer.
+ */
+const createSubscription = async (customerId: string, priceId: string, promoCode?: string): Promise<{ id: string; client_secret?: string }> => {
+    try {
+        const subscription = await stripeInstance.subscriptions.create({
+            customer: customerId,
+            items: [{ price: priceId }],
+            ...(promoCode && { discounts: [{ coupon: promoCode }] }),
+            payment_behavior: 'default_incomplete',
+            payment_settings: { save_default_payment_method: 'on_subscription', payment_method_types: ['card'] },
+            expand: ['latest_invoice.confirmation_secret']
+        });
+
+        if (!subscription) throw new Error('Error creating subscription');
+
+        return {
+            id: subscription.id,
+            client_secret:
+                typeof subscription.latest_invoice === 'string' ? undefined : subscription.latest_invoice?.confirmation_secret?.client_secret
+        };
+    } catch (error) {
+        log.error('createSubscription Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Upgrades a Stripe subscription item for the given subscription.
+ */
+const upgradeSubscription = async (
+    subscriptionId: string,
+    subscriptionItemId: string,
+    priceId: string,
+    promoCode?: string
+): Promise<{ id: string; client_secret?: string }> => {
+    try {
+        const subscription = await stripeInstance.subscriptions.update(subscriptionId, {
+            items: [
+                {
+                    id: subscriptionItemId,
+                    price: priceId
+                }
+            ],
+            ...(promoCode && { discounts: [{ coupon: promoCode }] }),
+            proration_behavior: 'none',
+            billing_cycle_anchor: 'now',
+            payment_behavior: 'default_incomplete',
+            payment_settings: { save_default_payment_method: 'on_subscription', payment_method_types: ['card'] },
+            expand: ['latest_invoice.confirmation_secret']
+        });
+
+        if (!subscription) throw new Error('Error upgrading subscription');
+
+        return {
+            id: subscription.id,
+            client_secret:
+                typeof subscription.latest_invoice === 'string' ? undefined : subscription.latest_invoice?.confirmation_secret?.client_secret
+        };
+    } catch (error) {
+        log.error('upgradeSubscription Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Cancels a Stripe subscription.
+ */
+const cancelSubscription = async (subscriptionId: string): Promise<{ is_cancelled: boolean }> => {
+    try {
+        await stripeInstance.subscriptions.update(subscriptionId, { cancel_at_period_end: true });
+
+        return { is_cancelled: true };
+    } catch (error) {
+        log.error('cancelSubscription Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
  * @description Verify a Stripe webhook request.
  */
-const verifyWebhookRequest = async (stripe_signature: string, body: string): Promise<Stripe.Event> => {
+const verifyWebhookRequest = async (stripe_webhook_secret: string, stripe_signature: string, body: string): Promise<Stripe.Event> => {
     try {
-        const event = stripeInstance.webhooks.constructEvent(body, stripe_signature, stripeConfig.stripeWebHookSecret);
+        const event = stripeInstance.webhooks.constructEvent(body, stripe_signature, stripe_webhook_secret);
         if (!event) throw new Error('Error verifying webhook request');
-
         return event;
     } catch (error) {
         log.error('verifyWebhookRequest Catch:', error);
@@ -44,6 +142,10 @@ const verifyWebhookRequest = async (stripe_signature: string, body: string): Pro
 };
 
 export const stripeService = {
+    createCustomer,
     createPaymentIntent,
+    createSubscription,
+    upgradeSubscription,
+    cancelSubscription,
     verifyWebhookRequest
 };

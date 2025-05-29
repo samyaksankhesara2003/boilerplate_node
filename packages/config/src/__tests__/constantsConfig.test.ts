@@ -73,34 +73,61 @@ describe('constantsConfig', () => {
                     1: 'Active',
                     2: 'Inactive'
                 }),
-                stripeSupportedCurrencyType: expect.objectContaining({
-                    USD: 1,
-                    INR: 2
+                provider: expect.objectContaining({
+                    Stripe: 1,
+                    Razorpay: 2
                 }),
-                stripeSupportedCurrencyTypeNumberToName: expect.objectContaining({
-                    1: 'USD',
-                    2: 'INR'
+                providerNumberToName: expect.objectContaining({
+                    1: 'Stripe',
+                    2: 'Razorpay'
                 }),
-                emailTemplateName: expect.objectContaining({
-                    Registration: 'registration',
-                    'Forget Password': 'forgetPassword'
+                planType: expect.objectContaining({
+                    Basic: 1,
+                    Pro: 2
                 }),
-                customNotificationType: expect.objectContaining({
-                    'General Notification': 1
+                planTypeNumberToName: expect.objectContaining({
+                    1: 'Basic',
+                    2: 'Pro'
                 }),
-                notificationColor: expect.objectContaining({
-                    Red: '0xFFB32218',
-                    Yellow: '0xFFB54707',
-                    Green: '0xFF039754',
-                    Black: '0xFF475467',
-                    Blue: '0xFF311B92'
+                planInterval: expect.objectContaining({
+                    Daily: 1,
+                    Weekly: 2,
+                    Monthly: 3,
+                    Yearly: 4
                 }),
-                notificationColorFontWeight: expect.objectContaining({
-                    Red: 700,
-                    Yellow: 700,
-                    Green: 700,
-                    Black: 400,
-                    Blue: 700
+                planIntervalNumberToName: expect.objectContaining({
+                    1: 'Daily',
+                    2: 'Weekly',
+                    3: 'Monthly',
+                    4: 'Yearly'
+                }),
+                supportedCurrencyType: expect.objectContaining({
+                    INR: 1,
+                    USD: 2
+                }),
+                supportedCurrencyTypeNumberToName: expect.objectContaining({
+                    1: 'INR',
+                    2: 'USD'
+                }),
+                subscriptionStatus: expect.objectContaining({
+                    Active: 1,
+                    Inactive: 2,
+                    Upcoming: 3
+                }),
+                subscriptionStatusNumberToName: expect.objectContaining({
+                    1: 'Active',
+                    2: 'Inactive',
+                    3: 'Upcoming'
+                }),
+                paymentStatus: expect.objectContaining({
+                    Paid: 1,
+                    Failed: 2,
+                    Pending: 3
+                }),
+                paymentStatusNumberToName: expect.objectContaining({
+                    1: 'Paid',
+                    2: 'Failed',
+                    3: 'Pending'
                 }),
                 rateLimiter: expect.objectContaining({
                     LOGIN_RATE_LIMIT: expect.objectContaining({

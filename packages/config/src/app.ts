@@ -2,6 +2,7 @@ export const appConfig = {
     nodeEnv: process.env.NODE_ENV || 'development',
     appName: process.env.APP_NAME,
     appPort: process.env?.APP_PORT || 4000,
+    appLogoUrl: process.env.APP_LOGO_URL!,
     logDbQueries: process.env.DATABASE_LOG_QUERIES ? (process.env.DATABASE_LOG_QUERIES === 'true' ? true : false) : true,
     allowedHosts: process.env.ALLOWED_HOSTS,
 
