@@ -3,7 +3,6 @@ import { BaseModel } from './../../BaseModel';
 import State from './state';
 
 class Country extends BaseModel {
-
     static get tableName() {
         return 'countries';
     }
@@ -21,8 +20,8 @@ class Country extends BaseModel {
                 relation: Model.HasManyRelation,
                 join: { from: 'countries.id', to: 'states.country_id' }
             }
-        }
-    }
+        };
+    };
 }
 
 export default Country;

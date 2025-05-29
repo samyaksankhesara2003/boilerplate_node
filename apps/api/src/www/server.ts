@@ -50,10 +50,10 @@ export const createServer = (): Express => {
     // Test DB connection
     knex.raw('SELECT 1')
         .then(() => {
-            log.info('Connected with the database');
+            log.info('✅ Connected with the database');
         })
         .catch(err => {
-            log.error('Unable to connect with the database', err);
+            log.error('❌ Unable to connect with the database', err);
         });
 
     // Common swagger docs specification

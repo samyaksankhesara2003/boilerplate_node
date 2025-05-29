@@ -1,5 +1,5 @@
   paths:
-    /admin/feedback/:
+    /feedback:
       get:
         summary: Get all feedbacks
         description: Retrieve a list of feedbacks based on filters like `user_id` and `status`.

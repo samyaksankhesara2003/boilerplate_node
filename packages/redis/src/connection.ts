@@ -1,9 +1,9 @@
 import { createClient, RedisClientType } from 'redis';
 import { log } from '@repo/logger';
-import { redisConfig } from './config';
+import { redisConfig } from '@repo/config';
 
 export const redisClient: RedisClientType = createClient({
-    url: `redis://${redisConfig.host}:${redisConfig.port}`
+    url: `redis://:${redisConfig.redisPassword}@${redisConfig.redisHost}:${redisConfig.redisPort}`
 });
 
 redisClient.on('error', error => {
@@ -15,7 +15,7 @@ export default async function connectRedis() {
         await redisClient.connect();
         log.info('✅ Redis Connected');
 
-        await redisClient.configSet('maxmemory', redisConfig.maxmemory!);
-        await redisClient.configSet('maxmemory-policy', redisConfig.maxmemoryPolicy!);
+        await redisClient.configSet('maxmemory', redisConfig.redisMaxmemory);
+        await redisClient.configSet('maxmemory-policy', redisConfig.redisMaxmemoryPolicy);
     }
 }

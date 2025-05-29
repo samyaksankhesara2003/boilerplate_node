@@ -1,5 +1,5 @@
 paths:
-  /admin/faq:
+  /faq:
     get:
       tags:
         - FAQ
@@ -200,7 +200,7 @@ paths:
                   error:
                     type: string
 
-  /admin/faq/{id}:
+  /faq/{id}:
     delete:
       tags:
         - FAQ

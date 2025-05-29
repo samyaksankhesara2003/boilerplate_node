@@ -3,14 +3,13 @@ import { BaseModel } from './BaseModel';
 import User from './User';
 
 class Bookmark extends BaseModel {
-
     static get tableName() {
         return 'bookmarks';
     }
 
     user_id!: number;
     target_id!: number;
-    target_type!: string;  // 1-> User, 2-> Blog
+    target_type!: string; // 1-> User, 2-> Blog
 
     user!: User;
 
@@ -21,8 +20,8 @@ class Bookmark extends BaseModel {
                 relation: Model.BelongsToOneRelation,
                 join: { from: 'bookmarks.user_id', to: 'users.id' }
             }
-        }
-    }
+        };
+    };
 }
 
-export default Bookmark; 
+export default Bookmark;

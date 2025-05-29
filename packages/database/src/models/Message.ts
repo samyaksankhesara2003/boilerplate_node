@@ -3,7 +3,6 @@ import { BaseModel } from './BaseModel';
 import User from './User';
 
 class Message extends BaseModel {
-
     static get tableName() {
         return 'messages';
     }
@@ -30,8 +29,8 @@ class Message extends BaseModel {
                 relation: Model.BelongsToOneRelation,
                 join: { from: 'messages.receiver_id', to: 'users.id' }
             }
-        }
-    }
+        };
+    };
 }
 
 export default Message;

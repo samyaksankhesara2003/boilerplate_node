@@ -40,13 +40,13 @@ socketManager.initialize(server);
 
 // Add error handling
 server.on('error', err => {
-    log.error('Server failed to start:', err);
+    log.error('❌ Server failed to start:', err);
     process.exit(1);
 });
 
 server.listen(port, () => {
-    log.info(`${appConfig.appName} server is running on ${port} in ${appConfig.nodeEnv} mode`);
-    log.info(`API documentation: ${appConfig.appBaseUrl}api-docs`);
+    log.info(`✅ ${appConfig.appName} server is running on ${port} in ${appConfig.nodeEnv} mode`);
+    log.info(`✅ API documentation: ${appConfig.appBaseUrl}api-docs`);
 });
 
 connectRedis();
