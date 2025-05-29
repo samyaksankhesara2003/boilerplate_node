@@ -12,7 +12,7 @@ class Message extends BaseModel {
     redirection_type?: string;
     redirection_url?: string;
     type!: string;
-    is_read!: number; // 0 -> Unread, 1 -> Read
+    is_read!: number; // 1 -> Read, 2 -> Unread
     receiver!: User;
 
     static relationMappings = {

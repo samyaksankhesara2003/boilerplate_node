@@ -9,7 +9,7 @@ export const appConfig = {
     isHttps: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? true : false) : false,
     appBaseUrl: process.env.APP_BASE_URL,
     frontendBaseUrl: process.env.FRONTEND_BASE_URL!,
-    protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
+    protocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? true : false) : 'https',
     appProtocol: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     appHost: process.env?.IS_HTTPS ? (process.env.IS_HTTPS === 'true' ? 'https' : 'http') : 'https',
     sslKeyPath: process.env.SSL_KEY_PATH!,

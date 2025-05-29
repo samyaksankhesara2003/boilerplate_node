@@ -11,7 +11,7 @@ export async function up(knex: Knex): Promise<void> {
         table.string('redirection_type').nullable();
         table.string('redirection_url').nullable();
         table.string('type').notNullable();
-        table.enum('is_read', ['0', '1']).defaultTo('0').comment('0 -> Unread, 1 -> Read');
+        table.enum('is_read', ['1', '2']).defaultTo('2').comment('1 -> Read, 2 -> Unread');
         table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
         table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         table.timestamp('deleted_at').nullable();

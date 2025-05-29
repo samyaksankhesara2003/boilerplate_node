@@ -166,10 +166,14 @@ export const constants = {
     // Rate Limiter
     rateLimiter: {
         LOGIN_RATE_LIMIT: {
-            windowMs: 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
-            maxLimit: 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
-            message: 'You have exceeded the your hourly rate limit. Please contact Support.' // Rate limit exceeded message
-        }
+            'windowMs': 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
+            'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
+            'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
+        },
+    },
+
+    redisKey: {
+        CountryList: 'CountryList',
     },
 
     messageStatus: {
@@ -183,11 +187,11 @@ export const constants = {
         3: 'Read'
     },
     isRead: {
-        Unread: 0,
+        Unread: 2,
         Read: 1
     },
     isReadNumberToName: {
-        0: 'Unread',
+        2: 'Unread',
         1: 'Read'
     },
 
@@ -195,6 +199,10 @@ export const constants = {
     feedbackType: {
         System: 1,
         Module: 2
+    },
+    rolePermissionType: {
+        'Granted': 1,
+        'Not Granted': 2
     }
 } as const;
 

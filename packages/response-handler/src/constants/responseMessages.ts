@@ -19,15 +19,20 @@ export const ResponseMessages = {
     },
     USER: {
         FETCH_SUCCESS: 'user.fetch_success',
+        LIST_SUCCESS: 'user.list_success',
         NOT_FOUND: 'user.not_found',
         ALREADY_EXISTS: 'user.already_exists',
         NOT_ACTIVE: 'user.not_active',
         SIGNUP_SUCCESS: 'user.signup_success',
-        ACCOUNT_DELETED: 'user.account_deleted'
+        ACCOUNT_DELETED: 'user.account_deleted',
+        UPDATE_SUCCESS: 'user.update_success',
+        UPDATE_FAILED: 'user.update_failed'
     },
     AUTH: {
         LOGIN_SUCCESS: 'auth.login_success',
-        INVALID_CREDENTIALS: 'auth.invalid_credentials'
+        INVALID_CREDENTIALS: 'auth.invalid_credentials',
+        UNAUTHORIZED: 'auth.unauthorized',
+        ACCESS_DENIED: 'auth.access_denied',
     },
     PROFILE: {
         FETCH_SUCCESS: 'profile.fetch_success',
