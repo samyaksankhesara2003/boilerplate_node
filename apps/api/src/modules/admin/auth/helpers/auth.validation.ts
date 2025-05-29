@@ -9,6 +9,7 @@ const socialSignInSchema = {
         email: Joi.string().email().optional(),
         mobile_number: Joi.string().optional(),
         password: Joi.string().optional(),
+        profile_url: Joi.string().optional(),
         auth_type: Joi.number()
             .valid(...Object.values(constants.authType))
             .required(),

@@ -1,8 +1,12 @@
+import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
 import User from './User';
 
-class Message extends BaseModel {
-    static tableName = 'notifications';
+class Notification extends BaseModel {
+
+    static get tableName() {
+        return 'notifications';
+    }
 
     receiver_type!: number; // 1 -> Admin, 2 -> Sub Admin, 3 -> User
     receiver_id!: number;
@@ -12,19 +16,18 @@ class Message extends BaseModel {
     redirection_type?: string;
     redirection_url?: string;
     type!: string;
-    is_read!: number; // 0 -> Unread, 1 -> Read
+    is_read!: number; // 1 -> Read, 2 -> Unread
     receiver!: User;
 
-    static relationMappings = {
-        receiver: {
-            relation: BaseModel.BelongsToOneRelation,
-            modelClass: User,
-            join: {
-                from: 'notifications.receiver_id',
-                to: 'users.id'
+    static relationMappings: RelationMappings | RelationMappingsThunk = () => {
+        return {
+            receiver: {
+                modelClass: User,
+                relation: Model.BelongsToOneRelation,
+                join: { from: 'notifications.receiver_id', to: 'users.id' }
             }
         }
-    };
+    }
 }
 
-export default Message;
+export default Notification;

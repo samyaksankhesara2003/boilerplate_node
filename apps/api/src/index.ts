@@ -1,11 +1,13 @@
-import { appConfig } from '@repo/config';
-import { log } from '@repo/logger';
-import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
-import { socketManager } from '@repo/socket';
 import fs from 'fs';
 import { createServer as createHttpServer, Server as HttpServer } from 'http';
 import { createServer as createHttpsServer, Server as HttpsServer } from 'https';
+
+import { log } from '@repo/logger';
+import { appConfig } from '@repo/config';
+import { connectRedis } from '@repo/redis';
 import { createServer } from './www/server';
+import { socketManager } from '@repo/socket';
+import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 
 const port = appConfig.appPort || 5001;
 const app = createServer();
@@ -46,3 +48,5 @@ server.listen(port, () => {
     log.info(`${appConfig.appName} server is running on ${port} in ${appConfig.nodeEnv} mode`);
     log.info(`API documentation: ${appConfig.appBaseUrl}api-docs`);
 });
+
+connectRedis();

@@ -95,61 +95,85 @@ export const constants = {
         2: 'Inactive'
     },
 
-    stripeSupportedCurrencyType: {
-        USD: 1,
-        INR: 2
+    // provider
+    provider: {
+        Stripe: 1,
+        Razorpay: 2
     },
-    stripeSupportedCurrencyTypeNumberToName: {
-        1: 'USD',
-        2: 'INR'
+    providerNumberToName: {
+        1: 'Stripe',
+        2: 'Razorpay'
     },
 
+    // Plan Types
+    planType: {
+        Basic: 1,
+        Pro: 2
+    },
+    planTypeNumberToName: {
+        1: 'Basic',
+        2: 'Pro'
+    },
+
+    // Plan intervals
+    planInterval: {
+        Daily: 1,
+        Weekly: 2,
+        Monthly: 3,
+        Yearly: 4
+    },
+    planIntervalNumberToName: {
+        1: 'Daily',
+        2: 'Weekly',
+        3: 'Monthly',
+        4: 'Yearly'
+    },
+
+    // Stripe Supported Currencies
+    supportedCurrencyType: {
+        INR: 1,
+        USD: 2
+    },
+    supportedCurrencyTypeNumberToName: {
+        1: 'INR',
+        2: 'USD'
+    },
+
+    // Subscription Status
+    subscriptionStatus: {
+        Active: 1,
+        Inactive: 2,
+        Upcoming: 3
+    },
+    subscriptionStatusNumberToName: {
+        1: 'Active',
+        2: 'Inactive',
+        3: 'Upcoming'
+    },
+
+    // Payment Status
     paymentStatus: {
-        Pending: 1,
-        Completed: 2,
-        Failed: 3,
-        Cancelled: 4
+        Paid: 1,
+        Failed: 2,
+        Pending: 3
     },
     paymentStatusNumberToName: {
-        1: 'Pending',
-        2: 'Completed',
-        3: 'Failed',
-        4: 'Cancelled'
+        1: 'Paid',
+        2: 'Failed',
+        3: 'Pending'
     },
 
-    emailTemplateName: {
-        Registration: 'registration',
-        'Forget Password': 'forgetPassword'
-    },
-
-    customNotificationType: {
-        /**
-         * All general notifications
-         */
-        'General Notification': 1
-    },
-
-    notificationColor: {
-        Red: '0xFFB32218',
-        Yellow: '0xFFB54707',
-        Green: '0xFF039754',
-        Black: '0xFF475467',
-        Blue: '0xFF311B92'
-    },
-    notificationColorFontWeight: {
-        Red: 700,
-        Yellow: 700,
-        Green: 700,
-        Black: 400,
-        Blue: 700
-    },
-
+    // Rate Limiter
     rateLimiter: {
         LOGIN_RATE_LIMIT: {
             windowMs: 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
             maxLimit: 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
             message: 'You have exceeded the your hourly rate limit. Please contact Support.' // Rate limit exceeded message
         }
+    },
+
+    redisKey: {
+        CountryList: 'CountryList'
     },
 
     messageStatus: {
@@ -163,18 +187,30 @@ export const constants = {
         3: 'Read'
     },
     isRead: {
-        Unread: 0,
+        Unread: 2,
         Read: 1
     },
     isReadNumberToName: {
-        0: 'Unread',
+        2: 'Unread',
         1: 'Read'
     },
 
-    //Feedback types
-    feedbackType: {
-        System: 1,
-        Module: 2
+    //Feedback types 
+    feedbackType:{
+        'System': 1,
+        'Module': 2
+    },
+    bookmarkType: {
+        'User': 1,
+        'Blog': 2
+    },
+    bookmarkTypeNumberToName: {
+        1: 'User',
+        2: 'Blog',
+    },
+    rolePermissionType: {
+        Granted: 1,
+        'Not Granted': 2
     }
 } as const;
 

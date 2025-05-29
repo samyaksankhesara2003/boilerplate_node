@@ -1,5 +1,5 @@
 paths:
-  /common/static-pages/{page}:
+  /static-pages/{page}:
     get:
       tags:
         - Static Pages
