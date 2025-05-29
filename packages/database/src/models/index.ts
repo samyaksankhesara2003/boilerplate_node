@@ -11,10 +11,18 @@ export { default as StaticPages } from './common/staticPages';
 // User
 export { default as User } from './User';
 
+// Plan
+export { default as Plan } from './Plan';
+
+// Subscription
+export { default as UserSubscription } from './UserSubscription';
+
 // Message
 export { default as Message } from './Message';
+
 // Notification
 export { default as Notification } from './Notification';
+
 // Activity
 export { default as ActivityLog } from './ActivityLog';
 // RBAC

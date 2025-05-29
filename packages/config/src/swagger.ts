@@ -14,7 +14,15 @@ const swaggerJsDocOptions = {
         },
         servers: [
             {
-                url: swaggerBaseApiUrl,
+                url: swaggerBaseApiUrl + 'common/',
+                description: `${appConfig.nodeEnv} server`
+            },
+            {
+                url: swaggerBaseApiUrl + 'user/',
+                description: `${appConfig.nodeEnv} server`
+            },
+            {
+                url: swaggerBaseApiUrl + 'admin/',
                 description: `${appConfig.nodeEnv} server`
             }
         ],
@@ -43,7 +51,7 @@ const swaggerOptions = {
     // tagsSorter: 'alpha',
     // operationsSorter: 'alpha',
     tagsSorter: (a: string, b: string): number => {
-        const order = ['Country', 'State', 'Auth', 'Profile', 'Feedback'];
+        const order = ['Country', 'State', 'Plan', 'Auth', 'Profile', 'Subscription', 'Feedback', 'Activity', 'Notifications'];
 
         const indexA = order.indexOf(a);
         const indexB = order.indexOf(b);

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
+import { StatusCodes, ResponseMessages, sendResponse, CustomError } from '@repo/response-handler';
+import { constants, SupportedProfileImageType } from '@repo/config';
+import { validateFileSize } from '@repo/utils';
 import { userService } from './user.service';
 import { IUserListingFilter } from './helpers/user.types';
 
@@ -37,8 +39,15 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction): Pro
  */
 const updateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { language, body } = req;
-        const data = await userService.updateUserService(body);
+        const { language, body, file } = req;
+
+        if (file) {
+            if (!constants.supportedProfileImageTypes.includes(file.mimetype as SupportedProfileImageType))
+                throw new CustomError(ResponseMessages.COMMON.UNSUPPORTED_FILE_TYPE, StatusCodes.UNSUPPORTED_MEDIA_TYPE);
+            validateFileSize(file.size, constants.profileImageSize);
+        }
+
+        const data = await userService.updateUserService(body, file as Express.Multer.File);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);

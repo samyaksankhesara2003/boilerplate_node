@@ -6,6 +6,7 @@ describe('appConfig', () => {
         expect(appConfig.nodeEnv).toEqual(process.env.NODE_ENV || 'development');
         expect(appConfig.appName).toEqual(process.env.APP_NAME);
         expect(appConfig.appPort).toEqual(process.env?.APP_PORT || 4000);
+        expect(appConfig.appLogoUrl).toEqual(process.env.APP_LOGO_URL);
         expect(appConfig.logDbQueries).toEqual(
             process.env.DATABASE_LOG_QUERIES ? (process.env.DATABASE_LOG_QUERIES === 'true' ? true : false) : true
         );

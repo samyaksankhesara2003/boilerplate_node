@@ -1,5 +1,5 @@
 paths:
-  /common/state:
+  /state:
     get:
       tags:
         - State
@@ -21,14 +21,14 @@ paths:
           schema:
             type: number
           description: Filter states by country ID
-          example: 1
+          example: 101
         - name: search
           in: query
           required: false
           schema:
             type: string
           description: Search term to filter states by name
-          example: "Calif"
+          example: "Uttar Pradesh"
       responses:
         '200':
           description: A list of filtered states
@@ -46,7 +46,7 @@ paths:
                     name:
                       type: string
                       description: Full state name
-                      example: California
+                      example: Uttar Pradesh
         '500':
           description: Internal server error fetching states
           content:
