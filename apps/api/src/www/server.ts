@@ -35,7 +35,11 @@ export const createServer = (): Express => {
         )
         .use(languageMiddleware)
         .use((req: Request, res: Response, next: NextFunction) => {
-            if (req.originalUrl === '/payment-verification/webhook') next();
+            if (
+                req.originalUrl === '/api/user/subscription/payment-verification/webhook' ||
+                req.originalUrl === '/api/user/subscription/cancellation/webhook'
+            )
+                next();
             else express.json()(req, res, next);
         })
         .use(compression())
@@ -52,26 +56,28 @@ export const createServer = (): Express => {
             log.error('Unable to connect with the database', err);
         });
 
+    // Common swagger docs specification
+    const commonSwaggerSpec = swaggerJsDoc({
+        ...swaggerJsDocConfig,
+        apis: ['./src/modules/common/*.swagger.yaml', './src/modules/common/**/*.swagger.yaml']
+    });
+
     // User swagger docs specification
     const userSwaggerSpec = swaggerJsDoc({
         ...swaggerJsDocConfig,
-        apis: [
-            './src/modules/common/*.swagger.yaml',
-            './src/modules/user/*.swagger.yaml',
-            './src/modules/common/**/*.swagger.yaml',
-            './src/modules/user/**/*.swagger.yaml'
-        ]
+        apis: ['./src/modules/user/*.swagger.yaml', './src/modules/user/**/*.swagger.yaml']
     });
 
     // Admin swagger docs specification
     const adminSwaggerSpec = swaggerJsDoc({
         ...swaggerJsDocConfig,
-        apis: [
-            './src/modules/common/*.swagger.yaml',
-            './src/modules/admin/*.swagger.yaml',
-            './src/modules/common/**/*.swagger.yaml',
-            './src/modules/admin/**/*.swagger.yaml'
-        ]
+        apis: ['./src/modules/admin/*.swagger.yaml', './src/modules/admin/**/*.swagger.yaml']
+    });
+
+    // Serve the common Swagger JSON specification
+    app.get('/common-swagger.json', (req: Request, res: Response): void => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(commonSwaggerSpec);
     });
 
     // Serve the user Swagger JSON specification
@@ -101,6 +107,7 @@ export const createServer = (): Express => {
             customSiteTitle: `${appConfig.appName} - API Explorer`,
             swaggerOptions: {
                 urls: [
+                    { url: '/common-swagger.json', name: 'Common APIs' },
                     { url: '/user-swagger.json', name: 'User APIs' },
                     { url: '/admin-swagger.json', name: 'Admin APIs' }
                 ],

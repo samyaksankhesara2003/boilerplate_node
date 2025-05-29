@@ -14,6 +14,7 @@
     "migrate": "turbo run --filter=@repo/db migrate",
     "make-seed": "turbo run --filter=@repo/db make-seed -- --",
     "run-seed": "turbo run --filter=@repo/db run-seed",
+    "run-specific-seed": "turbo run --filter=@repo/db run-specific-seed --",
     "rollback": "turbo run --filter=@repo/db rollback",
     "clear-db": "turbo run --filter=@repo/db clear-db",
     "generate-keys": "turbo run --filter @repo/tokens generate-keys",

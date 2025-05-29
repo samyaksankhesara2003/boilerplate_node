@@ -41,6 +41,10 @@
       "cache": false,
       "persistent": true
     },
+    "run-specific-seed": {
+      "cache": false,
+      "persistent": true
+    },
     "rollback": {
       "cache": false,
       "persistent": true

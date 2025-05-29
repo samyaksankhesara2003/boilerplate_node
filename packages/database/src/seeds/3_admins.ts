@@ -18,6 +18,7 @@ export async function seed(knex: Knex): Promise<void> {
             social_id: '24p2of2FT1absi8xNorklUoA9r82',
             first_name: 'Techuz',
             last_name: 'Admin',
+            slug: 'techuz-admin',
             email: 'techuz@yopmail.com',
             profile_url: null,
             password: null,
