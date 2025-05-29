@@ -1,5 +1,5 @@
 paths:
-  /admin/static-pages:
+  /static-pages:
     get:
       tags:
         - Static Pages
@@ -126,7 +126,7 @@ paths:
                   error:
                     type: string
 
-  /admin/static-pages/{page}:
+  /static-pages/{page}:
     get:
       tags:
         - Static Pages

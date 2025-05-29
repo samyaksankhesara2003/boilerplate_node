@@ -1,5 +1,5 @@
 paths:
-  /admin/auth/social-signin:
+  /auth/social-signin:
     post:
       tags:
         - Auth
@@ -102,7 +102,7 @@ paths:
                     type: string
                     example: Internal server error
   
-  /admin/auth/forget-password:
+  /auth/forget-password:
     post:
       tags:
         - Auth
@@ -170,7 +170,7 @@ paths:
                     type: string
                     example: Internal server error
 
-  /admin/auth/verify-reset-password-link/{token}:
+  /auth/verify-reset-password-link/{token}:
     get:
       tags:
         - Auth
@@ -234,7 +234,7 @@ paths:
                     type: string
                     example: Internal server error
 
-  /admin/auth/reset-password/{token}:
+  /auth/reset-password/{token}:
     patch:
       tags:
         - Auth

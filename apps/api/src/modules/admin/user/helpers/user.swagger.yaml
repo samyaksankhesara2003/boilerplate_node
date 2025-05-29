@@ -1,10 +1,10 @@
   paths:
-    /admin/user/:
+    /user:
       get:
         summary: Get all users
         description: Retrieve a list of users based on filters like `id` and `status`.
         tags:
-          - Admin-user-management
+          - User Management
         parameters:
           - name: Accept-Language
             in: header
@@ -97,7 +97,7 @@
             description: Internal server error.
       patch:
         tags:
-          - Admin-user-management
+          - User Management
         summary: Update a User by ID
         description: Updates a user with first name , last name , profile photo by its id
         parameters:
@@ -152,10 +152,10 @@
                   properties:
                     error:
                       type: string
-    /admin/user/{id}:
+    /user/{id}:
       get:
         tags:
-        - Admin-user-management
+        - User Management
         summary: Get a single user by ID
         description: Returns details of a specific user by its ID.
         security: []
@@ -226,7 +226,7 @@
                       example: Failed to fetch user
       delete:
         tags:
-          - Admin-user-management
+          - User Management
         summary: Delete user
         description: Delete a user based `id` of user
         parameters:
@@ -267,7 +267,7 @@
                       example: Failed to delete User
       patch:
         tags:
-          - Admin-user-management
+          - User Management
         summary: Update user status
         description: Update user status based on `user_id`
         parameters:
