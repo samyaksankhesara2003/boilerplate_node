@@ -23,7 +23,9 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
         if (data) user = data;
         else {
             const attributes = ['id', 'first_name', 'last_name', 'email', 'profile_url', 'token', 'role', 'status', 'slug'];
-            user = await User.query().select(...attributes).findById(decoded.data.id);
+            user = await User.query()
+                .select(...attributes)
+                .findById(decoded.data.id);
         }
 
         if (!user) return sendResponse(res, StatusCodes.UNAUTHORIZED, ResponseMessages.COMMON.NOT_AUTHENTICATED);
