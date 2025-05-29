@@ -1,5 +1,5 @@
 paths:
-  /bookmark/:
+  /bookmark:
     post:
       tags:
         - Bookmark
