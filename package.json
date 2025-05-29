@@ -18,13 +18,15 @@
     "rollback": "turbo run --filter=@repo/db rollback",
     "clear-db": "turbo run --filter=@repo/db clear-db",
     "generate-keys": "turbo run --filter @repo/tokens generate-keys",
-    "generate-graph": "turbo run build test --graph > ./graphs/graph.dot && dot -T png ./graphs/graph.dot -o ./graphs/graph.png"
+    "generate-graph": "turbo run build test --graph > ./graphs/graph.dot && dot -T png ./graphs/graph.dot -o ./graphs/graph.png",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
     "@types/node": "^22.15.18",
     "dotenv-cli": "^8.0.0",
     "eslint": "^9.27.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
