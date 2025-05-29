@@ -12,6 +12,7 @@ import type { Knex } from 'knex';
 export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('users', table => {
         table.increments('id').primary();
+        table.string('stripe_customer_id').nullable();
         table.string('social_id').notNullable();
         table.string('first_name', 75).notNullable();
         table.string('last_name', 75).nullable();

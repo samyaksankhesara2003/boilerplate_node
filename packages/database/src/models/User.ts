@@ -1,10 +1,13 @@
 import { QueryContext, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
+import { UserSubscription } from './index';
+
 class User extends BaseModel {
     static get tableName() {
         return 'users';
     }
 
+    stripe_customer_id!: string;
     social_id!: string;
     first_name!: string;
     last_name!: string;
@@ -18,6 +21,8 @@ class User extends BaseModel {
     role!: number; // 1 -> Admin, 2 -> User
     status!: number; // 1 -> Active, 2 -> Inactive
     slug!: string;
+
+    user_subscriptions!: UserSubscription[];
 
     // Define a virtual attribute for name
     static get virtualAttributes() {
