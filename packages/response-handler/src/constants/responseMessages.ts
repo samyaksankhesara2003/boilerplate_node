@@ -74,5 +74,13 @@ export const ResponseMessages = {
         SAVE_FAILED: 'feedback.save_failed',
         NOT_FOUND: 'feedback.not_found',
         LIST_SUCCESS: 'feedback.list_success'
+    },
+    BOOKMARK: {
+        FETCH_SUCCESS: 'bookmark.fetch_success',
+        NOT_FOUND: 'bookmark.not_found',
+        LIST_SUCCESS: 'bookmark.list_success',
+        ALREADY_EXISTS: 'bookmark.already_exists',
+        ADD_SUCCESS: 'bookmark.add_success',
+        REMOVE_SUCCESS: 'bookmark.remove_success'
     }
 } as const;

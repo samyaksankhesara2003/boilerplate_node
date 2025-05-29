@@ -21,8 +21,9 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
             .findById(id);
 
         if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
-
-        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        if (+userDetails.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
 
         if (userDetails.profile_url) userDetails.profile_url = await getPresignedUrl(storageConfig.s3BucketName, userDetails.profile_url);
 
@@ -45,8 +46,9 @@ const updateProfileService = async (user: IUser, body: IUpdateProfileBody, file:
         const userDetails = await User.query().findById(id);
 
         if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
-
-        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        if (+userDetails.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
 
         if (file && userDetails.profile_url) await deleteFile(s3Client, storageConfig.s3BucketName, userDetails.profile_url);
 
@@ -74,8 +76,9 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
         const userDetails = await User.query().findById(id);
 
         if (!userDetails || userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
-
-        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        if (+userDetails.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
 
         const isPasswordValid = comparePassword(current_password, userDetails.password);
         if (!isPasswordValid) throw new CustomError(ResponseMessages.PASSWORD.INVALID_PASSWORD, StatusCodes.UNAUTHORIZED);

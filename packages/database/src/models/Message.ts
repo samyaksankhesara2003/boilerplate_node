@@ -1,8 +1,12 @@
+import { Model, RelationMappings, RelationMappingsThunk } from 'objection';
 import { BaseModel } from './BaseModel';
 import User from './User';
 
 class Message extends BaseModel {
-    static tableName = 'messages';
+
+    static get tableName() {
+        return 'messages';
+    }
 
     sender!: User;
     receiver!: User;
@@ -14,24 +18,20 @@ class Message extends BaseModel {
     status!: number; // 1 -> sent, 2 -> delivered, 3 -> read
     read_at?: Date;
 
-    static relationMappings = {
-        sender: {
-            relation: BaseModel.BelongsToOneRelation,
-            modelClass: User,
-            join: {
-                from: 'messages.sender_id',
-                to: 'users.id'
-            }
-        },
-        receiver: {
-            relation: BaseModel.BelongsToOneRelation,
-            modelClass: User,
-            join: {
-                from: 'messages.receiver_id',
-                to: 'users.id'
+    static relationMappings: RelationMappings | RelationMappingsThunk = () => {
+        return {
+            sender: {
+                modelClass: User,
+                relation: Model.BelongsToOneRelation,
+                join: { from: 'messages.sender_id', to: 'users.id' }
+            },
+            receiver: {
+                modelClass: User,
+                relation: Model.BelongsToOneRelation,
+                join: { from: 'messages.receiver_id', to: 'users.id' }
             }
         }
-    };
+    }
 }
 
 export default Message;

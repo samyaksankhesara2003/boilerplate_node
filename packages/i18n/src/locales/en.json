@@ -74,5 +74,11 @@
     "save_failed": "Feedback save failed",
     "not_found": "feedback not found",
     "list_success": "Feedback list fetched successfully"
+  },
+  "bookmark": {
+    "fetch_success": "Bookmark fetched successfully",
+    "not_found": "Bookmark not found",
+    "list_success": "Bookmark list fetched successfully",
+    "already_exists": "Bookmark already exists"
   }
 }

@@ -195,10 +195,18 @@ export const constants = {
         1: 'Read'
     },
 
-    //Feedback types
-    feedbackType: {
-        System: 1,
-        Module: 2
+    //Feedback types 
+    feedbackType:{
+        'System': 1,
+        'Module': 2
+    },
+    bookmarkType: {
+        'User': 1,
+        'Blog': 2
+    },
+    bookmarkTypeNumberToName: {
+        1: 'User',
+        2: 'Blog',
     },
     rolePermissionType: {
         Granted: 1,
