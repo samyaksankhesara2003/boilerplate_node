@@ -1,11 +1,12 @@
-import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { Request, Response, Router } from 'express';
-import userAuthMiddleware from '../../middlewares/userAuth.middleware';
+import { sendResponse, StatusCodes } from '@repo/response-handler';
 import { authRoutes } from './auth/auth.routes';
 import { bookmarkRoutes } from './bookmark/bookmark.routes';
 import { feedbackRoutes } from './feedback/feedback.routes';
 import { profileRoutes } from './profile/profile.routes';
+import { promoCodeRoutes } from './promoCode/promoCode.routes';
 import { subscriptionRoutes } from './subscription/subscription.routes';
+import userAuthMiddleware from '../../middlewares/userAuth.middleware';
 
 const router: Router = Router();
 
@@ -15,11 +16,16 @@ router.use('/auth', authRoutes);
 // Profile routes
 router.use('/profile', userAuthMiddleware, profileRoutes);
 
+// Promo code routes
+router.use('/promo-code', userAuthMiddleware, promoCodeRoutes);
+
 // Subscription routes
 router.use('/subscription', subscriptionRoutes);
 
 // Feedback routes
 router.use('/feedback', userAuthMiddleware, feedbackRoutes);
+
+// Bookmark routes
 router.use('/bookmark', userAuthMiddleware, bookmarkRoutes);
 
 // Catch-all route for 404
