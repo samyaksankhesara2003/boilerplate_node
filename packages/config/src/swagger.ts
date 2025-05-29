@@ -51,7 +51,19 @@ const swaggerOptions = {
     // tagsSorter: 'alpha',
     // operationsSorter: 'alpha',
     tagsSorter: (a: string, b: string): number => {
-        const order = ['Country', 'State', 'Plan', 'Auth', 'Profile', 'Subscription', 'User Management', 'Feedback', 'Activity', 'Notifications'];
+        const order = [
+            'Country',
+            'State',
+            'Plan',
+            'Auth',
+            'Profile',
+            'Promo Code',
+            'Subscription',
+            'User Management',
+            'Feedback',
+            'Activity',
+            'Notifications'
+        ];
 
         const indexA = order.indexOf(a);
         const indexB = order.indexOf(b);
