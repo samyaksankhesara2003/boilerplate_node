@@ -1,6 +1,7 @@
 export * from './app';
 export * from './db';
 export * from './mailer';
+export * from './redis';
 export * from './jwt';
 export * from './swagger';
 export * from './storage';

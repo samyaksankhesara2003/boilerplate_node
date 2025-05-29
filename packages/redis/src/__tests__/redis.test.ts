@@ -1,11 +1,19 @@
-import { describe, expect, it } from '@jest/globals';
-import { redisConfig } from '../config';
+import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
+import { redisClient } from '../connection';
+import connectRedis from '../connection';
 
-describe('redisConfig', () => {
-    it('loads application environment variables', () => {
-        expect(redisConfig.host).toEqual(process.env.REDIS_HOST);
-        expect(redisConfig.port).toEqual(process.env.REDIS_PORT);
-        expect(redisConfig.maxmemory).toEqual(process.env.REDIS_MAX_MEMORY);
-        expect(redisConfig.maxmemoryPolicy).toEqual(process.env.REDIS_MEMORY_POLICY);
+describe('Redis Connection', () => {
+    beforeAll(async () => {
+        await connectRedis();
+    });
+
+    afterAll(async () => {
+        if (redisClient.isOpen) {
+            await redisClient.quit();
+        }
+    });
+
+    it('should connect to Redis successfully', () => {
+        expect(redisClient.isOpen).toBe(true);
     });
 });
