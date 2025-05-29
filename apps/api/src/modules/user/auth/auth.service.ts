@@ -139,7 +139,19 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
     try {
         const { email, client_base_url } = body;
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
         const userDetails = await User.query()
             .select(...userAttributes)
@@ -170,7 +182,8 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
         await userDetails.$query().patch({ reset_password_token: resetPasswordToken });
 
         const emailData = {
-            name: userDetails.fullname, reset_password_link: `${client_base_url}/${constants.userResetForgetLink}/${token}`
+            name: userDetails.fullname,
+            reset_password_link: `${client_base_url}/${constants.userResetForgetLink}/${token}`
         };
         sendMail(userDetails.email, SUBJECTS.FORGOT_PASSWORD, TEMPLATES.FORGOT_PASSWORD, emailData);
 
@@ -192,7 +205,19 @@ const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkPa
         const decodedToken = jwtUtil.validateJwt(token);
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
         const userDetails = await User.query()
             .select(...userAttributes)
@@ -227,7 +252,19 @@ const resetPasswordService = async (params: IResetPasswordParams, body: IResetPa
         const decodedToken = jwtUtil.validateJwt(token);
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
         const userDetails = await User.query()
             .select(...userAttributes)
@@ -244,7 +281,7 @@ const resetPasswordService = async (params: IResetPasswordParams, body: IResetPa
         }
 
         const hashedPassword = await hashPassword(password);
-        const dataToUpdate = { password: hashedPassword, reset_password_token: null }
+        const dataToUpdate = { password: hashedPassword, reset_password_token: null };
 
         await User.query().patch(dataToUpdate).where({ id: userDetails.id });
         await firebaseService.updateUserPassword(userDetails.social_id, password);

@@ -1,7 +1,6 @@
 import { BaseModel } from './BaseModel';
 
 class RBACPermission extends BaseModel {
-
     static get tableName() {
         return 'role_permissions';
     }

@@ -3,7 +3,6 @@ import { BaseModel } from './BaseModel';
 import User from './User';
 
 class Notification extends BaseModel {
-
     static get tableName() {
         return 'notifications';
     }
@@ -26,8 +25,8 @@ class Notification extends BaseModel {
                 relation: Model.BelongsToOneRelation,
                 join: { from: 'notifications.receiver_id', to: 'users.id' }
             }
-        }
-    }
+        };
+    };
 }
 
 export default Notification;

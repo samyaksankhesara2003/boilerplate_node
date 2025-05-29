@@ -8,4 +8,4 @@ const router: Router = Router();
 router.post('/', validateRequest(bookmarkValidation.addUpdateBookmarkSchema), bookmarkController.addUpdateBookmark);
 router.get('/', validateRequest(bookmarkValidation.listBookmarksSchema), bookmarkController.listBookmarks);
 
-export const bookmarkRoutes = router; 
+export const bookmarkRoutes = router;
