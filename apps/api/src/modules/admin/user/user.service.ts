@@ -78,7 +78,9 @@ const updateUserService = async (body: IUserUpdateBody, file: Express.Multer.Fil
     try {
         const { id, ...userBody } = body;
         const userAttributes = ['id', 'first_name', 'last_name', 'profile_url'];
-        const userData = await User.query().select(...userAttributes).findOne({ role: constants.role.User, id });
+        const userData = await User.query()
+            .select(...userAttributes)
+            .findOne({ role: constants.role.User, id });
 
         if (!userData) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         let profile_url = userData.profile_url;

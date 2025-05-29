@@ -166,14 +166,14 @@ export const constants = {
     // Rate Limiter
     rateLimiter: {
         LOGIN_RATE_LIMIT: {
-            'windowMs': 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
-            'maxLimit': 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
-            'message': 'You have exceeded the your hourly rate limit. Please contact Support.', // Rate limit exceeded message
-        },
+            windowMs: 3600000, // +process.env.LOGIN_RATE_LIMIT_WINDOW_MS, // Hour in milliseconds
+            maxLimit: 10, // +process.env.LOGIN_RATE_LIMIT_MAX_LIMIT, // Requests per hour
+            message: 'You have exceeded the your hourly rate limit. Please contact Support.' // Rate limit exceeded message
+        }
     },
 
     redisKey: {
-        CountryList: 'CountryList',
+        CountryList: 'CountryList'
     },
 
     messageStatus: {
@@ -201,7 +201,7 @@ export const constants = {
         Module: 2
     },
     rolePermissionType: {
-        'Granted': 1,
+        Granted: 1,
         'Not Granted': 2
     }
 } as const;

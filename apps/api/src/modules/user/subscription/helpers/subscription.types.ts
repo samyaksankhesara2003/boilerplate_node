@@ -6,13 +6,13 @@ export interface ICalculatePromoCodeDiscountBody {
         amount_off: number | null;
         percent_off: number | null;
     };
-};
+}
 
 export interface ICalculatePromoCodeDiscountResponse {
     originalPrice: number;
     discount: number;
     finalPrice: number;
-};
+}
 
 export interface IPaymentDataBody {
     startDate: Date;
@@ -28,7 +28,7 @@ export interface IPaymentDataBody {
         interval_count: number;
     };
     promoCodeDiscountAmount: number;
-};
+}
 
 export interface IPaymentDataResponse {
     invoiceAndDatabaseFields: {
@@ -57,7 +57,7 @@ export interface IPaymentDataResponse {
         start_date: string;
         plan_type: string;
     };
-};
+}
 
 export interface IUser {
     id: number;
@@ -69,7 +69,7 @@ export interface IUser {
     profile_url: string;
     role: number;
     status: number;
-};
+}
 
 export interface IPurchaseSubscriptionBody {
     plan_id: number;
@@ -78,12 +78,12 @@ export interface IPurchaseSubscriptionBody {
         amount_off: number | null;
         percent_off: number | null;
     };
-};
+}
 
 export interface IPurchaseSubscriptionResponse {
     id: string;
     client_secret?: string;
-};
+}
 
 export interface IUpgradeSubscriptionBody {
     plan_id: number;
@@ -92,18 +92,18 @@ export interface IUpgradeSubscriptionBody {
         amount_off: number | null;
         percent_off: number | null;
     };
-};
+}
 
 export interface IUpgradeSubscriptionResponse {
     id: string;
     client_secret?: string;
-};
+}
 
 export interface ICancelSubscriptionResponse {
     is_cancelled: boolean;
-};
+}
 
 export interface IListTransactionQuery {
     page: number;
     limit: number;
-};
+}

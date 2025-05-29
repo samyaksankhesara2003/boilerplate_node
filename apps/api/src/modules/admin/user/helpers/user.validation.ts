@@ -10,7 +10,9 @@ const getUserByIdSchema = {
 
 const getAllUserSchema = {
     query: {
-        status: Joi.number().valid(...Object.values(constants.status)).optional(),
+        status: Joi.number()
+            .valid(...Object.values(constants.status))
+            .optional(),
         search: Joi.string().optional(),
         ...paginationSchema
     }
