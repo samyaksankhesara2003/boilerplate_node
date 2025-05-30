@@ -75,6 +75,9 @@ export const ResponseMessages = {
         NOT_FOUND: 'feedback.not_found',
         LIST_SUCCESS: 'feedback.list_success'
     },
+    REFERRAL: {
+        LIST_SUCCESS: 'referral.list_success'
+    },
     BOOKMARK: {
         FETCH_SUCCESS: 'bookmark.fetch_success',
         NOT_FOUND: 'bookmark.not_found',
