@@ -51,7 +51,6 @@ Database package for the Turborepo project using MySQL 8.0 with Knex.js and Obje
 1. Install the package in your project:
 
 ```bash
-pnpm install @repo/db
 pnpm add @repo/db@workspace:* --filter api (package name)
 ```
 
