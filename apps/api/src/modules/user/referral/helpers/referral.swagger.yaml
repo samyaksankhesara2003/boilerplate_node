@@ -1,5 +1,5 @@
 paths:
-  /user/referrals:
+  /referrals:
     get:
       tags:
         - Referral

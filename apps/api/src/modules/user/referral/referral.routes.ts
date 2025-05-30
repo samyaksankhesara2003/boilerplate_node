@@ -5,10 +5,6 @@ import { referralController } from './referral.controller';
 
 const router: Router = Router();
 
-router.get(
-  '/',
-  validateRequest(referralValidation.getReferralHistorySchema),
-  referralController.getReferralHistory
-);
+router.get('/', validateRequest(referralValidation.getReferralHistorySchema), referralController.getReferralHistory);
 
 export const referralRoutes = router;
