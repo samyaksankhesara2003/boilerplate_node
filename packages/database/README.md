@@ -41,7 +41,7 @@ Database package for the Turborepo project using MySQL 8.0 with Knex.js and Obje
 
 ## Prerequisites
 
-- Node.js 22+
+- Node.js 16+
 - MySQL 8.0 server (or Docker)
 
 ---
@@ -52,6 +52,7 @@ Database package for the Turborepo project using MySQL 8.0 with Knex.js and Obje
 
 ```bash
 pnpm install @repo/db
+pnpm add @repo/db@workspace:* --filter api (package name)
 ```
 
 ---
@@ -117,7 +118,7 @@ import { your_database_name } from '@repo/db';
 
 const insertUser = async (body: User): Promise<User> => {
     try {
-        const userData = await Feedback.query().insert(body);
+        const userData = await your_database_name.query().insert(body);
 
         return userData;
     } catch (error) {
