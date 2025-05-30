@@ -128,6 +128,31 @@ const cancelSubscription = async (subscriptionId: string): Promise<{ is_cancelle
 
 /**
  * @author Jitendra Singh
+ * @description Validates a Stripe promotion code.
+ */
+const validatePromoCode = async (promo_code: string): Promise<Stripe.Coupon> => {
+    try {
+        const promoCode = await stripeInstance.promotionCodes.list({ code: promo_code, active: true });
+
+        if (!promoCode?.data?.length) throw new Error('Invalid Promo Code');
+
+        const promoCodeData = promoCode.data.find(item => item.code === promo_code);
+
+        if (!promoCodeData) throw new Error('Invalid Promo Code');
+
+        if (!promoCodeData['active']) throw new Error('Promo code not active');
+
+        if (!promoCodeData['coupon']['valid']) throw new Error('Invalid Promo Code');
+
+        return promoCodeData.coupon;
+    } catch (error) {
+        log.error('validatePromoCode Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
  * @description Verify a Stripe webhook request.
  */
 const verifyWebhookRequest = async (stripe_webhook_secret: string, stripe_signature: string, body: string): Promise<Stripe.Event> => {
@@ -147,5 +172,6 @@ export const stripeService = {
     createSubscription,
     upgradeSubscription,
     cancelSubscription,
+    validatePromoCode,
     verifyWebhookRequest
 };
