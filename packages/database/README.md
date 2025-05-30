@@ -12,40 +12,40 @@ Database package for the Turborepo project using MySQL 8.0 with Knex.js and Obje
 - 🌱 Seeding support
 - ⚙️ Environment-based configuration
 
-___
-
+---
 
 ## Folder structure
 
 ```
 📁database
-├── 📁 dist/ # Compiled output
-├── 📁 node_modules/ # Installed dependencies
-├── 📁 src/ # Source code
-│ ├── 📁 tests/ # Unit tests
-│ ├── 📁 migrations/ # Knex migration files
-│ ├── 📁 models/ # Objection.js models
-│ ├── 📁 seeds/ # Database seed scripts
-│ ├── 📁 template/ # Templates or boilerplate SQL/data
-│ ├── 📄 connection.ts # Knex connection setup
-│ ├── 📄 index.ts # Entry point for the database package
-│ ├── 📄 knexfile.ts # Knex configuration file
-│ └── 📄 logDBQueries.ts # Query logger utility
-├── 📄 README.md # Package documentation
-├── 📄 package.json # Package configuration
-├── 📄 tsconfig.json # TypeScript config
-├── 📄 tsup.config.ts # TSUP build config
-└── 📄 eslint.config.js # ESLint configuration
+├── 📁 dist/                         # Compiled output
+├── 📁 node_modules/                 # Installed dependencies
+├── 📁 src/                          # Source code
+│ ├── 📁 tests/                      # Unit tests
+│ ├── 📁 migrations/                 # Knex migration files
+│ ├── 📁 models/                     # Objection.js models
+│ ├── 📁 seeds/                      # Database seed scripts
+│ ├── 📁 template/                   # Templates or boilerplate SQL/data
+│ ├── 📄 connection.ts               # Knex connection setup
+│ ├── 📄 index.ts                    # Entry point for the database package
+│ ├── 📄 knexfile.ts                 # Knex configuration file
+│ └── 📄 logDBQueries.ts             # Query logger utility
+├── 📄 README.md                     # Package documentation
+├── 📄 package.json                  # Package configuration
+├── 📄 tsconfig.json                 # TypeScript config
+├── 📄 tsup.config.ts                # TSUP build config
+└── 📄 eslint.config.js              # ESLint configuration
 ```
 
-___
-
+---
 
 ## Prerequisites
 
-- Node.js 16+
+- Node.js 22+
 - MySQL 8.0 server (or Docker)
-___
+
+---
+
 ## Installation
 
 1. Install the package in your project:
@@ -53,38 +53,45 @@ ___
 ```bash
 pnpm install @repo/db
 ```
-___
+
+---
+
 ## DB Configurations
 
 ### The package requires the following environment variables:
 
 ```bash
-DATABASE_USERNAME='root' 
-DATABASE_PASSWORD='user' 
-DATABASE_NAME='turbodb'  
+DATABASE_USERNAME='root'
+DATABASE_PASSWORD='user'
+DATABASE_NAME='turbodb'
 DATABASE_HOST='localhost'
-DATABASE_PORT='3306'     
-DATABASE_LOG_QUERIES='true' 
+DATABASE_PORT='3306'
+DATABASE_LOG_QUERIES='true'
 ```
+
 ## Local Setup with Docker 🐳
 
-
 ### (1) Create a network if you haven't already
+
 ```bash
 docker network create dev-net
 ```
+
 ### (2) Run MySQL 8.0 container
+
 ```bash
-docker run --name dev-mysql 
-  --network dev-net 
-  -e MYSQL_ROOT_PASSWORD=user 
-  -e MYSQL_DATABASE=turbodb 
-  -e MYSQL_ROOT_HOST=% 
-  -p 3306:3306 
-  -d mysql:8.0 
+docker run --name dev-mysql
+  --network dev-net
+  -e MYSQL_ROOT_PASSWORD=user
+  -e MYSQL_DATABASE=turbodb
+  -e MYSQL_ROOT_HOST=%
+  -p 3306:3306
+  -d mysql:8.0
   --default-authentication-plugin=mysql_native_password
 ```
+
 ### (3) Run phpMyAdmin container
+
 ```bash
 docker run --name dev-phpmyadmin \
   --network dev-net \
@@ -93,14 +100,16 @@ docker run --name dev-phpmyadmin \
   -p 8080:80 \
   -d phpmyadmin/phpmyadmin
 ```
+
 ### After running these commands:
+
 - MySQL is running on port 3306
 - PhpMyAdmin will be available at http://localhost:8080
-  - Username : root
-  - Password : user
+    - Username : root
+    - Password : user
 
+---
 
-___
 ## Usage/Examples
 
 ```javascript
@@ -118,7 +127,8 @@ const insertUser = async (body: User): Promise<User> => {
 };
 
 ```
-___
+
+---
 
 ## Additional Commands
 
@@ -131,5 +141,3 @@ pnpm make-seed <name>           # Create a new seeder
 pnpm run-seed                   # Run all seeders
 pnpm run-specific-seed <file>   # Run a specific seed file
 ```
-
-
