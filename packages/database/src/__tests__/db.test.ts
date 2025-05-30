@@ -4,11 +4,11 @@ import { knex } from '../connection';
 
 describe('@repo/db', () => {
     it('prints a message', async () => {
-        const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+        const logSpy = jest.spyOn(log, 'info');
         const result = await knex.raw('SELECT 1');
         log.info('DB: ', { rows: result });
 
-        expect(logSpy).toHaveBeenCalledWith('[INFO]', 'DB: ', { rows: result });
+        expect(logSpy).toHaveBeenCalledWith('DB: ', { rows: result });
         logSpy.mockRestore();
     });
 

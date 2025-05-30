@@ -3,6 +3,7 @@ export * from './db';
 export * from './mailer';
 export * from './redis';
 export * from './jwt';
+export * from './logger';
 export * from './swagger';
 export * from './storage';
 export * from './stripe';

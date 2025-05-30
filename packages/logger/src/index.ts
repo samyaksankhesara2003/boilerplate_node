@@ -1,23 +1,40 @@
-type LogLevel = 'info' | 'warn' | 'error';
+import pino from 'pino';
+import fs from 'fs';
+import path from 'path';
+import { loggerConfig } from '@repo/config';
 
-const logMessage = (level: LogLevel, ...args: unknown[]): void => {
-    const prefix = `[${level.toUpperCase()}]`;
+const { logLevel, enableFile, logFilePath } = loggerConfig;
 
-    switch (level) {
-        case 'info':
-            console.log(prefix, ...args);
-            break;
-        case 'warn':
-            console.warn(prefix, ...args);
-            break;
-        case 'error':
-            console.error(prefix, ...args);
-            break;
+const transportStreams: Array<pino.TransportTargetOptions | pino.TransportPipelineOptions> = [
+    {
+        target: 'pino-pretty',
+        level: logLevel,
+        options: {
+            colorize: true,
+            translateTime: 'SYS:standard',
+            ignore: 'pid,hostname'
+        }
     }
-};
+];
 
-export const log = {
-    info: (...args: unknown[]) => logMessage('info', ...args),
-    warn: (...args: unknown[]) => logMessage('warn', ...args),
-    error: (...args: unknown[]) => logMessage('error', ...args)
-};
+if (enableFile) {
+    const dir = path.dirname(logFilePath);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+
+    transportStreams.push({
+        target: 'pino/file',
+        level: logLevel,
+        options: { destination: logFilePath, mkdir: true }
+    });
+}
+
+export const log = pino(
+    {
+        level: logLevel
+    },
+    pino.transport({
+        targets: transportStreams
+    })
+);
