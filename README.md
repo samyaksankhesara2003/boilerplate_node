@@ -1,53 +1,196 @@
-# Turbo Repo Demo
+# Turbo Repo
 
-This Turborepo starter is maintained by the Techuz team.
+This is a monorepo template using [Turbo](https://turbo.build/), a high-performance build system for monorepos.
 
-This example also shows how to use [Workspace Configurations](https://turbo.build/docs/core-concepts/monorepos/configuring-workspaces).
+## Directory Structure
 
-## Using this example
-
-Run the following command:
-
-```sh
-git clone https://github.com/techuz/turbo-repo-demo.git
+```
+- 📂 repo
+   - 📄 .env
+   - 📂 apps
+     - 📂 api
+   - 📂 packages
+     - 📂 @repo/eslint-config
+     - 📂 @repo/jest-presets
+     - 📂 @repo/typescript-config
+     - 📂 @repo/logger
+     - 📂 @repo/config
+     - 📂 @repo/tokens
+     - 📂 @repo/db
+     - 📂 @repo/i18n
+     - 📂 @repo/validator
+     - 📂 @repo/response-handler
+     - 📂 @repo/stripe
+     - 📂 @repo/mailer
+     - 📂 @repo/chat
+     - 📂 @repo/socket
+     - 📂 @repo/notification
+     - 📂 @repo/sms-service
+     - 📂 @repo/firebase-auth
+     - 📂 @repo/file-service
+     - 📂 @repo/storage-service
 ```
 
-## What's inside?
+Each package has its own README file that explains what the package is for and how to use it.
 
-This Turborepo includes the following packages and apps:
+---
 
-### Apps and Packages
+## Setup Instructions
 
-- `api`: an [Express](https://expressjs.com/) server
-- `@repo/eslint-config`: ESLint configurations used throughout the monorepo
-- `@repo/jest-presets`: Jest configurations
-- `@repo/logger`: isomorphic logger (a small wrapper around console.log)
-- `@repo/ui`: a dummy React UI library (which contains `<CounterButton>` and `<Link>` components)
-- `@repo/typescript-config`: tsconfig.json's used throughout the monorepo
-- `@repo/config`: shared configurations
-- `@repo/db`: database schema and migrations using Knex and Objection
-- `@repo/tokens`: JWT tokens generation and validation utility
-- `@repo/stripe`: Stripe API client
-- `@repo/i18n`: Internationalization (i18n) utilities for multi-language support (fetching translated messages dynamically).
-- `@repo/response-handler`: Utility to standardize API responses.
-- `@repo/validator`: a wrapper around Joi, providing utilities for validating and sanitizing user input.
-- `@repo/mailer`: Handles email functionality, including sending emails using predefined templates and configurations.
-- `@repo/utils`: utility functions for string manipulation, date formatting, object manipulation, and more.
-- `@repo/storage-service`: a simple AWS S3 service that can be used for uploading, downloading, and deleting files.
-- `@repo/chat`: Real-time chat functionality with support for private and group messaging, message history, and presence indicators.
-- `@repo/notification`: A notification service that handles in-app notifications and inbox messages.
-- `@repo/socket`: WebSocket service for real-time bidirectional communication, supporting features like connection management, event handling, and room-based messaging.
-- `@repo/sms-service`: SMS service utilities
-- `@repo/firebase-auth`: Firebase authentication integration for handling user authentication and authorization using Firebase services.
-- `@repo/file-service`: Generate CSV, Excel, and PDF files
+### 1. Clone the repository
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+```bash
+git clone https://github.com/techuz/turbo-repo-demo.git
+cd turbo-repo-demo
+```
 
-### Utilities
+### 2. Use the appropriate Node version
 
-This Turborepo has some additional tools already setup for you:
+```bash
+nvm use
+```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+### 3. Install Pnpm (if not already installed)
+
+```bash
+npm install -g pnpm
+```
+
+### 4. Install dependencies
+
+```bash
+pnpm install
+```
+
+### 5. Set up environment variables
+
+```bash
+cp .env.example .env
+```
+
+Update the variables in `.env` as needed.
+
+### 6. Generate JWT keys
+
+```bash
+pnpm generate-keys
+```
+
+This creates `private.key` and `public.pub` in `packages/tokens/src/keys`.
+
+### 7. Set up the database
+
+```bash
+pnpm migrate
+pnpm run-seed
+```
+
+Optional commands:
+
+```bash
+pnpm rollback                   # Rollback last migration
+pnpm run-specific-seed <file>   # Run a specific seed file
+```
+
+### 8. Running the application
+
+#### Development Mode
+
+```bash
+pnpm dev
+```
+
+#### Production Mode
+
+```bash
+pnpm start
+```
+
+### 9. Clear the database
+
+```bash
+pnpm clear-db
+```
+
+---
+
+## ⚠️ External Dependencies Required
+
+### 1. Chromium (for PDF generation)
+
+Used by Puppeteer for generating PDFs or screenshots.
+
+#### Ubuntu/Debian
+
+```bash
+sudo apt-get install -y chromium-browser
+```
+
+#### macOS
+
+```bash
+brew install chromium
+```
+
+#### Windows
+
+- Install Chrome manually or add Chromium path to `PUPPETEER_EXECUTABLE_PATH` in `.env`.
+
+### 2. Redis
+
+Required for caching, socket management, etc.
+
+#### macOS
+
+```bash
+brew install redis
+brew services start redis
+```
+
+#### Ubuntu
+
+```bash
+sudo apt-get install redis
+sudo systemctl enable redis
+sudo systemctl start redis
+```
+
+### 3. MySQL
+
+Configure credentials in `.env` and ensure the DB server is running.
+
+---
+
+## Additional Commands
+
+```bash
+pnpm clean                      # Remove dist folders and build artifacts
+pnpm build                      # Build all packages
+pnpm dev                        # Start dev server
+pnpm start                      # Start prod server
+pnpm make-migration <name>      # Create a new migration
+pnpm migrate                    # Run all migrations
+pnpm rollback                   # Revert last migration
+pnpm clear-db                   # Revert all migrations and clear DB
+pnpm make-seed <name>           # Create a new seeder
+pnpm run-seed                   # Run all seeders
+pnpm run-specific-seed <file>   # Run a specific seed file
+pnpm format                     # Format codebase
+pnpm lint                       # Lint code
+pnpm check-types                # Type-check codebase
+pnpm test                       # Run tests
+```
+
+---
+
+## Important Libraries Used
+
+- **Turbo** — Monorepo toolkit
+- **Express.js** — Backend framework
+- **Objection.js** — SQL ORM
+- **EJS** — Email/PDF templates
+- **Nodemailer** — Email delivery
+- **Twilio** — SMS sending
+- **Socket.io** — Real-time communication
+- **Redis** — Caching and sessions
+- **Puppeteer/Chromium** — PDF generation
