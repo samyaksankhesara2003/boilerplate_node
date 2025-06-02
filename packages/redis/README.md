@@ -72,8 +72,6 @@ docker run --name my-redis \
 
 ### 📘 Example / Usage
 
-- Must have to make ejs template in templates directory in package
-
 ```ts
 import { getRedisData, setRedisData, deleteRedisData } from '@repo/redis';
 
