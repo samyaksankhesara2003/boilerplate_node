@@ -10,7 +10,7 @@ import { appConfig, swaggerBasicAuthConfig, swaggerJsDocConfig, swaggerOptionsCo
 import { ResponseMessages, sendResponse, StatusCodes } from '@repo/response-handler';
 import { errorHandler } from '../middlewares/errorHandler.middleware';
 import { languageMiddleware } from '../middlewares/language.middleware';
-import { httpLogger } from '../middlewares/requestLogger.middleware';
+import { httpLogger } from '../middlewares/httpLogger.middleware';
 import routes from '../modules/index';
 
 /**
