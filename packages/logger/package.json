@@ -27,6 +27,10 @@
   "jest": {
     "preset": "@repo/jest-presets/node"
   },
+  "dependencies": {
+    "@repo/config": "workspace:*",
+    "winston": "^3.17.0"
+  },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",

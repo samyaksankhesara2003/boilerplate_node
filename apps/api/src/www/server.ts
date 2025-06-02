@@ -3,16 +3,14 @@ import cors from 'cors';
 import express, { NextFunction, Request, Response, type Express } from 'express';
 import basicAuth from 'express-basic-auth';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { appConfig, swaggerBasicAuthConfig, swaggerJsDocConfig, swaggerOptionsConfig } from '@repo/config';
-import { knex } from '@repo/db';
-import { log } from '@repo/logger';
 import { ResponseMessages, sendResponse, StatusCodes } from '@repo/response-handler';
 import { errorHandler } from '../middlewares/errorHandler.middleware';
 import { languageMiddleware } from '../middlewares/language.middleware';
+import { httpLogger } from '../middlewares/requestLogger.middleware';
 import routes from '../modules/index';
 
 /**
@@ -23,16 +21,7 @@ export const createServer = (): Express => {
     const app = express();
     app.disable('x-powered-by')
         .use(helmet())
-        .use(
-            morgan('[:remote-addr] [:status] :method :url - :response-time ms', {
-                stream: {
-                    write: message => log.info(message.trim())
-                },
-                skip: req => {
-                    return req?.baseUrl?.startsWith('/api-docs');
-                }
-            })
-        )
+        .use(httpLogger(req => req?.originalUrl?.startsWith('/api-docs')))
         .use(languageMiddleware)
         .use((req: Request, res: Response, next: NextFunction) => {
             if (
@@ -46,15 +35,6 @@ export const createServer = (): Express => {
         .use(express.urlencoded({ extended: false }))
         // .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
         .use(cors({ origin: '*' }));
-
-    // Test DB connection
-    knex.raw('SELECT 1')
-        .then(() => {
-            log.info('✅ Connected with the database');
-        })
-        .catch(err => {
-            log.error('❌ Unable to connect with the database', err);
-        });
 
     // Common swagger docs specification
     const commonSwaggerSpec = swaggerJsDoc({
