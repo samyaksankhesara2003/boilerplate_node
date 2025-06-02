@@ -29,8 +29,8 @@ A utility package for parsing and generating files in various formats including 
 
 ## ✨ Features Overview
 
-| Feature               | Description                                          |
-|----------------------|------------------------------------------------------|
+| Feature              | Description                                          |
+| -------------------- | ---------------------------------------------------- |
 | Multi-format Support | Handle CSV, Excel, and PDF file operations           |
 | Modular Design       | Easy to extend with additional file types            |
 | Typed API            | Built with TypeScript for safer development          |
@@ -48,21 +48,17 @@ A utility package for parsing and generating files in various formats including 
 sudo apt install chromium-browser
 ```
 
-
-
 ## 📦 Installation
 
 ```bash
 pnpm add @repo/file-service --filter api
 ```
 
-
-
 ---
 
 ### 📘 Example / Usage
 
-* Must have to make ejs template in templates directory in package
+- Must have to make ejs template in templates directory in package
 
 ```ts
 import { generateCsv } from '@repo/file-service/csv';
