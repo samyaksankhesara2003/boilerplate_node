@@ -15,5 +15,5 @@ All message keys defined in **response-handler/constants/response-messages** fil
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/i18n --filter api
+pnpm add @repo/i18n@workspace:* --filter api
 ```

@@ -147,9 +147,6 @@ importers:
       '@types/express':
         specifier: 5.0.2
         version: 5.0.2
-      '@types/helmet':
-        specifier: ^4.0.0
-        version: 4.0.0
       '@types/multer':
         specifier: ^1.4.12
         version: 1.4.12
@@ -199,9 +196,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/socket.io':
-        specifier: ^3.0.2
-        version: 3.0.2
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -466,9 +460,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/socket.io':
-        specifier: ^3.0.2
-        version: 3.0.2
 
   packages/redis:
     dependencies:
@@ -566,9 +557,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/socket.io':
-        specifier: ^3.0.2
-        version: 3.0.2
       eslint:
         specifier: ^9.24.0
         version: 9.27.0
@@ -680,9 +668,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@types/bcryptjs':
-        specifier: ^3.0.0
-        version: 3.0.0
 
   packages/validator:
     dependencies:
@@ -2047,10 +2032,6 @@ packages:
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
 
-  '@types/bcryptjs@3.0.0':
-    resolution: {integrity: sha512-WRZOuCuaz8UcZZE4R5HXTco2goQSI2XxjGY3hbM/xDvwmqFWd4ivooImsMx65OKM6CtNKbnZ5YL+YwAwK7c1dg==}
-    deprecated: This is a stub types definition. bcryptjs provides its own type definitions, so you do not need this installed.
-
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
 
@@ -2089,10 +2070,6 @@ packages:
 
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
-
-  '@types/helmet@4.0.0':
-    resolution: {integrity: sha512-ONIn/nSNQA57yRge3oaMQESef/6QhoeX7llWeDli0UZIfz8TQMkfNPTXA8VnnyeA1WUjG2pGqdjEIueYonMdfQ==}
-    deprecated: This is a stub types definition. helmet provides its own type definitions, so you do not need this installed.
 
   '@types/http-errors@2.0.4':
     resolution: {integrity: sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==}
@@ -2156,10 +2133,6 @@ packages:
 
   '@types/serve-static@1.15.7':
     resolution: {integrity: sha512-W8Ym+h8nhuRwaKPaDw34QUkwsGi6Rc4yYqvKFo5rm2FUEhCFbzVWrxXUxuKK8TASjWsysJY0nsmNCGhCOIsrOw==}
-
-  '@types/socket.io@3.0.2':
-    resolution: {integrity: sha512-pu0sN9m5VjCxBZVK8hW37ZcMe8rjn4HHggBN5CbaRTvFwv5jOmuIRZEuddsBPa9Th0ts0SIo3Niukq+95cMBbQ==}
-    deprecated: This is a stub types definition. socket.io provides its own type definitions, so you do not need this installed.
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -7308,10 +7281,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.9
 
-  '@types/bcryptjs@3.0.0':
-    dependencies:
-      bcryptjs: 3.0.2
-
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
@@ -7368,10 +7337,6 @@ snapshots:
   '@types/graceful-fs@4.1.9':
     dependencies:
       '@types/node': 22.15.21
-
-  '@types/helmet@4.0.0':
-    dependencies:
-      helmet: 8.1.0
 
   '@types/http-errors@2.0.4': {}
 
@@ -7449,14 +7414,6 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/node': 22.15.21
       '@types/send': 0.17.4
-
-  '@types/socket.io@3.0.2':
-    dependencies:
-      socket.io: 4.8.1
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
 
   '@types/stack-utils@2.0.3': {}
 

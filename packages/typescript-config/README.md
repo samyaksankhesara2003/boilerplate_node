@@ -14,5 +14,5 @@ Use it to avoid repeating boilerplate in each package.
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/typescript-config --filter api
+pnpm add @repo/typescript-config@workspace:* --filter api
 ```

@@ -44,7 +44,7 @@ A Firebase authentication utility for Express-based Node.js services. This packa
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/firebase-auth --filter api
+pnpm add @repo/firebase-auth@workspace:* --filter api
 ```
 
 ## Environment variables required

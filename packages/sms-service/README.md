@@ -40,7 +40,7 @@ A modular and provider-based SMS service package for sending messages using Twil
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/sms-service --filter api
+pnpm add @repo/sms-service@workspace:* --filter api
 ```
 
 ## Required Environment variables

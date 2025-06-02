@@ -82,7 +82,3 @@ pnpm build                       # Compile the logger package
 pnpm lint                        # Lint the source code
 pnpm test                        # Run unit tests
 ```
-
-```
-
-```

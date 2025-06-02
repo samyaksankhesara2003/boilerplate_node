@@ -47,7 +47,7 @@ A collection of lightweight utility functions commonly used across backend appli
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/utils --filter api
+pnpm add @repo/utils@workspace:* --filter api
 ```
 
 ---

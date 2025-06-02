@@ -44,7 +44,7 @@ A utility package for validating API requests using Joi schemas. Built to work s
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/validator --filter api
+pnpm add @repo/validator@workspace:* --filter api
 ```
 
 ---

@@ -43,7 +43,7 @@ A secure JWT utility package designed to handle token signing, verification, and
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/tokens --filter api
+pnpm add @repo/tokens@workspace:* --filter api
 ```
 
 ## Required Environment variables
