@@ -15,5 +15,5 @@ Includes base ESlint configs for:
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/eslint-config --filter api
+pnpm add @repo/eslint-config@workspace:* --filter api
 ```

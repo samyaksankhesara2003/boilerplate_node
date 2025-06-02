@@ -49,7 +49,7 @@ A robust email service utility built for modular backend applications. This pack
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/mailer --filter api
+pnpm add @repo/mailer@workspace:* --filter api
 
 ```
 

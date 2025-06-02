@@ -46,7 +46,7 @@ A utility package to handle consistent API responses across services using Expre
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/response-handler:* --filter api (package name)
+pnpm add @repo/response-handler@workspace:* --filter api (package name)
 ```
 
 ---
