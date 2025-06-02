@@ -35,9 +35,8 @@
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
     "@repo/jest-presets": "workspace:*",
-    "@types/socket.io": "^3.0.2",
+    "@repo/typescript-config": "workspace:*",
     "rimraf": "^6.0.1",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
