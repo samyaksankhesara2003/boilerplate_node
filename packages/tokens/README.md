@@ -1,9 +1,6 @@
 # 🔐 @repo/tokens
 
-
 A secure JWT utility package designed to handle token signing, verification, and key management using RSA encryption. Built for use across authentication services in backend applications.
-
-
 
 ---
 
@@ -34,12 +31,12 @@ A secure JWT utility package designed to handle token signing, verification, and
 
 ## ✨ Features Overview
 
-| Feature             | Description                                      |
-|---------------------|--------------------------------------------------|
-| JWT Signing         | Sign payloads using RSA private key              |
-| JWT Verification    | Verify tokens using RSA public key              |
-| Secure Key Storage  | Uses asymmetric key pair (RS256)                 |
-| Key Generator       | Script to generate and manage new key pairs      |
+| Feature            | Description                                 |
+| ------------------ | ------------------------------------------- |
+| JWT Signing        | Sign payloads using RSA private key         |
+| JWT Verification   | Verify tokens using RSA public key          |
+| Secure Key Storage | Uses asymmetric key pair (RS256)            |
+| Key Generator      | Script to generate and manage new key pairs |
 
 ---
 
@@ -57,6 +54,7 @@ JWT_EXPIRES_IN
 ```
 
 ## Key Generation command
+
 ```bash
 pnpm generate-keys
 ```
@@ -70,17 +68,15 @@ pnpm generate-keys
 ```ts
 import { jwtUtil } from '@repo/tokens';
 
-
 //Sign jwt example
 const token = jwtUtil.signJwt({
-            user_id: userDetails.id,
-            email: userDetails.email,
-            reset_password_token: resetPasswordToken
-        });
+    user_id: userDetails.id,
+    email: userDetails.email,
+    reset_password_token: resetPasswordToken
+});
 
 //Verify jwt example
 const decoded = jwtUtil.validateJwt(token);
-
 ```
 
 ---
