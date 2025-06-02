@@ -63,8 +63,6 @@ pnpm generate-keys
 
 ### 📘 Example / Usage
 
-- Must have to make ejs template in templates directory in package
-
 ```ts
 import { jwtUtil } from '@repo/tokens';
 

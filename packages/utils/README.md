@@ -54,8 +54,6 @@ pnpm add @repo/utils --filter api
 
 ### 📘 Example / Usage
 
-- Must have to make ejs template in templates directory in package
-
 ```ts
 import { getBaseUrlFromUrl, createPagination, validateFileSize, generateRandomString, hashPassword } from '@repo/utils';
 

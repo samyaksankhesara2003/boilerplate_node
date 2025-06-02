@@ -60,8 +60,6 @@ STRIPE_SUBSCRIPTION_CANCELLATION_WEB_HOOK_SECRET
 
 ### 📘 Example / Usage
 
-- Must have to make ejs template in templates directory in package
-
 ```ts
 import { stripeService } from '@repo/stripe';
 
