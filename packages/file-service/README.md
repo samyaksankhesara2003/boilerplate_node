@@ -51,7 +51,7 @@ sudo apt install chromium-browser
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/file-service --filter api
+pnpm add @repo/file-service@workspace:* --filter api
 ```
 
 ---

@@ -40,7 +40,7 @@ A wrapper around the Stripe Node.js SDK for managing customers, subscriptions, p
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/stripe --filter api
+pnpm add @repo/stripe@workspace:* --filter api
 ```
 
 ## Required Environment variables

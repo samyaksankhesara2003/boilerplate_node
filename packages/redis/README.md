@@ -38,7 +38,7 @@ A Redis utility package for interacting with a Redis store, including operations
 ## 📦 Installation
 
 ```bash
-pnpm add @repo/redis --filter api
+pnpm add @repo/redis@workspace:* --filter api
 ```
 
 ## Required Environment variables

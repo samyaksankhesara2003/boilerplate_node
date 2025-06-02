@@ -32,7 +32,7 @@ export async function generatePdfFromTemplate<T extends TemplateKey>(templateNam
         const html = ejs.render(htmlTemplate, data);
 
         browser = await puppeteer.launch({
-            executablePath: appConfig.chromiumPath || '/usr/bin/chromium-browser',
+            // executablePath: appConfig.chromiumPath || '/usr/bin/chromium-browser',
             headless: true
         });
 
