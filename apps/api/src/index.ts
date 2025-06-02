@@ -5,9 +5,9 @@ import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { log } from '@repo/logger';
 import { appConfig } from '@repo/config';
 import { connectRedis } from '@repo/redis';
-import { createServer } from './www/server';
 import { socketManager } from '@repo/socket';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
+import { createServer } from './www/server';
 
 const port = appConfig.appPort || 5001;
 const app = createServer();
