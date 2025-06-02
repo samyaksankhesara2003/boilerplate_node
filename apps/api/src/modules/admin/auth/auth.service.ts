@@ -17,7 +17,6 @@ import {
     IVerifyResetPasswordLinkResponse
 } from './helpers/auth.types';
 
-
 /**
  * @author Jitendra Singh
  * @description Authenticates a user via social media (Google, Facebook, Apple), email and password, or phone.
