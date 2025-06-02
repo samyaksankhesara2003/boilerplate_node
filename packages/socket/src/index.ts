@@ -1,8 +1,9 @@
-import { ChatHandler } from '@repo/chat';
+import { Server } from 'socket.io';
+import { log } from '@repo/logger';
 import { appConfig } from '@repo/config';
+import { ChatHandler } from '@repo/chat';
 import { NotificationHandler } from '@repo/notifications';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
-import { Server } from 'socket.io';
 import { SOCKET_EVENTS } from './constants/events';
 
 export class SocketManager {
@@ -22,7 +23,7 @@ export class SocketManager {
 
     initialize(server: any): void {
         if (this.io) {
-            console.warn('Socket.IO is already initialized');
+            log.warn('⚠️ Socket.IO is already initialized');
             return;
         }
 
@@ -41,10 +42,10 @@ export class SocketManager {
 
         // Handle connection errors
         this.io.on(SOCKET_EVENTS.ERROR, error => {
-            console.error('Socket.IO error:', error);
+            log.error('🚨 Socket.IO error:', error);
         });
 
-        console.log('Socket.IO initialized');
+        log.info('✅ Socket.IO initialized');
     }
 
     getIO(): Server {

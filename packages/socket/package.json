@@ -27,6 +27,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@repo/logger": "workspace:*",
     "@repo/chat": "workspace:*",
     "@repo/config": "workspace:*",
     "@repo/notifications": "workspace:*",
