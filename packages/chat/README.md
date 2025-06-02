@@ -31,6 +31,7 @@ A real-time chat module that provides messaging capabilities using WebSocket con
 ```
 
 ---
+
 ## Installation
 
 1. Install the package in your project:
@@ -69,6 +70,7 @@ const chatHandler = new ChatHandler(io);
 ## Integration
 
 This module:
+
 - Uses the socket module for real-time communication
 - Stores messages in the database
 - Handles user presence and typing indicators
@@ -79,6 +81,7 @@ This module:
 ## Message Types
 
 The module supports various message types:
+
 - Text messages
 - Direct messages
 - Group messages
@@ -89,6 +92,7 @@ The module supports various message types:
 ## Database Schema
 
 Messages are stored with the following information:
+
 - Sender ID
 - Receiver ID
 - Message content
@@ -101,8 +105,9 @@ Messages are stored with the following information:
 ## Events
 
 The module handles various chat-related events:
+
 - Message sending/receiving
 - User typing indicators
 - User presence updates
 - Message delivery status
-- Chat room management 
+- Chat room management

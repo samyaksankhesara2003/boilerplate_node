@@ -70,6 +70,7 @@ const notificationHandler = new NotificationHandler(io);
 ## Integration
 
 This module:
+
 - Uses the socket module for real-time communication
 - Can be integrated with various notification sources
 - Handles notification delivery and status updates
@@ -80,6 +81,7 @@ This module:
 ## Notification Types
 
 The module supports various notification types:
+
 - System notifications
 - User notifications
 - Alert notifications
@@ -90,8 +92,9 @@ The module supports various notification types:
 ## Events
 
 The module handles various notification-related events:
+
 - Notification delivery
 - Read status updates
 - Notification preferences
 - Notification history
-- Notification grouping 
+- Notification grouping

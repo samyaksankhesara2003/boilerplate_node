@@ -23,6 +23,7 @@ A WebSocket service module that provides real-time communication capabilities us
 └── 📄 turbo.json             # Turborepo configuration
 
 ```
+
 ---
 
 ## Installation
@@ -45,7 +46,7 @@ pnpm add @repo/socket@workspace:* --filter api ( package name )
 
 ---
 
-## 🛠  Usage
+## 🛠 Usage
 
 ```typescript
 import { socketManager } from '@repo/socket';
@@ -63,6 +64,7 @@ const io = socketManager.getIO();
 ## Integration
 
 This module is used by:
+
 - Chat module for real-time messaging
 - Notification module for real-time notifications
 
@@ -71,6 +73,7 @@ This module is used by:
 ## Events
 
 The module handles various socket events defined in `constants/events.ts`. These events are used for:
+
 - Chat message handling
 - Notification delivery
 - Connection management
