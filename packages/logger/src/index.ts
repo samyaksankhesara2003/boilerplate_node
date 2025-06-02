@@ -57,22 +57,22 @@ const log = createLogger({
         }),
         ...(enableFile
             ? [
-                new transports.File({
-                    filename: logFilePath,
-                    level: logLevel,
-                    maxsize: maxsize || 5 * 1024 * 1024, // 5MB
-                    maxFiles: 5,
-                    tailable: true,
-                    // format: format.combine(
-                    //     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-                    //     format.printf(({ timestamp, level, message, ...meta }) => {
-                    //         const msg = typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
-                    //         const metaString = buildMetaString(meta);
-                    //         return `[${timestamp}] ${level}: ${msg}${metaString}`;
-                    //     })
-                    // )
-                })
-            ]
+                  new transports.File({
+                      filename: logFilePath,
+                      level: logLevel,
+                      maxsize: maxsize || 5 * 1024 * 1024, // 5MB
+                      maxFiles: 5,
+                      tailable: true
+                      // format: format.combine(
+                      //     format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+                      //     format.printf(({ timestamp, level, message, ...meta }) => {
+                      //         const msg = typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
+                      //         const metaString = buildMetaString(meta);
+                      //         return `[${timestamp}] ${level}: ${msg}${metaString}`;
+                      //     })
+                      // )
+                  })
+              ]
             : [])
     ],
     exitOnError: false
