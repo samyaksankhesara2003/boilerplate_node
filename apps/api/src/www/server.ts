@@ -21,7 +21,7 @@ export const createServer = (): Express => {
     const app = express();
     app.disable('x-powered-by')
         .use(helmet())
-        .use(httpLogger(req => req?.baseUrl?.startsWith('/api-docs')))
+        .use(httpLogger(req => req?.originalUrl?.startsWith('/api-docs')))
         .use(languageMiddleware)
         .use((req: Request, res: Response, next: NextFunction) => {
             if (
