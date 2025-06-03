@@ -109,6 +109,24 @@ describe('constantsConfig', () => {
                     1: 'INR',
                     2: 'USD'
                 }),
+                promoCodeType: expect.objectContaining({
+                    Fixed: 1,
+                    Percentage: 2
+                }),
+                promoCodeTypeNumberToName: expect.objectContaining({
+                    1: 'Fixed',
+                    2: 'Percentage'
+                }),
+                promoCodeStatus: expect.objectContaining({
+                    Active: 1,
+                    Inactive: 2,
+                    Expired: 3
+                }),
+                promoCodeStatusNumberToName: expect.objectContaining({
+                    1: 'Active',
+                    2: 'Inactive',
+                    3: 'Expired'
+                }),
                 subscriptionStatus: expect.objectContaining({
                     Active: 1,
                     Inactive: 2,

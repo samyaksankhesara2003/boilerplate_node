@@ -17,6 +17,9 @@ export { default as Plan } from './Plan';
 // Subscription
 export { default as UserSubscription } from './UserSubscription';
 
+// PromoCode
+export { default as PromoCode } from './PromoCode';
+
 // Message
 export { default as Message } from './Message';
 
@@ -25,6 +28,7 @@ export { default as Notification } from './Notification';
 
 // Activity
 export { default as ActivityLog } from './ActivityLog';
+
 // RBAC
 export { default as RBACPermission } from './RBACPermission';
 
@@ -33,5 +37,6 @@ export { default as Feedback } from './Feedback';
 
 // Referral
 export { default as ReferralHistory } from './ReferralHistory';
+
 // Bookmark
 export { default as Bookmark } from './Bookmark';

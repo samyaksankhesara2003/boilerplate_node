@@ -4,6 +4,7 @@ import { authRoutes } from './auth/auth.routes';
 import { userRoutes } from './user/user.routes';
 import { staticPagesRoutes } from './staticPages/staticPages.routes';
 import { adminFeedbackRoutes } from './feedback/admin.feedback.routes';
+import { promoCodeRoutes } from './promoCode/promoCode.routes';
 import { subscriptionRoutes } from './subscription/subscription.routes';
 import adminAuthMiddleware from '../../middlewares/adminAuth.middleware';
 
@@ -23,6 +24,9 @@ router.use('/feedback', adminAuthMiddleware, adminFeedbackRoutes);
 
 //User management routes
 router.use('/user', adminAuthMiddleware, userRoutes);
+
+// PromoCode management routes
+router.use('/promo-code', adminAuthMiddleware, promoCodeRoutes);
 
 //Subscription management routes
 router.use('/subscription', adminAuthMiddleware, subscriptionRoutes);

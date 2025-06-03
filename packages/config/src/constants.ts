@@ -139,6 +139,28 @@ export const constants = {
         2: 'USD'
     },
 
+    // Promocode Types
+    promoCodeType: {
+        Fixed: 1,
+        Percentage: 2
+    },
+    promoCodeTypeNumberToName: {
+        1: 'Fixed',
+        2: 'Percentage'
+    },
+
+    // Promocode Status
+    promoCodeStatus: {
+        Active: 1,
+        Inactive: 2,
+        Expired: 3
+    },
+    promoCodeStatusNumberToName: {
+        1: 'Active',
+        2: 'Inactive',
+        3: 'Expired'
+    },
+
     // Subscription Status
     subscriptionStatus: {
         Active: 1,

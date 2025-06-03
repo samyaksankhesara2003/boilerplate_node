@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import { log } from '@repo/logger';
-import { stripeConfig } from '@repo/config';
+import { constants, stripeConfig } from '@repo/config';
 
 // Create a Stripe instance
 const stripeInstance = new Stripe(stripeConfig.stripeSecretKey);
@@ -128,6 +128,39 @@ const cancelSubscription = async (subscriptionId: string): Promise<{ is_cancelle
 
 /**
  * @author Jitendra Singh
+ * @description Creates a Stripe promotion code.
+ */
+const createPromoCode = async (promoCodeName: string, discountValue: number, discountType: number): Promise<Stripe.Coupon> => {
+    try {
+        const coupon = await stripeInstance.coupons.create({
+            name: promoCodeName,
+            ...(discountType === constants.promoCodeType['Fixed'] ? { amount_off: discountValue } : { percent_off: discountValue }),
+            duration: 'forever'
+        });
+
+        return coupon;
+    } catch (error) {
+        log.error('createPromoCode Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Deletes a Stripe promotion code.
+ */
+const deletePromoCode = async (couponId: string): Promise<Stripe.DeletedCoupon> => {
+    try {
+        const coupon = await stripeInstance.coupons.del(couponId);
+        return coupon;
+    } catch (error) {
+        log.error('createPromoCode Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
  * @description Validates a Stripe promotion code.
  */
 const validatePromoCode = async (promo_code: string): Promise<Stripe.Coupon> => {
@@ -172,6 +205,8 @@ export const stripeService = {
     createSubscription,
     upgradeSubscription,
     cancelSubscription,
+    createPromoCode,
+    deletePromoCode,
     validatePromoCode,
     verifyWebhookRequest
 };
