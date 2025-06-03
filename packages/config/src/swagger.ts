@@ -60,6 +60,7 @@ const swaggerOptions = {
             'Promo Code',
             'Subscription',
             'User Management',
+            'Subscription',
             'Feedback',
             'Activity',
             'Notifications'
