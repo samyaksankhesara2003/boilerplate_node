@@ -21,7 +21,6 @@ export async function seed(knex: Knex): Promise<void> {
             slug: 'techuz-admin',
             email: 'techuz@yopmail.com',
             profile_url: null,
-            slug: 'techuz-admin',
             password: null,
             token: null,
             reset_password_token: null,

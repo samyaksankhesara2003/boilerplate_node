@@ -1,8 +1,8 @@
+import { NextFunction, Request, Response } from 'express';
+import { log } from '@repo/logger';
 import { constants } from '@repo/config';
 import { RBACPermission } from '@repo/db';
-import { log } from '@repo/logger';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
-import { NextFunction, Request, Response } from 'express';
 
 export const checkModuleAccess = (module: string, methods: string[] | string) => {
     return async (req: Request, res: Response, next: NextFunction) => {

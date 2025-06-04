@@ -5,10 +5,3 @@ export interface IActivityLog {
     device_type: number;
     activity_type: number;
 }
-
-export interface IActivityLogQuery {
-    user_id?: number;
-    search?: string;
-    from_date?: string;
-    to_date?: string;
-}
