@@ -101,6 +101,22 @@ describe('constantsConfig', () => {
                     3: 'Monthly',
                     4: 'Yearly'
                 }),
+                planProvider: expect.objectContaining({
+                    Stripe: 1,
+                    Razorpay: 2
+                }),
+                planProviderNumberToName: expect.objectContaining({
+                    1: 'Stripe',
+                    2: 'Razorpay'
+                }),
+                planStatus: expect.objectContaining({
+                    Active: 1,
+                    Inactive: 2
+                }),
+                planStatusNumberToName: expect.objectContaining({
+                    1: 'Active',
+                    2: 'Inactive'
+                }),
                 supportedCurrencyType: expect.objectContaining({
                     INR: 1,
                     USD: 2

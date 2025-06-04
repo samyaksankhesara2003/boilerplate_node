@@ -54,10 +54,10 @@ const swaggerOptions = {
         const order = [
             'Country',
             'State',
-            'Plan',
             'Auth',
             'Profile',
             'Promo Code',
+            'Plan',
             'Subscription',
             'User Management',
             'Subscription',

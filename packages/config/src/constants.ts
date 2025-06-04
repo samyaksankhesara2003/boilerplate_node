@@ -129,6 +129,26 @@ export const constants = {
         4: 'Yearly'
     },
 
+    // Plan Provider
+    planProvider: {
+        Stripe: 1,
+        Razorpay: 2
+    },
+    planProviderNumberToName: {
+        1: 'Stripe',
+        2: 'Razorpay'
+    },
+
+    // Plan Status
+    planStatus: {
+        Active: 1,
+        Inactive: 2
+    },
+    planStatusNumberToName: {
+        1: 'Active',
+        2: 'Inactive'
+    },
+
     // Stripe Supported Currencies
     supportedCurrencyType: {
         INR: 1,

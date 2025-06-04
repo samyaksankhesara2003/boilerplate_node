@@ -1,32 +1,7 @@
 import { log } from '@repo/logger';
 import { ActivityLog } from '@repo/db';
 import { constants } from '@repo/config';
-import { IActivityLog, IActivityLogQuery } from './helpers/activity.types';
-
-/**
- * @author Jitendra Singh
- * @description Lists all activity logs.
- */
-const listActivityLogsService = async (query: IActivityLogQuery): Promise<ActivityLog[]> => {
-    try {
-        const { user_id, from_date, to_date } = query;
-
-        const activityLogAttributes = ['id', 'user_id', 'activity_id', 'ip_address', 'device_type', 'activity_type', 'created_at'];
-
-        const activityLogQuery = ActivityLog.query().select(...activityLogAttributes);
-
-        if (user_id) activityLogQuery.where('user_id', user_id);
-        if (from_date) activityLogQuery.where('created_at', '>=', from_date);
-        if (to_date) activityLogQuery.where('created_at', '<=', to_date);
-
-        const activityLogs = await activityLogQuery;
-
-        return activityLogs;
-    } catch (error) {
-        log.error('listActivityLogsService Catch: ', error);
-        throw error;
-    }
-};
+import { IActivityLog } from './helpers/activity.types';
 
 /**
  * @author Jitendra Singh
@@ -46,6 +21,5 @@ const createActivityLogService = async (body: IActivityLog): Promise<void> => {
 };
 
 export const activityLogService = {
-    listActivityLogsService,
     createActivityLogService
 };

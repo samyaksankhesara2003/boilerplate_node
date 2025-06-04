@@ -161,7 +161,9 @@ const updatePromoCodeStatusService = async (params: IUpdatePromoCodeStatusParams
 
         await promoCode.$query().patch({
             status:
-                promoCode.status === constants.promoCodeStatus['Active'] ? constants.promoCodeStatus['Inactive'] : constants.promoCodeStatus['Active']
+                +promoCode.status === constants.promoCodeStatus['Active']
+                    ? constants.promoCodeStatus['Inactive']
+                    : constants.promoCodeStatus['Active']
         });
 
         return;

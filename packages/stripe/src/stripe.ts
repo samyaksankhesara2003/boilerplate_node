@@ -5,6 +5,105 @@ import { constants, stripeConfig } from '@repo/config';
 // Create a Stripe instance
 const stripeInstance = new Stripe(stripeConfig.stripeSecretKey);
 
+/******************************************************** Plan ********************************************************/
+
+/**
+ * @author Jitendra Singh
+ * @description Retrieves a Stripe price by its ID.
+ */
+const getProductIdFromPriceId = async (priceId: string): Promise<Stripe.Price> => {
+    try {
+        const price = await stripeInstance.prices.retrieve(priceId);
+
+        if (!price || typeof price.product !== 'string') throw new Error('Invalid price or product not found');
+
+        return price;
+    } catch (error) {
+        log.error('getProductIdFromPriceId Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Deactivates a Stripe price by setting its active status to false.
+ */
+const deActivatePrice = async (priceId: string): Promise<Stripe.Price> => {
+    try {
+        const price = await stripeInstance.prices.update(priceId, { active: false });
+        return price;
+    } catch (error) {
+        log.error('deActivatePrice Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Creates a Stripe product.
+ */
+const createProduct = async (name: string, planPrice: number, currency: number, interval: number): Promise<Stripe.Product> => {
+    try {
+        const productOptions: Stripe.ProductCreateParams = {
+            name: name,
+            default_price_data: {
+                unit_amount: planPrice * 100, // Stripe expects amount in the smallest currency unit
+                currency: currency === constants.supportedCurrencyType['INR'] ? 'inr' : 'usd',
+                recurring: {
+                    interval: interval === constants.planInterval['Monthly'] ? 'month' : 'year'
+                }
+            },
+            shippable: false,
+            expand: ['default_price']
+        };
+
+        const product = await stripeInstance.products.create(productOptions);
+
+        if (!product) throw new Error('Error creating product');
+
+        return product;
+    } catch (error) {
+        log.error('createProduct Catch:', error);
+        throw error;
+    }
+};
+
+/**
+ * @author Jitendra Singh
+ * @description Updates a Stripe product with a new price.
+ */
+const updateProduct = async (priceId: string, newPrice: number, currency: number, interval: number): Promise<Stripe.Product> => {
+    try {
+        const product = await getProductIdFromPriceId(priceId);
+
+        if (!product) throw new Error('Invalid price or product not found');
+
+        const productId = product.product as string;
+
+        const newPriceObj = await stripeInstance.prices.create({
+            product: productId,
+            unit_amount: newPrice * 100,
+            currency: currency === constants.supportedCurrencyType['INR'] ? 'inr' : 'usd',
+            recurring: {
+                interval: interval === constants.planInterval['Monthly'] ? 'month' : 'year'
+            }
+        });
+
+        const updatedProduct = await stripeInstance.products.update(productId, {
+            default_price: newPriceObj.id
+        });
+
+        await deActivatePrice(priceId);
+
+        return updatedProduct;
+    } catch (error) {
+        log.error('updateProductPrice Catch:', error);
+        throw error;
+    }
+};
+
+/******************************************************** Customer ********************************************************/
+
 /**
  * @author Jitendra Singh
  * @description Creates a new customer in Stripe.
@@ -21,6 +120,8 @@ const createCustomer = async (name: string, email: string): Promise<Stripe.Custo
         throw error;
     }
 };
+
+/******************************************************** Payment Intent ********************************************************/
 
 /**
  * @author Jitendra Singh
@@ -43,6 +144,8 @@ const createPaymentIntent = async (currency: 'INR' | 'USD', amount: number, cust
         throw error;
     }
 };
+
+/******************************************************** Subscription ********************************************************/
 
 /**
  * @author Jitendra Singh
@@ -126,6 +229,8 @@ const cancelSubscription = async (subscriptionId: string): Promise<{ is_cancelle
     }
 };
 
+/******************************************************** Promotion Code ********************************************************/
+
 /**
  * @author Jitendra Singh
  * @description Creates a Stripe promotion code.
@@ -184,6 +289,8 @@ const validatePromoCode = async (promo_code: string): Promise<Stripe.Coupon> => 
     }
 };
 
+/******************************************************** Webhook ********************************************************/
+
 /**
  * @author Jitendra Singh
  * @description Verify a Stripe webhook request.
@@ -200,6 +307,8 @@ const verifyWebhookRequest = async (stripe_webhook_secret: string, stripe_signat
 };
 
 export const stripeService = {
+    createProduct,
+    updateProduct,
     createCustomer,
     createPaymentIntent,
     createSubscription,

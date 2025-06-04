@@ -13,7 +13,7 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('plans', table => {
         table.increments('id').primary();
         table.string('name', 100).notNullable();
-        table.string('price_id').notNullable().comment('Price id from provider');
+        table.string('price_id').nullable().comment('Price id from provider');
         table.decimal('price', 14, 2).notNullable();
         table.decimal('tax_percentage', 5, 2).notNullable().defaultTo(0.0);
         table.json('features').nullable();
@@ -24,6 +24,7 @@ export async function up(knex: Knex): Promise<void> {
         table
             .integer('interval_count')
             .unsigned()
+            .defaultTo(1)
             .notNullable()
             .comment('Number of intervals. Maps from billing frequency in provider - e.g. 1 for monthly.');
         table.enum('status', ['1', '2']).notNullable().defaultTo('1').comment('1-> Active, 2-> Inactive');
