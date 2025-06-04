@@ -26,7 +26,7 @@ const createPlanService = async (body: ICreatePlanBody): Promise<void> => {
 
         const stripeProduct = await stripeService.createProduct(name, price, currency, interval);
 
-        if (!stripeProduct) throw new CustomError('Unable to create plan', StatusCodes.NOT_FOUND);
+        if (!stripeProduct) throw new CustomError(ResponseMessages.PLAN.CREATE_FAILED, StatusCodes.NOT_FOUND);
 
         const plan = await Plan.query(trx).insert({
             name,
@@ -91,11 +91,11 @@ const updatePlanService = async (params: IUpdatePlanParams, body: IUpdatePlanBod
             .select(...planAttributes)
             .findById(id);
 
-        if (!planDetails) throw new CustomError('Plan not found', StatusCodes.NOT_FOUND);
+        if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const stripeProduct = await stripeService.updateProduct(planDetails.price_id, price, currency, interval);
 
-        if (!stripeProduct) throw new CustomError('Unable to update plan', StatusCodes.NOT_FOUND);
+        if (!stripeProduct) throw new CustomError(ResponseMessages.PLAN.UPDATE_FAILED, StatusCodes.NOT_FOUND);
 
         await planDetails.$query().patch({
             name,
@@ -131,7 +131,7 @@ const updatePlanStatusService = async (params: IUpdatePlanStatusParams): Promise
             .select(...planAttributes)
             .findById(id);
 
-        if (!planDetails) throw new CustomError('Plan not found', StatusCodes.NOT_FOUND);
+        if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         await planDetails.$query().patch({
             status: +planDetails.status === constants.planStatus['Active'] ? constants.planStatus['Inactive'] : constants.planStatus['Active']

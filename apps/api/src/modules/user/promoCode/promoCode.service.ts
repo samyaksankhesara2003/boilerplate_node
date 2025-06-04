@@ -1,6 +1,6 @@
 import { log } from '@repo/logger';
 import { stripeService } from '@repo/stripe';
-import { StatusCodes, CustomError } from '@repo/response-handler';
+import { StatusCodes, CustomError, ResponseMessages } from '@repo/response-handler';
 import { IValidatePromoCodeParams, IValidatePromoCodeResponse } from './helpers/promoCode.types';
 
 /**
@@ -13,7 +13,7 @@ const validatePromoCodeService = async (params: IValidatePromoCodeParams): Promi
 
         const promoCode = await stripeService.validatePromoCode(promo_code);
 
-        if (!promoCode) throw new CustomError('Invalid Promo Code', StatusCodes.BAD_REQUEST);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.INVALID_CODE, StatusCodes.BAD_REQUEST);
 
         return {
             id: promoCode.id,

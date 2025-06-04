@@ -112,7 +112,7 @@ const viewSubscriptionService = async (user: IUser): Promise<UserSubscription> =
             .select(...transactionAttributes)
             .findOne({ user_id: user.id, status: constants.subscriptionStatus['Active'] });
 
-        if (!userSubscription) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!userSubscription) throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return userSubscription;
     } catch (error) {
@@ -174,7 +174,7 @@ const purchaseSubscriptionService = async (user: IUser, body: IPurchaseSubscript
 
         const planDetails = await planService.getPlanService({ plan_id });
 
-        if (!planDetails) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const startDate = new Date();
         const invoiceNumber = `INV-${user.id}` + '-' + generateRandomString(8);
@@ -234,16 +234,16 @@ const upgradeSubscriptionService = async (user: IUser, body: IUpgradeSubscriptio
 
         const planDetails = await planService.getPlanService({ plan_id });
 
-        if (!planDetails) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const userSubscription = await viewSubscriptionService(user);
 
-        if (!userSubscription) throw new CustomError('User subscription not found', StatusCodes.NOT_FOUND);
+        if (!userSubscription) throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const promoCodeDiscountAmount = promo_code ? calculatePromoCodeDiscount({ plan: planDetails, promoCode: promo_code }).discount : 0;
 
         if (promoCodeDiscountAmount && +planDetails?.price <= promoCodeDiscountAmount)
-            throw new CustomError('Promo code discount amount is greater than plan price', StatusCodes.BAD_REQUEST);
+            throw new CustomError(ResponseMessages.SUBSCRIPTION.PRICE_EXCEEDED, StatusCodes.BAD_REQUEST);
 
         const startDate = new Date();
         const invoiceNumber = `INV-${user.id}` + '-' + generateRandomString(8);
@@ -306,9 +306,7 @@ const cancelSubscriptionService = async (user: IUser): Promise<ICancelSubscripti
     try {
         const userSubscription = await viewSubscriptionService(user);
 
-        if (!userSubscription) throw new CustomError('User subscription not found', StatusCodes.NOT_FOUND);
-
-        if (!userSubscription) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!userSubscription) throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         await stripeService.cancelSubscription(userSubscription.subscription_id);
 
@@ -364,7 +362,7 @@ const paymentVerificationWebhookService = async (stripeSignature: string, body: 
 
         if (!userSubscription) {
             await trx.rollback();
-            throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+            throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
         }
 
         if (+userSubscription.status === constants.subscriptionStatus['Active']) {
@@ -497,7 +495,7 @@ const subscriptionCancellationWebhookService = async (stripeSignature: string, b
 
         if (!userSubscription) {
             await trx.rollback();
-            throw new CustomError('User subscription not found', StatusCodes.NOT_FOUND);
+            throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
         }
 
         if (event.type === 'customer.subscription.deleted') {

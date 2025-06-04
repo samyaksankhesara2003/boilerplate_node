@@ -11,7 +11,7 @@ const createPlan = async (req: Request, res: Response, next: NextFunction): Prom
     try {
         const { body, language } = req;
         const data = await planService.createPlanService(body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -25,7 +25,7 @@ const updatePlan = async (req: Request<IUpdatePlanParams>, res: Response, next: 
     try {
         const { params, body, language } = req;
         await planService.updatePlanService(params, body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, null, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.UPDATE_SUCCESS, null, language);
     } catch (error) {
         next(error);
     }
@@ -39,7 +39,7 @@ const updatePlanStatus = async (req: Request<IUpdatePlanStatusParams>, res: Resp
     try {
         const { params, language } = req;
         await planService.updatePlanStatusService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, null, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.UPDATE_SUCCESS, null, language);
     } catch (error) {
         next(error);
     }

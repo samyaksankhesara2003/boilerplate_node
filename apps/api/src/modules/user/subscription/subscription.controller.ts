@@ -11,7 +11,7 @@ const viewSubscription = async (req: Request, res: Response, next: NextFunction)
     try {
         const { user, language } = req;
         const data = await subscriptionService.viewSubscriptionService(user as IUser);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -25,7 +25,7 @@ const listTransaction = async (req: Request, res: Response, next: NextFunction):
     try {
         const { user, query, language } = req;
         const data = await subscriptionService.listTransactionService(user as IUser, query as any);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -39,7 +39,7 @@ const purchaseSubscription = async (req: Request, res: Response, next: NextFunct
     try {
         const { user, body, language } = req;
         const data = await subscriptionService.purchaseSubscriptionService(user as IUser, body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.PURCHASE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -53,7 +53,7 @@ const upgradeSubscription = async (req: Request, res: Response, next: NextFuncti
     try {
         const { user, body, language } = req;
         const data = await subscriptionService.upgradeSubscriptionService(user as IUser, body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.UPGRADE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -67,7 +67,7 @@ const cancelSubscription = async (req: Request, res: Response, next: NextFunctio
     try {
         const { user, language } = req;
         const data = await subscriptionService.cancelSubscriptionService(user as IUser);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.CANCEL_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }

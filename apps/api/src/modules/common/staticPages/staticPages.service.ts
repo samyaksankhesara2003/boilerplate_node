@@ -16,7 +16,7 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
             .select(...attributes)
             .where('page', page)
             .first();
-        if (!row) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!row) throw new CustomError(ResponseMessages.STATIC_PAGES.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return row;
     } catch (error) {

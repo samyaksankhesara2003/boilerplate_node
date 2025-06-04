@@ -11,7 +11,7 @@ const validatePromoCode = async (req: Request<IValidatePromoCodeParams>, res: Re
     try {
         const { params, language } = req;
         const data = await promoCodeService.validatePromoCodeService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.VALIDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }

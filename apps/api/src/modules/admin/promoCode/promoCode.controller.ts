@@ -17,7 +17,7 @@ const getPromoCode = async (req: Request<IPromoCodeParams>, res: Response, next:
     try {
         const { params, language } = req;
         const data = await promoCodeService.getPromoCodeService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -31,7 +31,7 @@ const listPromoCode = async (req: Request, res: Response, next: NextFunction): P
     try {
         const { query, language } = req;
         const data = await promoCodeService.listPromoCodeService(query as unknown as IListPromoCodeQuery);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -45,7 +45,7 @@ const createPromoCode = async (req: Request, res: Response, next: NextFunction):
     try {
         const { body, language } = req;
         const data = await promoCodeService.createPromoCodeService(body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -59,7 +59,7 @@ const updatePromoCode = async (req: Request<IUpdatePromoCodeParams>, res: Respon
     try {
         const { params, body, language } = req;
         const data = await promoCodeService.updatePromoCodeService(params, body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -73,7 +73,7 @@ const updatePromoCodeStatus = async (req: Request<IUpdatePromoCodeStatusParams>,
     try {
         const { params, language } = req;
         const data = await promoCodeService.updatePromoCodeStatusService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -87,7 +87,7 @@ const deletePromoCode = async (req: Request<IDeletePromoCodeParams>, res: Respon
     try {
         const { params, language } = req;
         await promoCodeService.deletePromoCodeService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, null, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.DELETE_SUCCESS, null, language);
     } catch (error) {
         next(error);
     }
