@@ -1,4 +1,4 @@
-# @repo/notifications
+# 🔔 @repo/notifications
 
 A real-time notification module that provides instant notification delivery using WebSocket connections. This module integrates with the socket service to handle real-time notification delivery to users.
 

@@ -1,4 +1,4 @@
-# @repo/logger
+# 📜 @repo/logger
 
 Logger package for the Turborepo project providing a versatile and configurable logging solution.
 

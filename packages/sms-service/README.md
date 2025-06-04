@@ -1,4 +1,4 @@
-# @repo/sms-service
+# 💬 @repo/sms-service
 
 A modular and provider-based SMS service package for sending messages using Twilio or custom implementations. Designed for backend services in a monorepo setup.
 

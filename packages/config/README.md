@@ -1,4 +1,4 @@
-# @repo/config
+# ⚙️ @repo/config
 
 Centralized configuration package for the Turborepo project. This package contains configuration setups for various shared services and tools used across the monorepo.
 

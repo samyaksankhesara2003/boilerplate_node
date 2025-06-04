@@ -1,4 +1,4 @@
-# @repo/stripe
+# 💵 @repo/stripe
 
 A wrapper around the Stripe Node.js SDK for managing customers, subscriptions, payments, and webhook validation in a clean, type-safe manner.
 

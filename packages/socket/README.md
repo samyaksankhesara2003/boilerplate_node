@@ -1,4 +1,4 @@
-# @repo/socket
+# 🔌 @repo/socket
 
 A WebSocket service module that provides real-time communication capabilities using Socket.IO. This module serves as the core real-time communication layer for the application, handling WebSocket connections and managing real-time events.
 
