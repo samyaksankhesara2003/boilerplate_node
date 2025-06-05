@@ -10,7 +10,7 @@ const listTransaction = async (req: Request, res: Response, next: NextFunction):
     try {
         const { query, language } = req;
         const data = await subscriptionService.listTransactionService(query as any);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }

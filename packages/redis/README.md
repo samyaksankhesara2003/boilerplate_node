@@ -1,4 +1,4 @@
-# @repo/redis
+# 📦 @repo/redis
 
 A Redis utility package for interacting with a Redis store, including operations to set, get, delete, and list cached data. Built for use across a Node.js monorepo.
 

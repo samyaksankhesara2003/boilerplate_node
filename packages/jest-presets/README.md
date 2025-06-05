@@ -1,4 +1,4 @@
-# @repo/jest-presets
+# 🔬 @repo/jest-presets
 
 This module provides Jest integration to help applications implement consistent and shared testing configurations.
 

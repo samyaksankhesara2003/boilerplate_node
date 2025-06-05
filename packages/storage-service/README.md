@@ -1,4 +1,4 @@
-# @repo/storage-service
+# 🪣 @repo/storage-service
 
 A wrapper service for AWS S3 that provides utility functions to handle common operations such as uploading, downloading, deleting files and folders, and generating presigned URLs.
 

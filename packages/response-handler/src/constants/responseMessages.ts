@@ -85,5 +85,41 @@ export const ResponseMessages = {
         ALREADY_EXISTS: 'bookmark.already_exists',
         ADD_SUCCESS: 'bookmark.add_success',
         REMOVE_SUCCESS: 'bookmark.remove_success'
+    },
+    PLAN: {
+        FETCH_SUCCESS: 'plan.fetch_success',
+        NOT_FOUND: 'plan.not_found',
+        LIST_SUCCESS: 'plan.list_success',
+        CREATE_SUCCESS: 'plan.create_success',
+        CREATE_FAILED: 'plan.create_failed',
+        UPDATE_SUCCESS: 'plan.update_success',
+        UPDATE_FAILED: 'plan.update_failed'
+    },
+    PROMO_CODE: {
+        FETCH_SUCCESS: 'promo_code.fetch_success',
+        NOT_FOUND: 'promo_code.not_found',
+        LIST_SUCCESS: 'promo_code.list_success',
+        CREATE_SUCCESS: 'promo_code.create_success',
+        CREATE_FAILED: 'promo_code.create_failed',
+        UPDATE_SUCCESS: 'promo_code.update_success',
+        DELETE_SUCCESS: 'promo_code.delete_success',
+        INVALID_CODE: 'promo_code.invalid_code',
+        VALIDATE_SUCCESS: 'promo_code.validate_success'
+    },
+    SUBSCRIPTION: {
+        FETCH_SUCCESS: 'subscription.fetch_success',
+        NOT_FOUND: 'subscription.not_found',
+        LIST_SUCCESS: 'subscription.list_success',
+        PRICE_EXCEEDED: 'subscription.price_exceeded',
+        CANCEL_SUCCESS: 'subscription.cancel_success',
+        PURCHASE_SUCCESS: 'subscription.purchase_success',
+        UPGRADE_SUCCESS: 'subscription.upgrade_success'
+    },
+    STATIC_PAGES: {
+        FETCH_SUCCESS: 'static_pages.fetch_success',
+        NOT_FOUND: 'static_pages.not_found',
+        LIST_SUCCESS: 'static_pages.list_success',
+        UPDATE_SUCCESS: 'static_pages.update_success',
+        DELETE_SUCCESS: 'static_pages.delete_success'
     }
 } as const;

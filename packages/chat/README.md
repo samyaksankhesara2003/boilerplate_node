@@ -1,4 +1,4 @@
-# @repo/chat
+# 💬 @repo/chat
 
 A real-time chat module that provides messaging capabilities using WebSocket connections. This module integrates with the socket service to handle real-time message delivery and chat functionality.
 

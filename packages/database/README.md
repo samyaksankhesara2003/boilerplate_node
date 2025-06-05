@@ -1,4 +1,4 @@
-# @repo/db
+# 📦 @repo/db
 
 Database package for the Turborepo project using MySQL 8.0 with Knex.js and Objection.js.
 

@@ -83,5 +83,41 @@
         "not_found": "Bookmark not found",
         "list_success": "Bookmark list fetched successfully",
         "already_exists": "Bookmark already exists"
+    },
+    "plan": {
+        "fetch_success": "Plan fetched successfully",
+        "not_found": "Plan not found",
+        "list_success": "Plan list fetched successfully",
+        "create_success": "Plan created successfully",
+        "create_failed": "Failed to create plan",
+        "update_success": "Plan updated successfully",
+        "update_failed": "Failed to update plan"
+    },
+    "promo_code": {
+        "fetch_success": "Promo code fetched successfully",
+        "not_found": "Promo code not found",
+        "list_success": "Promo code list fetched successfully",
+        "create_success": "Promo code created successfully",
+        "create_failed": "Failed to create promo code",
+        "update_success": "Promo code updated successfully",
+        "delete_success": "Promo code deleted successfully",
+        "invalid_code": "Invalid promo code",
+        "validate_success": "Promo code is valid"
+    },
+    "subscription": {
+        "fetch_success": "Subscription fetched successfully",
+        "not_found": "Subscription not found",
+        "list_success": "list fetched successfully",
+        "price_exceeded": "Promo code discount amount is greater than plan price",
+        "cancel_success": "Subscription cancelled successfully",
+        "purchase_success": "Subscription purchased successfully",
+        "upgrade_success": "Subscription upgraded successfully"
+    },
+    "static_pages": {
+        "fetch_success": "Static page fetched successfully",
+        "not_found": "Static page not found",
+        "list_success": "Static page list fetched successfully",
+        "update_success": "Static page updated successfully",
+        "delete_success": "Static page deleted successfully"
     }
 }

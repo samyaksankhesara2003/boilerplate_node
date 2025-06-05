@@ -3,7 +3,7 @@ import { PromoCode } from '@repo/db';
 import { constants } from '@repo/config';
 import { stripeService } from '@repo/stripe';
 import { createPagination, PaginationResponse } from '@repo/utils';
-import { StatusCodes, CustomError } from '@repo/response-handler';
+import { StatusCodes, CustomError, ResponseMessages } from '@repo/response-handler';
 import {
     ICreatePromoCodeBody,
     IDeletePromoCodeParams,
@@ -28,7 +28,7 @@ const getPromoCodeService = async (params: IPromoCodeParams): Promise<PromoCode>
             .select(...promoCodeAttributes)
             .findOne({ id, deleted_at: null });
 
-        if (!promoCode) throw new CustomError('Promo Code Not Found', StatusCodes.NOT_FOUND);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return promoCode;
     } catch (error) {
@@ -85,7 +85,7 @@ const createPromoCodeService = async (body: ICreatePromoCodeBody): Promise<Promo
 
         const promoCode = await stripeService.createPromoCode(promo_code, discount_value, type);
 
-        if (!promoCode) throw new CustomError('Unable to create Promo Code', StatusCodes.BAD_REQUEST);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.CREATE_FAILED, StatusCodes.BAD_REQUEST);
 
         const createdPromoCode = await PromoCode.query().insert({
             coupon_id: promoCode.id,
@@ -122,11 +122,11 @@ const updatePromoCodeService = async (params: IUpdatePromoCodeParams, body: IUpd
 
         const promoCodeDetails = await getPromoCodeService({ id });
 
-        if (!promoCodeDetails) throw new CustomError('Promo Code Not Found', StatusCodes.NOT_FOUND);
+        if (!promoCodeDetails) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         const promoCode = await stripeService.createPromoCode(promo_code, discount_value, type);
 
-        if (!promoCode) throw new CustomError('Unable to create Promo Code', StatusCodes.BAD_REQUEST);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.CREATE_FAILED, StatusCodes.BAD_REQUEST);
 
         await stripeService.deletePromoCode(promoCodeDetails.coupon_id);
 
@@ -157,7 +157,7 @@ const updatePromoCodeStatusService = async (params: IUpdatePromoCodeStatusParams
 
         const promoCode = await getPromoCodeService({ id });
 
-        if (!promoCode) throw new CustomError('Promo Code Not Found', StatusCodes.NOT_FOUND);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         await promoCode.$query().patch({
             status:
@@ -183,7 +183,7 @@ const deletePromoCodeService = async (params: IDeletePromoCodeParams): Promise<v
 
         const promoCode = await getPromoCodeService({ id });
 
-        if (!promoCode) throw new CustomError('Promo Code Not Found', StatusCodes.NOT_FOUND);
+        if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         await stripeService.deletePromoCode(promoCode.coupon_id);
 

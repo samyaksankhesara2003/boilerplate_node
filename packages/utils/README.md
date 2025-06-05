@@ -1,4 +1,4 @@
-# @repo/utils
+# 🔧 @repo/utils
 
 A collection of lightweight utility functions commonly used across backend applications. This package provides helpers for formatting, password hashing, validation, URL manipulation, and pagination config. Designed for consistency, reusability, and monorepo setups using Turborepo.
 

@@ -31,7 +31,7 @@ const getPlanService = async (params: IPlanParams): Promise<Plan> => {
             .select(...planAttributes)
             .findById(plan_id);
 
-        if (!plan) throw new CustomError(ResponseMessages.COMMON.NOT_FOUND, StatusCodes.NOT_FOUND);
+        if (!plan) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
         return plan;
     } catch (error) {

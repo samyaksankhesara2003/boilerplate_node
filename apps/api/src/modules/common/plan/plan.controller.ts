@@ -11,7 +11,7 @@ const getPlan = async (req: Request<IPlanParams>, res: Response, next: NextFunct
     try {
         const { params, language } = req;
         const data = await planService.getPlanService(params);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.FETCH_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -25,7 +25,7 @@ const listPlans = async (req: Request, res: Response, next: NextFunction): Promi
     try {
         const { query, language } = req;
         const data = await planService.listPlansService(query);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.LIST_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }

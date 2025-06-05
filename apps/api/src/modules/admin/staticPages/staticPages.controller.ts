@@ -11,7 +11,7 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<voi
     try {
         const { params, language } = req;
         const data = await _service.getService(params.page);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.FETCH_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATIC_PAGES.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -25,7 +25,7 @@ const list = async (req: Request, res: Response, next: NextFunction): Promise<vo
     try {
         const { query, language } = req;
         const data = await _service.listService(query as unknown as Query);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.LIST_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATIC_PAGES.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -39,7 +39,7 @@ const createOrUpdate = async (req: Request, res: Response, next: NextFunction): 
     try {
         const { body, language } = req;
         const data = await _service.createOrUpdateService(body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.UPDATE_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATIC_PAGES.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
@@ -53,7 +53,7 @@ const remove = async (req: Request, res: Response, next: NextFunction): Promise<
     try {
         const { params, language } = req;
         const data = await _service.removeService(params.page);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.DELETE_SUCCESS, data, language);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.STATIC_PAGES.DELETE_SUCCESS, data, language);
     } catch (error) {
         next(error);
     }
