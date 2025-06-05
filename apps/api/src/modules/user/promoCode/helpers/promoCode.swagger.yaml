@@ -1,5 +1,5 @@
 paths:
-  /promo-code/validate/{promo_code}:
+  /promo-code/validate/{id}:
     get:
       tags:
         - Promo Code
@@ -14,12 +14,12 @@ paths:
             enum: [en, fr]
             default: en
           description: Language code for localized responses (default is en)
-        - name: promo_code
+        - name: id
           in: path
           required: true
           schema:
-            type: string
-          description: Promo Code to be validated
+            type: number
+          description: Promo Code ID to be validated
       responses:
         "200":
           description: Promo Code validated successfully

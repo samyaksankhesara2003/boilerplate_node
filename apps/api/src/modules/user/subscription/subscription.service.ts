@@ -102,7 +102,6 @@ const viewSubscriptionService = async (user: IUser): Promise<UserSubscription> =
             'is_switch',
             'is_cancelled',
             'is_added_by_cron',
-            'provider_response',
             'provider',
             'payment_status',
             'status'
@@ -146,7 +145,6 @@ const listTransactionService = async (user: IUser, query: IListTransactionQuery)
             'is_switch',
             'is_cancelled',
             'is_added_by_cron',
-            'provider_response',
             'provider',
             'payment_status',
             'status'

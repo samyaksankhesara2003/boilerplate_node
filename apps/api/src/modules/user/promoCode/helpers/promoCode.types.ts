@@ -1,5 +1,5 @@
 export interface IValidatePromoCodeParams {
-    promo_code: string;
+    id: number;
 }
 
 export interface IValidatePromoCodeResponse {
