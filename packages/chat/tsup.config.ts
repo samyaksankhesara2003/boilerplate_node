@@ -6,7 +6,7 @@ export default defineConfig((options: Options) => ({
     target: 'es2022',
     clean: process.env.NODE_ENV !== 'development',
     dts: true,
-    sourcemap: process.env.NODE_ENV === 'development' ? true : false,
+    sourcemap: process.env.NODE_ENV === 'development',
     splitting: true,
     bundle: true,
     skipNodeModulesBundle: true,
