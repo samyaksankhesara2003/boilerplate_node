@@ -26,14 +26,15 @@ A wrapper around the Stripe Node.js SDK for managing customers, subscriptions, p
 
 ## ⚙️ Features
 
-| Feature                 | Description                                  |
-| ----------------------- | -------------------------------------------- |
-| 👤 Customer Management  | Create Stripe customers                      |
-| 💰 Payment Intents      | Set up one-time payments                     |
-| 📅 Subscriptions        | Create,upgrade,cancel customer subscriptions |
-| 💸 Promo Codes          | Validate Stripe promo codes                  |
-| 🔄 Webhook Verification | Securely validate Stripe webhook requests    |
-| 🔒 Secure Key Handling  | Uses config from `@repo/config`              |
+| Feature                 | Description                                                    |
+| ----------------------- | -------------------------------------------------------------- |
+| 👤 Customer Management  | Create Stripe customers                                        |
+| 💰 Payment Intents      | Create one-time payment intents with automatic payment methods |
+| 📅 Subscriptions        | Create,upgrade,cancel customer subscriptions                   |
+| 💸 Promo Codes          | Create, delete, and validate Stripe promo codes                |
+| 🔄 Webhook Verification | Securely validate Stripe webhook requests                      |
+| 🔒 Secure Key Handling  | Uses config from `@repo/config`                                |
+| 🛍️ Product Management   | Create and update Stripe products and prices                   |
 
 ---
 
