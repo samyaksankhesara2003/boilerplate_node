@@ -53,10 +53,15 @@ knex.raw('SELECT 1')
     })
     .catch(err => {
         log.error('❌ Unable to connect with the database', err);
+        process.exit(1);
     });
 
-// Add error handling
-server.on('error', err => {
-    log.error('❌ Server failed to start:', err);
+// Error handling
+server.on('error', (err: NodeJS.ErrnoException) => {
+    if (err.code === 'EADDRINUSE') {
+        log.error(` ❌ Port ${port} is already in use`);
+    } else {
+        log.error('❌ Server error:', err);
+    }
     process.exit(1);
 });
