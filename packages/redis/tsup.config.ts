@@ -4,12 +4,13 @@ export default defineConfig((options: Options) => ({
     entry: ['src/index.ts'],
     format: ['esm'],
     target: 'es2022',
-    clean: process.env.NODE_ENV === 'development' ? false : true,
+    clean: process.env.NODE_ENV !== 'development',
     dts: true,
-    sourcemap: true,
+    sourcemap: process.env.NODE_ENV === 'development' ? true : false,
     splitting: true,
     bundle: true,
     skipNodeModulesBundle: true,
+    minify: process.env.NODE_ENV !== 'development',
     outExtension: () => ({ js: '.mjs' }),
     ...options
 }));
