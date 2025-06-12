@@ -20,6 +20,7 @@ export const constants = {
     userResetForgetLink: 'auth/reset-password',
     userAccountVerificationLink: 'auth/verify-account',
     superAdminResetForgetLink: 'reset-password',
+    loginPageURL: 'http://www.example-site.com/login',
 
     // Device Types
     deviceType: {

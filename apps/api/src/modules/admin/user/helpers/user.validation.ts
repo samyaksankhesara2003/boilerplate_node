@@ -18,6 +18,20 @@ const getAllUserSchema = {
     }
 };
 
+const createUserSchema = {
+    body: {
+        first_name: Joi.string().required(),
+        last_name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        role: Joi.number()
+            .valid(...Object.values(constants.role))
+            .optional(),
+        status: Joi.number()
+            .valid(...Object.values(constants.status))
+            .optional()
+    }
+};
+
 const updateUserSchema = {
     body: {
         id: Joi.number().required(),
@@ -30,4 +44,4 @@ const updateUserSchema = {
 const updateUserStatusSchema = getUserByIdSchema;
 const deleteUserSchema = updateUserStatusSchema;
 
-export const userValidation = { getAllUserSchema, deleteUserSchema, updateUserStatusSchema, getUserByIdSchema, updateUserSchema };
+export const userValidation = { getAllUserSchema, deleteUserSchema, updateUserStatusSchema, getUserByIdSchema, updateUserSchema, createUserSchema };

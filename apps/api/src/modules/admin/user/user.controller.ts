@@ -7,6 +7,20 @@ import { IUserListingFilter } from './helpers/user.types';
 
 /**
  * @author Yagnesh Acharya
+ * @description Create user
+ */
+const createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { language, body } = req;
+        const data = await userService.createUserService(body);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.CREATE_SUCCESS, data, language);
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @author Yagnesh Acharya
  * @description Fetch user by id
  */
 const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -82,4 +96,4 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction): Prom
     }
 };
 
-export const userController = { getUserById, getAllUsers, updateUser, updateUserStatus, deleteUser };
+export const userController = { getUserById, getAllUsers, updateUser, updateUserStatus, deleteUser, createUser };

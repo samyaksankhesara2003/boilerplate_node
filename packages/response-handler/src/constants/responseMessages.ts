@@ -26,7 +26,8 @@ export const ResponseMessages = {
         SIGNUP_SUCCESS: 'user.signup_success',
         ACCOUNT_DELETED: 'user.account_deleted',
         UPDATE_SUCCESS: 'user.update_success',
-        UPDATE_FAILED: 'user.update_failed'
+        UPDATE_FAILED: 'user.update_failed',
+        CREATE_SUCCESS: 'user.create_success'
     },
     AUTH: {
         LOGIN_SUCCESS: 'auth.login_success',

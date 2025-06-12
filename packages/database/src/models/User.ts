@@ -37,15 +37,16 @@ class User extends BaseModel {
     };
 
     async $beforeInsert(ctx: QueryContext) {
+        const base = this.fullname?.trim().toLowerCase().replace(/\s+/g, '-');
+        let slug = base;
         let count = 1;
-        const base = this.fullname?.replace(' ', '-');
-        let slug = `${base}-${count}`;
 
         while (await User.query(ctx.transaction).findOne({ slug })) {
             slug = `${base}-${count}`;
             count++;
         }
-        this.slug = `${base}-${count}`;
+
+        this.slug = slug;
     }
 }
 

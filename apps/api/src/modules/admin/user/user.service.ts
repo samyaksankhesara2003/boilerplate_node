@@ -4,9 +4,48 @@ import { constants, storageConfig } from '@repo/config';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { createPagination, PaginationResponse } from '@repo/utils';
 import { deleteFile, s3Client, uploadFile, getPresignedUrl } from '@repo/storage-service';
-import { IUserListingFilter, IUserUpdateBody } from './helpers/user.types';
+import { firebaseService } from '@repo/firebase-auth';
+import { generateValidPassword } from '@repo/utils';
+import { sendMail, SUBJECTS, TEMPLATES } from '@repo/mailer';
+import { IUserCreateBody, IUserListingFilter, IUserUpdateBody } from './helpers/user.types';
 
 const user_Attributes = ['id', 'first_name', 'last_name', 'profile_url', 'email', 'mobile_number', 'status', 'role'];
+
+/**
+ * @author Yagnesh Acharya
+ * @description Create User by email and auto-generated password
+ */
+const createUserService = async (body: IUserCreateBody): Promise<void> => {
+    const trx = await User.startTransaction();
+    try {
+        const user = await firebaseService.isUserExists(body.email);
+        if (user) throw new CustomError(ResponseMessages.USER.ALREADY_EXISTS, StatusCodes.CONFLICT);
+
+        const generatedPassword = generateValidPassword();
+        const createUser = await firebaseService.createFirebaseUser(body.email, generatedPassword);
+
+        const userData = {
+            first_name: body.first_name,
+            last_name: body.last_name,
+            email: body.email,
+            password: generatedPassword,
+            social_id: createUser.uid,
+            auth_type: constants.authType.EMAIL,
+            role: body.role ?? constants.role.User,
+            status: body.status ?? constants.status.Active
+        };
+
+        await User.query(trx).insert(userData);
+        sendMail(userData.email, SUBJECTS.CREATE_USER, TEMPLATES.CREATE_USER, { ...userData, url: constants.loginPageURL });
+
+        await trx.commit();
+        return;
+    } catch (error) {
+        await trx.rollback();
+        log.error('createUserService Catch: ', error);
+        throw error;
+    }
+};
 
 /**
  * @author Yagnesh Acharya
@@ -136,4 +175,11 @@ const deleteUserService = async (id: number): Promise<void> => {
     }
 };
 
-export const userService = { getAllUserService, deleteUserService, updateUserStatusService, updateUserService, getUserByIdService };
+export const userService = {
+    getAllUserService,
+    deleteUserService,
+    updateUserStatusService,
+    updateUserService,
+    getUserByIdService,
+    createUserService
+};
