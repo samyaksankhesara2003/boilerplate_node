@@ -22,7 +22,13 @@ const createUserSchema = {
     body: {
         first_name: Joi.string().required(),
         last_name: Joi.string().required(),
-        email: Joi.string().email().required()
+        email: Joi.string().email().required(),
+        role: Joi.number()
+            .valid(...Object.values(constants.role))
+            .optional(),
+        status: Joi.number()
+            .valid(...Object.values(constants.status))
+            .optional()
     }
 };
 

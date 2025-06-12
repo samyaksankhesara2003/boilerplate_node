@@ -41,14 +41,7 @@ const updateUserPassword = async (uid: string, password: string): Promise<UserRe
  */
 export async function createFirebaseUser(email: string, password: string) {
     const auth = getFirebaseAuth();
-
-    try {
-        const userRecord = await auth.createUser({ email, password });
-        return userRecord;
-    } catch (error) {
-        console.error('Error creating new user:', error);
-        throw error;
-    }
+    return await auth.createUser({ email, password });
 }
 
 export async function isUserExists(email: string): Promise<boolean> {
@@ -59,7 +52,6 @@ export async function isUserExists(email: string): Promise<boolean> {
         if (error.code === 'auth/user-not-found') {
             return false; // User doesn't exist
         }
-        console.error('Unexpected error checking user existence:', error);
         throw error; // Other errors
     }
 }

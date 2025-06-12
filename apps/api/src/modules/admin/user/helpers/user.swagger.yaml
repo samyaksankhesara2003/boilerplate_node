@@ -30,6 +30,14 @@
                   email:
                     type: string
                     example: user@gmail.com
+                  status:
+                    type: number
+                    enum: [1, 2]
+                    description: Status of the user (1 for active, 2 for inactive)
+                  role:
+                    type: number
+                    enum: [1, 2]
+                    description: Role of the user (1 for admin, 2 for user)
         responses:
           '200':
             description: Successfully created user.

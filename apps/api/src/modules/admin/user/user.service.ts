@@ -31,12 +31,12 @@ const createUserService = async (body: IUserCreateBody): Promise<void> => {
             password: generatedPassword,
             social_id: createUser.uid,
             auth_type: constants.authType.EMAIL,
-            role: constants.role.User,
-            status: constants.status.Active
+            role: body.role ?? constants.role.User,
+            status: body.status ?? constants.status.Active
         };
 
         await User.query(trx).insert(userData);
-        sendMail(userData.email, SUBJECTS.CREATE_USER, TEMPLATES.CREATE_USER, { ...userData, url: 'http://www.loginurl.com' });
+        sendMail(userData.email, SUBJECTS.CREATE_USER, TEMPLATES.CREATE_USER, { ...userData, url: constants.loginPageURL });
 
         await trx.commit();
         return;
