@@ -9,7 +9,8 @@ export const SUBJECTS = {
     INVITATION: 'Invitation',
     USER_PURCHASE_SUBSCRIPTION: 'Subscription Purchase',
     USER_UPGRADE_SUBSCRIPTION: 'Subscription Upgrade',
-    USER_CANCEL_SUBSCRIPTION: 'Subscription Cancel'
+    USER_CANCEL_SUBSCRIPTION: 'Subscription Cancel',
+    CREATE_USER: 'Your account has been created – Login credentials inside'
 } as const;
 
 export type TemplateName = (typeof SUBJECTS)[keyof typeof SUBJECTS];

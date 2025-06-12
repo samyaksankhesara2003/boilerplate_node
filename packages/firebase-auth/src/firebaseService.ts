@@ -34,8 +34,40 @@ const updateUserPassword = async (uid: string, password: string): Promise<UserRe
     return await getFirebaseAuth().updateUser(uid, { password });
 };
 
+/**
+ * Creates a new user in Firebase with email and password.
+ * @param email - User's email
+ * @param password - User's password
+ */
+export async function createFirebaseUser(email: string, password: string) {
+    const auth = getFirebaseAuth();
+
+    try {
+        const userRecord = await auth.createUser({ email, password });
+        return userRecord;
+    } catch (error) {
+        console.error('Error creating new user:', error);
+        throw error;
+    }
+}
+
+export async function isUserExists(email: string): Promise<boolean> {
+    try {
+        await getFirebaseAuth().getUserByEmail(email);
+        return true; // User exists
+    } catch (error: any) {
+        if (error.code === 'auth/user-not-found') {
+            return false; // User doesn't exist
+        }
+        console.error('Unexpected error checking user existence:', error);
+        throw error; // Other errors
+    }
+}
+
 export const firebaseService = {
     getUserByEmail,
     updateUserPassword,
-    generatePasswordResetLink
+    generatePasswordResetLink,
+    createFirebaseUser,
+    isUserExists
 };

@@ -6,6 +6,7 @@ import { userController } from './user.controller';
 
 const router: Router = Router();
 
+router.post('/', validateRequest(userValidation.createUserSchema), userController.createUser);
 router.get('/:id', validateRequest(userValidation.getUserByIdSchema), userController.getUserById);
 router.get('/', validateRequest(userValidation.getAllUserSchema), userController.getAllUsers);
 router.patch('/', multer().single('profile_url'), validateRequest(userValidation.updateUserSchema), userController.updateUser);

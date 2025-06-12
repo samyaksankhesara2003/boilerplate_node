@@ -1,5 +1,40 @@
   paths:
     /user:
+      post:
+        tags:
+          - User Management
+        summary: Create a new user
+        description: Creates a new user with first name , last name , profile photo , email and mobile number
+        parameters:
+          - name: Accept-Language
+            in: header
+            required: true
+            schema:
+              type: string
+              enum: [en, fr]
+              default: en
+            description: Language code for localized responses (default is en)
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  first_name:
+                    type: string
+                    example: John
+                  last_name:
+                    type: string
+                    example: Doe
+                  email:
+                    type: string
+                    example: user@gmail.com
+        responses:
+          '200':
+            description: Successfully created user.
+          '500':
+            description: Internal server error.
       get:
         summary: Get all users
         description: Retrieve a list of users based on filters like `id` and `status`.

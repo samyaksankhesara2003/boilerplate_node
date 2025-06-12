@@ -22,7 +22,8 @@
         "account_deleted": "Your account has been deleted. Please contact support.",
         "list_success": "List fetched successfully",
         "update_success": "Row updated successfully",
-        "update_failed": "Failed to update data"
+        "update_failed": "Failed to update data",
+        "create_success": "User has been created successfully"
     },
     "auth": {
         "login_success": "Login successful",

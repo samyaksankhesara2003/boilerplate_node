@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
 import ejs from 'ejs';
-import puppeteer, { type Browser } from 'puppeteer';
+import puppeteer, { type Browser, executablePath } from 'puppeteer';
 
 import { log } from '@repo/logger';
 import { appConfig } from '@repo/config';
@@ -32,7 +32,8 @@ export async function generatePdfFromTemplate<T extends TemplateKey>(templateNam
         const html = ejs.render(htmlTemplate, data);
 
         browser = await puppeteer.launch({
-            executablePath: appConfig.chromiumPath || '/usr/bin/chromium-browser',
+            // executablePath: appConfig.chromiumPath || '/usr/bin/chromium-browser',
+            executablePath: executablePath(),
             headless: true
         });
 
