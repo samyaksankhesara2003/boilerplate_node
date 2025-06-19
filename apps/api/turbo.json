@@ -1,8 +1,12 @@
 {
-  "extends": ["//"],
+  "extends": [
+    "//"
+  ],
   "tasks": {
     "build": {
-      "outputs": ["dist/**"]
+      "outputs": [
+        "dist/**"
+      ]
     },
     "dev": {
       "with": [
@@ -17,8 +21,13 @@
         "@repo/stripe#dev",
         "@repo/response-handler#dev",
         "@repo/db#dev",
+        "@repo/chat#dev",
+        "@repo/socket#dev",
+        "@repo/notifications#dev",
         "@repo/firebase-auth#dev",
-        "@repo/sms-service#dev"
+        "@repo/sms-service#dev",
+        "@repo/redis#dev",
+        "@repo/file-service#dev"
       ]
     }
   }

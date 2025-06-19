@@ -8,7 +8,7 @@ import {
     PutObjectCommandOutput,
     GetObjectCommandOutput,
     DeleteObjectCommandOutput,
-    DeleteObjectsCommandOutput,
+    DeleteObjectsCommandOutput
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
@@ -21,8 +21,8 @@ const s3Client = new S3Client({
     endpoint: storageConfig.s3BucketEndpoint,
     credentials: {
         accessKeyId: storageConfig.s3BucketAccessKey!,
-        secretAccessKey: storageConfig.s3BucketSecretAccessKey!,
-    },
+        secretAccessKey: storageConfig.s3BucketSecretAccessKey!
+    }
 });
 
 /**
@@ -37,12 +37,14 @@ const uploadFile = async (
     makePublic: boolean = false
 ): Promise<PutObjectCommandOutput> => {
     try {
-        const result = await s3Client.send(new PutObjectCommand({
-            ACL: makePublic ? 'public-read' : undefined,
-            Bucket: bucketName,
-            Key: key,
-            Body: body
-        }));
+        const result = await s3Client.send(
+            new PutObjectCommand({
+                ACL: makePublic ? 'public-read' : undefined,
+                Bucket: bucketName,
+                Key: key,
+                Body: body
+            })
+        );
         return result;
     } catch (error) {
         log.error(`Error uploading file to S3: ${error}`);
@@ -57,17 +59,19 @@ const uploadFile = async (
 const uploadMultipleFiles = async (
     s3Client: S3Client,
     bucketName: string,
-    files: { key: string, body: Buffer | string | ReadableStream | Blob }[],
+    files: { key: string; body: Buffer | string | ReadableStream | Blob }[],
     makePublic: boolean = false
 ): Promise<PutObjectCommandOutput[]> => {
     try {
         const uploadPromises = files.map(file =>
-            s3Client.send(new PutObjectCommand({
-                ACL: makePublic ? 'public-read' : undefined,
-                Bucket: bucketName,
-                Key: file.key,
-                Body: file.body
-            }))
+            s3Client.send(
+                new PutObjectCommand({
+                    ACL: makePublic ? 'public-read' : undefined,
+                    Bucket: bucketName,
+                    Key: file.key,
+                    Body: file.body
+                })
+            )
         );
         const results = await Promise.all(uploadPromises);
         return results;
@@ -81,11 +85,7 @@ const uploadMultipleFiles = async (
  * @author Jitendra Singh
  * @description Download a single file from S3.
  */
-const downloadFile = async (
-    s3Client: S3Client,
-    bucketName: string,
-    key: string
-): Promise<GetObjectCommandOutput> => {
+const downloadFile = async (s3Client: S3Client, bucketName: string, key: string): Promise<GetObjectCommandOutput> => {
     try {
         const result = await s3Client.send(new GetObjectCommand({ Bucket: bucketName, Key: key }));
         return result;
@@ -99,15 +99,9 @@ const downloadFile = async (
  * @author Jitendra Singh
  * @description Download multiple files from S3.
  */
-const downloadMultipleFiles = async (
-    s3Client: S3Client,
-    bucketName: string,
-    keys: string[]
-): Promise<GetObjectCommandOutput[]> => {
+const downloadMultipleFiles = async (s3Client: S3Client, bucketName: string, keys: string[]): Promise<GetObjectCommandOutput[]> => {
     try {
-        const downloadPromises = keys.map(key =>
-            s3Client.send(new GetObjectCommand({ Bucket: bucketName, Key: key }))
-        );
+        const downloadPromises = keys.map(key => s3Client.send(new GetObjectCommand({ Bucket: bucketName, Key: key })));
         const results = await Promise.all(downloadPromises);
         return results;
     } catch (error) {
@@ -120,11 +114,7 @@ const downloadMultipleFiles = async (
  * @author Jitendra Singh
  * @description Delete a single file from S3.
  */
-const deleteFile = async (
-    s3Client: S3Client,
-    bucketName: string,
-    key: string
-): Promise<DeleteObjectCommandOutput> => {
+const deleteFile = async (s3Client: S3Client, bucketName: string, key: string): Promise<DeleteObjectCommandOutput> => {
     try {
         const result = await s3Client.send(new DeleteObjectCommand({ Bucket: bucketName, Key: key }));
         return result;
@@ -138,11 +128,7 @@ const deleteFile = async (
  * @author Jitendra Singh
  * @description Delete multiple files from S3.
  */
-const deleteMultipleFiles = async (
-    s3Client: S3Client,
-    bucketName: string,
-    keys: string[]
-): Promise<DeleteObjectsCommandOutput> => {
+const deleteMultipleFiles = async (s3Client: S3Client, bucketName: string, keys: string[]): Promise<DeleteObjectsCommandOutput> => {
     try {
         const objectsToDelete = keys.map(key => ({ Key: key }));
         const result = await s3Client.send(new DeleteObjectsCommand({ Bucket: bucketName, Delete: { Objects: objectsToDelete } }));
@@ -157,11 +143,7 @@ const deleteMultipleFiles = async (
  * @author Jitendra Singh
  * @description Deletes a folder and its contents from S3.
  */
-const deleteFolder = async (
-    s3Client: S3Client,
-    bucketName: string,
-    prefix: string
-): Promise<void> => {
+const deleteFolder = async (s3Client: S3Client, bucketName: string, prefix: string): Promise<void> => {
     try {
         const listedObjects = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName, Prefix: prefix }));
 
@@ -170,9 +152,12 @@ const deleteFolder = async (
             return;
         }
 
-        await s3Client.send(new DeleteObjectsCommand({
-            Bucket: bucketName, Delete: { Objects: listedObjects.Contents.map(content => ({ Key: content.Key! })) }
-        }));
+        await s3Client.send(
+            new DeleteObjectsCommand({
+                Bucket: bucketName,
+                Delete: { Objects: listedObjects.Contents.map(content => ({ Key: content.Key! })) }
+            })
+        );
 
         log.info(`Folder ${prefix} and its contents deleted.`);
         return;
@@ -186,11 +171,7 @@ const deleteFolder = async (
  * @author Jitendra Singh
  * @description Generate a pre-signed URL for downloading a file from S3.
  */
-const getPresignedUrl = async (
-    bucketName: string,
-    key: string,
-    expiresIn: number = 3600
-): Promise<string> => {
+const getPresignedUrl = async (bucketName: string, key: string, expiresIn: number = 3600): Promise<string> => {
     try {
         const command = new GetObjectCommand({ Bucket: bucketName, Key: key });
         const url = await getSignedUrl(s3Client, command, { expiresIn });

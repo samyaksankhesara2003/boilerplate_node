@@ -2,12 +2,21 @@ import { User } from '@repo/db';
 import { log } from '@repo/logger';
 import { jwtUtil } from '@repo/tokens';
 import { constants } from '@repo/config';
+import { stripeService } from '@repo/stripe';
 import { firebaseService } from '@repo/firebase-auth';
 import { sendMail, SUBJECTS, TEMPLATES } from '@repo/mailer';
 import { generateRandomString, hashPassword } from '@repo/utils';
 import { StatusCodes, ResponseMessages, CustomError } from '@repo/response-handler';
 import { activityLogService } from '../../common/activity/activity.service';
-import { IForgetPasswordBody, IResetPasswordBody, IResetPasswordParams, ISocialSignInBody, ISocialSignInResponse, IVerifyResetPasswordLinkParams, IVerifyResetPasswordLinkResponse } from './helpers/auth.types';
+import {
+    IForgetPasswordBody,
+    IResetPasswordBody,
+    IResetPasswordParams,
+    ISocialSignInBody,
+    ISocialSignInResponse,
+    IVerifyResetPasswordLinkParams,
+    IVerifyResetPasswordLinkResponse
+} from './helpers/auth.types';
 
 /**
  * @author Jitendra Singh
@@ -19,13 +28,30 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
     try {
         const { social_id, first_name, last_name, email, mobile_number, password, profile_url, auth_type, device_type } = body;
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'stripe_customer_id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ social_id: social_id }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ social_id: social_id })
+            .first();
 
         if (!userDetails) {
+            const stripe_customer = await stripeService.createCustomer(first_name + ' ' + last_name, email);
 
             const user = await User.query(trx).insert({
+                stripe_customer_id: stripe_customer.id,
                 social_id: social_id,
                 first_name: first_name,
                 last_name: last_name,
@@ -35,7 +61,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
                 profile_url: profile_url,
                 auth_type: auth_type,
                 role: constants.role['User'],
-                status: constants.userStatus['Active'],
+                status: constants.userStatus['Active']
             });
 
             const data = {
@@ -45,7 +71,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
                 mobile_number: user.mobile_number,
                 role: user.role,
                 status: user.status
-            }
+            };
 
             const token = jwtUtil.signJwt(data);
             await user.$query(trx).patch({ token });
@@ -53,18 +79,19 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             await activityLogService.createActivityLogService({
                 user_id: user.id,
                 device_type: device_type || constants.deviceType['DESKTOP'],
-                activity_type: constants.activityType['LOGIN'],
+                activity_type: constants.activityType['LOGIN']
             });
 
             await trx.commit();
 
             sendMail(user.email, SUBJECTS.WELCOME, TEMPLATES.WELCOME, { name: user.first_name + ' ' + user.last_name });
-
             return { token, loginDetails: data };
         }
 
         if (userDetails.deleted_at) throw new CustomError(ResponseMessages.USER.ACCOUNT_DELETED, StatusCodes.BAD_REQUEST);
-        if (+userDetails.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        if (+userDetails.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
 
         const data = {
             id: userDetails.id,
@@ -73,7 +100,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             mobile_number: userDetails.mobile_number,
             role: userDetails.role,
             status: userDetails.status
-        }
+        };
 
         const token = jwtUtil.signJwt(data);
         await userDetails.$query(trx).patch({ token: token });
@@ -90,7 +117,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
         await activityLogService.createActivityLogService({
             user_id: userDetails.id,
             device_type: device_type || constants.deviceType['DESKTOP'],
-            activity_type: constants.activityType['LOGIN'],
+            activity_type: constants.activityType['LOGIN']
         });
 
         await trx.commit();
@@ -112,22 +139,44 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
     try {
         const { email, client_base_url } = body;
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ email }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ email })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         if (userDetails?.deleted_at) throw new CustomError(ResponseMessages.USER.ACCOUNT_DELETED, StatusCodes.BAD_REQUEST);
-        if (+userDetails?.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        if (+userDetails?.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
 
         // const resetPasswordLink =  await firebaseService.generatePasswordResetLink(userDetails.email, `${client_base_url}/${constants.userResetForgetLink}?email=${email}`);
+
+        // const emailData = {
+        //     name: userDetails.fullname,
+        //     reset_password_link: resetPasswordLink
+        // };
 
         const resetPasswordToken = generateRandomString(25);
 
         const token = jwtUtil.signJwt({
             user_id: userDetails.id,
             email: userDetails.email,
-            reset_password_token: resetPasswordToken,
+            reset_password_token: resetPasswordToken
         });
 
         await userDetails.$query().patch({ reset_password_token: resetPasswordToken });
@@ -136,8 +185,6 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
             name: userDetails.fullname,
             reset_password_link: `${client_base_url}/${constants.userResetForgetLink}/${token}`
         };
-
-        // send forget password email
         sendMail(userDetails.email, SUBJECTS.FORGOT_PASSWORD, TEMPLATES.FORGOT_PASSWORD, emailData);
 
         return;
@@ -155,19 +202,36 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
 const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkParams): Promise<IVerifyResetPasswordLinkResponse> => {
     try {
         const { token } = params;
-
         const decodedToken = jwtUtil.validateJwt(token);
-
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ id: decodedToken.data.user_id }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ id: decodedToken.data.user_id })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         if (userDetails?.deleted_at) throw new CustomError(ResponseMessages.USER.ACCOUNT_DELETED, StatusCodes.BAD_REQUEST);
-        if (+userDetails?.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
-        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
+        if (+userDetails?.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
+        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) {
+            throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
+        }
 
         return { is_valid_link: true };
     } catch (error) {
@@ -185,28 +249,41 @@ const resetPasswordService = async (params: IResetPasswordParams, body: IResetPa
     try {
         const { token } = params;
         const { password } = body;
-
         const decodedToken = jwtUtil.validateJwt(token);
-
         if (!decodedToken) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
 
-        const userAttributes = ['id', 'social_id', 'first_name', 'last_name', 'email', 'mobile_number', 'reset_password_token', 'auth_type', 'role', 'status', 'deleted_at'];
+        const userAttributes = [
+            'id',
+            'social_id',
+            'first_name',
+            'last_name',
+            'email',
+            'mobile_number',
+            'reset_password_token',
+            'auth_type',
+            'role',
+            'status',
+            'deleted_at'
+        ];
 
-        const userDetails = await User.query().select(...userAttributes).where({ id: decodedToken.data.user_id }).first();
+        const userDetails = await User.query()
+            .select(...userAttributes)
+            .where({ id: decodedToken.data.user_id })
+            .first();
 
         if (!userDetails) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         if (userDetails?.deleted_at) throw new CustomError(ResponseMessages.USER.ACCOUNT_DELETED, StatusCodes.BAD_REQUEST);
-        if (+userDetails?.status !== constants.userStatus['Active']) throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
-        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
+        if (+userDetails?.status !== constants.userStatus['Active']) {
+            throw new CustomError(ResponseMessages.USER.NOT_ACTIVE, StatusCodes.BAD_REQUEST);
+        }
+        if (userDetails?.reset_password_token !== decodedToken.data.reset_password_token) {
+            throw new CustomError(ResponseMessages.COMMON.NOT_AUTHENTICATED, StatusCodes.BAD_REQUEST);
+        }
 
         const hashedPassword = await hashPassword(password);
-        const dataToUpdate = {
-            password: hashedPassword,
-            reset_password_token: null
-        };
+        const dataToUpdate = { password: hashedPassword, reset_password_token: null };
 
         await User.query().patch(dataToUpdate).where({ id: userDetails.id });
-
         await firebaseService.updateUserPassword(userDetails.social_id, password);
 
         return;

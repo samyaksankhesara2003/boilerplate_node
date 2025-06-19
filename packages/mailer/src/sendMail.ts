@@ -14,7 +14,7 @@ import { TEMPLATES, TemplateName } from './templateConstants';
 export async function sendMail(
     to: string,
     subject: string,
-    templateName: TemplateName,  // templateName is now typed as a valid template from TEMPLATES
+    templateName: TemplateName, // templateName is now typed as a valid template from TEMPLATES
     context: any
 ): Promise<void> {
     // Ensure the templateName is a valid template constant
@@ -24,10 +24,10 @@ export async function sendMail(
     const html = await renderTemplate(templateName, context);
 
     // Send the email using the configured transporter
-    await transporter.send({
-        from: `${appConfig.appName} <${mailerConfig.smtpSendgridUsername}>`,
+    await transporter.sendMail({
+        from: `${appConfig.appName} <${mailerConfig.smtpFromEmail}>`,
         to,
         subject,
-        html,
+        html
     });
-};
+}

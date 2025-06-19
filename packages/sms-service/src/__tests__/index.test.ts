@@ -1,4 +1,4 @@
-import { jest, describe, it, expect } from "@jest/globals";
+import { jest, describe, it, expect } from '@jest/globals';
 import { sendSMS } from '../index';
 
 jest.mock('@repo/config', () => ({

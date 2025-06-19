@@ -11,7 +11,9 @@ const listStatesService = async (query: IStateQuery): Promise<State[]> => {
         const { country_id, search } = query;
 
         const stateAttributes = ['id', 'name'];
-        const stateQuery = State.query().where({ country_id }).select(...stateAttributes);
+        const stateQuery = State.query()
+            .where({ country_id })
+            .select(...stateAttributes);
         if (search) stateQuery.where('name', 'like', `%${search}%`);
 
         const states = await stateQuery;

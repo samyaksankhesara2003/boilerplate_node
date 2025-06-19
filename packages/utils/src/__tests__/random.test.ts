@@ -1,9 +1,10 @@
-import { describe, it, expect } from "@jest/globals";
+import { describe, it, expect } from '@jest/globals';
 import { generateRandomNumber, generateRandomString } from '../random';
 
 describe('generateRandomNumber', () => {
     it('should return a number within range', () => {
-        const min = 5, max = 15;
+        const min = 5,
+            max = 15;
         const num = generateRandomNumber(min, max);
         expect(num).toBeGreaterThanOrEqual(min);
         expect(num).toBeLessThanOrEqual(max);

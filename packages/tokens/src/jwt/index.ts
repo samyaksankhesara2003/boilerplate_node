@@ -15,13 +15,9 @@ const devPublicKeyPath = path.resolve(__dirname, '../../../packages/tokens/src/k
 const prodPrivateKeyPath = path.resolve(__dirname, '../keys/private.key');
 const prodPublicKeyPath = path.resolve(__dirname, '../keys/public.pub');
 
-const PRIVATE_KEY = fs.existsSync(devPrivateKeyPath)
-  ? fs.readFileSync(devPrivateKeyPath)
-  : fs.readFileSync(prodPrivateKeyPath);
+const PRIVATE_KEY = fs.existsSync(devPrivateKeyPath) ? fs.readFileSync(devPrivateKeyPath) : fs.readFileSync(prodPrivateKeyPath);
 
-const PUBLIC_KEY = fs.existsSync(devPublicKeyPath)
-  ? fs.readFileSync(devPublicKeyPath)
-  : fs.readFileSync(prodPublicKeyPath);
+const PUBLIC_KEY = fs.existsSync(devPublicKeyPath) ? fs.readFileSync(devPublicKeyPath) : fs.readFileSync(prodPublicKeyPath);
 
 /**
  * @description Sign a JWT token with the given data.
@@ -29,17 +25,21 @@ const PUBLIC_KEY = fs.existsSync(devPublicKeyPath)
  * @returns {string} The signed token
  */
 const signJwt = (details: unknown): string => {
+    const token = jwt.sign(
+        {
+            data: details
+        },
+        {
+            key: PRIVATE_KEY,
+            passphrase: jwtConfig.jwtSecret
+        },
+        {
+            algorithm: 'RS256',
+            expiresIn: jwtConfig.jwtExpiresIn
+        }
+    );
 
-  const token = jwt.sign({
-    data: details
-  }, {
-    key: PRIVATE_KEY, passphrase: jwtConfig.jwtSecret,
-  }, {
-    algorithm: 'RS256',
-    expiresIn: jwtConfig.jwtExpiresIn
-  });
-
-  return token;
+    return token;
 };
 
 /**
@@ -48,10 +48,10 @@ const signJwt = (details: unknown): string => {
  * @returns {any} The decoded token if valid, otherwise throws an error.
  */
 const validateJwt = (token: string = '' as string): any => {
-  return jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
+    return jwt.verify(token, PUBLIC_KEY, { algorithms: ['RS256'] });
 };
 
 export const jwtUtil = {
-  signJwt,
-  validateJwt,
+    signJwt,
+    validateJwt
 };

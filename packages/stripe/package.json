@@ -18,7 +18,7 @@
   "scripts": {
     "clean": "rimraf dist && rimraf .turbo",
     "prebuild": "rimraf dist",
-    "build": "tsup",
+    "build": "dotenv -e ../../.env -- tsup",
     "dev": "dotenv -e ../../.env -- tsup --watch",
     "lint": "eslint src/",
     "check-types": "tsc --noEmit"
@@ -29,7 +29,7 @@
   "dependencies": {
     "@repo/config": "workspace:*",
     "@repo/logger": "workspace:*",
-    "stripe": "^18.1.0"
+    "stripe": "^18.1.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

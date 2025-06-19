@@ -1,6 +1,6 @@
-import { Model as ObjectionModel } from 'objection';
-import knexGenerator from 'knex';
 import { appConfig } from '@repo/config';
+import knexGenerator from 'knex';
+import { Model as ObjectionModel, QueryBuilder } from 'objection';
 import dbConfig from './knexfile';
 import { logDbQueries } from './logDBQueries';
 
@@ -10,4 +10,4 @@ const Model = ObjectionModel.knex(knex);
 // LOG_DB_QUERIES
 if (appConfig.logDbQueries) logDbQueries(knex);
 
-export { Model, knex };
+export { knex, Model, QueryBuilder };

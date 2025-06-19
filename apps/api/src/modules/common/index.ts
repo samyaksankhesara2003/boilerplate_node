@@ -1,8 +1,10 @@
-import { Router, Request, Response } from 'express';
-import { sendResponse, StatusCodes } from '@repo/response-handler';
+import { Router } from 'express';
 import { stateRoutes } from './state/state.routes';
 import { countryRoutes } from './country/country.routes';
-import { activityRoutes } from './activity/activity.routes';
+import { planRoutes } from './plan/plan.routes';
+import { faqRoutes } from './faq/faq.routes';
+import { staticPagesRoutes } from './staticPages/staticPages.routes';
+import { notificationRoutes } from './Notification/notification.routes';
 
 const router: Router = Router();
 
@@ -12,10 +14,16 @@ router.use('/country', countryRoutes);
 // State routes
 router.use('/state', stateRoutes);
 
-// Activity routes
-router.use('/activity-log', activityRoutes);
+// Notification routes
+router.use('/notification', notificationRoutes);
 
-// Catch-all route for 404
-router.use((req: Request, res: Response) => sendResponse(res, StatusCodes.NOT_FOUND, `${req.originalUrl} not found`));
+// Plan routes
+router.use('/plan', planRoutes);
+
+// FAQ routes
+router.use('/faq', faqRoutes);
+
+// Static pages routes
+router.use('/static-pages', staticPagesRoutes);
 
 export const commonRoutes = router;

@@ -1,6 +1,12 @@
-import sgMail from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 import { mailerConfig } from '@repo/config';
 
-sgMail.setApiKey(mailerConfig.smtpSendgridApiKey!);
-
-export const transporter = sgMail;
+export const transporter = nodemailer.createTransport({
+    host: mailerConfig.smtpHost,
+    port: mailerConfig.smtpPort,
+    secure: mailerConfig.smtpSecure,
+    auth: {
+        user: mailerConfig.smtpUser,
+        pass: mailerConfig.smtpPass
+    }
+});

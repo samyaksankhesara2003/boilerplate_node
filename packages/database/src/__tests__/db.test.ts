@@ -1,18 +1,18 @@
-import { describe, it, expect, jest, afterAll } from "@jest/globals";
-import { log } from "@repo/logger";
-import { knex } from "../connection";
+import { describe, it, expect, jest, afterAll } from '@jest/globals';
+import { log } from '@repo/logger';
+import { knex } from '../connection';
 
-describe("@repo/db", () => {
-  it("prints a message", async () => {
-    const logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
-    const result = await knex.raw("SELECT 1");
-    log.info("DB: ", { rows: result });
+describe('@repo/db', () => {
+    it('prints a message', async () => {
+        const logSpy = jest.spyOn(log, 'info');
+        const result = await knex.raw('SELECT 1');
+        log.info('DB: ', { rows: result });
 
-    expect(logSpy).toHaveBeenCalledWith("[INFO]", "DB: ", { rows: result });
-    logSpy.mockRestore();
-  });
+        expect(logSpy).toHaveBeenCalledWith('DB: ', { rows: result });
+        logSpy.mockRestore();
+    });
 
-  afterAll(async () => {
-    await knex.destroy();
-  });
+    afterAll(async () => {
+        await knex.destroy();
+    });
 });

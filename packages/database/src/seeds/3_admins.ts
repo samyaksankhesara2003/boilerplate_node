@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+import { Knex } from 'knex';
 
 /**
  * Executes the seed function.
@@ -9,21 +9,23 @@ import { Knex } from "knex";
  */
 export async function seed(knex: Knex): Promise<void> {
     // Deletes ALL existing entries
-    await knex("users").del().where("role", 1);
+    await knex('users').del().where('role', 1);
 
     // Inserts seed entries
-    await knex("users").insert([
+    await knex('users').insert([
         {
             id: 1,
-            first_name: "Oasis",
-            last_name: "Admin",
-            email: "admin@yopmail.com",
+            social_id: '24p2of2FT1absi8xNorklUoA9r82',
+            first_name: 'Techuz',
+            last_name: 'Admin',
+            slug: 'techuz-admin',
+            email: 'techuz@yopmail.com',
             profile_url: null,
-            password: "$2b$10$92IXUNpkjO0rOQ5by",
+            password: null,
             token: null,
             reset_password_token: null,
-            role: 1,    // 1 -> Admin
-            status: 1   // 1 -> Active
+            role: 1, // 1 -> Admin
+            status: 1 // 1 -> Active
         }
     ]);
-};
+}
