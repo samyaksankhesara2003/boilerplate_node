@@ -11,6 +11,11 @@ const baseConfig: Partial<Knex.Config> = {
         charset: dbConfig['dbCharset'],
         timezone: 'UTC'
     },
+    pool: {
+        min: 2,
+        max: 20,
+        acquireTimeoutMillis: 30000
+    },
     migrations: {
         directory: './migrations',
         extension: 'ts',

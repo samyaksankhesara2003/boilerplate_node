@@ -10,7 +10,7 @@ import { IPlanParams } from './helpers/plan.types';
 const getPlan = async (req: Request<IPlanParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await planService.getPlanService(params);
+        const data = await planService.getPlan(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const getPlan = async (req: Request<IPlanParams>, res: Response, next: NextFunct
 const listPlans = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await planService.listPlansService(query);
+        const data = await planService.listPlans(query);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);

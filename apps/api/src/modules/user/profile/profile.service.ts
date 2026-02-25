@@ -11,7 +11,7 @@ import { activityLogService } from '../../common/activity/activity.service';
  * @author Jitendra Singh
  * @description Retrieves the profile information for the given user.
  */
-const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
+const getProfile = async (user: IUser): Promise<IGetProfileResponse> => {
     try {
         const { id } = user;
         const userAttributes = ['id', 'first_name', 'last_name', 'email', 'mobile_number', 'profile_url', 'role', 'status'];
@@ -29,7 +29,7 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
 
         return userDetails;
     } catch (error) {
-        log.error('getProfileService Catch: ', error);
+        log.error('getProfile Catch: ', error);
         throw error;
     }
 };
@@ -38,7 +38,7 @@ const getProfileService = async (user: IUser): Promise<IGetProfileResponse> => {
  * @author Jitendra Singh
  * @description Updates the profile information for the given user.
  */
-const updateProfileService = async (user: IUser, body: IUpdateProfileBody, file: Express.Multer.File): Promise<void> => {
+const updateProfile = async (user: IUser, body: IUpdateProfileBody, file: Express.Multer.File): Promise<void> => {
     try {
         const { id } = user;
         const { first_name, last_name } = body;
@@ -59,7 +59,7 @@ const updateProfileService = async (user: IUser, body: IUpdateProfileBody, file:
 
         return;
     } catch (error) {
-        log.error('updateProfileService Catch: ', error);
+        log.error('updateProfile Catch: ', error);
         throw error;
     }
 };
@@ -68,7 +68,7 @@ const updateProfileService = async (user: IUser, body: IUpdateProfileBody, file:
  * @author Jitendra Singh
  * @description Changes the password for the given user.
  */
-const changePasswordService = async (user: IUser, body: IChangePasswordBody): Promise<void> => {
+const changePassword = async (user: IUser, body: IChangePasswordBody): Promise<void> => {
     try {
         const { id } = user;
         const { current_password, new_password } = body;
@@ -87,11 +87,11 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
         if (userDetails.password === new_password)
             throw new CustomError(ResponseMessages.PASSWORD.PASSWORD_CANNOT_BE_SAME_AS_CURRENT, StatusCodes.BAD_REQUEST);
 
-        await userDetails.$query().patch({ password: new_password });
+        await userDetails.$query().patch({ password: userDetails.password });
 
         return;
     } catch (error) {
-        log.error('changePasswordService Catch: ', error);
+        log.error('changePassword Catch: ', error);
         throw error;
     }
 };
@@ -100,8 +100,7 @@ const changePasswordService = async (user: IUser, body: IChangePasswordBody): Pr
  * @author Jitendra Singh
  * @description Logs out the given user.
  */
-const logoutService = async (user: IUser, body: ILogoutBody): Promise<void> => {
-    console.log('logoutService body: ', body);
+const logout = async (user: IUser, body: ILogoutBody): Promise<void> => {
     try {
         const { ip_address, device_type } = body;
 
@@ -115,7 +114,7 @@ const logoutService = async (user: IUser, body: ILogoutBody): Promise<void> => {
 
         await userDetails.$query().patch({ token: null });
 
-        await activityLogService.createActivityLogService({
+        await activityLogService.createActivityLog({
             user_id: user.id,
             ip_address: ip_address,
             device_type: device_type || constants.deviceType['DESKTOP'],
@@ -124,14 +123,14 @@ const logoutService = async (user: IUser, body: ILogoutBody): Promise<void> => {
 
         return;
     } catch (error) {
-        log.error('logoutService Catch: ', error);
+        log.error('logout Catch: ', error);
         throw error;
     }
 };
 
 export const profileService = {
-    getProfileService,
-    updateProfileService,
-    changePasswordService,
-    logoutService
+    getProfile,
+    updateProfile,
+    changePassword,
+    logout
 };

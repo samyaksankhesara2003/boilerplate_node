@@ -1,11 +1,11 @@
 import Joi from 'joi';
 
-const PARAMS = {
+const paramsSchema = {
     params: {
         page: Joi.string().required()
     }
 };
 
 export const staticPagesValidation = {
-    PARAMS
+    paramsSchema
 };

@@ -7,7 +7,7 @@ import { IListTransactionQuery } from './helpers/subscription.types';
  * @author Jitendra Singh
  * @description Lists all transactions with pagination.
  */
-const listTransactionService = async (query: IListTransactionQuery): Promise<PaginationResponse> => {
+const listTransaction = async (query: IListTransactionQuery): Promise<PaginationResponse> => {
     try {
         const { user_id, status, payment_status, perPage, page, orderBy, orderDir } = query;
         const startRange = (page - 1) * perPage;
@@ -51,11 +51,11 @@ const listTransactionService = async (query: IListTransactionQuery): Promise<Pag
 
         return paginatedSubscriptions;
     } catch (error) {
-        log.error('listTransactionService Catch: ', error);
+        log.error('listTransaction Catch: ', error);
         throw error;
     }
 };
 
 export const subscriptionService = {
-    listTransactionService
+    listTransaction
 };

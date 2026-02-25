@@ -10,7 +10,7 @@ import { subscriptionService } from './subscription.service';
 const viewSubscription = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { user, language } = req;
-        const data = await subscriptionService.viewSubscriptionService(user as IUser);
+        const data = await subscriptionService.viewSubscription(user as IUser);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const viewSubscription = async (req: Request, res: Response, next: NextFunction)
 const listTransaction = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { user, query, language } = req;
-        const data = await subscriptionService.listTransactionService(user as IUser, query as any);
+        const data = await subscriptionService.listTransaction(user as IUser, query as any);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ const listTransaction = async (req: Request, res: Response, next: NextFunction):
 const purchaseSubscription = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { user, body, language } = req;
-        const data = await subscriptionService.purchaseSubscriptionService(user as IUser, body);
+        const data = await subscriptionService.purchaseSubscription(user as IUser, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.PURCHASE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -52,7 +52,7 @@ const purchaseSubscription = async (req: Request, res: Response, next: NextFunct
 const upgradeSubscription = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { user, body, language } = req;
-        const data = await subscriptionService.upgradeSubscriptionService(user as IUser, body);
+        const data = await subscriptionService.upgradeSubscription(user as IUser, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.UPGRADE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -66,7 +66,7 @@ const upgradeSubscription = async (req: Request, res: Response, next: NextFuncti
 const cancelSubscription = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { user, language } = req;
-        const data = await subscriptionService.cancelSubscriptionService(user as IUser);
+        const data = await subscriptionService.cancelSubscription(user as IUser);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.SUBSCRIPTION.CANCEL_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -81,7 +81,7 @@ const paymentVerificationWebhook = async (req: Request, res: Response, next: Nex
     try {
         const { body, language } = req;
         const stripeSignature = req.headers['stripe-signature'];
-        const data = await subscriptionService.paymentVerificationWebhookService(stripeSignature as string, body);
+        const data = await subscriptionService.paymentVerificationWebhook(stripeSignature as string, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -96,7 +96,7 @@ const subscriptionCancellationWebhook = async (req: Request, res: Response, next
     try {
         const { body, language } = req;
         const stripeSignature = req.headers['stripe-signature'];
-        const data = await subscriptionService.subscriptionCancellationWebhookService(stripeSignature as string, body);
+        const data = await subscriptionService.subscriptionCancellationWebhook(stripeSignature as string, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data, language);
     } catch (error) {
         next(error);

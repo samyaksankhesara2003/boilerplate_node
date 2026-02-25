@@ -5,7 +5,7 @@ import { createServer as createHttpsServer, Server as HttpsServer } from 'https'
 import { knex } from '@repo/db';
 import { log } from '@repo/logger';
 import { appConfig } from '@repo/config';
-import { connectRedis } from '@repo/redis';
+import { connectRedis, redisClient } from '@repo/redis';
 import { socketManager } from '@repo/socket';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { createServer } from './www/server';
@@ -65,3 +65,37 @@ server.on('error', (err: NodeJS.ErrnoException) => {
     }
     process.exit(1);
 });
+
+// Graceful shutdown
+const gracefulShutdown = async (signal: string) => {
+    log.info(`${signal} received. Starting graceful shutdown...`);
+
+    server.close(async () => {
+        log.info('HTTP server closed');
+
+        try {
+            await knex.destroy();
+            log.info('Database connections closed');
+        } catch (err) {
+            log.error('Error closing database connections:', err);
+        }
+
+        try {
+            await redisClient.quit();
+            log.info('Redis connection closed');
+        } catch (err) {
+            log.error('Error closing Redis connection:', err);
+        }
+
+        process.exit(0);
+    });
+
+    // Force shutdown after 30s if graceful shutdown hangs
+    setTimeout(() => {
+        log.error('Graceful shutdown timed out. Forcing exit.');
+        process.exit(1);
+    }, 30000);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));

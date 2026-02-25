@@ -16,7 +16,7 @@ import {
 const getPromoCode = async (req: Request<IPromoCodeParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await promoCodeService.getPromoCodeService(params);
+        const data = await promoCodeService.getPromoCode(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -30,7 +30,7 @@ const getPromoCode = async (req: Request<IPromoCodeParams>, res: Response, next:
 const listPromoCode = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await promoCodeService.listPromoCodeService(query as unknown as IListPromoCodeQuery);
+        const data = await promoCodeService.listPromoCode(query as unknown as IListPromoCodeQuery);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -44,7 +44,7 @@ const listPromoCode = async (req: Request, res: Response, next: NextFunction): P
 const createPromoCode = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        const data = await promoCodeService.createPromoCodeService(body);
+        const data = await promoCodeService.createPromoCode(body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -58,7 +58,7 @@ const createPromoCode = async (req: Request, res: Response, next: NextFunction):
 const updatePromoCode = async (req: Request<IUpdatePromoCodeParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, body, language } = req;
-        const data = await promoCodeService.updatePromoCodeService(params, body);
+        const data = await promoCodeService.updatePromoCode(params, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -72,7 +72,7 @@ const updatePromoCode = async (req: Request<IUpdatePromoCodeParams>, res: Respon
 const updatePromoCodeStatus = async (req: Request<IUpdatePromoCodeStatusParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await promoCodeService.updatePromoCodeStatusService(params);
+        const data = await promoCodeService.updatePromoCodeStatus(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -86,7 +86,7 @@ const updatePromoCodeStatus = async (req: Request<IUpdatePromoCodeStatusParams>,
 const deletePromoCode = async (req: Request<IDeletePromoCodeParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        await promoCodeService.deletePromoCodeService(params);
+        await promoCodeService.deletePromoCode(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.DELETE_SUCCESS, null, language);
     } catch (error) {
         next(error);

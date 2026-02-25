@@ -11,7 +11,7 @@ const commonAttributes = ['id', 'page', 'content'];
  * @author Jainam Shah
  * @description Fetches a row by its ID.
  */
-const getService = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
+const get = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
     try {
         const row = await model
             .query()
@@ -22,7 +22,7 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
 
         return row;
     } catch (error) {
-        log.error('getService Catch: ', error);
+        log.error('get Catch: ', error);
         throw error;
     }
 };
@@ -31,7 +31,7 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query): Promise<PaginationResponse> => {
+const list = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;
@@ -50,7 +50,7 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const rows = createPagination(query.total, page, perPage, query.results);
         return rows;
     } catch (error) {
-        log.error('listService Catch: ', error);
+        log.error('list Catch: ', error);
         throw error;
     }
 };
@@ -59,12 +59,12 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
  * @author Jainam Shah
  * @description Updates a particular row by its ID.
  */
-const createOrUpdateService = async (data: Schema): Promise<StaticPages> => {
+const createOrUpdate = async (data: Schema): Promise<StaticPages> => {
     try {
         const row = await model.query().upsertGraph(data);
         return row;
     } catch (error) {
-        log.error('updateService Catch: ', error);
+        log.error('createOrUpdate Catch: ', error);
         throw error;
     }
 };
@@ -73,20 +73,20 @@ const createOrUpdateService = async (data: Schema): Promise<StaticPages> => {
  * @author Jainam Shah
  * @description Deletes a particular row by its ID.
  */
-const removeService = async (page: string): Promise<void> => {
+const remove = async (page: string): Promise<void> => {
     try {
-        const row = await getService(page, ['id']);
+        const row = await get(page, ['id']);
         await model.query().deleteById(row.id);
         return;
     } catch (error) {
-        log.error('removeService Catch: ', error);
+        log.error('remove Catch: ', error);
         throw error;
     }
 };
 
-export const _service = {
-    getService,
-    listService,
-    createOrUpdateService,
-    removeService
+export const staticPagesService = {
+    get,
+    list,
+    createOrUpdate,
+    remove
 };

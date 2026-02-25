@@ -7,7 +7,7 @@ import { IActivityLogQuery } from './helpers/activity.types';
  * @author Jitendra Singh
  * @description Lists all activity logs.
  */
-const listActivityLogsService = async (query: IActivityLogQuery): Promise<PaginationResponse> => {
+const listActivityLogs = async (query: IActivityLogQuery): Promise<PaginationResponse> => {
     try {
         const { user_id, from_date, to_date, perPage, page, orderBy, orderDir } = query;
         const startRange = (page - 1) * perPage;
@@ -27,11 +27,11 @@ const listActivityLogsService = async (query: IActivityLogQuery): Promise<Pagina
 
         return paginatedActivityLogs;
     } catch (error) {
-        log.error('listActivityLogsService Catch: ', error);
+        log.error('listActivityLogs Catch: ', error);
         throw error;
     }
 };
 
 export const activityLogService = {
-    listActivityLogsService
+    listActivityLogs
 };

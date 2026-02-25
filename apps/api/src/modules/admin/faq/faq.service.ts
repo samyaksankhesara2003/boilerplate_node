@@ -11,7 +11,7 @@ const commonAttributes = ['id', 'question', 'answer', 'status'];
  * @author Jainam Shah
  * @description Fetches a row by its ID.
  */
-const getService = async (id: number, attributes: string[] = commonAttributes): Promise<FAQ> => {
+const get = async (id: number, attributes: string[] = commonAttributes): Promise<FAQ> => {
     try {
         const row = await model
             .query()
@@ -21,7 +21,7 @@ const getService = async (id: number, attributes: string[] = commonAttributes): 
 
         return row;
     } catch (error) {
-        log.error('getService Catch: ', error);
+        log.error('get Catch: ', error);
         throw error;
     }
 };
@@ -30,7 +30,7 @@ const getService = async (id: number, attributes: string[] = commonAttributes): 
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query): Promise<PaginationResponse> => {
+const list = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, status, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;
@@ -54,7 +54,7 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const rows = createPagination(query.total, page, perPage, query.results);
         return rows;
     } catch (error) {
-        log.error('listService Catch: ', error);
+        log.error('list Catch: ', error);
         throw error;
     }
 };
@@ -63,12 +63,12 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
  * @author Jainam Shah
  * @description Creates a new row.
  */
-const createService = async (data: Schema): Promise<FAQ> => {
+const create = async (data: Schema): Promise<FAQ> => {
     try {
         const row = await model.query().insert(data);
         return row;
     } catch (error) {
-        log.error('createService Catch: ', error);
+        log.error('create Catch: ', error);
         throw error;
     }
 };
@@ -77,13 +77,13 @@ const createService = async (data: Schema): Promise<FAQ> => {
  * @author Jainam Shah
  * @description Updates a particular row by its ID.
  */
-const updateService = async (id: number, data: Schema): Promise<void> => {
+const update = async (id: number, data: Schema): Promise<void> => {
     try {
-        const row = await getService(id, ['id']);
+        const row = await get(id, ['id']);
         await model.query().patch(data).where('id', row.id);
         return;
     } catch (error) {
-        log.error('updateService Catch: ', error);
+        log.error('update Catch: ', error);
         throw error;
     }
 };
@@ -92,21 +92,21 @@ const updateService = async (id: number, data: Schema): Promise<void> => {
  * @author Jainam Shah
  * @description Deletes a particular row by its ID.
  */
-const removeService = async (id: number): Promise<void> => {
+const remove = async (id: number): Promise<void> => {
     try {
-        const row = await getService(id, ['id']);
+        const row = await get(id, ['id']);
         await model.query().deleteById(row.id);
         return;
     } catch (error) {
-        log.error('removeService Catch: ', error);
+        log.error('remove Catch: ', error);
         throw error;
     }
 };
 
-export const _service = {
-    getService,
-    listService,
-    createService,
-    updateService,
-    removeService
+export const faqService = {
+    get,
+    list,
+    create,
+    update,
+    remove
 };

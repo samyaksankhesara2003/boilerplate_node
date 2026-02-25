@@ -2,8 +2,10 @@ import Joi from 'joi';
 import { constants } from '@repo/config';
 import { defaultPagination } from '@repo/utils';
 
+const MAX_PER_PAGE = 100;
+
 export const paginationSchema = {
-    perPage: Joi.number().integer().optional().default(defaultPagination.perPage),
+    perPage: Joi.number().integer().min(1).max(MAX_PER_PAGE).optional().default(defaultPagination.perPage),
     page: Joi.number().integer().optional().default(defaultPagination.page),
     orderBy: Joi.string().optional().default(defaultPagination.orderBy),
     orderDir: Joi.string()

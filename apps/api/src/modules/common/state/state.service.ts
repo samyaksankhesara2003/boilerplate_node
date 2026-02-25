@@ -6,7 +6,7 @@ import { IStateQuery } from './helpers/state.types';
  * @author Jitendra Singh
  * @description Lists all states for a given country ID.
  */
-const listStatesService = async (query: IStateQuery): Promise<State[]> => {
+const listStates = async (query: IStateQuery): Promise<State[]> => {
     try {
         const { country_id, search } = query;
 
@@ -19,11 +19,11 @@ const listStatesService = async (query: IStateQuery): Promise<State[]> => {
         const states = await stateQuery;
         return states;
     } catch (error) {
-        log.error('listStatesService Catch: ', error);
+        log.error('listStates Catch: ', error);
         throw error;
     }
 };
 
 export const stateService = {
-    listStatesService
+    listStates
 };

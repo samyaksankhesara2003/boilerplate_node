@@ -23,7 +23,7 @@ import {
  * @description Authenticates a user via social media (Google, Facebook, Apple), email and password, or phone.
  * @returns {Promise<ISocialSignInResponse>} - The user's token and login details.
  */
-const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSignInResponse> => {
+const socialSignIn = async (body: ISocialSignInBody): Promise<ISocialSignInResponse> => {
     const trx = await User.startTransaction();
     try {
         const { social_id, first_name, last_name, email, mobile_number, password, profile_url, auth_type, device_type } = body;
@@ -76,7 +76,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             const token = jwtUtil.signJwt(data);
             await user.$query(trx).patch({ token });
 
-            await activityLogService.createActivityLogService({
+            await activityLogService.createActivityLog({
                 user_id: user.id,
                 device_type: device_type || constants.deviceType['DESKTOP'],
                 activity_type: constants.activityType['LOGIN']
@@ -114,7 +114,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
             status: userDetails.status
         };
 
-        await activityLogService.createActivityLogService({
+        await activityLogService.createActivityLog({
             user_id: userDetails.id,
             device_type: device_type || constants.deviceType['DESKTOP'],
             activity_type: constants.activityType['LOGIN']
@@ -125,7 +125,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
         return { token, loginDetails };
     } catch (error) {
         await trx.rollback();
-        log.error('socialSignInService Catch: ', error);
+        log.error('socialSignIn Catch: ', error);
         throw error;
     }
 };
@@ -135,7 +135,7 @@ const socialSignInService = async (body: ISocialSignInBody): Promise<ISocialSign
  * @description Forgets the password for the given user and sends a reset password link to the user's email.
  * @returns {Promise<void>} - No return value.
  */
-const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> => {
+const forgetPassword = async (body: IForgetPasswordBody): Promise<void> => {
     try {
         const { email, client_base_url } = body;
 
@@ -189,7 +189,7 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
 
         return;
     } catch (error) {
-        log.error('forgetPasswordService Catch: ', error);
+        log.error('forgetPassword Catch: ', error);
         throw error;
     }
 };
@@ -199,7 +199,7 @@ const forgetPasswordService = async (body: IForgetPasswordBody): Promise<void> =
  * @description Verifies the validity of a reset password link based on the provided token.
  * @returns {Promise<IVerifyResetPasswordLinkResponse>} - An object indicating whether the link is valid.
  */
-const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkParams): Promise<IVerifyResetPasswordLinkResponse> => {
+const verifyResetPasswordLink = async (params: IVerifyResetPasswordLinkParams): Promise<IVerifyResetPasswordLinkResponse> => {
     try {
         const { token } = params;
         const decodedToken = jwtUtil.validateJwt(token);
@@ -235,7 +235,7 @@ const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkPa
 
         return { is_valid_link: true };
     } catch (error) {
-        log.error('verifyResetPasswordLinkService Catch: ', error);
+        log.error('verifyResetPasswordLink Catch: ', error);
         throw error;
     }
 };
@@ -245,7 +245,7 @@ const verifyResetPasswordLinkService = async (params: IVerifyResetPasswordLinkPa
  * @description Resets the password for a user using a reset password link.
  * @returns {Promise<void>} - No return value.
  */
-const resetPasswordService = async (params: IResetPasswordParams, body: IResetPasswordBody): Promise<void> => {
+const resetPassword = async (params: IResetPasswordParams, body: IResetPasswordBody): Promise<void> => {
     try {
         const { token } = params;
         const { password } = body;
@@ -288,14 +288,14 @@ const resetPasswordService = async (params: IResetPasswordParams, body: IResetPa
 
         return;
     } catch (error) {
-        log.error('resetPasswordService Catch: ', error);
+        log.error('resetPassword Catch: ', error);
         throw error;
     }
 };
 
 export const authService = {
-    socialSignInService,
-    forgetPasswordService,
-    verifyResetPasswordLinkService,
-    resetPasswordService
+    socialSignIn,
+    forgetPassword,
+    verifyResetPasswordLink,
+    resetPassword
 };

@@ -1,20 +1,20 @@
 import Joi from 'joi';
 import { paginationSchema } from '@repo/validator';
 
-const PARAMS = {
+const paramsSchema = {
     params: {
         page: Joi.string().required()
     }
 };
 
-const QUERY = {
+const querySchema = {
     query: {
         search: Joi.string().optional(),
         ...paginationSchema
     }
 };
 
-const CREATE_OR_UPDATE = {
+const createOrUpdateSchema = {
     body: {
         id: Joi.number().optional(),
         page: Joi.string().required(),
@@ -23,7 +23,7 @@ const CREATE_OR_UPDATE = {
 };
 
 export const staticPagesValidation = {
-    PARAMS,
-    QUERY,
-    CREATE_OR_UPDATE
+    paramsSchema,
+    querySchema,
+    createOrUpdateSchema
 };

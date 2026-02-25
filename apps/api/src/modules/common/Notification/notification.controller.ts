@@ -10,7 +10,7 @@ import { notificationService } from './notification.service';
 const getNotifications = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await notificationService.getNotificationsService(query as INotificationQuery);
+        const data = await notificationService.getNotifications(query as INotificationQuery);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.NOTIFICATION.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const getNotifications = async (req: Request, res: Response, next: NextFunction)
 const markAsRead = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await notificationService.markAsReadService(query as unknown as INotificationMarkAsRead);
+        const data = await notificationService.markAsRead(query as unknown as INotificationMarkAsRead);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.NOTIFICATION.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ const markAsRead = async (req: Request, res: Response, next: NextFunction): Prom
 const getUnreadCount = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await notificationService.getUnreadCountService(query as unknown as INotificationCount);
+        const data = await notificationService.getUnreadCount(query as unknown as INotificationCount);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.NOTIFICATION.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);

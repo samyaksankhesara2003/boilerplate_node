@@ -10,7 +10,7 @@ import { authService } from './auth.service';
 const socialSignIn = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        const data = await authService.socialSignInService(body);
+        const data = await authService.socialSignIn(body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.AUTH.LOGIN_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const socialSignIn = async (req: Request, res: Response, next: NextFunction): Pr
 const forgetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        await authService.forgetPasswordService({ ...body, client_base_url: getBaseUrlFromUrl(req.get('Referrer')) });
+        await authService.forgetPassword({ ...body, client_base_url: getBaseUrlFromUrl(req.get('Referrer')) });
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PASSWORD.FORGOT_PASSWORD_SUCCESS, null, language);
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ const forgetPassword = async (req: Request, res: Response, next: NextFunction): 
 const verifyResetPasswordLink = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await authService.verifyResetPasswordLinkService({ token: params.token });
+        const data = await authService.verifyResetPasswordLink({ token: params.token });
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PASSWORD.LINK_VERIFICATION_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -52,7 +52,7 @@ const verifyResetPasswordLink = async (req: Request, res: Response, next: NextFu
 const resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, body, language } = req;
-        const data = await authService.resetPasswordService({ token: params.token }, body);
+        const data = await authService.resetPassword({ token: params.token }, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PASSWORD.RESET_PASSWORD_SUCCESS, data, language);
     } catch (error) {
         next(error);

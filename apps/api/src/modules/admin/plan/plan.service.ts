@@ -9,7 +9,7 @@ import { ICreatePlanBody, IUpdatePlanBody, IUpdatePlanParams, IUpdatePlanStatusP
  * @author Jitendra Singh
  * @description Creates a new plan.
  */
-const createPlanService = async (body: ICreatePlanBody): Promise<void> => {
+const createPlan = async (body: ICreatePlanBody): Promise<void> => {
     const trx = await Plan.startTransaction();
     try {
         const {
@@ -48,7 +48,7 @@ const createPlanService = async (body: ICreatePlanBody): Promise<void> => {
         return;
     } catch (error) {
         await trx.rollback();
-        log.error('createPlanService Catch: ', error);
+        log.error('createPlan Catch: ', error);
         throw error;
     }
 };
@@ -57,7 +57,7 @@ const createPlanService = async (body: ICreatePlanBody): Promise<void> => {
  * @author Jitendra Singh
  * @description Updates an existing plan using its ID.
  */
-const updatePlanService = async (params: IUpdatePlanParams, body: IUpdatePlanBody): Promise<void> => {
+const updatePlan = async (params: IUpdatePlanParams, body: IUpdatePlanBody): Promise<void> => {
     try {
         const { id } = params;
         const {
@@ -112,7 +112,7 @@ const updatePlanService = async (params: IUpdatePlanParams, body: IUpdatePlanBod
 
         return;
     } catch (error) {
-        log.error('updatePlanService Catch: ', error);
+        log.error('updatePlan Catch: ', error);
         throw error;
     }
 };
@@ -121,7 +121,7 @@ const updatePlanService = async (params: IUpdatePlanParams, body: IUpdatePlanBod
  * @author Jitendra Singh
  * @description Updates the status of a plan by marking it as active or inactive.
  */
-const updatePlanStatusService = async (params: IUpdatePlanStatusParams): Promise<void> => {
+const updatePlanStatus = async (params: IUpdatePlanStatusParams): Promise<void> => {
     try {
         const { id } = params;
 
@@ -139,13 +139,13 @@ const updatePlanStatusService = async (params: IUpdatePlanStatusParams): Promise
 
         return;
     } catch (error) {
-        log.error('updatePlanStatusService Catch: ', error);
+        log.error('updatePlanStatus Catch: ', error);
         throw error;
     }
 };
 
 export const planService = {
-    createPlanService,
-    updatePlanService,
-    updatePlanStatusService
+    createPlan,
+    updatePlan,
+    updatePlanStatus
 };

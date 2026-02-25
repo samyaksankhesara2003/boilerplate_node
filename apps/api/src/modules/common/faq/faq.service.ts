@@ -10,7 +10,7 @@ const commonAttributes = ['id', 'question', 'answer'];
  * @author Jainam Shah
  * @description Lists all rows.
  */
-const listService = async (queryParams: Query): Promise<PaginationResponse> => {
+const list = async (queryParams: Query): Promise<PaginationResponse> => {
     try {
         const { search, status, perPage, page, orderBy, orderDir } = queryParams;
         const startRange = (page - 1) * perPage;
@@ -34,11 +34,11 @@ const listService = async (queryParams: Query): Promise<PaginationResponse> => {
         const rows = createPagination(query.total, page, perPage, query.results);
         return rows;
     } catch (error) {
-        log.error('listService Catch: ', error);
+        log.error('list Catch: ', error);
         throw error;
     }
 };
 
-export const _service = {
-    listService
+export const faqService = {
+    list
 };

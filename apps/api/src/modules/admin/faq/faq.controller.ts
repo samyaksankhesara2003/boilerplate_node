@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { StatusCodes, ResponseMessages, sendResponse } from '@repo/response-handler';
-import { _service } from './faq.service';
+import { faqService } from './faq.service';
 import { Query } from './helpers/faq.types';
 
 /**
@@ -10,7 +10,7 @@ import { Query } from './helpers/faq.types';
 const list = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { query, language } = req;
-        const data = await _service.listService(query as unknown as Query);
+        const data = await faqService.list(query as unknown as Query);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const list = async (req: Request, res: Response, next: NextFunction): Promise<vo
 const create = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        const data = await _service.createService(body);
+        const data = await faqService.create(body);
         return sendResponse(res, StatusCodes.CREATED, ResponseMessages.COMMON.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ const create = async (req: Request, res: Response, next: NextFunction): Promise<
 const update = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        const data = await _service.updateService(+body.id, body);
+        const data = await faqService.update(+body.id, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -52,7 +52,7 @@ const update = async (req: Request, res: Response, next: NextFunction): Promise<
 const remove = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await _service.removeService(+params.id);
+        const data = await faqService.remove(+params.id);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.DELETE_SUCCESS, data, language);
     } catch (error) {
         next(error);

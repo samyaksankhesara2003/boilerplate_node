@@ -18,7 +18,7 @@ import {
  * @author Jitendra Singh
  * @description Fetches a promo code by its ID.
  */
-const getPromoCodeService = async (params: IPromoCodeParams): Promise<PromoCode> => {
+const getPromoCode = async (params: IPromoCodeParams): Promise<PromoCode> => {
     try {
         const { id } = params;
 
@@ -32,7 +32,7 @@ const getPromoCodeService = async (params: IPromoCodeParams): Promise<PromoCode>
 
         return promoCode;
     } catch (error) {
-        log.error('getPromoCodeService Catch: ', error);
+        log.error('getPromoCode Catch: ', error);
         throw error;
     }
 };
@@ -41,7 +41,7 @@ const getPromoCodeService = async (params: IPromoCodeParams): Promise<PromoCode>
  * @author Jitendra Singh
  * @description Lists all promo codes with pagination.
  */
-const listPromoCodeService = async (query: IListPromoCodeQuery): Promise<PaginationResponse> => {
+const listPromoCode = async (query: IListPromoCodeQuery): Promise<PaginationResponse> => {
     try {
         const { search, type, status, perPage, page, orderBy, orderDir } = query;
         const startRange = (page - 1) * perPage;
@@ -63,7 +63,7 @@ const listPromoCodeService = async (query: IListPromoCodeQuery): Promise<Paginat
 
         return paginatedPromoCodes;
     } catch (error) {
-        log.error('listPromoCodeService Catch: ', error);
+        log.error('listPromoCode Catch: ', error);
         throw error;
     }
 };
@@ -72,7 +72,7 @@ const listPromoCodeService = async (query: IListPromoCodeQuery): Promise<Paginat
  * @author Jitendra Singh
  * @description Creates a new promo code on Stripe and stores it in the Promo Code table.
  */
-const createPromoCodeService = async (body: ICreatePromoCodeBody): Promise<PromoCode> => {
+const createPromoCode = async (body: ICreatePromoCodeBody): Promise<PromoCode> => {
     try {
         const {
             promo_code,
@@ -99,7 +99,7 @@ const createPromoCodeService = async (body: ICreatePromoCodeBody): Promise<Promo
 
         return createdPromoCode;
     } catch (error) {
-        log.error('createPromoCodeService Catch: ', error);
+        log.error('createPromoCode Catch: ', error);
         throw error;
     }
 };
@@ -108,7 +108,7 @@ const createPromoCodeService = async (body: ICreatePromoCodeBody): Promise<Promo
  * @author Jitendra Singh
  * @description Updates a promo code by its ID. Updates the promo code details in both Stripe and the Promo Code table.
  */
-const updatePromoCodeService = async (params: IUpdatePromoCodeParams, body: IUpdatePromoCodeBody): Promise<void> => {
+const updatePromoCode = async (params: IUpdatePromoCodeParams, body: IUpdatePromoCodeBody): Promise<void> => {
     try {
         const { id } = params;
         const {
@@ -120,7 +120,7 @@ const updatePromoCodeService = async (params: IUpdatePromoCodeParams, body: IUpd
             status = constants.promoCodeStatus['Active']
         } = body;
 
-        const promoCodeDetails = await getPromoCodeService({ id });
+        const promoCodeDetails = await getPromoCode({ id });
 
         if (!promoCodeDetails) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -142,7 +142,7 @@ const updatePromoCodeService = async (params: IUpdatePromoCodeParams, body: IUpd
 
         return;
     } catch (error) {
-        log.error('updatePromoCodeService Catch: ', error);
+        log.error('updatePromoCode Catch: ', error);
         throw error;
     }
 };
@@ -151,11 +151,11 @@ const updatePromoCodeService = async (params: IUpdatePromoCodeParams, body: IUpd
  * @author Jitendra Singh
  * @description Updates the status of a promo code by marking it as active or inactive.
  */
-const updatePromoCodeStatusService = async (params: IUpdatePromoCodeStatusParams): Promise<void> => {
+const updatePromoCodeStatus = async (params: IUpdatePromoCodeStatusParams): Promise<void> => {
     try {
         const { id } = params;
 
-        const promoCode = await getPromoCodeService({ id });
+        const promoCode = await getPromoCode({ id });
 
         if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -168,7 +168,7 @@ const updatePromoCodeStatusService = async (params: IUpdatePromoCodeStatusParams
 
         return;
     } catch (error) {
-        log.error('updatePromoCodeStatusService Catch: ', error);
+        log.error('updatePromoCodeStatus Catch: ', error);
         throw error;
     }
 };
@@ -177,11 +177,11 @@ const updatePromoCodeStatusService = async (params: IUpdatePromoCodeStatusParams
  * @author Jitendra Singh
  * @description Deletes a promo code by marking it as deleted in the database and removing it from Stripe.
  */
-const deletePromoCodeService = async (params: IDeletePromoCodeParams): Promise<void> => {
+const deletePromoCode = async (params: IDeletePromoCodeParams): Promise<void> => {
     try {
         const { id } = params;
 
-        const promoCode = await getPromoCodeService({ id });
+        const promoCode = await getPromoCode({ id });
 
         if (!promoCode) throw new CustomError(ResponseMessages.PROMO_CODE.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -191,16 +191,16 @@ const deletePromoCodeService = async (params: IDeletePromoCodeParams): Promise<v
 
         return;
     } catch (error) {
-        log.error('deletePromoCodeService Catch: ', error);
+        log.error('deletePromoCode Catch: ', error);
         throw error;
     }
 };
 
 export const promoCodeService = {
-    getPromoCodeService,
-    listPromoCodeService,
-    createPromoCodeService,
-    updatePromoCodeService,
-    updatePromoCodeStatusService,
-    deletePromoCodeService
+    getPromoCode,
+    listPromoCode,
+    createPromoCode,
+    updatePromoCode,
+    updatePromoCodeStatus,
+    deletePromoCode
 };

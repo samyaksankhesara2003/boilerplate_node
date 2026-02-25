@@ -3,7 +3,7 @@ import { dbConfig } from '../db';
 
 describe('dbConfig', () => {
     it('loads database environment variables', () => {
-        expect(dbConfig.dbClient).toEqual('mysql');
+        expect(dbConfig.dbClient).toEqual('mysql2');
         expect(dbConfig.dbHost).toEqual(process.env.DATABASE_HOST);
         expect(dbConfig.dbPort).toEqual(process.env.DATABASE_PORT);
         expect(dbConfig.dbUsername).toEqual(process.env.DATABASE_USERNAME);

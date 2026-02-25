@@ -81,7 +81,7 @@ const paymentData = (user: IUser, body: IPaymentDataBody): IPaymentDataResponse 
  * @author Jitendra Singh
  * @description Retrieves the subscription details for the authenticated user.
  */
-const viewSubscriptionService = async (user: IUser): Promise<UserSubscription> => {
+const viewSubscription = async (user: IUser): Promise<UserSubscription> => {
     try {
         const transactionAttributes = [
             'id',
@@ -115,7 +115,7 @@ const viewSubscriptionService = async (user: IUser): Promise<UserSubscription> =
 
         return userSubscription;
     } catch (error) {
-        log.error('viewSubscriptionService Catch: ', error);
+        log.error('viewSubscription Catch: ', error);
         throw error;
     }
 };
@@ -124,7 +124,7 @@ const viewSubscriptionService = async (user: IUser): Promise<UserSubscription> =
  * @author Jitendra Singh
  * @description Retrieves the list of active subscription transactions for the specified user.
  */
-const listTransactionService = async (user: IUser, query: IListTransactionQuery): Promise<UserSubscription[]> => {
+const listTransaction = async (user: IUser, query: IListTransactionQuery): Promise<UserSubscription[]> => {
     try {
         const transactionAttributes = [
             'id',
@@ -156,7 +156,7 @@ const listTransactionService = async (user: IUser, query: IListTransactionQuery)
 
         return userSubscription;
     } catch (error) {
-        log.error('listTransactionService Catch: ', error);
+        log.error('listTransaction Catch: ', error);
         throw error;
     }
 };
@@ -165,12 +165,12 @@ const listTransactionService = async (user: IUser, query: IListTransactionQuery)
  * @author Jitendra Singh
  * @description Purchases a subscription for the given user.
  */
-const purchaseSubscriptionService = async (user: IUser, body: IPurchaseSubscriptionBody): Promise<IPurchaseSubscriptionResponse> => {
+const purchaseSubscription = async (user: IUser, body: IPurchaseSubscriptionBody): Promise<IPurchaseSubscriptionResponse> => {
     const trx = await UserSubscription.startTransaction();
     try {
         const { plan_id, promo_code } = body;
 
-        const planDetails = await planService.getPlanService({ plan_id });
+        const planDetails = await planService.getPlan({ plan_id });
 
         if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -216,7 +216,7 @@ const purchaseSubscriptionService = async (user: IUser, body: IPurchaseSubscript
         return subscription;
     } catch (error) {
         await trx.rollback();
-        log.error('purchaseSubscriptionService Catch: ', error);
+        log.error('purchaseSubscription Catch: ', error);
         throw error;
     }
 };
@@ -225,16 +225,16 @@ const purchaseSubscriptionService = async (user: IUser, body: IPurchaseSubscript
  * @author Jitendra Singh
  * @description Upgrades a subscription to a higher plan for the authenticated user.
  */
-const upgradeSubscriptionService = async (user: IUser, body: IUpgradeSubscriptionBody): Promise<IUpgradeSubscriptionResponse> => {
+const upgradeSubscription = async (user: IUser, body: IUpgradeSubscriptionBody): Promise<IUpgradeSubscriptionResponse> => {
     const trx = await UserSubscription.startTransaction();
     try {
         const { plan_id, promo_code } = body;
 
-        const planDetails = await planService.getPlanService({ plan_id });
+        const planDetails = await planService.getPlan({ plan_id });
 
         if (!planDetails) throw new CustomError(ResponseMessages.PLAN.NOT_FOUND, StatusCodes.NOT_FOUND);
 
-        const userSubscription = await viewSubscriptionService(user);
+        const userSubscription = await viewSubscription(user);
 
         if (!userSubscription) throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -291,7 +291,7 @@ const upgradeSubscriptionService = async (user: IUser, body: IUpgradeSubscriptio
         return subscription;
     } catch (error) {
         await trx.rollback();
-        log.error('upgradeSubscriptionService Catch: ', error);
+        log.error('upgradeSubscription Catch: ', error);
         throw error;
     }
 };
@@ -300,9 +300,9 @@ const upgradeSubscriptionService = async (user: IUser, body: IUpgradeSubscriptio
  * @author Jitendra Singh
  * @description Cancels a subscription for the given user.
  */
-const cancelSubscriptionService = async (user: IUser): Promise<ICancelSubscriptionResponse> => {
+const cancelSubscription = async (user: IUser): Promise<ICancelSubscriptionResponse> => {
     try {
-        const userSubscription = await viewSubscriptionService(user);
+        const userSubscription = await viewSubscription(user);
 
         if (!userSubscription) throw new CustomError(ResponseMessages.SUBSCRIPTION.NOT_FOUND, StatusCodes.NOT_FOUND);
 
@@ -312,7 +312,7 @@ const cancelSubscriptionService = async (user: IUser): Promise<ICancelSubscripti
 
         return { is_cancelled: true };
     } catch (error) {
-        log.error('cancelSubscriptionService Catch: ', error);
+        log.error('cancelSubscription Catch: ', error);
         throw error;
     }
 };
@@ -321,7 +321,7 @@ const cancelSubscriptionService = async (user: IUser): Promise<ICancelSubscripti
  * @author Jitendra Singh
  * @description Handles the Stripe webhook for payment verification events.
  */
-const paymentVerificationWebhookService = async (stripeSignature: string, body: string): Promise<boolean> => {
+const paymentVerificationWebhook = async (stripeSignature: string, body: string): Promise<boolean> => {
     const trx = await UserSubscription.startTransaction();
     try {
         const event: any = await stripeService.verifyWebhookRequest(stripeConfig.stripeSubscriptionVerificationWebHookSecret, stripeSignature, body);
@@ -445,7 +445,7 @@ const paymentVerificationWebhookService = async (stripeSignature: string, body: 
         return true;
     } catch (error) {
         await trx.rollback();
-        log.error('paymentVerificationWebhookService Catch: ', error);
+        log.error('paymentVerificationWebhook Catch: ', error);
         throw error;
     }
 };
@@ -454,7 +454,7 @@ const paymentVerificationWebhookService = async (stripeSignature: string, body: 
  * @author Jitendra Singh
  * @description Handles the Stripe webhook for subscription cancellation events.
  */
-const subscriptionCancellationWebhookService = async (stripeSignature: string, body: string): Promise<boolean> => {
+const subscriptionCancellationWebhook = async (stripeSignature: string, body: string): Promise<boolean> => {
     const trx = await UserSubscription.startTransaction();
     try {
         const event: any = await stripeService.verifyWebhookRequest(stripeConfig.stripeSubscriptionCancellationWebHookSecret, stripeSignature, body);
@@ -525,17 +525,17 @@ const subscriptionCancellationWebhookService = async (stripeSignature: string, b
         return true;
     } catch (error) {
         await trx.rollback();
-        log.error('subscriptionCancellationWebhookService Catch: ', error);
+        log.error('subscriptionCancellationWebhook Catch: ', error);
         throw error;
     }
 };
 
 export const subscriptionService = {
-    viewSubscriptionService,
-    listTransactionService,
-    purchaseSubscriptionService,
-    upgradeSubscriptionService,
-    cancelSubscriptionService,
-    paymentVerificationWebhookService,
-    subscriptionCancellationWebhookService
+    viewSubscription,
+    listTransaction,
+    purchaseSubscription,
+    upgradeSubscription,
+    cancelSubscription,
+    paymentVerificationWebhook,
+    subscriptionCancellationWebhook
 };

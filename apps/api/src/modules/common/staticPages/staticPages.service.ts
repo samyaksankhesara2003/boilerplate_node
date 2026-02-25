@@ -9,7 +9,7 @@ const commonAttributes = ['id', 'page', 'content'];
  * @author Jainam Shah
  * @description Fetches a row by its ID.
  */
-const getService = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
+const get = async (page: string, attributes: string[] = commonAttributes): Promise<StaticPages> => {
     try {
         const row = await model
             .query()
@@ -20,11 +20,11 @@ const getService = async (page: string, attributes: string[] = commonAttributes)
 
         return row;
     } catch (error) {
-        log.error('getService Catch: ', error);
+        log.error('get Catch: ', error);
         throw error;
     }
 };
 
-export const _service = {
-    getService
+export const staticPagesService = {
+    get
 };

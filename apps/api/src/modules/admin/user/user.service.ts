@@ -9,13 +9,13 @@ import { generateValidPassword } from '@repo/utils';
 import { sendMail, SUBJECTS, TEMPLATES } from '@repo/mailer';
 import { IUserCreateBody, IUserListingFilter, IUserUpdateBody } from './helpers/user.types';
 
-const user_Attributes = ['id', 'first_name', 'last_name', 'profile_url', 'email', 'mobile_number', 'status', 'role'];
+const userAttributes = ['id', 'first_name', 'last_name', 'profile_url', 'email', 'mobile_number', 'status', 'role'];
 
 /**
  * @author Yagnesh Acharya
  * @description Create User by email and auto-generated password
  */
-const createUserService = async (body: IUserCreateBody): Promise<void> => {
+const createUser = async (body: IUserCreateBody): Promise<void> => {
     const trx = await User.startTransaction();
     try {
         const user = await firebaseService.isUserExists(body.email);
@@ -42,7 +42,7 @@ const createUserService = async (body: IUserCreateBody): Promise<void> => {
         return;
     } catch (error) {
         await trx.rollback();
-        log.error('createUserService Catch: ', error);
+        log.error('createUser Catch: ', error);
         throw error;
     }
 };
@@ -51,15 +51,15 @@ const createUserService = async (body: IUserCreateBody): Promise<void> => {
  * @author Yagnesh Acharya
  * @description Fetch User by id
  */
-const getUserByIdService = async (id: number): Promise<User> => {
+const getUserById = async (id: number): Promise<User> => {
     try {
-        const user = await User.query().select(user_Attributes).findById(id).where('role', constants.role.User);
+        const user = await User.query().select(userAttributes).findById(id).where('role', constants.role.User);
         if (!user) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         if (user.profile_url) user.profile_url = await getPresignedUrl(storageConfig.s3BucketName, user.profile_url);
 
         return user;
     } catch (error) {
-        log.error('getUserByIdService Catch: ', error);
+        log.error('getUserById Catch: ', error);
         throw error;
     }
 };
@@ -68,14 +68,14 @@ const getUserByIdService = async (id: number): Promise<User> => {
  * @author Yagnesh Acharya
  * @description Fetch All Users
  */
-const getAllUserService = async (query: IUserListingFilter): Promise<PaginationResponse> => {
+const getAllUser = async (query: IUserListingFilter): Promise<PaginationResponse> => {
     try {
         const { status, search, perPage, page, orderBy, orderDir } = query;
         const startRange = (page - 1) * perPage;
         const endRange = page * perPage - 1;
 
         const users = await User.query()
-            .select(...user_Attributes)
+            .select(...userAttributes)
             .modify((qb: QueryBuilder<User>) => {
                 if (status) {
                     qb.where('status', status);
@@ -104,7 +104,7 @@ const getAllUserService = async (query: IUserListingFilter): Promise<PaginationR
         const rows = createPagination(users.total, page, perPage, users.results);
         return rows;
     } catch (error) {
-        log.error('getAllUserService Catch: ', error);
+        log.error('getAllUser Catch: ', error);
         throw error;
     }
 };
@@ -113,7 +113,7 @@ const getAllUserService = async (query: IUserListingFilter): Promise<PaginationR
  * @author Yagnesh Acharya
  * @description Update user
  */
-const updateUserService = async (body: IUserUpdateBody, file: Express.Multer.File): Promise<void> => {
+const updateUser = async (body: IUserUpdateBody, file: Express.Multer.File): Promise<void> => {
     try {
         const { id, ...userBody } = body;
         const userAttributes = ['id', 'first_name', 'last_name', 'profile_url'];
@@ -135,7 +135,7 @@ const updateUserService = async (body: IUserUpdateBody, file: Express.Multer.Fil
 
         return;
     } catch (error) {
-        log.error('updateUserService Catch: ', error);
+        log.error('updateUser Catch: ', error);
         throw error;
     }
 };
@@ -144,7 +144,7 @@ const updateUserService = async (body: IUserUpdateBody, file: Express.Multer.Fil
  * @author Yagnesh Acharya
  * @description Update user status based on id , if active than inactive and vice versa
  */
-const updateUserStatusService = async (id: number): Promise<void> => {
+const updateUserStatus = async (id: number): Promise<void> => {
     try {
         const userData = await User.query().findById(id).where('role', constants.role.User);
         if (!userData) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
@@ -154,7 +154,7 @@ const updateUserStatusService = async (id: number): Promise<void> => {
             .patch({ status: +userData.status === constants.status.Active ? constants.status.Inactive : constants.status.Active });
         return;
     } catch (error) {
-        log.error('updateUserStatusService Catch: ', error);
+        log.error('updateUserStatus Catch: ', error);
         throw error;
     }
 };
@@ -163,23 +163,23 @@ const updateUserStatusService = async (id: number): Promise<void> => {
  * @author Yagnesh Acharya
  * @description Delete user based on id
  */
-const deleteUserService = async (id: number): Promise<void> => {
+const deleteUser = async (id: number): Promise<void> => {
     try {
         const user = await User.query().findById(id).where('role', constants.role.User);
         if (!user) throw new CustomError(ResponseMessages.USER.NOT_FOUND, StatusCodes.NOT_FOUND);
         await user.$query().where('id', id).patch({ deleted_at: new Date() });
         return;
     } catch (error) {
-        log.error('deleteUserService Catch: ', error);
+        log.error('deleteUser Catch: ', error);
         throw error;
     }
 };
 
 export const userService = {
-    getAllUserService,
-    deleteUserService,
-    updateUserStatusService,
-    updateUserService,
-    getUserByIdService,
-    createUserService
+    getAllUser,
+    deleteUser,
+    updateUserStatus,
+    updateUser,
+    getUserById,
+    createUser
 };

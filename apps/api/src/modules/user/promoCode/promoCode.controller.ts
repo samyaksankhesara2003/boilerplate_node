@@ -10,7 +10,7 @@ import { IValidatePromoCodeParams } from './helpers/promoCode.types';
 const validatePromoCode = async (req: Request<IValidatePromoCodeParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        const data = await promoCodeService.validatePromoCodeService(params);
+        const data = await promoCodeService.validatePromoCode(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PROMO_CODE.VALIDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);

@@ -30,7 +30,7 @@
   "dependencies": {
     "@repo/config": "workspace:*",
     "@repo/logger": "workspace:*",
-    "redis": "5.1.0"
+    "redis": "^5.1.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

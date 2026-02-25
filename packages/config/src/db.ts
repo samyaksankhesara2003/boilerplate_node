@@ -1,5 +1,5 @@
 export const dbConfig = {
-    dbClient: 'mysql',
+    dbClient: 'mysql2',
     dbHost: process.env.DATABASE_HOST,
     dbPort: process.env.DATABASE_PORT,
     dbUsername: process.env.DATABASE_USERNAME,

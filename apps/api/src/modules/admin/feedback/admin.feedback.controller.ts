@@ -9,7 +9,7 @@ import { adminfeedbackService } from './admin.feedback.service';
 const getAllFeedbacks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language } = req;
-        const data = await adminfeedbackService.getAllFeedBackService(req.query);
+        const data = await adminfeedbackService.getAllFeedBack(req.query);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.FEEDBACK.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);

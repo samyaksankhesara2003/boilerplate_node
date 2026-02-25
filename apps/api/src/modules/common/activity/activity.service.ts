@@ -7,7 +7,7 @@ import { IActivityLog } from './helpers/activity.types';
  * @author Jitendra Singh
  * @description Logs an activity by inserting a new record into the Activity Log table.
  */
-const createActivityLogService = async (body: IActivityLog): Promise<void> => {
+const createActivityLog = async (body: IActivityLog): Promise<void> => {
     try {
         body.device_type = body.device_type || constants.deviceType['DESKTOP'];
 
@@ -15,11 +15,11 @@ const createActivityLogService = async (body: IActivityLog): Promise<void> => {
 
         return;
     } catch (error) {
-        log.error('createActivityLogService Catch: ', error);
+        log.error('createActivityLog Catch: ', error);
         throw error;
     }
 };
 
 export const activityLogService = {
-    createActivityLogService
+    createActivityLog
 };

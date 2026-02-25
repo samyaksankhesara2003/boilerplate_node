@@ -12,7 +12,7 @@ import { IUserListingFilter } from './helpers/user.types';
 const createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language, body } = req;
-        const data = await userService.createUserService(body);
+        const data = await userService.createUser(body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -26,7 +26,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction): Prom
 const getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language, params } = req;
-        const data = await userService.getUserByIdService(+params.id);
+        const data = await userService.getUserById(+params.id);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.FETCH_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -40,7 +40,7 @@ const getUserById = async (req: Request, res: Response, next: NextFunction): Pro
 const getAllUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language, query } = req;
-        const data = await userService.getAllUserService(query as unknown as IUserListingFilter);
+        const data = await userService.getAllUser(query as unknown as IUserListingFilter);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.LIST_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -61,7 +61,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction): Prom
             validateFileSize(file.size, constants.profileImageSize);
         }
 
-        const data = await userService.updateUserService(body, file as Express.Multer.File);
+        const data = await userService.updateUser(body, file as Express.Multer.File);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -75,7 +75,7 @@ const updateUser = async (req: Request, res: Response, next: NextFunction): Prom
 const updateUserStatus = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language, params } = req;
-        const data = await userService.updateUserStatusService(+params.id);
+        const data = await userService.updateUserStatus(+params.id);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.UPDATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -89,7 +89,7 @@ const updateUserStatus = async (req: Request, res: Response, next: NextFunction)
 const deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { language, params } = req;
-        const data = await userService.deleteUserService(+params.id);
+        const data = await userService.deleteUser(+params.id);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.USER.ACCOUNT_DELETED, data, language);
     } catch (error) {
         next(error);

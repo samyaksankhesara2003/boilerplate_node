@@ -6,7 +6,7 @@ import { IAddBookmarkParams, IListBookmarksParams } from './helpers/bookmark.typ
  * @author Sanjay Balai
  * @description Add a new bookmark
  */
-const addUpdateBookmarkService = async (params: IAddBookmarkParams) => {
+const addUpdateBookmark = async (params: IAddBookmarkParams) => {
     try {
         const existingBookmark = await Bookmark.query()
             .where({ ...params })
@@ -20,7 +20,7 @@ const addUpdateBookmarkService = async (params: IAddBookmarkParams) => {
         const newBookmark = await Bookmark.query().insert(params);
         return newBookmark;
     } catch (error) {
-        log.error('addBookmarkService Catch: ', error);
+        log.error('addUpdateBookmark Catch: ', error);
         throw error;
     }
 };
@@ -29,7 +29,7 @@ const addUpdateBookmarkService = async (params: IAddBookmarkParams) => {
  * @author Sanjay Balai
  * @description List bookmarks for a user
  */
-const listBookmarksService = async (params: IListBookmarksParams) => {
+const listBookmarks = async (params: IListBookmarksParams) => {
     try {
         const { user_id, target_type } = params;
         const query = Bookmark.query().where('user_id', user_id!).withGraphFetched('user');
@@ -39,12 +39,12 @@ const listBookmarksService = async (params: IListBookmarksParams) => {
         const bookmarks = await query;
         return bookmarks;
     } catch (error) {
-        log.error('listBookmarksService Catch: ', error);
+        log.error('listBookmarks Catch: ', error);
         throw error;
     }
 };
 
 export const bookmarkService = {
-    addUpdateBookmarkService,
-    listBookmarksService
+    addUpdateBookmark,
+    listBookmarks
 };

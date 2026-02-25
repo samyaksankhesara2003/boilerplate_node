@@ -7,7 +7,7 @@ import { IReferralQuery } from './helpers/referral.types';
  * @author Sanjay Balai
  * @description Get user's referral history
  */
-const getReferralHistoryService = async (params: IReferralQuery): Promise<PaginationResponse> => {
+const getReferralHistory = async (params: IReferralQuery): Promise<PaginationResponse> => {
     try {
         const {
             user_id = params.user_id,
@@ -17,8 +17,8 @@ const getReferralHistoryService = async (params: IReferralQuery): Promise<Pagina
             orderDir = defaultPagination.orderDir
         } = params;
 
-        const startRange = (+page - 1) * +perPage;
-        const endRange = +page * +perPage - 1;
+        const startRange = (page - 1) * perPage;
+        const endRange = page * perPage - 1;
 
         const referrals = await ReferralHistory.query()
             .where('referrer_id', user_id!)
@@ -30,11 +30,11 @@ const getReferralHistoryService = async (params: IReferralQuery): Promise<Pagina
 
         return rows;
     } catch (error) {
-        log.error('getReferralHistoryService: ', error);
+        log.error('getReferralHistory: ', error);
         throw error;
     }
 };
 
 export const referralService = {
-    getReferralHistoryService
+    getReferralHistory
 };

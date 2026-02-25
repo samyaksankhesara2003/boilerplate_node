@@ -8,7 +8,7 @@ import { IValidatePromoCodeParams, IValidatePromoCodeResponse } from './helpers/
  * @author Jitendra Singh
  * @description Validates a Stripe promotion code.
  */
-const validatePromoCodeService = async (params: IValidatePromoCodeParams): Promise<IValidatePromoCodeResponse> => {
+const validatePromoCode = async (params: IValidatePromoCodeParams): Promise<IValidatePromoCodeResponse> => {
     try {
         const { id } = params;
 
@@ -43,11 +43,11 @@ const validatePromoCodeService = async (params: IValidatePromoCodeParams): Promi
             percent_off: +promoCode.type === constants.promoCodeType['Percentage'] ? promoCode.discount_value : null
         };
     } catch (error) {
-        log.error('validatePromoCodeService Catch: ', error);
+        log.error('validatePromoCode Catch: ', error);
         throw error;
     }
 };
 
 export const promoCodeService = {
-    validatePromoCodeService
+    validatePromoCode
 };

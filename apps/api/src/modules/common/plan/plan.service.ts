@@ -10,7 +10,7 @@ import { IPlanParams, IPlanQuery } from './helpers/plan.types';
  * @param {IPlanParams} params - The parameters containing the plan ID.
  * @returns {Promise<Plan>} - The plan object with specified attributes if found.
  */
-const getPlanService = async (params: IPlanParams): Promise<Plan> => {
+const getPlan = async (params: IPlanParams): Promise<Plan> => {
     try {
         const { plan_id } = params;
         const planAttributes = [
@@ -35,7 +35,7 @@ const getPlanService = async (params: IPlanParams): Promise<Plan> => {
 
         return plan;
     } catch (error) {
-        log.error('getPlanService Catch: ', error);
+        log.error('getPlan Catch: ', error);
         throw error;
     }
 };
@@ -46,7 +46,7 @@ const getPlanService = async (params: IPlanParams): Promise<Plan> => {
  * @param {IPlanQuery} query - The query object containing the plan ID and interval.
  * @returns {Promise<Plan[]>} - The array of plan objects with specified attributes if found.
  */
-const listPlansService = async (query: IPlanQuery): Promise<Plan[]> => {
+const listPlans = async (query: IPlanQuery): Promise<Plan[]> => {
     try {
         const { plan_id, interval } = query;
         const planAttributes = [
@@ -75,12 +75,12 @@ const listPlansService = async (query: IPlanQuery): Promise<Plan[]> => {
 
         return plans;
     } catch (error) {
-        log.error('listPlansService Catch: ', error);
+        log.error('listPlans Catch: ', error);
         throw error;
     }
 };
 
 export const planService = {
-    getPlanService,
-    listPlansService
+    getPlan,
+    listPlans
 };

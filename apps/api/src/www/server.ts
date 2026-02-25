@@ -2,11 +2,14 @@ import compression from 'compression';
 import cors from 'cors';
 import express, { NextFunction, Request, Response, type Express } from 'express';
 import basicAuth from 'express-basic-auth';
+import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
 import { appConfig, swaggerBasicAuthConfig, swaggerJsDocConfig, swaggerOptionsConfig } from '@repo/config';
+import { knex } from '@repo/db';
+import { redisClient } from '@repo/redis';
 import { ResponseMessages, sendResponse, StatusCodes } from '@repo/response-handler';
 import { errorHandler } from '../middlewares/errorHandler.middleware';
 import { languageMiddleware } from '../middlewares/language.middleware';
@@ -19,8 +22,28 @@ import routes from '../modules/index';
  */
 export const createServer = (): Express => {
     const app = express();
+
+    // Global rate limit
+    const globalLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 100,
+        standardHeaders: true,
+        legacyHeaders: false,
+        message: { message: 'Too many requests, please try again later.' }
+    });
+
+    // Strict rate limit for auth endpoints
+    const authLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000, // 15 minutes
+        max: 20,
+        standardHeaders: true,
+        legacyHeaders: false,
+        message: { message: 'Too many authentication attempts, please try again later.' }
+    });
+
     app.disable('x-powered-by')
         .use(helmet())
+        .use(globalLimiter)
         .use(httpLogger(req => req?.originalUrl?.startsWith('/api-docs')))
         .use(languageMiddleware)
         .use((req: Request, res: Response, next: NextFunction) => {
@@ -29,12 +52,15 @@ export const createServer = (): Express => {
                 req.originalUrl === '/api/user/subscription/cancellation/webhook'
             )
                 next();
-            else express.json()(req, res, next);
+            else express.json({ limit: '1mb' })(req, res, next);
         })
         .use(compression())
-        .use(express.urlencoded({ extended: false }))
-        // .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
-        .use(cors({ origin: '*' }));
+        .use(express.urlencoded({ extended: false, limit: '1mb' }))
+        .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
+
+    // Apply strict rate limiting to auth endpoints
+    app.use('/api/user/auth', authLimiter);
+    app.use('/api/admin/auth', authLimiter);
 
     // Common swagger docs specification
     const commonSwaggerSpec = swaggerJsDoc({
@@ -96,6 +122,30 @@ export const createServer = (): Express => {
             }
         })
     );
+
+    // Health check endpoint
+    app.get('/health', async (_req: Request, res: Response): Promise<void> => {
+        const health: { status: string; db: string; redis: string } = { status: 'ok', db: 'ok', redis: 'ok' };
+        let statusCode = 200;
+
+        try {
+            await knex.raw('SELECT 1');
+        } catch {
+            health.db = 'error';
+            health.status = 'degraded';
+            statusCode = 503;
+        }
+
+        try {
+            await redisClient.ping();
+        } catch {
+            health.redis = 'error';
+            health.status = 'degraded';
+            statusCode = 503;
+        }
+
+        res.status(statusCode).json(health);
+    });
 
     // Test API
     app.get('/', (req: Request, res: Response): void => {

@@ -1,3 +1,2 @@
-// Knex
-export { default as connectRedis } from './connection';
+export { default as connectRedis, redisClient } from './connection';
 export { getRedisData, setRedisData, deleteRedisData } from './service';

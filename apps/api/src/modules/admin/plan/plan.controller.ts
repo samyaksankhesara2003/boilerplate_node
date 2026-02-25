@@ -10,7 +10,7 @@ import { IUpdatePlanParams, IUpdatePlanStatusParams } from './helpers/plan.types
 const createPlan = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, language } = req;
-        const data = await planService.createPlanService(body);
+        const data = await planService.createPlan(body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.CREATE_SUCCESS, data, language);
     } catch (error) {
         next(error);
@@ -24,7 +24,7 @@ const createPlan = async (req: Request, res: Response, next: NextFunction): Prom
 const updatePlan = async (req: Request<IUpdatePlanParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, body, language } = req;
-        await planService.updatePlanService(params, body);
+        await planService.updatePlan(params, body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.UPDATE_SUCCESS, null, language);
     } catch (error) {
         next(error);
@@ -38,7 +38,7 @@ const updatePlan = async (req: Request<IUpdatePlanParams>, res: Response, next: 
 const updatePlanStatus = async (req: Request<IUpdatePlanStatusParams>, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { params, language } = req;
-        await planService.updatePlanStatusService(params);
+        await planService.updatePlanStatus(params);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.PLAN.UPDATE_SUCCESS, null, language);
     } catch (error) {
         next(error);

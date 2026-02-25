@@ -9,7 +9,7 @@ import { ICountryParams, ICountryQuery } from './helpers/country.types';
  * @author Jitendra Singh
  * @description Fetches a country by its ID.
  */
-const getCountryService = async (params: ICountryParams): Promise<Country> => {
+const getCountry = async (params: ICountryParams): Promise<Country> => {
     try {
         const { country_id } = params;
         const countryAttributes = ['id', 'name'];
@@ -21,7 +21,7 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
 
         return country;
     } catch (error) {
-        log.error('getCountryService Catch: ', error);
+        log.error('getCountry Catch: ', error);
         throw error;
     }
 };
@@ -30,7 +30,7 @@ const getCountryService = async (params: ICountryParams): Promise<Country> => {
  * @author Jitendra Singh
  * @description Lists all countries.]
  */
-const listCountriesService = async (query: ICountryQuery): Promise<Country[]> => {
+const listCountries = async (query: ICountryQuery): Promise<Country[]> => {
     try {
         const { search } = query;
         const countryAttributes = ['id', 'name'];
@@ -47,12 +47,12 @@ const listCountriesService = async (query: ICountryQuery): Promise<Country[]> =>
         if (!search) await setRedisData(constants.redisKey.CountryList, countries);
         return countries;
     } catch (error) {
-        log.error('listCountriesService Catch: ', error);
+        log.error('listCountries Catch: ', error);
         throw error;
     }
 };
 
 export const countryService = {
-    getCountryService,
-    listCountriesService
+    getCountry,
+    listCountries
 };

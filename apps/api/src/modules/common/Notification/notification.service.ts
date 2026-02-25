@@ -8,14 +8,14 @@ import { INotificationCount, INotificationMarkAsRead, INotificationQuery } from 
  * @author Sanjay Balai
  * @description Fetches notifications with pagination.
  */
-const getNotificationsService = async (query: INotificationQuery): Promise<INotification[]> => {
+const getNotifications = async (query: INotificationQuery): Promise<INotification[]> => {
     try {
         const {
             recordPerPage = query.recordPerPage || defaultPagination.perPage,
             pageNumber = query.pageNumber || defaultPagination.page,
-            startRange = (+pageNumber - 1) * +recordPerPage,
+            startRange = (pageNumber - 1) * recordPerPage,
             orderBy = query.orderBy || defaultPagination.orderBy,
-            endRange = +pageNumber * +recordPerPage - 1,
+            endRange = pageNumber * recordPerPage - 1,
             orderDir = defaultPagination.orderDir
         } = query;
 
@@ -25,7 +25,7 @@ const getNotificationsService = async (query: INotificationQuery): Promise<INoti
         const processedNotifications = await NotificationService.processNotifications(result.results);
         return processedNotifications;
     } catch (error) {
-        log.error('getNotificationsService Catch: ', error);
+        log.error('getNotifications Catch: ', error);
         throw error;
     }
 };
@@ -34,14 +34,14 @@ const getNotificationsService = async (query: INotificationQuery): Promise<INoti
  * @author Sanjay Balai
  * @description Marks a notification as read.
  */
-const markAsReadService = async (query: INotificationMarkAsRead): Promise<null> => {
+const markAsRead = async (query: INotificationMarkAsRead): Promise<null> => {
     try {
         const { id } = query;
         await Notification.query().patch({ is_read: constants.isRead.Read }).where('id', id).where('is_read', constants.isRead.Unread);
 
         return null;
     } catch (error) {
-        log.error('markAsReadService Catch: ', error);
+        log.error('markAsRead Catch: ', error);
         throw error;
     }
 };
@@ -50,7 +50,7 @@ const markAsReadService = async (query: INotificationMarkAsRead): Promise<null> 
  * @author Sanjay Balai
  * @description Gets the unread count of notifications.
  */
-const getUnreadCountService = async (query: INotificationCount): Promise<Notification | undefined> => {
+const getUnreadCount = async (query: INotificationCount): Promise<Notification | undefined> => {
     try {
         const { receiverType, receiverId } = query;
         const count = await Notification.query()
@@ -63,13 +63,13 @@ const getUnreadCountService = async (query: INotificationCount): Promise<Notific
             .first();
         return count;
     } catch (error) {
-        log.error('getUnreadCountService Catch: ', error);
+        log.error('getUnreadCount Catch: ', error);
         throw error;
     }
 };
 
 export const notificationService = {
-    getNotificationsService,
-    markAsReadService,
-    getUnreadCountService
+    getNotifications,
+    markAsRead,
+    getUnreadCount
 };

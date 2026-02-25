@@ -9,7 +9,7 @@ import { feedbackService } from './feedback.service';
 const postFeedback = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body, user, language } = req;
-        const data = await feedbackService.postFeedbackService({ ...body, user_id: user?.id });
+        const data = await feedbackService.postFeedback({ ...body, user_id: user?.id });
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.FEEDBACK.SAVE_SUCCESS, data, language);
     } catch (error) {
         next(error);
