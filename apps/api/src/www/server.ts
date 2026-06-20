@@ -56,7 +56,7 @@ export const createServer = (): Express => {
         })
         .use(compression())
         .use(express.urlencoded({ extended: false, limit: '1mb' }))
-        .use(cors({ origin: appConfig?.allowedHosts?.split(',') ?? '*' }));
+        .use(cors({ origin: '*' }));
 
     // Apply strict rate limiting to auth endpoints
     app.use('/api/user/auth', authLimiter);

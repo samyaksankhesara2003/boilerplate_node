@@ -19,6 +19,7 @@ import { storageConfig } from '@repo/config';
 const s3Client = new S3Client({
     region: storageConfig.s3BucketRegion,
     endpoint: storageConfig.s3BucketEndpoint,
+    forcePathStyle: true, // required for MinIO and other S3-compatible services
     credentials: {
         accessKeyId: storageConfig.s3BucketAccessKey!,
         secretAccessKey: storageConfig.s3BucketSecretAccessKey!

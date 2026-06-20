@@ -38,9 +38,12 @@ export const constants = {
     // File Validations and Sizes (in MB)
     defaultFileSize: 10,
     profileImageSize: 10,
+    menuFileSize: 10,
 
     // File Types
     supportedProfileImageTypes: ['image/jpg', 'image/jpeg', 'image/png'],
+
+    supportedMenuFileTypes: ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
 
     // Auth Types
     authType: {
@@ -259,3 +262,4 @@ export const constants = {
 
 export type SupportedLanguage = (typeof constants.supportedLanguages)[number];
 export type SupportedProfileImageType = (typeof constants.supportedProfileImageTypes)[number];
+export type SupportedMenuFileType = (typeof constants.supportedMenuFileTypes)[number];

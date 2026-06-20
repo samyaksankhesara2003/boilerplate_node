@@ -122,5 +122,8 @@ export const ResponseMessages = {
         LIST_SUCCESS: 'static_pages.list_success',
         UPDATE_SUCCESS: 'static_pages.update_success',
         DELETE_SUCCESS: 'static_pages.delete_success'
+    },
+    MENU: {
+        UPLOAD_SUCCESS: 'menu.upload_success'
     }
 } as const;
