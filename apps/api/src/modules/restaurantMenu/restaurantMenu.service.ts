@@ -52,6 +52,17 @@ const buildUniqueMenuId = (restaurantId: number, dishName: string, category: str
         .update(`${restaurantId}|${dishName.trim().toLowerCase()}|${(category ?? '').trim().toLowerCase()}`)
         .digest('hex');
 
+const buildMasterText = (item: MenuItem): string => {
+    const lines: string[] = [`Dish: ${item.dish_name}`];
+
+    if (item.category?.trim()) lines.push(`Category: ${item.category}`);
+    if (item.dish_type?.trim()) lines.push(`Type: ${item.dish_type}`);
+    if (item.description?.trim()) lines.push(`Description: ${item.description}`);
+    if (item.ingredients?.length) lines.push(`Ingredients: ${item.ingredients.join(', ')}`);
+
+    return lines.join('\n');
+};
+
 const storeMenuItems = async (items: MenuItem[]) => {
     const restaurantId = 1;
 
@@ -64,7 +75,8 @@ const storeMenuItems = async (items: MenuItem[]) => {
         dish_type: item.dish_type,
         ingredients: item.ingredients,
         allergens: item.allergens,
-        price: item.price
+        price: item.price,
+        text: buildMasterText(item)
     }));
 
     return Promise.all(
@@ -72,7 +84,7 @@ const storeMenuItems = async (items: MenuItem[]) => {
             RestaurantMenuItem.query()
                 .insert(row)
                 .onConflict('unique_menu_id')
-                .merge(['dish_name', 'description', 'category', 'dish_type', 'ingredients', 'allergens', 'price'])
+                .merge(['dish_name', 'description', 'category', 'dish_type', 'ingredients', 'allergens', 'price', 'text'])
         )
     );
 };
