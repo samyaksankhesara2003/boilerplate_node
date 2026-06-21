@@ -8,6 +8,7 @@ class RestaurantMenuItem extends BaseModel {
         return ['ingredients', 'allergens'];
     }
     restaurant_id!: number;
+    unique_menu_id!: string;
     dish_name!: string;
     description!: string;
     category!: string;

@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import OpenAI from 'openai';
 import { log } from '@repo/logger';
 import { storageConfig, openaiConfig } from '@repo/config';
@@ -45,11 +46,18 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
     }
 };
 
+const buildUniqueMenuId = (restaurantId: number, dishName: string, category: string | null) =>
+    crypto
+        .createHash('sha256')
+        .update(`${restaurantId}|${dishName.trim().toLowerCase()}|${(category ?? '').trim().toLowerCase()}`)
+        .digest('hex');
+
 const storeMenuItems = async (items: MenuItem[]) => {
     const restaurantId = 1;
 
     const rows = items.map(item => ({
         restaurant_id: restaurantId,
+        unique_menu_id: buildUniqueMenuId(restaurantId, item.dish_name, item.category),
         dish_name: item.dish_name,
         description: item.description,
         category: item.category,
@@ -59,7 +67,14 @@ const storeMenuItems = async (items: MenuItem[]) => {
         price: item.price
     }));
 
-    return Promise.all(rows.map(row => RestaurantMenuItem.query().insert(row)));
+    return Promise.all(
+        rows.map(row =>
+            RestaurantMenuItem.query()
+                .insert(row)
+                .onConflict('unique_menu_id')
+                .merge(['dish_name', 'description', 'category', 'dish_type', 'ingredients', 'allergens', 'price'])
+        )
+    );
 };
 
 const uploadMenu = async (file: Express.Multer.File) => {
