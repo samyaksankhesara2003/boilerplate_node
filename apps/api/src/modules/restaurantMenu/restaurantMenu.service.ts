@@ -13,9 +13,7 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
     try {
         const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
 
-        const [uploadResult] = await Promise.allSettled([
-            uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)
-        ]);
+        const [uploadResult] = await Promise.allSettled([uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)]);
 
         if (uploadResult.status === 'rejected') {
             throw new CustomError(`Failed to upload file to S3: ${uploadResult.reason}`);
@@ -30,7 +28,6 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
             throw new CustomError('Failed to read downloaded file from S3');
         }
         const pdfBuffer = Buffer.from(bytes);
-
 
         // if we are using the convert to image flow
         const images = await convertPdfToImages(pdfBuffer);
@@ -47,14 +44,11 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
     }
 };
 
-
 const uploadMenu = async (file: Express.Multer.File) => {
     try {
         const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
 
-        const [uploadResult] = await Promise.allSettled([
-            uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)
-        ]);
+        const [uploadResult] = await Promise.allSettled([uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)]);
 
         if (uploadResult.status === 'rejected') {
             throw new CustomError(`Failed to upload file to S3: ${uploadResult.reason}`);
@@ -71,7 +65,7 @@ const uploadMenu = async (file: Express.Multer.File) => {
         const pdfBuffer = Buffer.from(bytes);
 
         const pdfBase64 = pdfBuffer.toString('base64');
-        
+
         const aiResponse = await openaiClient.responses.create({
             model: openaiConfig.model,
             temperature: 0,
@@ -82,28 +76,28 @@ const uploadMenu = async (file: Express.Multer.File) => {
                     content: [
                         {
                             type: 'input_text',
-                            text: 'Extract ALL menu items from this document. Only include dishes that actually appear; use null / [] for anything not stated.',
+                            text: 'Extract ALL menu items from this document. Only include dishes that actually appear; use null / [] for anything not stated.'
                         },
                         {
                             type: 'input_file',
                             filename: file.originalname,
                             file_data: `data:application/pdf;base64,${pdfBase64}`,
-                            detail: 'high',
-                        },
-                    ],
-                },
+                            detail: 'high'
+                        }
+                    ]
+                }
             ],
             text: {
                 format: {
                     type: 'json_schema',
                     name: 'menu_extraction',
                     strict: true,
-                    schema: MENU_ITEMS_SCHEMA,
-                },
-            },
+                    schema: MENU_ITEMS_SCHEMA
+                }
+            }
         });
 
-        const raw = aiResponse.output_text;   // helper that concatenates the text output
+        const raw = aiResponse.output_text; // helper that concatenates the text output
         if (!raw) {
             throw new Error('Menu extraction returned no content (possible refusal).');
         }
@@ -112,14 +106,14 @@ const uploadMenu = async (file: Express.Multer.File) => {
         return {
             objectKey,
             url: `${storageConfig.s3BucketEndpoint}/${storageConfig.s3BucketName}/${objectKey}`,
-            mediaType: 'application/pdf' as const, 
-            items,
+            mediaType: 'application/pdf' as const,
+            items
         };
     } catch (error) {
         log.error('uploadMenu Service Catch: ', error);
         throw error;
     }
-}
+};
 
 export const restaurantMenuService = {
     uploadMenuAndImageConvert,

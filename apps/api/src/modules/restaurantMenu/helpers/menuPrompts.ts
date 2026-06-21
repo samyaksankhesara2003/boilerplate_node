@@ -43,60 +43,50 @@ Example output format:
   ]
 }`;
 
-
-
 export const MENU_ITEMS_SCHEMA = {
-  type: 'object',
-  properties: {
-    items: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          dish_name: {
-            type: 'string',
-          },
-          category: {
-            type: 'string',
-          },
-          description: {
-            type: 'string',
-          },
-          price: {
-            type: 'number',
-          },
-          dish_type: {
-            type: 'string',
-            enum: ['veg', 'non-veg', 'beverage'],
-          },
-          ingredients: {
+    type: 'object',
+    properties: {
+        items: {
             type: 'array',
             items: {
-              type: 'string',
-            },
-            minItems: 0,
-          },
-          allergens: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            minItems: 0,
-          },
-        },
-        required: [
-          'dish_name',
-          'category',
-          'description',
-          'price',
-          'dish_type',
-          'ingredients',
-          'allergens'
-        ],
-        additionalProperties: false,
-      },
+                type: 'object',
+                properties: {
+                    dish_name: {
+                        type: 'string'
+                    },
+                    category: {
+                        type: 'string'
+                    },
+                    description: {
+                        type: 'string'
+                    },
+                    price: {
+                        type: 'number'
+                    },
+                    dish_type: {
+                        type: 'string',
+                        enum: ['veg', 'non-veg', 'beverage']
+                    },
+                    ingredients: {
+                        type: 'array',
+                        items: {
+                            type: 'string'
+                        },
+                        minItems: 0
+                    },
+                    allergens: {
+                        type: 'array',
+                        items: {
+                            type: 'string'
+                        },
+                        minItems: 0
+                    }
+                },
+                required: ['dish_name', 'category', 'description', 'price', 'dish_type', 'ingredients', 'allergens'],
+                additionalProperties: false
+            }
+        }
     },
-  },
-  required: ['items'],
-  additionalProperties: false,
+    required: ['items'],
+    additionalProperties: false
 };

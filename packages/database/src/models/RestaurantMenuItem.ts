@@ -11,7 +11,7 @@ class RestaurantMenuItem extends BaseModel {
     dish_type!: string;
     ingredients!: any;
     allergens!: any;
-    price!: number;    
+    price!: number;
 }
 
 export default RestaurantMenuItem;
