@@ -48,7 +48,7 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
 const storeMenuItems = async (items: MenuItem[]) => {
     const restaurantId = 1;
 
-    const rows = items.map((item) => ({
+    const rows = items.map(item => ({
         restaurant_id: restaurantId,
         dish_name: item.dish_name,
         description: item.description,
@@ -59,7 +59,7 @@ const storeMenuItems = async (items: MenuItem[]) => {
         price: item.price
     }));
 
-    return Promise.all(rows.map((row) => RestaurantMenuItem.query().insert(row)));
+    return Promise.all(rows.map(row => RestaurantMenuItem.query().insert(row)));
 };
 
 const uploadMenu = async (file: Express.Multer.File) => {
