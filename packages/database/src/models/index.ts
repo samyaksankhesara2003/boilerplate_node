@@ -40,3 +40,6 @@ export { default as ReferralHistory } from './ReferralHistory';
 
 // Bookmark
 export { default as Bookmark } from './Bookmark';
+
+// Restaurant Menu Item
+export { default as RestaurantMenuItem } from './RestaurantMenuItem';
