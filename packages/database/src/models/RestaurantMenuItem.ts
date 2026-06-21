@@ -4,6 +4,9 @@ class RestaurantMenuItem extends BaseModel {
     static get tableName() {
         return 'restaurant_menu_items';
     }
+    static get jsonAttributes() {
+        return ['ingredients', 'allergens'];
+    }
     restaurant_id!: number;
     dish_name!: string;
     description!: string;

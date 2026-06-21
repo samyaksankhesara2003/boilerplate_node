@@ -3,6 +3,7 @@ import { log } from '@repo/logger';
 import { storageConfig, openaiConfig } from '@repo/config';
 import { uploadFile, downloadFile, s3Client } from '@repo/storage-service';
 import { CustomError } from '@repo/response-handler';
+import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
 import { MenuItem } from './helpers/reataurant.types.js';
@@ -42,6 +43,23 @@ const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
         log.error('uploadMenu Service Catch: ', error);
         throw error;
     }
+};
+
+const storeMenuItems = async (items: MenuItem[]) => {
+    const restaurantId = 1;
+
+    const rows = items.map((item) => ({
+        restaurant_id: restaurantId,
+        dish_name: item.dish_name,
+        description: item.description,
+        category: item.category,
+        dish_type: item.dish_type,
+        ingredients: item.ingredients,
+        allergens: item.allergens,
+        price: item.price
+    }));
+
+    return Promise.all(rows.map((row) => RestaurantMenuItem.query().insert(row)));
 };
 
 const uploadMenu = async (file: Express.Multer.File) => {
@@ -102,6 +120,8 @@ const uploadMenu = async (file: Express.Multer.File) => {
             throw new Error('Menu extraction returned no content (possible refusal).');
         }
         const { items } = JSON.parse(raw) as { items: MenuItem[] };
+
+        await storeMenuItems(items);
 
         return {
             objectKey,

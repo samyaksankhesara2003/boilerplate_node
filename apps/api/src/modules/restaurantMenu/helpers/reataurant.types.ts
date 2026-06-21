@@ -1,9 +1,9 @@
 export interface MenuItem {
-    dish_name: string | null;
-    description: string | null;
-    category: string | null;
-    dish_type: 'veg' | 'non-veg' | 'beverage' | null;
-    ingredients: string[] | null;
-    allergens: string[] | null;
+    dish_name: string;
+    category: string;
+    description: string;
     price: number;
+    dish_type: string;
+    ingredients: string[];
+    allergens: string[];
 }
