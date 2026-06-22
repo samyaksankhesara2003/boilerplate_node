@@ -23,14 +23,14 @@ const uploadMenu = async (req: Request, res: Response, next: NextFunction): Prom
 };
 
 const uploadMenuToPinecone = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try{
-        const {body} = req.body;
+    try {
+        const { body } = req.body;
         const data = await restaurantMenuService.uploadMenuToPinecone(body as PineconeConfig);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.UPLOAD_SUCCESS, data);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-}
+};
 export const restaurantMenuController = {
     uploadMenu,
     uploadMenuToPinecone

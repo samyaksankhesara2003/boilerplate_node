@@ -162,16 +162,14 @@ const uploadMenu = async (file: Express.Multer.File) => {
     }
 };
 
-
 const uploadMenuToPinecone = async (body: PineconeConfig) => {
-    try{
-        const {index,namespace} = body
-
-    }catch(error){
+    try {
+        const { index, namespace } = body;
+    } catch (error) {
         log.error('uploadMenuToPinecone Service Catch: ', error);
         throw error;
     }
-}
+};
 
 export const restaurantMenuService = {
     // uploadMenuAndImageConvert,

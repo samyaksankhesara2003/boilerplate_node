@@ -8,7 +8,6 @@ export interface MenuItem {
     allergens: string[];
 }
 
-
 export interface PineconeConfig {
     index: string;
     namespace: string;
