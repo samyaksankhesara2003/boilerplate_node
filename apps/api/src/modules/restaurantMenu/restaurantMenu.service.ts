@@ -246,10 +246,12 @@ const getMenuItems = async (query: getMenuItemsQuery) => {
 
 const updateMenuItem = async (body: UpdateMenuItemBody) => {
     try {
-        const { id, dish_name, description, category, dish_type, ingredients, allergens, price, restaurant_id } = body;
+        // The caller passes the current (old) unique_menu_id, which is the existing Pinecone vector ID.
+        const { id, unique_menu_id: previousUniqueMenuId, dish_name, description, category, dish_type, ingredients, allergens, price, restaurant_id, namespace } = body;
 
         const item: MenuItem = { dish_name, description, category, dish_type, ingredients, allergens, price };
 
+        // Regenerate the unique_menu_id and master text so they stay consistent with the updated data.
         const unique_menu_id = buildUniqueMenuId(restaurant_id, dish_name, category);
         const text = buildMasterText(item);
 
@@ -269,6 +271,30 @@ const updateMenuItem = async (body: UpdateMenuItemBody) => {
         if (!updated) {
             throw new CustomError(ResponseMessages.MENU.NOT_FOUND, StatusCodes.NOT_FOUND);
         }
+
+        // Keep Pinecone in sync with the updated row: embed the new text, then upsert under the
+        // new vector ID. If dish_name/category changed, unique_menu_id changed too, so the old
+        // vector must be deleted (Pinecone vector IDs are immutable — there is no rename).
+        const embeddingResponse = await openaiClient.embeddings.create({
+            model: openaiConfig.embeddingModel,
+            input: [text]
+        });
+
+        const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
+
+        if (previousUniqueMenuId !== unique_menu_id) {
+            await pineconeNamespace.deleteOne({ id: previousUniqueMenuId });
+        }
+
+        await pineconeNamespace.upsert({
+            records: [
+                {
+                    id: unique_menu_id,
+                    values: embeddingResponse.data[0].embedding,
+                    metadata: buildPineconeMetadata(updated)
+                }
+            ]
+        });
 
         return updated;
     } catch (error) {

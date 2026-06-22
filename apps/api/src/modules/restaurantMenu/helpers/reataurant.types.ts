@@ -20,6 +20,7 @@ export interface getMenuItemsQuery {
 
 export interface UpdateMenuItemBody {
     id: number;
+    unique_menu_id: string;
     restaurant_id: number;
     dish_name: string;
     description: string;
@@ -28,4 +29,5 @@ export interface UpdateMenuItemBody {
     ingredients: string[];
     allergens: string[];
     price: number;
+    namespace: string;
 }

@@ -3,6 +3,7 @@ import Joi from 'joi';
 const updateRestaurantSchema = {
     body: {
         id: Joi.number().required(),
+        unique_menu_id: Joi.string().required(),
         restaurant_id: Joi.number().required(),
         dish_name: Joi.string().required(),
         description: Joi.string().required(),
@@ -10,7 +11,8 @@ const updateRestaurantSchema = {
         dish_type: Joi.string().required(),
         ingredients: Joi.array().items(Joi.string()).required(),
         allergens: Joi.array().items(Joi.string()).required(),
-        price: Joi.number().required()
+        price: Joi.number().required(),
+        namespace: Joi.string().required()
     }
 };
 
