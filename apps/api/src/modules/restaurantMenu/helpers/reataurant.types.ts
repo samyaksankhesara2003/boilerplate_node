@@ -9,6 +9,11 @@ export interface MenuItem {
 }
 
 export interface PineconeConfig {
-    index: string;
+    restaurant_id: number;
     namespace: string;
+    index?: string;
+}
+
+export interface getMenuItemsQuery {
+    restaurant_id: number;
 }

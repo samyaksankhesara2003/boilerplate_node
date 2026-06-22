@@ -1,16 +1,18 @@
 import crypto from 'node:crypto';
 import OpenAI from 'openai';
 import { log } from '@repo/logger';
-import { storageConfig, openaiConfig } from '@repo/config';
+import { storageConfig, openaiConfig, pineconeConfig } from '@repo/config';
 import { uploadFile, downloadFile, s3Client } from '@repo/storage-service';
 import { CustomError } from '@repo/response-handler';
 import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
-import { MenuItem, PineconeConfig } from './helpers/reataurant.types.js';
+import { getMenuItemsQuery, MenuItem, PineconeConfig } from './helpers/reataurant.types.js';
+import { Pinecone } from '@pinecone-database/pinecone';
+
 
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
-// const pinecone = new Pinecone({ apiKey: PINECONE_API_KEY });
+const pinecone = new Pinecone({ apiKey: pineconeConfig.apiKey });
 // const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
 //     try {
 //         const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
@@ -162,17 +164,102 @@ const uploadMenu = async (file: Express.Multer.File) => {
     }
 };
 
+// Pinecone metadata cannot contain null/undefined values, so we drop empty fields.
+const buildPineconeMetadata = (item: RestaurantMenuItem) => {
+    const metadata: Record<string, string | number | string[]> = {
+        dish_name: item.dish_name
+    };
+
+    if (item.description?.trim()) metadata.description = item.description;
+    if (item.dish_type?.trim()) metadata.dish_type = item.dish_type;
+    if (Array.isArray(item.ingredients) && item.ingredients.length) metadata.ingredients = item.ingredients;
+    if (Array.isArray(item.allergens) && item.allergens.length) metadata.allergens = item.allergens;
+    if (typeof item.price === 'number') metadata.price = item.price;
+
+    return metadata;
+};
+
+const EMBEDDING_BATCH_SIZE = 100;
+const UPSERT_BATCH_SIZE = 100;
+
 const uploadMenuToPinecone = async (body: PineconeConfig) => {
     try {
-        const { index, namespace } = body;
+        const { restaurant_id, namespace, index = pineconeConfig.index } = body;
+
+        // 1. Fetch all menu items for the restaurant.
+        const items = await RestaurantMenuItem.query()
+            .where('restaurant_id', restaurant_id)
+            .whereNotNull('text');
+
+        if (!items.length) {
+            return { index, namespace, upsertedCount: 0, items: [] };
+        }
+
+        // 2 & 3. Read each item's master `text` and generate embeddings (batched).
+        const vectors: { id: string; values: number[]; metadata: Record<string, string | number | string[]> }[] = [];
+
+        for (let i = 0; i < items.length; i += EMBEDDING_BATCH_SIZE) {
+            const batch = items.slice(i, i + EMBEDDING_BATCH_SIZE);
+            
+            const embeddingResponse = await openaiClient.embeddings.create({
+                model: openaiConfig.embeddingModel,
+                input: batch.map(item => item.text)
+            });
+
+            batch.forEach((item, idx) => {
+                vectors.push({
+                    id: item.unique_menu_id, // 4. unique_menu_id as the document ID
+                    values: embeddingResponse.data[idx].embedding, // the embedding vector
+                    metadata: buildPineconeMetadata(item) // the metadata
+                });
+            });
+        }
+
+        // 5. Upsert the vectors into the Pinecone index/namespace (batched).
+        const pineconeNamespace = pinecone.index(index).namespace(namespace);
+
+        for (let i = 0; i < vectors.length; i += UPSERT_BATCH_SIZE) {
+            await pineconeNamespace.upsert({ records: vectors.slice(i, i + UPSERT_BATCH_SIZE) });
+        }
+
+        return {
+            index,
+            namespace,
+            upsertedCount: vectors.length,
+            items: vectors.map(v => v.id)
+        };
     } catch (error) {
         log.error('uploadMenuToPinecone Service Catch: ', error);
         throw error;
     }
 };
 
+const getMenuItems = async (query: getMenuItemsQuery) => {
+    try{
+        const {restaurant_id} = query
+
+        const items = await RestaurantMenuItem.query().where('restaurant_id', restaurant_id);
+
+        return items;
+
+    }catch(error){
+        log.error('getMenuItems Service Catch: ', error);
+        throw error;
+    }
+}
+
+const updateMenuItem = async (body: Partial<MenuItem> & { unique_menu_id: string }) => {
+    try{
+        const {} = body
+    }catch(error){
+        log.error('updateMenuItem Service Catch: ', error);
+        throw error;
+    }   
+}
 export const restaurantMenuService = {
     // uploadMenuAndImageConvert,
     uploadMenu,
-    uploadMenuToPinecone
+    uploadMenuToPinecone,
+    getMenuItems,
+    updateMenuItem
 };

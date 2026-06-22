@@ -22,4 +22,9 @@ router.post('/upload', upload.single('menu_file'), restaurantMenuController.uplo
 
 router.post('/upload-pinecone', restaurantMenuController.uploadMenuToPinecone);
 
+router.get('/items', restaurantMenuController.getMenuItems);
+
+
+router.patch('/items', restaurantMenuController.updateMenuItem);
+
 export const restaurantMenuRoutes = router;

@@ -3,7 +3,7 @@ import { constants, SupportedMenuFileType } from '@repo/config';
 import { StatusCodes, ResponseMessages, sendResponse, CustomError } from '@repo/response-handler';
 import { validateFileSize } from '@repo/utils';
 import { restaurantMenuService } from './restaurantMenu.service';
-import { PineconeConfig } from './helpers/reataurant.types';
+import { getMenuItemsQuery, PineconeConfig } from './helpers/reataurant.types';
 
 const uploadMenu = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -24,14 +24,36 @@ const uploadMenu = async (req: Request, res: Response, next: NextFunction): Prom
 
 const uploadMenuToPinecone = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const { body } = req.body;
+        const body  = req.body;
         const data = await restaurantMenuService.uploadMenuToPinecone(body as PineconeConfig);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.UPLOAD_SUCCESS, data);
     } catch (error) {
         next(error);
     }
 };
+
+const getMenuItems = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const {query} = req
+        const data = await restaurantMenuService.getMenuItems(query as unknown as getMenuItemsQuery);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.GET_SUCCESS, data);
+    }catch(error){
+        next(error);
+    }
+}
+
+const updateMenuItem = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try{
+        const {body} =req
+        const data = await restaurantMenuService.updateMenuItem(body);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.GET_SUCCESS, data);
+    }catch(error){
+        next(error);
+    }
+}
 export const restaurantMenuController = {
     uploadMenu,
-    uploadMenuToPinecone
+    uploadMenuToPinecone,
+    getMenuItems,
+    updateMenuItem
 };
