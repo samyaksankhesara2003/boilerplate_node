@@ -120,5 +120,11 @@
         "list_success": "Liste des pages statiques récupérée avec succès",
         "update_success": "Page statique mise à jour avec succès",
         "delete_success": "Page statique supprimée avec succès"
+    },
+    "menu": {
+        "upload_success": "Menu téléchargé avec succès",
+        "get_success": "Éléments du menu récupérés avec succès",
+        "update_success": "Élément du menu mis à jour avec succès",
+        "not_found": "Élément du menu introuvable"
     }
 }

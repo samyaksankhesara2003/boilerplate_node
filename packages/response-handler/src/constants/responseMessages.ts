@@ -125,6 +125,8 @@ export const ResponseMessages = {
     },
     MENU: {
         UPLOAD_SUCCESS: 'menu.upload_success',
-        GET_SUCCESS: 'menu.get_success'
+        GET_SUCCESS: 'menu.get_success',
+        UPDATE_SUCCESS: 'menu.update_success',
+        NOT_FOUND: 'menu.not_found'
     }
 } as const;

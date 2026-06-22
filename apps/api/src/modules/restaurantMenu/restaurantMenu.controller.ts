@@ -3,7 +3,7 @@ import { constants, SupportedMenuFileType } from '@repo/config';
 import { StatusCodes, ResponseMessages, sendResponse, CustomError } from '@repo/response-handler';
 import { validateFileSize } from '@repo/utils';
 import { restaurantMenuService } from './restaurantMenu.service';
-import { getMenuItemsQuery, PineconeConfig } from './helpers/reataurant.types';
+import { getMenuItemsQuery, PineconeConfig, UpdateMenuItemBody } from './helpers/reataurant.types';
 
 const uploadMenu = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
@@ -45,8 +45,8 @@ const getMenuItems = async (req: Request, res: Response, next: NextFunction): Pr
 const updateMenuItem = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const { body } = req;
-        const data = await restaurantMenuService.updateMenuItem(body);
-        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.GET_SUCCESS, data);
+        const data = await restaurantMenuService.updateMenuItem(body as UpdateMenuItemBody);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.UPDATE_SUCCESS, data);
     } catch (error) {
         next(error);
     }

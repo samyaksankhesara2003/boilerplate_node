@@ -3,11 +3,11 @@ import OpenAI from 'openai';
 import { log } from '@repo/logger';
 import { storageConfig, openaiConfig, pineconeConfig } from '@repo/config';
 import { uploadFile, downloadFile, s3Client } from '@repo/storage-service';
-import { CustomError } from '@repo/response-handler';
+import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
-import { getMenuItemsQuery, MenuItem, PineconeConfig } from './helpers/reataurant.types.js';
+import { getMenuItemsQuery, MenuItem, PineconeConfig, UpdateMenuItemBody } from './helpers/reataurant.types.js';
 import { Pinecone } from '@pinecone-database/pinecone';
 
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
@@ -244,9 +244,33 @@ const getMenuItems = async (query: getMenuItemsQuery) => {
     }
 };
 
-const updateMenuItem = async (body: Partial<MenuItem> & { unique_menu_id: string }) => {
+const updateMenuItem = async (body: UpdateMenuItemBody) => {
     try {
-        const {} = body;
+        const { id, dish_name, description, category, dish_type, ingredients, allergens, price ,restaurant_id} = body;
+
+        const item: MenuItem = { dish_name, description, category, dish_type, ingredients, allergens, price };
+
+        const unique_menu_id = buildUniqueMenuId(restaurant_id, dish_name, category);
+        const text = buildMasterText(item);
+
+        const updated = await RestaurantMenuItem.query().patchAndFetchById(id, {
+            restaurant_id,
+            unique_menu_id,
+            dish_name,
+            description,
+            category,
+            dish_type,
+            ingredients,
+            allergens,
+            price,
+            text
+        });
+
+        if (!updated) {
+            throw new CustomError(ResponseMessages.MENU.NOT_FOUND, StatusCodes.NOT_FOUND);
+        }
+
+        return updated;
     } catch (error) {
         log.error('updateMenuItem Service Catch: ', error);
         throw error;

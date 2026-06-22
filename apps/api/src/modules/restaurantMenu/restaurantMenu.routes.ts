@@ -1,6 +1,8 @@
 import { Router, Request } from 'express';
 import multer, { FileFilterCallback } from 'multer';
 import { restaurantMenuController } from './restaurantMenu.controller';
+import { validateRequest } from '@repo/validator';
+import { restaurantValidation } from './helpers/restaurant.validation';
 const router: Router = Router();
 
 const allowedMimeTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
@@ -24,6 +26,6 @@ router.post('/upload-pinecone', restaurantMenuController.uploadMenuToPinecone);
 
 router.get('/items', restaurantMenuController.getMenuItems);
 
-router.patch('/items', restaurantMenuController.updateMenuItem);
+router.patch('/item', validateRequest(restaurantValidation.updateRestaurantSchema), restaurantMenuController.updateMenuItem);
 
 export const restaurantMenuRoutes = router;

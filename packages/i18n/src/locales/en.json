@@ -120,5 +120,11 @@
         "list_success": "Static page list fetched successfully",
         "update_success": "Static page updated successfully",
         "delete_success": "Static page deleted successfully"
+    },
+    "menu": {
+        "upload_success": "Menu uploaded successfully",
+        "get_success": "Menu items fetched successfully",
+        "update_success": "Menu item updated successfully",
+        "not_found": "Menu item not found"
     }
 }

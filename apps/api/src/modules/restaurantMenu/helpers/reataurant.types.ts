@@ -17,3 +17,15 @@ export interface PineconeConfig {
 export interface getMenuItemsQuery {
     restaurant_id: number;
 }
+
+export interface UpdateMenuItemBody {
+    id: number;
+    restaurant_id: number;
+    dish_name: string;
+    description: string;
+    category: string;
+    dish_type: string;
+    ingredients: string[];
+    allergens: string[];
+    price: number;
+}
