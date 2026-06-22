@@ -246,7 +246,7 @@ const getMenuItems = async (query: getMenuItemsQuery) => {
 
 const updateMenuItem = async (body: UpdateMenuItemBody) => {
     try {
-        const { id, dish_name, description, category, dish_type, ingredients, allergens, price ,restaurant_id} = body;
+        const { id, dish_name, description, category, dish_type, ingredients, allergens, price, restaurant_id } = body;
 
         const item: MenuItem = { dish_name, description, category, dish_type, ingredients, allergens, price };
 
