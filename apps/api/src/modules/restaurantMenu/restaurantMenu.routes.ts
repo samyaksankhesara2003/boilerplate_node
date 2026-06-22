@@ -24,7 +24,6 @@ router.post('/upload-pinecone', restaurantMenuController.uploadMenuToPinecone);
 
 router.get('/items', restaurantMenuController.getMenuItems);
 
-
 router.patch('/items', restaurantMenuController.updateMenuItem);
 
 export const restaurantMenuRoutes = router;

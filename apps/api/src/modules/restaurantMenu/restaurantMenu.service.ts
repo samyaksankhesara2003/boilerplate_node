@@ -10,7 +10,6 @@ import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts
 import { getMenuItemsQuery, MenuItem, PineconeConfig } from './helpers/reataurant.types.js';
 import { Pinecone } from '@pinecone-database/pinecone';
 
-
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
 const pinecone = new Pinecone({ apiKey: pineconeConfig.apiKey });
 // const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
@@ -187,9 +186,7 @@ const uploadMenuToPinecone = async (body: PineconeConfig) => {
         const { restaurant_id, namespace, index = pineconeConfig.index } = body;
 
         // 1. Fetch all menu items for the restaurant.
-        const items = await RestaurantMenuItem.query()
-            .where('restaurant_id', restaurant_id)
-            .whereNotNull('text');
+        const items = await RestaurantMenuItem.query().where('restaurant_id', restaurant_id).whereNotNull('text');
 
         if (!items.length) {
             return { index, namespace, upsertedCount: 0, items: [] };
@@ -200,7 +197,7 @@ const uploadMenuToPinecone = async (body: PineconeConfig) => {
 
         for (let i = 0; i < items.length; i += EMBEDDING_BATCH_SIZE) {
             const batch = items.slice(i, i + EMBEDDING_BATCH_SIZE);
-            
+
             const embeddingResponse = await openaiClient.embeddings.create({
                 model: openaiConfig.embeddingModel,
                 input: batch.map(item => item.text)
@@ -235,27 +232,26 @@ const uploadMenuToPinecone = async (body: PineconeConfig) => {
 };
 
 const getMenuItems = async (query: getMenuItemsQuery) => {
-    try{
-        const {restaurant_id} = query
+    try {
+        const { restaurant_id } = query;
 
         const items = await RestaurantMenuItem.query().where('restaurant_id', restaurant_id);
 
         return items;
-
-    }catch(error){
+    } catch (error) {
         log.error('getMenuItems Service Catch: ', error);
         throw error;
     }
-}
+};
 
 const updateMenuItem = async (body: Partial<MenuItem> & { unique_menu_id: string }) => {
-    try{
-        const {} = body
-    }catch(error){
+    try {
+        const {} = body;
+    } catch (error) {
         log.error('updateMenuItem Service Catch: ', error);
         throw error;
-    }   
-}
+    }
+};
 export const restaurantMenuService = {
     // uploadMenuAndImageConvert,
     uploadMenu,

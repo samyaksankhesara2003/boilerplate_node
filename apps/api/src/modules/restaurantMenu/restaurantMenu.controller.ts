@@ -24,7 +24,7 @@ const uploadMenu = async (req: Request, res: Response, next: NextFunction): Prom
 
 const uploadMenuToPinecone = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const body  = req.body;
+        const body = req.body;
         const data = await restaurantMenuService.uploadMenuToPinecone(body as PineconeConfig);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.UPLOAD_SUCCESS, data);
     } catch (error) {
@@ -33,24 +33,24 @@ const uploadMenuToPinecone = async (req: Request, res: Response, next: NextFunct
 };
 
 const getMenuItems = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try{
-        const {query} = req
+    try {
+        const { query } = req;
         const data = await restaurantMenuService.getMenuItems(query as unknown as getMenuItemsQuery);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.GET_SUCCESS, data);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-}
+};
 
 const updateMenuItem = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try{
-        const {body} =req
+    try {
+        const { body } = req;
         const data = await restaurantMenuService.updateMenuItem(body);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.GET_SUCCESS, data);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-}
+};
 export const restaurantMenuController = {
     uploadMenu,
     uploadMenuToPinecone,
