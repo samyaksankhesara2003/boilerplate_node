@@ -20,4 +20,6 @@ const upload = multer({
 
 router.post('/upload', upload.single('menu_file'), restaurantMenuController.uploadMenu);
 
+router.post('/upload-pinecone',restaurantMenuController.uploadMenuToPinecone);
+
 export const restaurantMenuRoutes = router;

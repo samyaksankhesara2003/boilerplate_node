@@ -7,44 +7,44 @@ import { CustomError } from '@repo/response-handler';
 import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
-import { MenuItem } from './helpers/reataurant.types.js';
+import { MenuItem, PineconeConfig } from './helpers/reataurant.types.js';
 
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
+// const pinecone = new Pinecone({ apiKey: PINECONE_API_KEY });
+// const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
+//     try {
+//         const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
 
-const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
-    try {
-        const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
+//         const [uploadResult] = await Promise.allSettled([uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)]);
 
-        const [uploadResult] = await Promise.allSettled([uploadFile(s3Client, storageConfig.s3BucketName, objectKey, file.buffer)]);
+//         if (uploadResult.status === 'rejected') {
+//             throw new CustomError(`Failed to upload file to S3: ${uploadResult.reason}`);
+//         }
 
-        if (uploadResult.status === 'rejected') {
-            throw new CustomError(`Failed to upload file to S3: ${uploadResult.reason}`);
-        }
+//         const s3Response = await downloadFile(s3Client, storageConfig.s3BucketName, objectKey);
+//         // s3Response.Body is stream data we need to convert it to buffer
 
-        const s3Response = await downloadFile(s3Client, storageConfig.s3BucketName, objectKey);
-        // s3Response.Body is stream data we need to convert it to buffer
+//         const bytes = await s3Response.Body?.transformToByteArray();
 
-        const bytes = await s3Response.Body?.transformToByteArray();
+//         if (!bytes) {
+//             throw new CustomError('Failed to read downloaded file from S3');
+//         }
+//         const pdfBuffer = Buffer.from(bytes);
 
-        if (!bytes) {
-            throw new CustomError('Failed to read downloaded file from S3');
-        }
-        const pdfBuffer = Buffer.from(bytes);
+//         // if we are using the convert to image flow
+//         const images = await convertPdfToImages(pdfBuffer);
 
-        // if we are using the convert to image flow
-        const images = await convertPdfToImages(pdfBuffer);
-
-        return {
-            objectKey,
-            url: `${storageConfig.s3BucketEndpoint}/${storageConfig.s3BucketName}/${objectKey}`,
-            pageCount: images.length,
-            images
-        };
-    } catch (error) {
-        log.error('uploadMenu Service Catch: ', error);
-        throw error;
-    }
-};
+//         return {
+//             objectKey,
+//             url: `${storageConfig.s3BucketEndpoint}/${storageConfig.s3BucketName}/${objectKey}`,
+//             pageCount: images.length,
+//             images
+//         };
+//     } catch (error) {
+//         log.error('uploadMenu Service Catch: ', error);
+//         throw error;
+//     }
+// };
 
 const buildUniqueMenuId = (restaurantId: number, dishName: string, category: string | null) =>
     crypto
@@ -162,7 +162,19 @@ const uploadMenu = async (file: Express.Multer.File) => {
     }
 };
 
+
+const uploadMenuToPinecone = async (body: PineconeConfig) => {
+    try{
+        const {index,namespace} = body
+
+    }catch(error){
+        log.error('uploadMenuToPinecone Service Catch: ', error);
+        throw error;
+    }
+}
+
 export const restaurantMenuService = {
-    uploadMenuAndImageConvert,
-    uploadMenu
+    // uploadMenuAndImageConvert,
+    uploadMenu,
+    uploadMenuToPinecone
 };

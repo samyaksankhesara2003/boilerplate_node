@@ -7,3 +7,9 @@ export interface MenuItem {
     ingredients: string[];
     allergens: string[];
 }
+
+
+export interface PineconeConfig {
+    index: string;
+    namespace: string;
+}
