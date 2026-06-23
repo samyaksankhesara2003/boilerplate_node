@@ -9,6 +9,9 @@ import { connectRedis, redisClient } from '@repo/redis';
 import { socketManager } from '@repo/socket';
 import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handler';
 import { createServer } from './www/server';
+import { speechmaticsWss } from './webSocket/speechmatics.handler';
+
+const SPEECHMATICS_WS_PATH = '/ws/speechmatics';
 
 const port = appConfig.appPort || 5001;
 const app = createServer();
@@ -38,6 +41,24 @@ if (appConfig.isHttps) {
 
 // Initialize Socket.IO with the HTTP server
 socketManager.initialize(server);
+
+// Route raw WebSocket upgrades for the Speechmatics live-transcription endpoint.
+// Only handle our path here — other upgrades (e.g. Socket.IO's /socket.io/) are
+// left untouched so their own listeners can handle them.
+server.on('upgrade', (req, socket, head) => {
+    let pathname: string | undefined;
+    try {
+        pathname = new URL(req.url ?? '', `http://${req.headers.host ?? 'localhost'}`).pathname;
+    } catch {
+        return;
+    }
+
+    if (pathname === SPEECHMATICS_WS_PATH) {
+        speechmaticsWss.handleUpgrade(req, socket, head, ws => {
+            speechmaticsWss.emit('connection', ws, req);
+        });
+    }
+});
 
 // Connect to Redis
 connectRedis();
