@@ -127,6 +127,8 @@ export const ResponseMessages = {
         UPLOAD_SUCCESS: 'menu.upload_success',
         GET_SUCCESS: 'menu.get_success',
         UPDATE_SUCCESS: 'menu.update_success',
-        NOT_FOUND: 'menu.not_found'
+        NOT_FOUND: 'menu.not_found',
+        CREATE_SUCCESS: 'menu.create_success',
+        ALREADY_EXISTS: 'menu.already_exists'
     }
 } as const;

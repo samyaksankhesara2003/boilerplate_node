@@ -26,6 +26,10 @@ router.post('/upload-pinecone', restaurantMenuController.uploadMenuToPinecone);
 
 router.get('/items', restaurantMenuController.getMenuItems);
 
-router.patch('/item', validateRequest(restaurantValidation.updateRestaurantSchema), restaurantMenuController.updateMenuItem);
+router.patch('/item', validateRequest(restaurantValidation.updateRestaurantMenuItemSchema), restaurantMenuController.updateMenuItem);
+
+router.post('/item', validateRequest(restaurantValidation.createRestaurantMenuItemSchema), restaurantMenuController.createMenuItem);
+
+router.delete('/item',validateRequest(restaurantValidation.deleteRestaurantSchema), restaurantMenuController.deleteMenuItem);
 
 export const restaurantMenuRoutes = router;

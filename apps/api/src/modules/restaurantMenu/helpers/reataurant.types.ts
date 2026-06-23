@@ -31,3 +31,21 @@ export interface UpdateMenuItemBody {
     price: number;
     namespace: string;
 }
+
+
+export interface CreateMenuItemBody {
+    restaurant_id: number;
+    dish_name: string;
+    description: string;
+    category: string;
+    dish_type: string;
+    ingredients: string[];
+    allergens: string[];
+    price: number;
+    namespace: string;
+}
+
+export interface DeleteMenuItemQuery{
+    id:number
+    namespace:string
+}

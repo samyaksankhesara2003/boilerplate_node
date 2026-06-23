@@ -7,11 +7,36 @@ import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handl
 import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
-import { getMenuItemsQuery, MenuItem, PineconeConfig, UpdateMenuItemBody } from './helpers/reataurant.types.js';
+import { CreateMenuItemBody, DeleteMenuItemQuery, getMenuItemsQuery, MenuItem, PineconeConfig, UpdateMenuItemBody } from './helpers/reataurant.types.js';
 import { Pinecone } from '@pinecone-database/pinecone';
 
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
 const pinecone = new Pinecone({ apiKey: pineconeConfig.apiKey });
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+/**
+ * Retries a Pinecone operation on transient connection failures (PineconeConnectionError),
+ * which are caused by network blips or brief Pinecone outages rather than bad input.
+ * Uses exponential backoff. Non-connection errors are re-thrown immediately.
+ */
+const withPineconeRetry = async <T>(operation: () => Promise<T>, retries = 3, baseDelayMs = 300): Promise<T> => {
+    for (let attempt = 0; ; attempt++) {
+        try {
+            return await operation();
+        } catch (error) {
+            const isConnectionError = error instanceof Error && error.name === 'PineconeConnectionError';
+
+            if (!isConnectionError || attempt >= retries) {
+                throw error;
+            }
+
+            const delay = baseDelayMs * 2 ** attempt;
+            log.warn(`Pinecone connection failed (attempt ${attempt + 1}/${retries}), retrying in ${delay}ms`);
+            await sleep(delay);
+        }
+    }
+};
 // const uploadMenuAndImageConvert = async (file: Express.Multer.File) => {
 //     try {
 //         const objectKey = `casa_santiago/restaurant_menus/${file.originalname}`;
@@ -164,7 +189,7 @@ const uploadMenu = async (file: Express.Multer.File) => {
 };
 
 // Pinecone metadata cannot contain null/undefined values, so we drop empty fields.
-const buildPineconeMetadata = (item: RestaurantMenuItem) => {
+const buildPineconeMetadata = (item: Pick<RestaurantMenuItem, 'dish_name' | 'description' | 'dish_type' | 'ingredients' | 'allergens' | 'price'>) => {
     const metadata: Record<string, string | number | string[]> = {
         dish_name: item.dish_name
     };
@@ -247,13 +272,57 @@ const getMenuItems = async (query: getMenuItemsQuery) => {
 const updateMenuItem = async (body: UpdateMenuItemBody) => {
     try {
         // The caller passes the current (old) unique_menu_id, which is the existing Pinecone vector ID.
-        const { id, unique_menu_id: previousUniqueMenuId, dish_name, description, category, dish_type, ingredients, allergens, price, restaurant_id, namespace } = body;
+        const {
+            id,
+            unique_menu_id: previousUniqueMenuId,
+            dish_name,
+            description,
+            category,
+            dish_type,
+            ingredients,
+            allergens,
+            price,
+            restaurant_id,
+            namespace
+        } = body;
 
         const item: MenuItem = { dish_name, description, category, dish_type, ingredients, allergens, price };
 
         // Regenerate the unique_menu_id and master text so they stay consistent with the updated data.
         const unique_menu_id = buildUniqueMenuId(restaurant_id, dish_name, category);
         const text = buildMasterText(item);
+
+        // Make sure the row exists before touching Pinecone, so we don't sync a vector for a dish we can't update.
+        const existing = await RestaurantMenuItem.query().findById(id);
+        if (!existing) {
+            throw new CustomError(ResponseMessages.MENU.NOT_FOUND, StatusCodes.NOT_FOUND);
+        }
+
+        // Embed the new text up front (used for the Pinecone upsert below).
+        const embeddingResponse = await openaiClient.embeddings.create({
+            model: openaiConfig.embeddingModel,
+            input: [text]
+        });
+
+        const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
+
+        const metadata = buildPineconeMetadata({ dish_name, description, dish_type, ingredients, allergens, price });
+
+        // Order matters for consistency on failure: upsert the new vector first (retried on transient
+        // connection errors). Only once Pinecone has accepted the new data do we patch the DB, and only
+        // then delete the old vector. If any step throws, we avoid the half-updated state where the DB
+        // is patched but Pinecone is missing/stale.
+        await withPineconeRetry(() =>
+            pineconeNamespace.upsert({
+                records: [
+                    {
+                        id: unique_menu_id,
+                        values: embeddingResponse.data[0].embedding,
+                        metadata
+                    }
+                ]
+            })
+        );
 
         const updated = await RestaurantMenuItem.query().patchAndFetchById(id, {
             restaurant_id,
@@ -268,33 +337,11 @@ const updateMenuItem = async (body: UpdateMenuItemBody) => {
             text
         });
 
-        if (!updated) {
-            throw new CustomError(ResponseMessages.MENU.NOT_FOUND, StatusCodes.NOT_FOUND);
-        }
-
-        // Keep Pinecone in sync with the updated row: embed the new text, then upsert under the
-        // new vector ID. If dish_name/category changed, unique_menu_id changed too, so the old
-        // vector must be deleted (Pinecone vector IDs are immutable — there is no rename).
-        const embeddingResponse = await openaiClient.embeddings.create({
-            model: openaiConfig.embeddingModel,
-            input: [text]
-        });
-
-        const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
-
+        // If dish_name/category changed, unique_menu_id changed too, so the old vector must be deleted
+        // (Pinecone vector IDs are immutable — there is no rename).
         if (previousUniqueMenuId !== unique_menu_id) {
-            await pineconeNamespace.deleteOne({ id: previousUniqueMenuId });
+            await withPineconeRetry(() => pineconeNamespace.deleteOne({ id: previousUniqueMenuId }));
         }
-
-        await pineconeNamespace.upsert({
-            records: [
-                {
-                    id: unique_menu_id,
-                    values: embeddingResponse.data[0].embedding,
-                    metadata: buildPineconeMetadata(updated)
-                }
-            ]
-        });
 
         return updated;
     } catch (error) {
@@ -302,10 +349,91 @@ const updateMenuItem = async (body: UpdateMenuItemBody) => {
         throw error;
     }
 };
+
+const createMenuItem = async (body: CreateMenuItemBody) => {
+    try{
+        const { restaurant_id, dish_name, description, category, dish_type, ingredients, allergens, price, namespace } = body;
+
+        const unique_menu_id = buildUniqueMenuId(restaurant_id, dish_name, category);
+
+        const existing = await RestaurantMenuItem.query().findOne({ unique_menu_id }).where('restaurant_id', restaurant_id);  
+
+        if (existing) {
+            throw new CustomError(ResponseMessages.MENU.ALREADY_EXISTS, StatusCodes.CONFLICT);
+        }
+
+        const text = buildMasterText({ dish_name, description, category, dish_type, ingredients, allergens, price });
+
+        // Embed the new text up front (used for the Pinecone upsert below).
+        const embeddingResponse = await openaiClient.embeddings.create({
+            model: openaiConfig.embeddingModel,
+            input: [text]
+        });
+
+        const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
+
+        const metadata = buildPineconeMetadata({ dish_name, description, dish_type, ingredients, allergens, price });
+
+        await withPineconeRetry(() =>
+            pineconeNamespace.upsert({
+                records: [
+                    {
+                        id: unique_menu_id,
+                        values: embeddingResponse.data[0].embedding,
+                        metadata
+                    }
+                ]
+            })
+        );
+
+        const createdItem = await RestaurantMenuItem.query().insert({
+            restaurant_id,
+            unique_menu_id,
+            dish_name,
+            description,
+            category,
+            dish_type,
+            ingredients,
+            allergens,
+            price,
+            text
+        });
+
+        return createdItem;
+
+    }catch(error){
+        log.error('createMenuItem Service Catch: ', error);
+        throw error;
+    }
+}
+
+const deleteMenuItem = async (query : DeleteMenuItemQuery) =>{
+    try{
+        const {id,namespace}  = query
+
+        const menuItem  = await RestaurantMenuItem.query().findById(id)
+        if(!menuItem){
+            throw new CustomError(ResponseMessages.MENU.NOT_FOUND,StatusCodes.NOT_FOUND)
+        }
+
+        const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
+        await withPineconeRetry(() => pineconeNamespace.deleteOne({ id: menuItem.unique_menu_id }));
+
+        await RestaurantMenuItem.query().deleteById(id)
+
+        return true;
+    }catch(error){
+        log.error('createMenuItem Service Catch: ', error);
+        throw error
+    }
+}
+
 export const restaurantMenuService = {
     // uploadMenuAndImageConvert,
     uploadMenu,
     uploadMenuToPinecone,
     getMenuItems,
-    updateMenuItem
+    updateMenuItem,
+    createMenuItem,
+    deleteMenuItem
 };
