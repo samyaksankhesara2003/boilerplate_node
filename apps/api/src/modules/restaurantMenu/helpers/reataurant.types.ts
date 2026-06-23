@@ -32,7 +32,6 @@ export interface UpdateMenuItemBody {
     namespace: string;
 }
 
-
 export interface CreateMenuItemBody {
     restaurant_id: number;
     dish_name: string;
@@ -45,7 +44,7 @@ export interface CreateMenuItemBody {
     namespace: string;
 }
 
-export interface DeleteMenuItemQuery{
-    id:number
-    namespace:string
+export interface DeleteMenuItemQuery {
+    id: number;
+    namespace: string;
 }

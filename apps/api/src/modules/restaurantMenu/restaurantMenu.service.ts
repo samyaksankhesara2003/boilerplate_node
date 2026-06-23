@@ -7,7 +7,14 @@ import { CustomError, ResponseMessages, StatusCodes } from '@repo/response-handl
 import { RestaurantMenuItem } from '@repo/db';
 import { convertPdfToImages } from './helpers/pdfHelper.js';
 import { MENU_EXTRACTION_PROMPT, MENU_ITEMS_SCHEMA } from './helpers/menuPrompts.js';
-import { CreateMenuItemBody, DeleteMenuItemQuery, getMenuItemsQuery, MenuItem, PineconeConfig, UpdateMenuItemBody } from './helpers/reataurant.types.js';
+import {
+    CreateMenuItemBody,
+    DeleteMenuItemQuery,
+    getMenuItemsQuery,
+    MenuItem,
+    PineconeConfig,
+    UpdateMenuItemBody
+} from './helpers/reataurant.types.js';
 import { Pinecone } from '@pinecone-database/pinecone';
 
 const openaiClient = new OpenAI({ apiKey: openaiConfig.apiKey });
@@ -351,12 +358,12 @@ const updateMenuItem = async (body: UpdateMenuItemBody) => {
 };
 
 const createMenuItem = async (body: CreateMenuItemBody) => {
-    try{
+    try {
         const { restaurant_id, dish_name, description, category, dish_type, ingredients, allergens, price, namespace } = body;
 
         const unique_menu_id = buildUniqueMenuId(restaurant_id, dish_name, category);
 
-        const existing = await RestaurantMenuItem.query().findOne({ unique_menu_id }).where('restaurant_id', restaurant_id);  
+        const existing = await RestaurantMenuItem.query().findOne({ unique_menu_id }).where('restaurant_id', restaurant_id);
 
         if (existing) {
             throw new CustomError(ResponseMessages.MENU.ALREADY_EXISTS, StatusCodes.CONFLICT);
@@ -400,33 +407,32 @@ const createMenuItem = async (body: CreateMenuItemBody) => {
         });
 
         return createdItem;
-
-    }catch(error){
+    } catch (error) {
         log.error('createMenuItem Service Catch: ', error);
         throw error;
     }
-}
+};
 
-const deleteMenuItem = async (query : DeleteMenuItemQuery) =>{
-    try{
-        const {id,namespace}  = query
+const deleteMenuItem = async (query: DeleteMenuItemQuery) => {
+    try {
+        const { id, namespace } = query;
 
-        const menuItem  = await RestaurantMenuItem.query().findById(id)
-        if(!menuItem){
-            throw new CustomError(ResponseMessages.MENU.NOT_FOUND,StatusCodes.NOT_FOUND)
+        const menuItem = await RestaurantMenuItem.query().findById(id);
+        if (!menuItem) {
+            throw new CustomError(ResponseMessages.MENU.NOT_FOUND, StatusCodes.NOT_FOUND);
         }
 
         const pineconeNamespace = pinecone.index(pineconeConfig.index).namespace(namespace);
         await withPineconeRetry(() => pineconeNamespace.deleteOne({ id: menuItem.unique_menu_id }));
 
-        await RestaurantMenuItem.query().deleteById(id)
+        await RestaurantMenuItem.query().deleteById(id);
 
         return true;
-    }catch(error){
+    } catch (error) {
         log.error('createMenuItem Service Catch: ', error);
-        throw error
+        throw error;
     }
-}
+};
 
 export const restaurantMenuService = {
     // uploadMenuAndImageConvert,

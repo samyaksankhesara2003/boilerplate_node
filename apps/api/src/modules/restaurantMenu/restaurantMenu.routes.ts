@@ -30,6 +30,6 @@ router.patch('/item', validateRequest(restaurantValidation.updateRestaurantMenuI
 
 router.post('/item', validateRequest(restaurantValidation.createRestaurantMenuItemSchema), restaurantMenuController.createMenuItem);
 
-router.delete('/item',validateRequest(restaurantValidation.deleteRestaurantSchema), restaurantMenuController.deleteMenuItem);
+router.delete('/item', validateRequest(restaurantValidation.deleteRestaurantSchema), restaurantMenuController.deleteMenuItem);
 
 export const restaurantMenuRoutes = router;

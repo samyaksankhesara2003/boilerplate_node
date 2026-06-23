@@ -28,14 +28,14 @@ const createRestaurantMenuItemSchema = {
         price: Joi.number().required(),
         namespace: Joi.string().required()
     }
-}
+};
 
 const deleteRestaurantSchema = {
     query: {
         id: Joi.number().required(),
         namespace: Joi.string().required()
     }
-}
+};
 
 export const restaurantValidation = {
     updateRestaurantMenuItemSchema,

@@ -53,25 +53,24 @@ const updateMenuItem = async (req: Request, res: Response, next: NextFunction): 
 };
 
 const createMenuItem = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try{
+    try {
         const { body } = req;
         const data = await restaurantMenuService.createMenuItem(body as CreateMenuItemBody);
         return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.MENU.CREATE_SUCCESS, data);
-    }catch(error){
+    } catch (error) {
         next(error);
     }
-}
+};
 
-const deleteMenuItem =  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    try{
-        const {query} = req
-        const data = await restaurantMenuService.deleteMenuItem(query as unknown as DeleteMenuItemQuery)
-                return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data);
-
-    }catch(error){
-        next(error)
+const deleteMenuItem = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const { query } = req;
+        const data = await restaurantMenuService.deleteMenuItem(query as unknown as DeleteMenuItemQuery);
+        return sendResponse(res, StatusCodes.SUCCESS, ResponseMessages.COMMON.SUCCESS, data);
+    } catch (error) {
+        next(error);
     }
-}
+};
 
 export const restaurantMenuController = {
     uploadMenu,
