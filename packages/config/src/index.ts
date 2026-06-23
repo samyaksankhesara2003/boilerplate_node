@@ -12,3 +12,4 @@ export * from './sms';
 export * from './firebaseAuth';
 export * from './openai';
 export * from './pinecone';
+export * from './speechmatic';

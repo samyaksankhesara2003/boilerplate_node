@@ -49,7 +49,8 @@
     "on-finished": "^2.4.1",
     "openai": "^6.44.0",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "ws": "^8.21.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -63,6 +64,7 @@
     "@types/supertest": "^6.0.3",
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
+    "@types/ws": "^8.18.1",
     "supertest": "^7.1.1",
     "tsx": "^4.19.4"
   }
