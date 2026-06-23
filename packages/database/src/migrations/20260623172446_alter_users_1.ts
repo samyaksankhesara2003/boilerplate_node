@@ -26,7 +26,7 @@ export async function up(knex: Knex): Promise<void> {
  * @returns Promise<void> - A promise that resolves when the migration is reverted.
  */
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.alterTable('users' , table => {
-        table.dropColumn('waiter_identifier')
+    await knex.schema.alterTable('users', table => {
+        table.dropColumn('waiter_identifier');
     });
 }

@@ -21,7 +21,7 @@ class User extends BaseModel {
     role!: number; // 1-> Admin, 2-> User
     status!: number; // 1-> Active, 2-> Inactive
     slug!: string;
-    waiter_identifier!:unknown
+    waiter_identifier!: unknown;
     user_subscriptions!: UserSubscription[];
 
     // Define a virtual attribute for name
