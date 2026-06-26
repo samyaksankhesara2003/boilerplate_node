@@ -126,10 +126,9 @@ speechmaticsWss.on('connection', async (clientWs: WebSocket, req: IncomingMessag
                 safeSend(clientWs, msg as unknown as object);
                 return;
             }
-
         } catch (err: unknown) {
             log.error('[SM] Message parse error:', (err as Error).message);
-        }       
+        }
     });
 
     // Audio pipe: client → Speechmatics

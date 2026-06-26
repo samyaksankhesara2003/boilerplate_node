@@ -10,7 +10,7 @@ export function createSpeechmaticsSocket(language = 'en', enrolledSpeakers: Enro
     const smWs = new WebSocket(speechmaticsConfig.url, {
         headers: { Authorization: `Bearer ${speechmaticsConfig.apiKey}` }
     });
-    
+
     smWs.on('open', () => {
         log.info(`[SM] Connected (lang: ${lang}, enrolled: ${enrolledSpeakers.length})`);
         smWs.send(
