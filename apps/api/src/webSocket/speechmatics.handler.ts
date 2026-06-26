@@ -5,6 +5,7 @@ import { log } from '@repo/logger';
 import { createSpeechmaticsSocket } from './speechmatics.service';
 import { SM_EVENTS, CLIENT_EVENTS } from './speechmatics.events';
 import type { EnrolledSpeaker, SpeechmaticsMessage } from './speechmatics.types';
+import { addTranscript } from './process/addTranscript.process';
 
 type AliveWebSocket = WebSocket & { isAlive: boolean };
 
@@ -115,17 +116,20 @@ speechmaticsWss.on('connection', async (clientWs: WebSocket, req: IncomingMessag
                 return;
             }
 
+            if (msg.message === SM_EVENTS.ADD_TRANSCRIPT) {
+                if (msg.results?.length) {
+                    addTranscript(msg.results);
+                }
+            }
+
             if (msg.message === SM_EVENTS.ADD_PARTIAL_TRANSCRIPT || msg.message === SM_EVENTS.ADD_TRANSCRIPT) {
                 safeSend(clientWs, msg as unknown as object);
                 return;
             }
 
-            if (msg.message === SM_EVENTS.END_OF_TRANSCRIPT) {
-                log.info('[SM] End of transcript');
-            }
         } catch (err: unknown) {
             log.error('[SM] Message parse error:', (err as Error).message);
-        }
+        }       
     });
 
     // Audio pipe: client → Speechmatics
